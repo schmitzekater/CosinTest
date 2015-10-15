@@ -21,12 +21,12 @@ class Module {
         moduleName blank: false
         moduleModel blank: false
         moduleFirmware blank: false
-        moduleVendor nullable: false
+        moduleVendor nullable: true
         moduleType nullable: true
         unit nullable: true
         qualifications nullable: true
         productiveDate nullable: true
         retireDate nullable: true
-        moduleConnection nullable: false
+        moduleConnection nullable: true
     }
 }

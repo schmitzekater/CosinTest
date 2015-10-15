@@ -14,6 +14,7 @@ class Computer {
         computerLocation nullable: true
         computerRole nullable: true
         installedSoftware nullable: true
+        unit nullable: true
     }
 
     public Computer(String name, Vendor vendor, Unit unit, Location location, ComputerRole computerRole){
@@ -21,7 +22,7 @@ class Computer {
         computerVendor = vendor
         this.unit = unit
         computerLocation = location
-        computerRole = computerRole
+        this.computerRole = computerRole
     }
     public Computer(String name, Vendor vendor, Unit unit, Location location){
         computerName = name

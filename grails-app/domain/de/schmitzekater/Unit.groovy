@@ -9,7 +9,7 @@ class Unit {
     static constraints = {
         computer nullable: true
         modules nullable: true
-        unitArea nullable: false
+        unitArea nullable: true
         location nullable: true
         unitName blank: false, maxSize: 50
     }

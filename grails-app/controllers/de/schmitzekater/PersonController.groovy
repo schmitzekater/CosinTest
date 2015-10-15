@@ -7,4 +7,8 @@ class PersonController {
     def home(){
         render"<h1> Hier könnte ihre Person stehen</h1>"
     }
+    def list(){
+        def persons = Person.getAll()
+        return [persons : persons, numPersons: Person.count()]
+    }
 }
