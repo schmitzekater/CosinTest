@@ -3,7 +3,7 @@ package de.schmitzekater
 class Software {
     String softwareName
     String softwareVersion
-    String[] softwareIqOq
+    String softwareIqOq
 
     static hasMany = [qualifications: Qualification]
     static hasOne = [softwareVendor: Vendor]
@@ -11,8 +11,15 @@ class Software {
     static constraints = {
         softwareName blank: false, maxSize: 50
         softwareVersion blank: false
-        softwareIqOq blank: true, url: true
+        softwareIqOq blank: true
         softwareVendor nullable: true
         qualifications nullable: true
+        system nullable: true
+        computer nullable: true
     }
+
+    String getDisplayString() {
+        return softwareName
+    }
+
 }

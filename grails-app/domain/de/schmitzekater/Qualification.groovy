@@ -5,7 +5,7 @@ import java.sql.Blob
 class Qualification {
 
     Date qualificationDate
-    QualificationType qualificationType
+    String qualificationType
     String comment
     Blob attachment
 
@@ -15,6 +15,8 @@ class Qualification {
         attachment nullable: true
         comment nullable: true
         qualificationDate nullable: false
-        qualificationType nullable: false
+        qualificationType nullable: false, inList: ["Qualification", "Validation", "Calibration"]
+        software nullable: true
+        module nullable: true
     }
 }

@@ -10,5 +10,7 @@ class Location {
         locationBuilding blank: false
         locationLevel blank: false, maxSize: 6
         locationRoom blank: false
+        unit nullable: true
+        computer nullable: true
     }
 }

@@ -6,5 +6,6 @@ abstract class QualificationType {
     public static final String CALIBRATION = "Calibration"
 
     static constraints = {
+
     }
 }

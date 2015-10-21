@@ -1,17 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alexander
-  Date: 10.10.2015
-  Time: 14:09
+  Date: 21.10.2015
+  Time: 20:33
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-
 <head>
-    <title>Personenliste</title>
+    <title>Details</title>
     <meta name="layout" content="main"/>
-
 </head>
 
 <body role="document">
@@ -24,7 +22,7 @@
         </div>
 
         <div class="col-md-6"><!-- content mitte -->
-        <g:render template="personList"/>
+        <g:render template="personDetails"/>
         </div>
 
         <div class="col-md-4">

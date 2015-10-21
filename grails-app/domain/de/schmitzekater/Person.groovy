@@ -15,4 +15,9 @@ class Person {
         department nullable: true, blank: true
         system nullable: true
     }
+
+    String getDisplayString() {
+        return lastName + ", " + firstName
+    }
+
 }

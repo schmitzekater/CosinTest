@@ -2,6 +2,7 @@ package de.schmitzekater
 
 class PersonController {
     static scaffold = Person
+    static defaultAction = "list"
     def index() { }
 
     def home(){
@@ -9,6 +10,10 @@ class PersonController {
     }
     def list(){
         def persons = Person.getAll()
-        return [persons : persons, numPersons: Person.count()]
+        return [persons: persons, numPersons: Person.count]
+    }
+
+    def details() {
+        [person: Person.findById(params.('id'))]
     }
 }

@@ -9,4 +9,13 @@ class Department {
         departmentName size: 3..60, blank: false
         supervisor nullable: true
     }
+
+    String getDisplayString() {
+        return departmentName
+    }
+
+    String toString() {
+        return departmentName
+    }
+
 }
