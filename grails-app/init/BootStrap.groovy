@@ -6,7 +6,7 @@ class BootStrap {
         environments {
             development {
                 if (!Person.count()) createPersons()
-                //if(!User.count()) createUsers()
+                if (!User.count()) createUsers()
                 if (!Department.count()) createDepartments()
                 if (!ComputerRole.count()) createComputerRoles()
                 if (!System.count()) createSystems()
@@ -53,8 +53,10 @@ class BootStrap {
         println("Creating Computers")
         def serverOne = new Computer(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'), computerRole: ComputerRole.findByRole("Fileserver"))
         def clientOne = new Computer(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'), computerRole: ComputerRole.findByRole("Client"))
-        serverOne.save()
-        clientOne.save()
+        def clientOffice = new Computer(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'), computerRole: ComputerRole.findByRole("Client"))
+        serverOne.save(failOnError: true)
+        clientOne.save(failOnError: true)
+        clientOffice.save(failOnError: true)
         println("Created " + Computer.count() + " computers.")
     }
 
@@ -62,8 +64,10 @@ class BootStrap {
         println("Creating Vendors")
         def sciex = new Vendor(name: 'AB Sciex')
         def waters = new Vendor(name: 'Waters')
-        sciex.save()
-        waters.save()
+        def dell = new Vendor(name: 'Dell')
+        sciex.save(failOnError: true)
+        waters.save(failOnError: true)
+        dell.save(failOnError: true)
         println("Created " + Vendor.count() + " vendors.")
     }
 
@@ -71,8 +75,8 @@ class BootStrap {
         println("Creating Systems")
         def analyst = new System(systemName: 'Analyst', area: 'GLP')
         def empower = new System(systemName: 'Empower', area: 'GMP')
-        analyst.save()
-        empower.save()
+        analyst.save(failOnError: true)
+        empower.save(failOnError: true)
         println("Created " + System.count() + " systems.")
     }
 
@@ -81,27 +85,53 @@ class BootStrap {
         def dbServer = new ComputerRole("Database Server")
         def fileServer = new ComputerRole("Fileserver")
         def client = new ComputerRole("Client")
-        dbServer.save()
-        fileServer.save()
-        client.save()
+        dbServer.save(failOnError: true)
+        fileServer.save(failOnError: true)
+        client.save(failOnError: true)
+        println('Created ' + ComputerRole.count() + ' ComputerRoles.')
     }
 
     def createDepartments() {
         println("Creating Departments")
         def analytik = new Department(departmentName: 'Analytik', supervisor: Person.findById(2))
-        analytik.save()
         def pas = new Department(departmentName: 'PAS', supervisor: Person.findByLastName('Mueller'))
-        pas.save()
+        def it = new Department(departmentName: 'ITS', supervisor: Person.findByLastName('Herrmann'))
+        def cts = new Department(departmentName: 'CTS', supervisor: Person.findByLastName('Kasubke'))
+        analytik.save(failOnError: true)
+        pas.save(failOnError: true)
+        it.save(failOnError: true)
+        cts.save(failOnError: true)
+        println('Created ' + Department.count() + ' departments.')
+    }
+
+    def createUsers() {
+        println("Creating Users")
+        def lisaU = new User(userId: 'lisamu', password: 'password', signature: 'lisassignature', person: Person.findByLastName('Mueller'), lastPasswordChange: new Date())
+        def berndU = new User(userId: 'berndw', password: 'password', signature: 'berndistoll', person: Person.findByLastName('Waldorf'), lastPasswordChange: new Date())
+        def hansU = new User(userId: 'hanszi', password: 'password', signature: 'Musicismylife', person: Person.findByLastName('Zimmer'), lastPasswordChange: new Date())
+        def peterU = new User(userId: 'peterh', password: 'password', signature: 'HERRMANN!', person: Person.findByLastName('Herrmann'), lastPasswordChange: new Date())
+        def ernaU = new User(userId: 'ernaka', password: 'password', signature: 'weissichnicht', person: Person.findByLastName('Kasubke'), lastPasswordChange: new Date())
+        lisaU.save(failOnError: true)
+        berndU.save(failOnError: true)
+        hansU.save(failOnError: true)
+        peterU.save(failOnError: true)
+        ernaU.save(failOnError: true)
+        println('Created ' + User.count() + ' user.')
     }
 
     def createPersons() {
         println("Creating Persons")
         def lisa = new Person(firstName: 'Lisa', lastName: 'Mueller', email: 'lisa@mueller.de')
-        lisa.save()
         def bernd = new Person(firstName: 'Bernd', lastName: 'Waldorf', email: 'bernd@iamtheking.de')
-        bernd.save()
         def hans = new Person(email: 'hans@automat.de', firstName: 'Hans', lastName: 'Zimmer')
-        hans.save()
+        def peter = new Person(email: 'peter@automat.de', firstName: 'Peter', lastName: 'Herrmann')
+        def erna = new Person(email: 'erna@kasupke.de', firstName: 'Erna', lastName: 'Kasubke')
+        lisa.save(failOnError: true)
+        bernd.save(failOnError: true)
+        hans.save(failOnError: true)
+        peter.save(failOnError: true)
+        erna.save(failOnError: true)
+        println('Created ' + Person.count() + " persons.")
     }
 
     def destroy = {
