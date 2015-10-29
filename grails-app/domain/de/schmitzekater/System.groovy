@@ -6,7 +6,7 @@ class System {
     String systemName
     boolean isActive
     Blob dataFlow
-    Date retirementDate
+    Date retirementDate // TODO Set it manually
     //enum area   {GCP, GLP, GMP}
     String area
 
@@ -17,7 +17,7 @@ class System {
 
     static constraints = {
         systemName blank: false, maxSize: 50
-        dataFlow nullable: true
+        dataFlow nullable: true, display: false
         systemDepartment nullable: true
         systemOwner nullable: true
         processOwner nullable: true
@@ -27,7 +27,7 @@ class System {
         software nullable: true
         servers nullable: true
         clients nullable: true
-        retirementDate nullable: true
+        retirementDate nullable: true, display: false
 
     }
 

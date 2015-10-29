@@ -4,7 +4,7 @@
 <table class="table">
     <thead>
     <tr>
-        <td>Id</td><td>Nachname</td><td>Vorname</td>^<td>UserId</td>
+        <td>Id</td><td>Nachname</td><td>Vorname</td><td>UserId</td>
     </tr>
     </thead>
     <tbody>

@@ -25,10 +25,12 @@
 
         <div class="col-md-6"><!-- content mitte -->
         <g:render template="personList"/>
+
         </div>
 
         <div class="col-md-4">
             <h2>Sitemap rechts</h2>
+            <g:render template="/navigation/navMain"/>
         </div>
     </div> <!-- row -->
 </div> <!-- container -->

@@ -9,6 +9,7 @@ class User {
     Date dateCreated
     Date lastPasswordChange
 
+    static label = "Benutzer"
     static belongsTo = [person: Person]
     static constraints = {
         userId size: 6..25,  unique: true, nullable: false

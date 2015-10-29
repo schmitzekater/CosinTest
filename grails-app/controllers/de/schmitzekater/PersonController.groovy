@@ -12,16 +12,28 @@ class PersonController {
     }
 
     def createPerson(String lastName, String firstName, String email) {
+        def person
         try {
-            def person = personService.createPerson(lastName, firstName, email)
+            person = personService.createPerson(lastName, firstName, email)
             flash.message = "Neue Person hinzugefügt: ${person.lastName}, ${person.firstName}"
+            redirect(action: 'details', params: person.id)
         } catch (PersonException pe) {
             flash.message = pe.message
         }
-        redirect(action: 'list')
+        if(!person){
+
+        }
+        else{
+
+        }
     }
 
     def details() {
-        [person: Person.findById(params.('id'))]
+        def person = Person.findById(params.('id'))
+        if(!person){
+            response.sendError(404)
+        }else{
+        [person: person]
+        }
     }
 }
