@@ -26,16 +26,16 @@
                 <li class="${controllerName == 'person' ? 'active' : ''}">
                     <a href="${createLink(uri: '/person')}">Person</a>
                 </li>
-                <li class="${controllerName == 'System' ? 'active' : ''}">
+                <li class="${controllerName == 'system' ? 'active' : ''}">
                     <a href="${createLink(uri: '/system')}">Systems</a>
                 </li>
                 <li class="${controllerName == 'unit' ? 'active' : ''}">
                     <a href="${createLink(uri: '/unit')}">Units</a>
                 </li>
-                <li class="${controllerName == 'Module' ? 'active' : ''}">
+                <li class="${controllerName == 'module' ? 'active' : ''}">
                     <a href="${createLink(uri: '/module')}">Modules</a>
                 </li>
-                <li class="${controllerName == 'Software' ? 'active' : ''}">
+                <li class="${controllerName == 'software' ? 'active' : ''}">
                     <a href="${createLink(uri: '/software')}">Software</a>
                 </li>
                 <g:if test="">

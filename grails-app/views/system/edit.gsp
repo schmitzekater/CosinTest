@@ -5,7 +5,7 @@
   Time: 19:32
 --%>
 
-<%@ page import="de.schmitzekater.User" contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.System" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,8 @@
 
 <body role="document">
 <div class="row">
-    <g:render template="/navigation/navLeft"/>
+    <g:render template="systemLeft"/>
+
     <div id="edit-User" class="col-md-6" role="main">
         <h1><g:message code="default.edit.label" args=""/></h1>
         <g:if test="${flash.message}">
@@ -32,15 +33,16 @@
                 </g:eachError>
             </ul>
         </g:hasErrors>
-        <g:form controller="User" action="update" method="PUT">
-            <g:hiddenField name="version" value="${user.version}"/>
-            <g:hiddenField name="id" value="${user.id}"/>
+        <g:form controller="System" action="update" method="PUT">
+            <g:hiddenField name="version" value="${system.version}"/>
+            <g:hiddenField name="id" value="${system.id}"/>
             <fieldset class="form">
-                <f:with bean="user">
-                    <f:field property="userId"/>
-                    <f:field property="password"/>
-                    <f:field property="signature"/>
-                    <f:field property="person"/>
+                <f:with bean="system">
+                    <f:field property="systemName"/>
+                    <f:field property="systemDepartment"/>
+                    <f:field property="systemOwner"/>
+                    <f:field property="processOwner"/>
+                    <f:field property="area"/>
                 </f:with>
             </fieldset>
             <fieldset class="buttons">

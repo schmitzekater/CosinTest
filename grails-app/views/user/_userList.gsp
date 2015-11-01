@@ -1,7 +1,4 @@
 <%@ page import="de.schmitzekater.User" %>
-<span class="label label-danger">Liste der Personen</span>
-
-<p>Gefunden wurden ${numUser} User.</p>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -23,7 +20,8 @@
                 </g:else>
             </td>
             <td>
-                <g:link controller="User" action="edit" id="${user.id}"><g:message code="default.edit.label"/></g:link>
+                <g:link controller="User" action="edit" id="${user.id}"><g:message code="default.edit.label"
+                                                                                   args="[entityName]"/></g:link>
             </td>
         </tr>
     </g:each>

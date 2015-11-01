@@ -9,10 +9,10 @@
 <html>
 
 <head>
-    <title>Personenliste</title>
+    <title>Systemliste</title>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: '${propertyName}.label', default: 'User')}"/>
-    <title><g:message code="default.list.label" args="'User'"/></title>
+    <g:set var="entityName" value="${message(code: '${propertyName}.label', default: 'System')}"/>
+    <title><g:message code="default.list.label" args="'System'"/></title>
 </head>
 
 <body role="document">
@@ -23,16 +23,16 @@
             <g:if test="${flash.message}">
                 <div class="alert alert-info" role="alert">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="User">
+            <g:hasErrors bean="System">
                 <div class="alert alert-danger" role="alert">
                     <ul class="errors" role="alert">
-                        <g:eachError bean="User" var="error">
+                        <g:eachError bean="System" var="error">
                             <li><g:message error="${error}"/></li>
                         </g:eachError>
                     </ul>
                 </div>
             </g:hasErrors>
-            <g:render template="userList"/>
+            <g:render template="systemList"/>
 
         </div>
         <g:render template="/navigation/navRight"/>

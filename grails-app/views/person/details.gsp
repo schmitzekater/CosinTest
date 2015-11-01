@@ -15,11 +15,7 @@
 <body role="document">
 <div class="container">
     <div class="row">
-        <div class="col-md-2"><!-- linke Spalte -->
-        <!-- TODO:
-                Hier einen g:render einbauen!
-                -->
-        </div>
+        <g:render template="personLeft"/>
 
         <div class="col-md-6"><!-- content mitte -->
         <g:render template="personDetails"/>

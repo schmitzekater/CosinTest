@@ -17,21 +17,12 @@
 <body role="document">
 <div class="container">
     <div class="row">
-        <div class="col-md-2"><!-- linke Spalte -->
-        <!-- TODO:
-                Hier einen g:render einbauen!
-                -->
-        </div>
-
+        <g:render template="/navigation/navLeft"/>
         <div class="col-md-6"><!-- content mitte -->
         <g:render template="personList"/>
 
-        </div>
-
-        <div class="col-md-4">
-            <h2>Sitemap rechts</h2>
-            <g:render template="/navigation/navMain"/>
-        </div>
+        </div>>
+    <g:render template="/navigation/navRight"/>
     </div> <!-- row -->
 </div> <!-- container -->
 </body>
