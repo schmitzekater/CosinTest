@@ -1,6 +1,7 @@
 <div class="col-md-2">
     <div class="nav" role="navigation">
         <ul class="list-group">
+            <li class="list-group-item active"><g:message code="default.left.sidebar"/></li>
             <li class="list-group-item"><g:link class="list" action="list"><g:message code="default.list.label"
                                                                                       args="[entityName]"/></g:link></li>
             <li class="list-group-item"><g:link class="create" action="create"><g:message code="default.new.label"

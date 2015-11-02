@@ -11,7 +11,8 @@
 <head>
     <title>Personenliste</title>
     <meta name="layout" content="main"/>
-
+    <g:set var="entityName" value="${message(code: 'person.label', default: 'sds')}"/>
+    <title><g:message code="default.list.label" args="'[entityName]'"/></title>
 </head>
 
 <body role="document">

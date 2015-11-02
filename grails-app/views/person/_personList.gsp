@@ -1,7 +1,4 @@
-<span class="label label-danger">Liste der Personen</span>
-
-<p>Gefunden wurden ${numPersons} Personen.</p>
-<table class="table">
+<table class="table table-striped">
     <thead>
     <tr>
         <td>Id</td><td>Nachname</td><td>Vorname</td><td>UserId</td>

@@ -1,0 +1,21 @@
+import org.grails.web.gsp.io.GrailsConventionGroovyPageLocator
+
+
+class CosinTagLib {
+    static namespace = "cos"
+    static returnObjectForTags = ['navExists']
+
+    def navExists = { attrs, body ->
+        def pageLocator = GrailsConventionGroovyPageLocator.newInstance()
+        String template = "$controllerName" + attrs.loc
+        println "Template: " + template
+        def source = pageLocator.findTemplate(controllerName, template)
+        if (source == null) {
+            println "Not found"
+            return false
+        } else {
+            println "Found template"
+            return true
+        }
+    }
+}

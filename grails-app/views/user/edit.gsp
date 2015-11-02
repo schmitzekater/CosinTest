@@ -10,46 +10,40 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: '${propertyName}.label', default: '\${className}')}"/>
+    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
 </head>
 
 <body role="document">
-<div class="row">
-    <g:render template="/navigation/navLeft"/>
-    <div id="edit-User" class="col-md-6" role="main">
-        <h1><g:message code="default.edit.label" args=""/></h1>
-        <g:if test="${flash.message}">
-            <div class="alert alert-info" role="alert">${flash.message}</div>
-        </g:if>
-        <g:if test="${flash.error}">
-            <div class="alert alert-danger" role="alert" style="display: block">${flash.error}</div>
-        </g:if>
-        <g:hasErrors>
-            <ul class="errors" role="alert">
-                <g:eachError var="error">
-                    <li><g:message error="${error}"/></li>
-                </g:eachError>
-            </ul>
-        </g:hasErrors>
-        <g:form controller="User" action="update" method="PUT">
-            <g:hiddenField name="version" value="${user.version}"/>
-            <g:hiddenField name="id" value="${user.id}"/>
-            <fieldset class="form">
-                <f:with bean="user">
-                    <f:field property="userId"/>
-                    <f:field property="password"/>
-                    <f:field property="signature"/>
-                    <f:field property="person"/>
-                </f:with>
-            </fieldset>
-            <fieldset class="buttons">
-                <input class="save" action="update" type="submit"
-                       value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-            </fieldset>
-        </g:form>
-    </div>
-    <g:render template="/navigation/navRight"/>
-</div>
+<div class="container"><!-- Container for all content -->
+    <div class="row"><!-- First Row -->
+    <g:render template="/navigation/navLeft"/>                                      <!-- Sidebar Left -->
+    <!-- Main Block start -->
+        <div id="edit-User" class="col-md-6" role="main">
+            <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
+            <g:render
+                    template="userTop"/>                                                 <!-- Top of page for messages / errors -->
+        <!-- main content for page -->
+            <g:form controller="User" action="update" method="PUT">
+                <g:hiddenField name="version" value="${user.version}"/>
+                <g:hiddenField name="id" value="${user.id}"/>
+                <fieldset class="form">
+                    <f:with bean="user">
+                        <f:field property="userId"/>
+                        <f:field property="password"/>
+                        <f:field property="signature"/>
+                        <f:field property="person"/>
+                    </f:with>
+                </fieldset>
+                <fieldset class="buttons">
+                    <input class="save" action="update" type="submit"
+                           value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+                </fieldset>
+            </g:form>
+            <g:render template="userList" model="[users: User.getAll(), numUser: User.count]"/>
+        </div>                                                                          <!-- Main Block end -->
+    <g:render template="/navigation/navRight"/>                                     <!-- Sidebar Right -->
+    </div> <!-- row -->
+</div><!-- container -->
 </body>
 </html>

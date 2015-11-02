@@ -5,37 +5,27 @@
   Time: 14:09
 --%>
 
-<%@ page import="javassist.bytecode.stackmap.TypeData" contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.User" contentType="text/html;charset=UTF-8" %>
 <html>
-
 <head>
-    <title>Personenliste</title>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: '${propertyName}.label', default: 'User')}"/>
-    <title><g:message code="default.list.label" args="'User'"/></title>
+    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
+    <title><g:message code="default.list.label" args="'[entityName]'"/></title>
 </head>
 
 <body role="document">
-<div class="container">
-    <div class="row">
-        <g:render template="/navigation/navLeft"/>
-        <div class="col-md-6"><!-- content mitte -->
-            <g:if test="${flash.message}">
-                <div class="alert alert-info" role="alert">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="User">
-                <div class="alert alert-danger" role="alert">
-                    <ul class="errors" role="alert">
-                        <g:eachError bean="User" var="error">
-                            <li><g:message error="${error}"/></li>
-                        </g:eachError>
-                    </ul>
-                </div>
-            </g:hasErrors>
+<div class="container"><!-- Container for all content -->
+    <div class="row"><!-- First Row -->
+    <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left -->
+    <!-- Main Block start -->
+        <div id="list-User" class="col-md-6" role="main">
+            <h1><g:message code="default.list.label" args="[entityName]"/></h1>
+            <g:render
+                    template="userTop"/>                                          <!-- Top of page for messages / errors -->
+            <!-- main content for page -->
             <g:render template="userList"/>
-
-        </div>
-        <g:render template="/navigation/navRight"/>
+        </div>                                                                          <!-- Main Block end -->
+    <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
     </div> <!-- row -->
 </div> <!-- container -->
 </body>
