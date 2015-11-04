@@ -24,7 +24,14 @@ Um das Projekt auf einem anderen PC laufen zu lassen, folgen Sie bitte den folge
 6. Setzen einer Variable `GRAILS_HOME` in den erweiterten Systemeinstellungen mit der Pfadangabe des entpackten Grails-Ordners
 7. Ergänzen von `%GRAILS_HOME%\bin` in der `PATH`-Variable
 8. Öffnen der Kommandozeile und Eintippen von `grails -version`sollte die aktuelle Grails-, Groovy- und Java-Version anzeigen
-9. Nun können Grails-Projekte erstellt werden, zum Beispiel per:
+
+``` 
+	: Grails Version: 3.0.8
+	: Groovy Version: 2.4.4
+	: JVM Version: 1.8.0_60
+```
+
+Nun können Grails-Projekte erstellt werden, zum Beispiel per:
 
 ```
 	grails create-app sampleapp
@@ -37,9 +44,11 @@ Um das Projekt auf einem anderen PC laufen zu lassen, folgen Sie bitte den folge
 Das Projekt lässt sich am einfachsten per [GIT](https://git-scm.com/downloads) clonen
 Dazu die folgenden Zeilen in der Kommandozeile eingeben:
 
-    git clone https://github.com/schmitzekater/cosintest.git
-    cd cosintest
-    grails run-app
+	 git clone https://github.com/schmitzekater/cosintest.git
+	 cd cosintest
+	 grails run-app
+	
+Der erste Aufruf dauert natürgemäß etwas, da nun zunächst das Projekt kompiliert wird, und alle dependencies heruntergeladen werden.
     
 ## License
 TBD
