@@ -9,7 +9,7 @@ class User {
     Date dateCreated
     Date lastPasswordChange
 
-    static label = "Benutzer"
+    static auditable = true
     static belongsTo = [person: Person]
     static constraints = {
         userId size: 6..25,  unique: true, nullable: false
@@ -19,6 +19,23 @@ class User {
         isReadOnly nullable: true
         person nullable: false
     }
+
+    def onSave = {
+        println "new User $userId inserted"
+        // may optionally refer to newState map
+    }
+    def onDelete = {
+        println "User $userId was deleted"
+        // may optionally refer to oldState map
+    }
+    def onChange = { oldMap, newMap ->
+        println "User $userId was changed ..."
+        oldMap.each({ key, oldVal ->
+            if (oldVal != newMap[key]) {
+                println " * $key changed from $oldVal to " + newMap[key] + " for " + userId
+            }
+        })
+    }//*/
 
 
 }
