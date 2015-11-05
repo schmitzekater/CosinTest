@@ -126,11 +126,13 @@ class BootStrap {
         def hans = new Person(email: 'hans@automat.de', firstName: 'Hans', lastName: 'Zimmer')
         def peter = new Person(email: 'peter@automat.de', firstName: 'Peter', lastName: 'Herrmann')
         def erna = new Person(email: 'erna@kasupke.de', firstName: 'Erna', lastName: 'Kasubke')
+        def anna = new Person(email: 'anna@kasupke.de', firstName: 'Anna', lastName: 'Kasubke')
         lisa.save(failOnError: true)
         bernd.save(failOnError: true)
         hans.save(failOnError: true)
         peter.save(failOnError: true)
         erna.save(failOnError: true)
+        anna.save(failOnError: true)
         println('Created ' + Person.count() + " persons.")
     }
 
