@@ -1,8 +1,13 @@
 package de.schmitzekater
 
+import ch.qos.logback.classic.Level
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 class UserController {
     static scaffold = User
     static defaultAction = "list"
+
     def userService
     def index() { }
     def changePassword(User user, String oldPw, String newPw){
@@ -32,6 +37,7 @@ class UserController {
             redirect(action: 'show', params: user.id)
         } catch (UserException ue) {
             flash.message = ue.message
+            logger.error(ue.message)
         }
 
     }

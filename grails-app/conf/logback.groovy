@@ -1,5 +1,12 @@
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder
+import ch.qos.logback.core.*
+import ch.qos.logback.core.status.OnConsoleStatusListener
 import grails.util.BuildSettings
 import grails.util.Environment
+
+def bySecond = timestamp("yyyymmdd'T'HHmmss")
+def HOSTNAME = hostname
+statusListener(OnConsoleStatusListener)
 
 // See http://logback.qos.ch/manual/groovy.html for details on configuration
 appender('STDOUT', ConsoleAppender) {
@@ -7,8 +14,26 @@ appender('STDOUT', ConsoleAppender) {
         pattern = "%level %logger - %msg%n"
     }
 }
+appender('FILE_DEBUG', FileAppender) {
+    file = "logs/${bySecond}_debugFile.log"
+    append = true
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
+    }
+}
 
-root(ERROR, ['STDOUT'])
+appender('FILE_ERROR', FileAppender) {
+    file = "logs/${bySecond}_errorFile.log"
+    append = true
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
+    }
+}
+
+root(DEBUG, ['FILE_DEBUG'])
+root(ERROR, ['STDOUT', 'FILE_ERROR'])
+
+
 
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir) {
