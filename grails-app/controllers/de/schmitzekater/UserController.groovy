@@ -9,6 +9,7 @@ class UserController {
     static defaultAction = "list"
 
     def userService
+    def personService
     def index() { }
     def changePassword(User user, String oldPw, String newPw){
         if(oldPw != newPw){
@@ -41,11 +42,34 @@ class UserController {
         }
 
     }
+    def register(){
+        println "In register"
+        if(request.method=="POST"){
+            println "Post kam an"
+            params.each {key,  value ->
+                println "Key " + key + " Value " + value
+            }
+            def person
+            def user
+            try{
+                person = personService.createPerson(lastName: params.person.lastName, firstName: params.person.firstName, email: params.person.email)
+                //person = personService.createPerson(params)
+                println "Person drin"
+                user = userService.createUser(userId: params.userId, password: params.password, signature: params.signature, Person: person)
+                flash.message(message: "default.created.message", args:"['User', params.userId]")
+                redirect(action: 'show', params: user.id)
+            }
+            catch(Exception e){
+                    flash.errors = e.message
+                  //  logger.error(e.message)
+            }
+        }
+
+
+    }
 
     def update() {
-        params.each { name, value ->
-            println("Name: " + name + " Value: " + value)
-        }
+
         def user = User.findById(params['id'])
 
         if (user) {
