@@ -101,7 +101,10 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
 }
-task clearLogs(type: Delete) {
+/*task clearLogs(type: Delete) {
     println "Deleting logs...."
-    delete 'logs', '*.log' //TODO Pattern einbauen!!
-}
+    new File("logs").eachFileMatch(~/.*.log/) { file ->
+        println "Deleting " + file.getName()
+        file.delete()
+    }
+}*/

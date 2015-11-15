@@ -18,6 +18,7 @@ class User {
         isAdmin nullable: true
         isReadOnly nullable: true
         person nullable: false
+        lastPasswordChange nullable: true
     }
 
     def onSave = {
@@ -35,7 +36,7 @@ class User {
                 println " * $key changed from $oldVal to " + newMap[key] + " for " + userId
             }
         })
-    }//*/
+    }
 
 
 }

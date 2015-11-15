@@ -38,27 +38,37 @@
                     </f:with>--}%
                     <div class="fieldcontain required-indicator">
                         <label for="userId">UserId</label>
-                        <g:textField name="userId" value="${user?.userId}"/>
+                        <g:textField name="userId" value="${user.userId}"/>
                     </div>
                     <div class="fieldcontain required-indicator">
                         <label for="password">Password</label>
                         <g:textField name="password" value="${user?.password}"/>
                     </div>
                     <div class="fieldcontain required-indicator">
+                        <label for="passwordRepeat">Password Repeat</label>
+                        <g:passwordField name="passwordRepeat" value="${user?.passwordRepeat}"/>
+                    </div>
+
+                    <div class="fieldcontain required-indicator">
                         <label for="signature">Signature</label>
                         <g:textField name="signature" value="${user?.signature}"/>
                     </div>
                     <div class="fieldcontain required-indicator">
-                        <label for="person.firstName">First Name</label>
-                        <g:textField name="person.firstName" value="${user?.person?.firstName}"/>
+                        <label for="signatureRepeat">Signature</label>
+                        <g:textField name="signatureRepeat" value="${user?.signatureRepeat}"/>
                     </div>
                     <div class="fieldcontain required-indicator">
-                        <label for="person.lastName">Last Name</label>
-                        <g:textField name="person.lastName" value="${user?.person?.lastName}"/>
+                        <label for="firstName">First Name</label>
+                        <g:textField name="firstName" value="${user?.firstName}"/>
                     </div>
                     <div class="fieldcontain required-indicator">
-                        <label for="person.email">Email</label>
-                        <g:textField name="person.email" value="${user?.person?.email}"/>
+                        <label for="lastName">Last Name</label>
+                        <g:textField name="lastName" value="${user?.lastName}"/>
+                    </div>
+
+                    <div class="fieldcontain required-indicator">
+                        <label for="email">Email</label>
+                        <g:textField name="email" value="${user?.email}"/>
                     </div>
                 </fieldset>
                 <div class="form-actions">

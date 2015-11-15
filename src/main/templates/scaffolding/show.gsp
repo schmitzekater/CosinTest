@@ -6,26 +6,10 @@
     <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="nav" role="navigation">
-                <ul class="list-group">
-                    <li class="list-group-item"><g:link class="list" action="list"><g:message code="default.list.label"
-                                                                                              args="[entityName]"/></g:link></li>
-                    <li class="list-group-item"><g:link class="create" action="create"><g:message
-                            code="default.new.label" args="[entityName]"/></g:link></li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">
-                        <a class="home" href="\${createLink(uri: '/')}">
-                            <g:message code="default.home.label"/>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
+<body role="document">
+<div class="container"><!-- Container for all content -->
+    <div class="row"><!-- First Row -->
+    <g:render template="/navigation/navLeft"/>
         <div id="show-${propertyName}" class="col-md-6" role="main">
             <h1><g:message code="default.show.label" args="[entityName]"/></h1>
             <g:if test="\${flash.message}">
@@ -49,12 +33,8 @@
                 </fieldset>
             </g:form>
         </div>
-
-        <div class="col-md-4">
-            <h2><g:message code="default.right.sidebar"/></h2>
-
+        <g:render template="/navigation/navRight"/>
         </div>
-    </div>
 </div>
 </body>
 </html>
