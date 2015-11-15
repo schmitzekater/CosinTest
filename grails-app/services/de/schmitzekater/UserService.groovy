@@ -10,8 +10,8 @@ class UserException extends RuntimeException {
 @Transactional
 class UserService {
 
-    def createUser(String userId, String password, String signature, Person per) {
-        def user = new User(userId: userId, password: password, signature: signature, per)
+    def createUser(String uid, String pwd, String sig, Person per) {
+        def user = new User(userId: uid, password: pwd, signature: sig, per)
         if (user.validate()) return user
         else throw new UserException(message: "Ungültiger User", user: user)
     }

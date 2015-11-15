@@ -8,7 +8,7 @@
     <tbody>
     <g:each var="user" in="${users}">
         <tr>
-            <td><g:link action="show" id="${user.id}">${user.id}</g:link></td>
+            <td><g:link action="detail" id="${user.id}">${user.id}</g:link></td>
             <td>${user.userId}</td>
             <td>${user.password}</td>
             <td>
