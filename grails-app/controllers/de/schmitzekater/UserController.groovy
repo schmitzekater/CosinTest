@@ -76,7 +76,7 @@ class UserController {
             user.properties = params
             if (user.save()) {
                 flash.message = message(code: 'default.updated.message', args: ['User', user.userId])
-                redirect(action: "list")//, id: params['id'])
+                redirect(action: "detail", id: params['id'])
             } else {
                 flash.error = message(code: 'error.not.updated.message', args: ['User', oldUserId])
                 redirect(action: "edit", id: params['id'])

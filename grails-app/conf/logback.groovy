@@ -14,13 +14,7 @@ appender('STDOUT', ConsoleAppender) {
         pattern = "%level %logger - %msg%n"
     }
 }
-appender('FILE_DEBUG', FileAppender) {
-    file = "logs/${byDay}_${HOSTNAME}_debugFile.log"
-    append = true
-    encoder(PatternLayoutEncoder) {
-        pattern = "%level %logger - %msg%n"
-    }
-}
+
 
 appender('FILE_ERROR', FileAppender) {
     file = "logs/${byDay}_${HOSTNAME}_errorFile.log"
