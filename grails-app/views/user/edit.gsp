@@ -10,19 +10,15 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
+    <g:set var="entityName" value="${controllerName.capitalize()}"/>
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
 </head>
 
 <body role="document">
-<div class="container"><!-- Container for all content -->
-    <div class="row"><!-- First Row -->
-    <g:render template="/navigation/navLeft"/>                                      <!-- Sidebar Left -->
     <!-- Main Block start -->
         <div id="edit-User" class="col-md-6" role="main">
             <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
-            <g:render
-                    template="userTop"/>                                                 <!-- Top of page for messages / errors -->
+
         <!-- main content for page -->
             <g:form controller="User" action="update" method="PUT">
                 <g:hiddenField name="version" value="${user.version}"/>
@@ -42,8 +38,6 @@
             </g:form>
             <g:render template="userList" model="[users: User.getAll(), numUser: User.count]"/>
         </div>                                                                          <!-- Main Block end -->
-    <g:render template="/navigation/navRight"/>                                     <!-- Sidebar Right -->
-    </div> <!-- row -->
-</div><!-- container -->
+
 </body>
 </html>

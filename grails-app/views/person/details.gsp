@@ -10,13 +10,10 @@
 <head>
     <title>Details</title>
     <meta name="layout" content="main"/>
+    <g:set var="entityName" value="${controllerName.capitalize()}"/>
 </head>
 
 <body role="document">
-<div class="container">
-    <div class="row">
-        <g:render template="personLeft"/>
-
         <div class="col-md-6"><!-- content mitte -->
         <g:render template="personDetails"/>
         </div>

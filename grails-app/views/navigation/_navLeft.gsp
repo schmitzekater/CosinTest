@@ -6,7 +6,11 @@
                                                                                       args="[entityName]"/></g:link></li>
             <li class="list-group-item"><g:link class="create" action="create"><g:message code="default.new.label"
                                                                                           args="[entityName]"/></g:link></li>
-            <g:render template="${controllerName}Left"/>
+            <g:if test="${cos.navExists(loc: 'Left')}">
+                <g:render template="${controllerName}Left"/>
+
+            </g:if>
+
             <li class="list-group-item">
                 <a class="home" href="\${createLink(uri: '/')}">
                     <g:message code="default.home.label"/>

@@ -10,29 +10,14 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: '${propertyName}.label', default: '\${className}')}"/>
+    <g:set var="entityName" value="${controllerName.capitalize()}"/>
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
 </head>
 
 <body role="document">
-<div class="row">
-    <g:render template="systemLeft"/>
 
     <div id="edit-User" class="col-md-6" role="main">
-        <h1><g:message code="default.edit.label" args=""/></h1>
-        <g:if test="${flash.message}">
-            <div class="alert alert-info" role="alert">${flash.message}</div>
-        </g:if>
-        <g:if test="${flash.error}">
-            <div class="alert alert-danger" role="alert" style="display: block">${flash.error}</div>
-        </g:if>
-        <g:hasErrors>
-            <ul class="errors" role="alert">
-                <g:eachError var="error">
-                    <li><g:message error="${error}"/></li>
-                </g:eachError>
-            </ul>
-        </g:hasErrors>
+        <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
         <g:form controller="System" action="update" method="PUT">
             <g:hiddenField name="version" value="${system.version}"/>
             <g:hiddenField name="id" value="${system.id}"/>
@@ -51,7 +36,6 @@
             </fieldset>
         </g:form>
     </div>
-    <g:render template="/navigation/navRight"/>
-</div>
+
 </body>
 </html>

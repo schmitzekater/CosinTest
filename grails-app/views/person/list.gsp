@@ -11,20 +11,13 @@
 <head>
     <title>Personenliste</title>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'person.label', default: 'sds')}"/>
+    <g:set var="entityName" value="${controllerName.capitalize()}"/>
     <title><g:message code="default.list.label" args="'[entityName]'"/></title>
 </head>
 
 <body role="document">
-<div class="container">
-    <div class="row">
-        <g:render template="/navigation/navLeft"/>
         <div class="col-md-6"><!-- content mitte -->
         <g:render template="personList"/>
-
         </div>>
-    <g:render template="/navigation/navRight"/>
-    </div> <!-- row -->
-</div> <!-- container -->
 </body>
 </html>
