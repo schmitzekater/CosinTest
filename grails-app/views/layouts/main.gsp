@@ -8,16 +8,34 @@
 
         <%-- TODO
       Individuelle Scripts auswählen, damit nicht alle aufschlagen!!! --%>
+        <asset:javascript src="jquery-2.1.3.js"/>
         <asset:javascript src="bootstrap-all.js"/>
         <asset:stylesheet src="bootstrap-all.css"/>
         <asset:stylesheet src="font-awesome-all.css"/>
         <g:layoutHead/>
+        <g:set var="entityName" value="${controllerName.capitalize()}"/>
+
     </head>
 
 <body>
-<g:render template="/navigation/navMain"/>
-<g:layoutBody/>
+
+<g:set var="entityName" value="${controllerName.capitalize()}"/>
+<g:set var="action" value="${message(code: 'default' + actionName + 'label', default: actionName.capitalize())}"/>
+<g:render template="/navigation/navMain"/>                                          <!-- Navigation Bar Top -->
+<div class="container"><!-- Container for all content -->
+    <div class="well-sm">
+        <g:render
+                template="/layouts/messagesTop"/>                                  <!-- Top of page for messages / errors -->
+    </div>
+
+    <div class="row"><!-- First Row -->
+    <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left  -->
+    <g:layoutBody/>                                                             <!-- Main Content  -->
+    <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
+    </div>                                                                          <!-- end row -->
+</div>                                                                              <!-- end container -->
 <g:render template="/navigation/footer"/>
         <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+<asset:javascript src="fadeAndToggle.js"/>
     </body>
 </html>

@@ -9,24 +9,19 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title><g:message code="default.list.label" args="'[entityName]'"/></title>
+    <g:set var="entityName"
+           value="${controllerName.capitalize()}"/> <!-- Leider wird die Variable nicht übernommen aus main.gsp. Auch nicht über anderen Scope -->
 </head>
 
 <body role="document">
-<div class="container"><!-- Container for all content -->
-    <div class="row"><!-- First Row -->
-    <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left -->
     <!-- Main Block start -->
         <div id="list-User" class="col-md-6" role="main">
             <h1><g:message code="default.list.label" args="[entityName]"/></h1>
             <g:render
-                    template="userTop"/>                                          <!-- Top of page for messages / errors -->
+                    template="/layouts/messagesTop"/>                                          <!-- Top of page for messages / errors -->
             <!-- main content for page -->
             <g:render template="userList"/>
         </div>                                                                          <!-- Main Block end -->
-    <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
-    </div> <!-- row -->
-</div> <!-- container -->
 </body>
 </html>
