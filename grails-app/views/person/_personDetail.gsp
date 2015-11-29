@@ -15,10 +15,12 @@
 </g:form>
 %{--Falls wir das Template unter User aufrufen, soll uns nicht nochmal der User begegnen!!--}%
 <g:if test="${controllerName.compareToIgnoreCase('user')!=0}">
+    %{--Wenn ein User assoziiert ist, kommt hier ein Link zum User rein.--}%
     <g:if test="${person.user != null}">
-        <h3><g:message code="default.show.label" args="['User']"/></h3>
+        <h3><g:message code="default.associated.label" args="['User']"/></h3>
         <g:render template="/user/userDetail" model="[user: person.user]"/>
     </g:if>
+    %{--Wenn es keinen User gibt, wird auch das angezeigt.--}%
     <g:else>
         <p>No User associated.</p>
     </g:else>

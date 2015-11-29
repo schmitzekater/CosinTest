@@ -39,6 +39,4 @@ class SchmitzekaterTagLib {
             return false
         }
     }
-
-
 }

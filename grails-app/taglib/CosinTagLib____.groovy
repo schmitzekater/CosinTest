@@ -1,7 +1,7 @@
 import org.grails.web.gsp.io.GrailsConventionGroovyPageLocator
 
 
-class CosinTagLib {
+class CosinTagLib____ {
     static namespace = "cos"
     static returnObjectForTags = ['templateExists']
 

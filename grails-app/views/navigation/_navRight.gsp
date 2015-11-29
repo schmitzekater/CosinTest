@@ -1,5 +1,3 @@
-<%@ page import="CosinTagLib" %>
-
     <g:if test="${session.User}">
         <div class="panel panel-success">
             <div class="panel-heading">

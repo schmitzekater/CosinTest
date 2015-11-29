@@ -20,3 +20,9 @@
     <g:actionSubmit action="edit" class="btn btn-primary"
                     value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
 </g:form>
+%{--Falls wir das Template unter Person aufrufen, soll uns nicht nochmal die Person begegnen!!--}%
+<g:if test="${controllerName.compareToIgnoreCase('person')!=0}">
+%{--Da ein User immer eine Person haben muss, können wir uns den Test auf eine Person sparen, und können diese direkt anzeigen.--}%
+    <h3><g:message code="default.associated.label" args="['Person']"/></h3>
+    <g:render template="/person/personDetail" model="[person: user.person]"/>
+</g:if>
