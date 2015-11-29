@@ -27,7 +27,7 @@ class UserController {
 
     def list() {
         def users = User.getAll()
-        return [users: users, numUser: User.count]
+        render view:"/layouts/list", model: [model:users, count: User.count]
     }
 
     def createUser() {

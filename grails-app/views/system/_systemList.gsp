@@ -7,7 +7,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:each var="system" in="${systems}">
+    <g:each var="system" in="${model}">
         <tr>
             <td><g:link action="show" id="${system.id}">${system.id}</g:link></td>
             <td>${system.systemName}</td>

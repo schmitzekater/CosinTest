@@ -3,7 +3,7 @@ import org.grails.web.gsp.io.GrailsConventionGroovyPageLocator
 
 class CosinTagLib {
     static namespace = "cos"
-    static returnObjectForTags = ['navExists']
+    static returnObjectForTags = ['templateExists']
 
     def navExists = { attrs, body ->
         def pageLocator = GrailsConventionGroovyPageLocator.newInstance()

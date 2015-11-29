@@ -1,4 +1,4 @@
-<div class="col-md-2">
+
     <div class="nav" role="navigation">
         <ul class="list-group">
             <li class="list-group-item active"><g:message code="default.left.sidebar"/></li>
@@ -6,7 +6,7 @@
                                                                                       args="[entityName]"/></g:link></li>
             <li class="list-group-item"><g:link class="create" action="create"><g:message code="default.new.label"
                                                                                           args="[entityName]"/></g:link></li>
-            <g:if test="${cos.navExists(loc: 'Left')}">
+            <g:if test="${cos.templateExists(loc: 'Left')}">
                 <g:render template="${controllerName}Left"/>
 
             </g:if>
@@ -18,4 +18,3 @@
             </li>
         </ul>
     </div>
-</div>

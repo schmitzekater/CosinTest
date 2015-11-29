@@ -5,7 +5,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:each var="person" in="${persons}">
+    <g:each var="person" in="${model}">
         <tr>
             <td><g:link action="details" id="${person.id}">${person.id}</g:link></td>
             <td>${person.lastName}</td>

@@ -13,14 +13,13 @@
         <asset:stylesheet src="bootstrap-all.css"/>
         <asset:stylesheet src="font-awesome-all.css"/>
         <g:layoutHead/>
-        <g:set var="entityName" value="${controllerName.capitalize()}"/>
-
     </head>
 
 <body>
-
-<g:set var="entityName" value="${controllerName.capitalize()}"/>
-<g:set var="action" value="${message(code: 'default' + actionName + 'label', default: actionName.capitalize())}"/>
+<g:if test="${controllerName}!=null">
+    <g:set var="entityName" value="${controllerName.capitalize()}"/>
+    <g:set var="action" value="${message(code: 'default' + actionName + 'label', default: actionName.capitalize())}"/>
+</g:if>
 <g:render template="/navigation/navMain"/>                                          <!-- Navigation Bar Top -->
 <div class="container"><!-- Container for all content -->
     <div class="well-sm">
@@ -29,13 +28,17 @@
     </div>
 
     <div class="row"><!-- First Row -->
-    <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left  -->
+        <div class="col-md-2">
+            <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left  -->
+        </div>
     <g:layoutBody/>                                                             <!-- Main Content  -->
-    <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
+    <div class="col-md-4">
+         <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
+    </div> <!--col-md-4 -->
     </div>                                                                          <!-- end row -->
 </div>                                                                              <!-- end container -->
 <g:render template="/navigation/footer"/>
         <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-<asset:javascript src="fadeAndToggle.js"/>
+    <asset:javascript src="fadeAndToggle.js"/>
     </body>
 </html>
