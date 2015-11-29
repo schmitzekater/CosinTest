@@ -7,12 +7,12 @@
     <tbody>
     <g:each var="person" in="${model}">
         <tr>
-            <td><g:link action="details" id="${person.id}">${person.id}</g:link></td>
+            <td><g:link action="detail" id="${person.id}">${person.id}</g:link></td>
             <td>${person.lastName}</td>
             <td>${person.firstName}</td>
             <td>
                 <g:if test="${person.user != null}">
-                    <g:link controller="User" action="show" id="${person.userId}">${person.user.userId}</g:link>
+                    <g:link controller="User" action="detail" id="${person.userId}">${person.user.userId}</g:link>
                 </g:if>
                 <g:else>
                     --

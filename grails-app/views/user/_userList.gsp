@@ -13,7 +13,7 @@
             <td>${user.password}</td>
             <td>
                 <g:if test="${user.person != null}">
-                    <g:link controller="Person" action="details" id="${user.personId}">${user.person.lastName}</g:link>
+                    <g:link controller="Person" action="detail" id="${user.personId}">${user.person.lastName}</g:link>
                 </g:if>
                 <g:else>
                     --

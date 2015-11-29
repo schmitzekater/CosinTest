@@ -25,10 +25,6 @@ class UserController {
         }
     }
 
-    def list() {
-        def users = User.getAll()
-        render view:"/layouts/list", model: [model:users, count: User.count]
-    }
 
     def createUser() {
         def user
@@ -62,9 +58,13 @@ class UserController {
         }
     }
 
+    def list() {
+        def users = User.getAll()
+        render view:"/layouts/list", model: [model:users, count: User.count]
+    }
     def detail() {
         def user = User.findById(params.id)
-        return [user: user]
+        render view: "/layouts/detail", model: [user: user]
     }
 
     def update() {

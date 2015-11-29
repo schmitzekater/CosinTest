@@ -17,7 +17,7 @@ DRY!
 </head>
 
 <body role="document">
-<div id="list-${controllerName}" class="col-md-6" role="main">
+<div id="list-${controllerName}" role="main">
     <h1><g:message code="default.list.label" args="[entityName]"/></h1>
     <!-- main content for page
         specific template will be loaded upon controllerName stop-app-->

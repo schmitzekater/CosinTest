@@ -31,10 +31,12 @@
         <div class="col-md-2">
             <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left  -->
         </div>
-    <g:layoutBody/>                                                             <!-- Main Content  -->
-    <div class="col-md-4">
-         <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
-    </div> <!--col-md-4 -->
+        <div class="col-md-6">
+            <g:layoutBody/>                                                             <!-- Main Content  -->
+        </div>
+        <div class="col-md-4">
+             <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
+        </div> <!--col-md-4 -->
     </div>                                                                          <!-- end row -->
 </div>                                                                              <!-- end container -->
 <g:render template="/navigation/footer"/>

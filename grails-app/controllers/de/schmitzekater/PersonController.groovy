@@ -15,7 +15,7 @@ class PersonController {
         def person
         try {
             person = personService.createPerson(lastName, firstName, email)
-            flash.message = "Neue Person hinzugef�gt: ${person.lastName}, ${person.firstName}"
+            flash.message = "Neue Person hinzugefügt: ${person.lastName}, ${person.firstName}"
             redirect(action: 'details', params: person.id)
         } catch (PersonException pe) {
             flash.message = pe.message
@@ -28,12 +28,10 @@ class PersonController {
         }
     }
 
-    def details() {
-        def person = Person.findById(params.('id'))
-        if(!person){
-            response.sendError(404)
-        }else{
-        [person: person]
-        }
+    def detail() {
+        def person = Person.findById(params.id)
+        if(!person)  response.sendError(404)
+        else  render view: "/layouts/detail", model: [person: person]
     }
 }
+
