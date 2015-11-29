@@ -8,14 +8,14 @@ class PersonController {
 
     def list(){
         def persons = Person.getAll()
-        return [persons: persons, numPersons: Person.count]
+        render view:"/layouts/list", model: [model:persons, count: Person.count]
     }
 
     def createPerson(String lastName, String firstName, String email) {
         def person
         try {
             person = personService.createPerson(lastName, firstName, email)
-            flash.message = "Neue Person hinzugefügt: ${person.lastName}, ${person.firstName}"
+            flash.message = "Neue Person hinzugefï¿½gt: ${person.lastName}, ${person.firstName}"
             redirect(action: 'details', params: person.id)
         } catch (PersonException pe) {
             flash.message = pe.message

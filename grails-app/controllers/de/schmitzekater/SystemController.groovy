@@ -10,7 +10,7 @@ class SystemController {
 
     def list() {
         def systems = System.getAll()
-        return [systems: systems, numSystem: System.count]
+        render view:"/layouts/list", model: [model:systems, count: System.count]
     }
 
     def update() {

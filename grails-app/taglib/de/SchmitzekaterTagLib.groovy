@@ -14,7 +14,7 @@ class SchmitzekaterTagLib {
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
     GrailsConventionGroovyPageLocator groovyPageLocator
     static namespace = "cos"
-    static returnObjectForTags = ['navExists']
+    static returnObjectForTags = ['templateExists']
 
     /**
      * Diese Funktion sieht nach, ob ein Navigations-Template vorhanden ist.
@@ -23,7 +23,7 @@ class SchmitzekaterTagLib {
      * So lassen sich spezielle Controller-Links / Funktionen in die Sidebar einbauen, falls man sie braucht
      * (unabhängig von der Normalen Navigation, die überall gleich ist)
      */
-    def navExists = { attrs ->
+    def templateExists = { attrs ->
         def template = "$controllerName" + attrs.loc   //Meine Definition von Templatenamen
         out << "<!-- Testing Template -->"
         def path = "/" + controllerName + "/"
@@ -31,9 +31,11 @@ class SchmitzekaterTagLib {
 
         if (source) {
             log.info("Found template " + template + " in path " + path)
+            println "Template ${template} found"
             return true
         } else {
             log.error("No template found for " + template + " in path " + path)
+            println "Template ${template} not found"
             return false
         }
     }

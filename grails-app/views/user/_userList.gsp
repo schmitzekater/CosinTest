@@ -6,7 +6,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:each var="user" in="${users}">
+    <g:each var="user" in="${model}">
         <tr>
             <td><g:link action="detail" id="${user.id}">${user.id}</g:link></td>
             <td>${user.userId}</td>
@@ -20,9 +20,6 @@
                 </g:else>
             </td>
             <td>
-                %{--  <g:link controller="User" action="edit" id="${user.id}"><g:message code="default.edit.label"
-                                                                                     args="[entityName]"/></g:link>
-                  <br />--}%
                 <div class="btn-group-xs">
                     <g:form controller="user" id="${user.id}">
                         <g:actionSubmit action="edit" class="btn btn-primary"
