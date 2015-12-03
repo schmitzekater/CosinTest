@@ -2,10 +2,12 @@
 <tr>
     <td><b>${label}</b></td>
     <td>
-        %{--Wenn die Person angezeigt wird, soll der Nach- und Vorname angezeigt werden--}%
-        <g:if test="${label.equals('Person')}">
-            ${user?.person?.getDisplayString()}
+        <g:if test="${label.equals('Computer Vendor')}">
+            <g:link controller="vendor" action="detail" id="${computer.computerVendor.id}">
+                ${computer.computerVendor.getDisplayString()}
+            </g:link>
         </g:if>
+
         <g:elseif test="${value}">
             ${value}
         </g:elseif>

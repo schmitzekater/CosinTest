@@ -14,6 +14,7 @@ class System {
     static belongsTo = [systemDepartment: Department, systemOwner: Person, processOwner: Person]
     static hasMany = [units: Unit, software: Software, servers: Computer, clients: Computer, systemOwner: Person, processOwner: Person]
     static hasOne = [systemDataCategory: DataCategory]
+    static auditable = true
 
     static constraints = {
         systemName blank: false, maxSize: 50

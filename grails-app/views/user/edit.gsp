@@ -5,7 +5,7 @@
   Time: 19:32
 --%>
 
-<%@ page import="de.schmitzekater.User" contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.*" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,25 @@
                         <f:field property="userId"/>
                         <f:field property="password"/>
                         <f:field property="signature"/>
-                        <f:field property="person"/>
+                        <f:field property="person" wrapper="/user/detail/display"/>
+                        %{--Schrecklicher Hack, aber er funktioniert. Quelle: http://stackoverflow.com/questions/30623429/grails-how-to-use-exists-notexists-within-createcriteria --}%
+              %{--          <div class="row-fluid">
+                            <div class="col-xs-4">
+                                <h4>
+                                    <div class="control-group}">
+                                        <label class="label label-default" for="Person"><g:message code="person.label"/> </label>
+                                    </div>
+                                </h4>
+                            </div>
+                        <div class="col-xs-8">
+                            <h4>
+                                <div class="controls">
+                                    <g:select name="person" from="${Person.createCriteria().list(){sqlRestriction('''
+                                        not exists (select 1 from Person p inner join User u on p.id = u.person_id where u.person_id = this_.id) ''')}}"
+                                      optionValue="lastName" noSelection="${['null':'<No Person...>']}"></g:select>
+                                </div>
+                            </h4>--}%
+                        </div>
                     </f:with>
                 </fieldset>
                 <fieldset class="buttons">

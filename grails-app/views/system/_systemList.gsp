@@ -12,13 +12,34 @@
     </thead>
     <tbody>
     <g:each var="system" in="${model}">
-        <tr>
+       <tr>
             <td><g:link action="show" id="${system.id}">${system.id}</g:link></td>
             %{-- TODO: Umstellen auf Felder!! Dabei auf missing values achten!--}%
             <td>${system.systemName}</td>
-            <td>${system.systemDepartment.departmentName}</td>
-            <td><g:link controller="person" id="${system.systemOwner.id}" action="detail">${system.systemOwner.lastName}, ${system.systemOwner.firstName}</g:link></td>
-            <td><g:link controller="person" id="${system.processOwner.id}" action="detail"> ${system.processOwner.lastName}, ${system.processOwner.firstName}</g:link></td>
+            <td>
+                <g:if test="${system.systemDepartment != null}">
+                    <g:link controller="Department" action="detail" id="${system.systemDepartment.id}">${system.systemDepartment.departmentName}</g:link>
+                </g:if>
+                <g:else>
+                    --
+                </g:else>
+            </td>
+            <td>
+                <g:if test="${system.systemOwner != null}">
+                  <g:link controller="person" id="${system.systemOwner.id}" action="detail">${system.systemOwner.getDisplayString()}</g:link>
+                </g:if>
+                <g:else>
+                    --
+                </g:else>
+            </td>
+            <td>
+                <g:if test="${system.processOwner != null}">
+                    <g:link controller="person" id="${system.processOwner.id}" action="detail"> ${system.processOwner.getDisplayString()}</g:link>
+                </g:if>
+                <g:else>
+                    --
+                </g:else>
+            </td>
            <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
         </tr>
     </g:each>

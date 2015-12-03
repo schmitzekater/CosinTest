@@ -19,8 +19,8 @@ DRY!
 <body role="document">
 <div id="list-${controllerName}" role="main">
     <h1><g:message code="default.list.label" args="[entityName]"/></h1>
-    <!-- main content for page
-        specific template will be loaded upon controllerName stop-app-->
+    <%-- main content for page
+        specific template will be loaded upon controllerName --%>
     <g:render template="${controllerName}List" />
 </div>
 

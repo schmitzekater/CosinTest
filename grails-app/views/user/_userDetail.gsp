@@ -13,6 +13,7 @@
             <f:display property="person.email"/>
             <f:display property="dateCreated"/>
             <f:display property="isAdmin"/>
+            <f:display property="person"/>
         </f:with>
     </tbody>
 </table>
