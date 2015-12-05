@@ -10,4 +10,8 @@ class ComputerController {
         def computer = Computer.getAll()
         render view:"/layouts/list", model: [model:computer, count: Computer.count]
     }
+    def detail(){
+        render view: "/layouts/detail", model:  [computer: Computer.findById(params.id)]
+
+    }
 }

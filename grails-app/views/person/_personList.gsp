@@ -1,28 +1,21 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <td>Id</td>
         <td><g:message code="person.lastName.label"/></td>
         <td><g:message code="person.firstName.label"/> </td>
         <td><g:message code="person.email.label"/> </td>
-        <td>UserId</td>
+        <td><g:message code="user.userId.label"/></td>
     </tr>
     </thead>
     <tbody>
     <g:each var="person" in="${model}">
         <tr>
-            <td><g:link action="detail" id="${person.id}">${person.id}</g:link></td>
-            <td>${person.lastName}</td>
-            <td>${person.firstName}</td>
-            <td>${person.email}</td>
-            <td>
-                <g:if test="${person.user != null}">
-                    <g:link controller="User" action="detail" id="${person.userId}">${person.user.userId}</g:link>
-                </g:if>
-                <g:else>
-                    --
-                </g:else>
-            </td>
+            <f:with bean="${person}">
+                <f:display property="lastName"/>
+                <f:display property="firstName"/>
+                <f:display property="email"/>
+                <f:display property="user"/>
+            </f:with>
             <g:render template="/layouts/editInfoButtons" model="[model: person]" />
         </tr>
     </g:each>

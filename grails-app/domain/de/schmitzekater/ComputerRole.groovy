@@ -26,4 +26,8 @@ class ComputerRole {
         return role
     }
 
+    String toString(){
+        return role
+    }
+
 }

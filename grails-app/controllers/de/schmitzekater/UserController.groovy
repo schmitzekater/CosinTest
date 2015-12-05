@@ -25,7 +25,10 @@ class UserController {
         }
     }
 
-
+    /**
+     * Hier kann ein User aus einer bestehenden Person angelegt werden.
+     * @return Neuer user
+     */
     def createUser() {
         def user
         try {
@@ -39,6 +42,12 @@ class UserController {
 
     }
 
+    /**
+     * register
+     * Diese Funktion dient dazu einen neuen User samt Person anzulegen.
+     * @param urc die Parameter für User und Person
+     * @return user
+     */
     def register(UserRegistrationCommand urc) {
         if (urc.hasErrors()) {
             render view: "register", model: [user: urc]
@@ -58,10 +67,18 @@ class UserController {
         }
     }
 
+    /**
+     * Auflistung aller user
+     * @return List of user
+     */
     def list() {
         def users = User.getAll()
         render view:"/layouts/list", model: [model:users, count: User.count]
     }
+    /**
+     * Detaillierte Ansicht eines users
+     * @return Details eines Users
+     */
     def detail() {
         def user = User.findById(params.id)
         render view: "/layouts/detail", model: [user: user]
@@ -69,7 +86,7 @@ class UserController {
 
     def update() {
 
-        def user = User.findById(params['id'])
+        def user = User.findById(params.id)
 
         if (user) {
             def oldUserId = user.userId
@@ -88,7 +105,10 @@ class UserController {
 
     }
 }
-
+/**
+ * UserRegistrationCommand
+ * Command-Object um einen User und eine Person gleichzeitig zu erstellen.
+ */
 class UserRegistrationCommand implements Validateable {
     String userId
     String password

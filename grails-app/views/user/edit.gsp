@@ -34,14 +34,14 @@
                             <div class="col-xs-4">
                                 <h4>
                                     <div class="control-group}">
-                                        <label class="label label-default" for="Person"><g:message code="person.label"/> </label>
+                                        <label class="label label-default" for="Person"><g:message code="user.label"/> </label>
                                     </div>
                                 </h4>
                             </div>
                         <div class="col-xs-8">
                             <h4>
                                 <div class="controls">
-                                    <g:select name="person" from="${Person.createCriteria().list(){sqlRestriction('''
+                                    <g:select name="user" from="${Person.createCriteria().list(){sqlRestriction('''
                                         not exists (select 1 from Person p inner join User u on p.id = u.person_id where u.person_id = this_.id) ''')}}"
                                       optionValue="lastName" noSelection="${['null':'<No Person...>']}"></g:select>
                                 </div>

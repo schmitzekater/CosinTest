@@ -18,25 +18,31 @@
                 http://therealdanvega.com/blog/2014/03/30/grails-views-controller-and-action-name
                 -->
                 <li class="${controllerName == null ? 'active' : ''}">
-                    <a href="${createLink(uri: '/')}">Home</a>
+                    <a href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
                 </li>
                 <li class="${controllerName == 'user' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/user')}">User</a>
+                    <a href="${createLink(uri: '/user')}"><g:message code="user.label"/></a>
                 </li>
                 <li class="${controllerName == 'person' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/person')}">Person</a>
+                    <a href="${createLink(uri: '/person')}"><g:message code="person.label"/></a>
                 </li>
                 <li class="${controllerName == 'system' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/system')}">Systems</a>
+                    <a href="${createLink(uri: '/system')}"><g:message code="system.label"/></a>
+                </li>
+                <li class="${controllerName == 'department' ? 'active' : ''}">
+                    <a href="${createLink(uri: '/department')}"><g:message code="department.label"/></a>
                 </li>
                 <li class="${controllerName == 'unit' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/unit')}">Units</a>
+                    <a href="${createLink(uri: '/unit')}"><g:message code="unit.label"/></a>
                 </li>
                 <li class="${controllerName == 'module' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/module')}">Modules</a>
+                    <a href="${createLink(uri: '/module')}"><g:message code="module.label"/></a>
                 </li>
                 <li class="${controllerName == 'software' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/software')}">Software</a>
+                    <a href="${createLink(uri: '/software')}"><g:message code="software.label"/></a>
+                </li>
+                <li class="${controllerName == 'computer' ? 'active' : ''}">
+                    <a href="${createLink(uri: '/computer')}"><g:message code="computer.label"/></a>
                 </li>
                 <g:if test="">
                     <li>

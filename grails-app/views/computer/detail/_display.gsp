@@ -1,21 +1,19 @@
-<%@ page defaultCodec="html" %>
-<tr>
+<%@ page defaultCodec="html;charset=UTF-8" %>
+%{--<tr>
     <td><b>${label}</b></td>
-    <td>
-        <g:if test="${label.equals('Computer Vendor')}">
-            <g:link controller="vendor" action="detail" id="${computer.computerVendor.id}">
-                ${computer.computerVendor.getDisplayString()}
-            </g:link>
-        </g:if>
-
-        <g:elseif test="${value}">
+    <td>--}%
+<dt>${label}
+    <dd>
+        <g:if test="${value}">
             ${value}
-        </g:elseif>
+        </g:if>
         <g:else>
             --
         </g:else>
-
+</dd>
+</dt>
+%{--
     </td>
-</tr>
+</tr> --}%
 
 

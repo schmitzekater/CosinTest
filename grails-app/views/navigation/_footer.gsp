@@ -2,19 +2,19 @@
     <div class="container">
         <ul class="nav nav-tabs nav-justified">
             <li class="${controllerName == null ? 'active' : ''}">
-                <a href="${createLink(uri: '/')}">Home</a>
+                <a href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
             </li>
             <li class="${controllerName == 'imprint' ? 'active' : ''}">
-                <%=link(uri: '/common/imprint') { 'Imprint' }%>
+                <a href="${createLink(uri: '/imprint')}"><g:message code="imprint.label"/> </a>
             </li>
             <li class="${controllerName == 'disclaimer' ? 'active' : ''}">
-                <a href="${createLink(uri: '/disclaimer')}">Disclaimer</a>
+                <a href="${createLink(uri: '/disclaimer')}"><g:message code="disclaimer.label"/> </a>
             </li>
             <li role="presentation" class="disabled">
-                <a href="#">App version: <g:meta name="info.app.version"/></a>
+                <a href="#"><g:message code="app.version.label"/> <g:meta name="info.app.version"/></a>
             </li>
             <li role="presentation" class="disabled">
-                <a href="#">Powered by Grails <g:meta name="info.app.grailsVersion"/></a>
+                <a href="#"><g:message code="info.grailsVersion.label"/> <g:meta name="info.app.grailsVersion"/></a>
             </li>
         </ul>
     </div>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="col-md-1">
-                <g:link controller="person" action="list">Person List</g:link>
+                <g:link controller="user" action="list">Person List</g:link>
             </div>
 
             <div class="col-md-1">

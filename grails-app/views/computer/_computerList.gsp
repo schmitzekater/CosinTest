@@ -13,7 +13,7 @@
     <tbody>
     <g:each var="computer" in="${model}">
         <tr>
-            <td><g:link action="show" id="${computer.id}">${computer.id}</g:link></td>
+            <td><g:link action="detail" id="${computer.id}">${computer.id}</g:link></td>
             %{-- TODO: Umstellen auf Felder!! Dabei auf missing values achten!--}%
             <td>${computer.computerName}</td>
             <td><g:link controller="vendor" id="${computer.computerVendor.id}" action="detail">${computer.computerVendor.getDisplayString()}</g:link></td>
@@ -26,7 +26,9 @@
                     --
                 </g:else>
             </td>
-            <g:render template="/layouts/editInfoButtons" model="[model: computer]"/>
+            <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
+                <g:render template="/layouts/editInfoButtons" model="[model: computer]"/>
+            </g:if>
         </tr>
     </g:each>
     </tbody>

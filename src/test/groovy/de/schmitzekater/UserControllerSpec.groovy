@@ -20,7 +20,7 @@ class UserControllerSpec extends Specification {
         given: "A correct user"
 
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com")
-        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
+        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), user: peterPerson)
 
         when: "Peter tries to change his password"
         peter.changePassword(peter, peter.getPassword(), "vielgeheimer")

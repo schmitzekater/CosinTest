@@ -20,6 +20,9 @@ class User {
         person nullable: false
         lastPasswordChange nullable: true
     }
+    String getDisplayString(){
+        return userId
+    }
 
     def onSave = {
         println "new User $userId inserted"

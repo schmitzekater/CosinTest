@@ -1,8 +1,7 @@
 <%@ page defaultCodec="html" %>
-<div class="row-fluid"><tr>okeofekofk
+<tr class="row-fluid">
     <td><label class="label label-default" for="${property}">${label}</label></td>
     <td>${value}</td>
 </tr>
-</div>
 
 

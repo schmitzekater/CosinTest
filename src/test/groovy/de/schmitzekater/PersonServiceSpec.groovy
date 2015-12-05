@@ -13,7 +13,7 @@ class PersonServiceSpec extends Specification {
 
     def "A new person is created"() {
         given: "Nothing"
-        when: "A new person is created"
+        when: "A new user is created"
         def batman = service.createPerson("Wayne", "Bruce", "batman@gotham.com")
         then: "Batman is saved"
         batman.firstName == "Bruce"
@@ -22,11 +22,11 @@ class PersonServiceSpec extends Specification {
 
     def "An invalid person is created"() {
         given: "Nothing"
-        when: "An invalid person is created"
-        def batman = service.createPerson("Wayne", "Bruce", "batmangotham.com")
+        when: "An invalid user is created"
+        def batman = service.createPerson("Wayne", "Bruce", "batman@gotham.com")
         then: "An Exception is thrown"
         def ex = thrown(PersonException)
-        ex.message == 'Ungültige Person'
+        ex.message == 'Ungï¿½ltige Person'
     }
 
 }

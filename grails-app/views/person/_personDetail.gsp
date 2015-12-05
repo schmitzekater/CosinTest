@@ -4,7 +4,7 @@
             <f:display property="lastName"/>
             <f:display property="firstName"/>
             <f:display property="email"/>
-            <f:display property="user.userId"/>
+            <f:display property="user"/>
         </f:with>
 
    </tbody>

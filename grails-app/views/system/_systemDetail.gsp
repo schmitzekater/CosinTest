@@ -13,7 +13,6 @@
             <f:display property="systemOwner"/>
             <f:display property="processOwner"/>
             <f:display property="area"/>
-
         </f:with>
     </tbody>
 </table>
