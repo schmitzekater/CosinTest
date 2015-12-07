@@ -29,4 +29,8 @@ class Module {
         retireDate nullable: true
         moduleConnection nullable: true
     }
+
+    String getDisplayString(){
+        return moduleName + ' ('+moduleSerial+')'
+    }
 }

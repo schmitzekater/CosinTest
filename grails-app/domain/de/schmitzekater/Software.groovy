@@ -11,7 +11,7 @@ class Software {
     static constraints = {
         softwareName blank: false, maxSize: 50
         softwareVersion blank: false
-        softwareIqOq blank: true
+        softwareIqOq blank: true, nullable: true
         softwareVendor nullable: true
         qualifications nullable: true
         system nullable: true
@@ -19,7 +19,7 @@ class Software {
     }
 
     String getDisplayString() {
-        return softwareName
+        return softwareName + ' ' + softwareVersion
     }
 
 }

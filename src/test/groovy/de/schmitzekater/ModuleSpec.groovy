@@ -9,14 +9,5 @@ import spock.lang.Specification
 @TestFor(Module)
 class ModuleSpec extends Specification {
 
-    def setup() {
-    }
 
-    def cleanup() {
-    }
-
-    void "test something"() {
-        expect:"fix me"
-            true == false
-    }
 }
