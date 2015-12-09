@@ -18,8 +18,8 @@
             <td>${software.softwareName}</td>
             <td>${software.softwareVersion}</td>
             <td><g:link controller="vendor" id="${software.softwareVendor.id}" action="detail">${software.softwareVendor.getDisplayString()}</g:link></td>
-            <td><g:link controller="system" id="${software.system.id}" action="detail"> ${system.systemName}</g:link></td>
-            <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
+            <td><g:link controller="system" id="${software.system?.id}" action="detail"> ${system?.systemName}</g:link></td>
+            <g:render template="/layouts/editInfoButtons" model="[model: software]"/>
         </tr>
     </g:each>
     </tbody>

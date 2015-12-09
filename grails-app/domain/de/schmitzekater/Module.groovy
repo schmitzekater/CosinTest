@@ -1,6 +1,6 @@
 package de.schmitzekater
 
-class Module {
+class Module extends QualifiableObject{
     String moduleName
     String moduleSerial
     String moduleModel
@@ -14,7 +14,7 @@ class Module {
 
     static hasOne= [moduleVendor: Vendor, moduleType : ModuleType, moduleConnection : ConnectionType]
     static belongsTo = [unit: Unit]
-    static hasMany = [qualifications: Qualification]
+
 
     static constraints = {
         moduleSerial blank: false, unique: true
@@ -24,7 +24,7 @@ class Module {
         moduleVendor nullable: true
         moduleType nullable: true
         unit nullable: true
-        qualifications nullable: true
+
         productiveDate nullable: true
         retireDate nullable: true
         moduleConnection nullable: true

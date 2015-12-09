@@ -1,11 +1,11 @@
 package de.schmitzekater
 
-class Software {
+class Software extends QualifiableObject{
     String softwareName
     String softwareVersion
     String softwareIqOq
 
-    static hasMany = [qualifications: Qualification]
+
     static hasOne = [softwareVendor: Vendor]
     static belongsTo = [system: System, computer: Computer]
     static constraints = {
@@ -13,7 +13,6 @@ class Software {
         softwareVersion blank: false
         softwareIqOq blank: true, nullable: true
         softwareVendor nullable: true
-        qualifications nullable: true
         system nullable: true
         computer nullable: true
     }

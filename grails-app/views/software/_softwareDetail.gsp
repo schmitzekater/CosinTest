@@ -13,3 +13,5 @@
     <g:actionSubmit action="edit" class="btn btn-primary"
                     value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
 </g:form>
+<hr/>
+<g:render template="addQualification"/>
