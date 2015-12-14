@@ -1,8 +1,5 @@
 package de.schmitzekater
 
-import com.sun.xml.internal.fastinfoset.util.StringArray
-
-import java.sql.Blob
 
 class Qualification {
 
@@ -20,7 +17,7 @@ class Qualification {
         attachment nullable: true
         comment nullable: true
         qualificationDate nullable: false
-        qualificationType nullable: false, inList: ["Qualification", "Validation", "Calibration"]
+        qualificationType nullable: false, inList: types.toList()
         qualificationObject nullable: true
         // software nullable: true
         //module nullable: true
@@ -28,12 +25,12 @@ class Qualification {
 
     String getDisplayString(){
         def text = new StringBuilder()
-        text += qualificationDate.format('yyyyMMdd')
+        text += qualificationDate.format('dd-MMM-yyyy')
         text += ': '
         text += qualificationType
         text += ' '
-        if(software) text += software.getDisplayString()
-        if(module)   text += module.getDisplayString()
+        text += qualificationObject.getDisplayString()
+
         return text
     }
 }

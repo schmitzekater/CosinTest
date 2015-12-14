@@ -1,5 +1,4 @@
 <table class="table table-striped">
-
     <tbody>
         <f:with bean="software">
             <f:display property="softwareName"/>
@@ -14,4 +13,7 @@
                     value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
 </g:form>
 <hr/>
-<g:render template="addQualification"/>
+<h3><g:message code="qualification.list.label"/> </h3>
+<g:render template="/layouts/listQualifications" model="[model: software.getQualifications()]"/>
+<hr/>
+<g:render template="/layouts/addQualification"/>

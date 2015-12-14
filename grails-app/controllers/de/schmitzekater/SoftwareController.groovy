@@ -17,7 +17,7 @@ class SoftwareController {
             qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.software, params.comment)
             def software = Software.get(params.id)
             software.addToQualifications(qualification)
-            flash.message = message(code: 'default.added.Qualification', args:['Qualification', qualification.id])
+            flash.message = message(code: 'default.added.Qualification',args: ['Qualification',qualification.qualificationDate, software.softwareName ])
             redirect action: "list"
         }
         catch (QualificationException qe){
@@ -26,12 +26,22 @@ class SoftwareController {
         }
     }
 
+    def listQualifications(){
+        def software = Software.get(params.id)
+        def qualifications = software.getQualifications()
+        render template: "/layouts/listQualifications", model: [model: qualifications]
+    }
+
     def saveAttachment(){
         def attachment = request.getFile('attachment').inputStream.text
         attachment.transferTo(new File('uploads/qualification/'))
     }
 
     def detail(){
+        render view: "/layouts/detail", model:  [software: Software.findById(params.id)]
+    }
+
+    def show(){
         render view: "/layouts/detail", model:  [software: Software.findById(params.id)]
     }
 }
