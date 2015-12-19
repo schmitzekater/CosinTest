@@ -26,11 +26,6 @@ class SoftwareController {
         }
     }
 
-    def listQualifications(){
-        def software = Software.get(params.id)
-        def qualifications = software.getQualifications()
-        render template: "/layouts/listQualifications", model: [model: qualifications]
-    }
 
     def saveAttachment(){
         def attachment = request.getFile('attachment').inputStream.text

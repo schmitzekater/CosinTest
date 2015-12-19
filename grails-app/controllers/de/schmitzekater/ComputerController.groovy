@@ -4,7 +4,8 @@ class ComputerController {
     static scaffold = Computer
 
     def index() {
-        list()
+        def computer = Computer.getAll()
+        render view:"/layouts/list", model: [model:computer, count: Computer.count]
     }
     def list() {
         def computer = Computer.getAll()
@@ -12,6 +13,8 @@ class ComputerController {
     }
     def detail(){
         render view: "/layouts/detail", model:  [computer: Computer.findById(params.id)]
-
+    }
+    def show(){
+        render view: "/layouts/detail", model:  [computer: Computer.findById(params.id)]
     }
 }

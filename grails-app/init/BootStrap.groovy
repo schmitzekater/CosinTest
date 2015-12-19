@@ -26,9 +26,9 @@ class BootStrap {
         def clientOne = Computer.findByComputerName("PC1234")
         analyst.addToServers(serverOne)
         analyst.addToClients(clientOne)
-        serverOne.addToInstalledSoftware(analystSW)
-        clientOne.addToInstalledSoftware(analystSW)
-        analystSW.addToQualifications(Qualification.findById(1))
+        //serverOne.addToInstalledSoftware(analystSW)
+        //clientOne.addToInstalledSoftware(analystSW)
+       // analystSW.addToQualifications(Qualification.findById(1))
         println("System " + analyst.systemName + " has " + analyst.clients.size() + " clients and " + analyst.servers.size() + " servers")
     }
 
