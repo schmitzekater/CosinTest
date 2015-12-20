@@ -20,7 +20,6 @@ class Module extends QualifiableObject{
     static hasOne= [moduleVendor: Vendor, moduleType : ModuleType, moduleConnection : ConnectionType]
     static belongsTo = [unit: Unit]
 
-
     static constraints = {
         moduleSerial blank: false, unique: true
         moduleName blank: false
@@ -81,7 +80,7 @@ class Module extends QualifiableObject{
     def beforeUpdate(){
         /**
          * This function is fired before the object is updated in the database.
-         * Similar function is "beforeInsert()", when the object is intially saved
+         * Similar function is "beforeInsert()", when the object is initially saved
          */
     }
 }

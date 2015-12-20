@@ -1,6 +1,8 @@
 
-<ul>
+<dl>
     <g:each var="qualification" in="${model}">
-        <li>${qualification.getDisplayString()}</li>
+        <dt>${qualification.qualificationDate}</dt>
+        <dd>${qualification.qualificationType}</dd>
+        <dd>${qualification.comment}</dd>
     </g:each>
-</ul>
+</dl>

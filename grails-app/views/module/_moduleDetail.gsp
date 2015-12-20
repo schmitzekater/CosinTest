@@ -33,6 +33,7 @@
 </g:form>
 <hr/>
 <h3><g:message code="qualification.list.label"/> </h3>
-<g:render template="/layouts/listQualifications" model="[model: module.getQualifications()]"/>
+%{--Display the sorted qualifications with the newest Qualification on Top--}%
+<g:render template="/layouts/listQualifications" model="[model: module.qualifications.sort { it.qualificationDate }.reverse()]"/>
 <hr/>
 <g:render template="/layouts/addQualification"/>

@@ -14,6 +14,7 @@ class BootStrap {
                 if (!Computer.count()) createComputers()
                 if (!Software.count()) createSoftware()
                 if (!Qualification.count()) createQualifications()
+                if (!ModuleType.count()) createModuleTypes()
                 createBindings()
             }
         }
@@ -22,30 +23,47 @@ class BootStrap {
     def createBindings() {
         System analyst = System.findBySystemName('Analyst')
         Software analystSW = Software.findBySoftwareName('Analyst')
+        println "Found Analyst: "+analystSW.getDisplayString()
+        Software empower = Software.findBySoftwareName('Empower')
+        println "Found Empower: "+empower.getDisplayString()
         def serverOne = Computer.findByComputerName("NUCRODATA")
         def clientOne = Computer.findByComputerName("PC1234")
         analyst.addToServers(serverOne)
         analyst.addToClients(clientOne)
-        //serverOne.addToInstalledSoftware(analystSW)
-        //clientOne.addToInstalledSoftware(analystSW)
-       // analystSW.addToQualifications(Qualification.findById(1))
+        serverOne.addToInstalledSoftware(analystSW)
+        clientOne.addToInstalledSoftware(analystSW)
+        analystSW.addToQualifications(Qualification.findById(1))
         println("System " + analyst.systemName + " has " + analyst.clients.size() + " clients and " + analyst.servers.size() + " servers")
     }
 
+    def createModuleTypes(){
+        println "Creating Module Types"
+        String[] types = ["Column Oven", "Autosampler",  "Mass Spectrometer", "Unary LC Pump", "Binary LC Pump", "Quarternary LC Pump", "Degasser", "Detector"]
+        ModuleType[] mt = new ModuleType[types.length]
+        for (int i = 0; i < types.length; i++) {
+            mt[i]=new ModuleType(moduleType: types[i])
+            mt[i].save(failOnError: true)
+        }
+        println "Created "+ModuleType.count()+" ModuleTypes"
+    }
+
     def createQualifications() {
-        println("Creating Qualifications")
+        println "Creating Qualifications"
         def qualOne = new Qualification(qualificationDate: new Date(), qualificationType: "Validation", comment: "Erste Validierung von Analyst.")
         qualOne.save(failOnError: true)
-        println("Created " + Qualification.count() + " Qualifications")
+        println "Created " + Qualification.count() + " Qualifications"
     }
 
     def createSoftware() {
-        println("Creating Software")
+        println "Creating Software"
         def analystSW = new Software(softwareName: 'Analyst', softwareVersion: '1.6.2', softwareVendor: Vendor.findByName('AB Sciex'), softwareIqOq: "projekte\\sowas\\da")
         def empowerSW = new Software(softwareName: 'Empower', softwareVersion: '3', softwareVendor: Vendor.findByName('Waters'), softwareIqOq: "projekte\\sowas\\da")
         analystSW.save(failOnError: true)
-        empowerSW.save()
-        println("Created " + Software.count() + " software.")
+        empowerSW.save(failOnError: true)
+
+        println "Created " + Software.count() + " software."
+        println "Created: "+analystSW.getDisplayString()
+        println "Created: "+empowerSW.getDisplayString()
     }
 
 

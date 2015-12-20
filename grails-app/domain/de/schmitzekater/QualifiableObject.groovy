@@ -6,7 +6,7 @@ abstract class QualifiableObject {
         qualifications nullable: true
     }
     static mapping = {
-        sort "qualifications.qualificationDate"
+        tablePerHierarchy false
     }
     static hasMany = [qualifications: Qualification]
 

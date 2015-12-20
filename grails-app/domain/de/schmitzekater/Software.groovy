@@ -8,6 +8,7 @@ class Software extends QualifiableObject{
 
     static hasOne = [softwareVendor: Vendor]
     static belongsTo = [system: System, computer: Computer]
+
     static constraints = {
         softwareName blank: false, maxSize: 50
         softwareVersion blank: false
