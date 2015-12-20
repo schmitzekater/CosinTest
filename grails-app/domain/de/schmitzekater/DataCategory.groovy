@@ -1,12 +1,15 @@
 package de.schmitzekater
 
-abstract class DataCategory {
-    public static final String CATEGORY_A = "Paper"
-    public static final String CATEGORY_B = "Hybrid"
-    public static final String CATEGORY_C = "Partly Compliant"
-    public static final String CATEGORY_D = "Full Compliant"
+class DataCategory {
 
-    static belongsTo = [system: System]
+    String category
+    static hasMany = [system: System]
     static constraints = {
+        category nullable: true
+        system nullable: true
+    }
+
+    String toString() {
+        return category
     }
 }

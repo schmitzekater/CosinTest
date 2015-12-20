@@ -17,7 +17,7 @@
             %{-- TODO: Umstellen auf Felder!! Dabei auf missing values achten!--}%
             <td>${computer.computerName}</td>
             <td><g:link controller="vendor" id="${computer.computerVendor.id}" action="detail">${computer.computerVendor.getDisplayString()}</g:link></td>
-            <td>${computer.computerRole.getDisplayString()}</td>
+            <td>${computer.computerRole?.getDisplayString()}</td>
             <td>
                 <g:if test="${computer.system != null}">
                     <g:link controller="system" id="${computer.system.id}" action="detail"> ${computer.system.systemName}</g:link>

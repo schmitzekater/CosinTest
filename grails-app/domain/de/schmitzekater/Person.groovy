@@ -16,9 +16,10 @@ class Person {
         department nullable: true, blank: true
         system nullable: true
     }
-    /*String toString(){
-        return lastName + ", " + firstName
-    }*/
+
+    String toString() {
+        getDisplayString()
+    }
 
     String getDisplayString() {
         return lastName + ", " + firstName

@@ -9,7 +9,8 @@
                     <label for="QualificationType"><g:message code="qualification.qualificationType.label"/></label>
                 </dt>
                 <dd>
-                    <g:select from="${Qualification.types}" name="qualificationType" id="QualificationType"/>
+                    <g:select from="${de.schmitzekater.QualificationType.findAll()}" name="qualificationType"
+                              id="QualificationType"/>
                 </dd>
                 <dt>
                     <label for="QualificationDate"><g:message code="qualification.qualificationDate.label"/></label>

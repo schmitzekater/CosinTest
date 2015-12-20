@@ -36,4 +36,8 @@ class System {
         return systemName
     }
 
+    String toString() {
+        getDisplayString()
+    }
+
 }

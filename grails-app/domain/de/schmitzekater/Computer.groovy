@@ -21,4 +21,8 @@ class Computer {
         return computerName
     }
 
+    String toString() {
+        getDisplayString()
+    }
+
 }

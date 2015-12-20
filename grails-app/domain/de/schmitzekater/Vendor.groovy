@@ -13,6 +13,11 @@ class Vendor {
 
     String getDisplayString() {
         return name
+
+    }
+
+    String toString() {
+        getDisplayString()
     }
 
 }

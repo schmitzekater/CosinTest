@@ -13,4 +13,8 @@ class Location {
         unit nullable: true
         computer nullable: true
     }
+
+    String toString() {
+        getDisplayString()
+    }
 }

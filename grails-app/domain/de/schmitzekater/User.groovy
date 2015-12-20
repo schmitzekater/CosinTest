@@ -41,5 +41,9 @@ class User {
         })
     }
 
+    String toString() {
+        getDisplayString()
+    }
+
 
 }

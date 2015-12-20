@@ -17,4 +17,8 @@ class Unit {
         return unitName
     }
 
+    String toString() {
+        getDisplayString()
+    }
+
 }

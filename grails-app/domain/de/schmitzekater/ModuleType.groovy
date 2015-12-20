@@ -3,9 +3,10 @@ package de.schmitzekater
 class ModuleType {
 
     String moduleType
-    //static belongsTo = [module: Module]
+    static hasMany = [module: Module]
     static constraints = {
         moduleType nullable: false, blank: false
+        module nullable: true
     }
 
     String toString(){

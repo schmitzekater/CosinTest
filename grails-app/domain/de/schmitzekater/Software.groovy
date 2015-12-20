@@ -22,4 +22,8 @@ class Software extends QualifiableObject{
         return softwareName + ' ' + softwareVersion
     }
 
+    String toString() {
+        getDisplayString()
+    }
+
 }

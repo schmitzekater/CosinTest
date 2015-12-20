@@ -13,8 +13,11 @@ class BootStrap {
                 if (!Vendor.count()) createVendors()
                 if (!Computer.count()) createComputers()
                 if (!Software.count()) createSoftware()
+                if (!QualificationType.count()) createQualificationTypes()
                 if (!Qualification.count()) createQualifications()
                 if (!ModuleType.count()) createModuleTypes()
+                if (!DataCategory.count()) createDataCategories()
+                if (!ConnectionType.count()) createConnectionTypes()
                 createBindings()
             }
         }
@@ -36,6 +39,28 @@ class BootStrap {
         println("System " + analyst.systemName + " has " + analyst.clients.size() + " clients and " + analyst.servers.size() + " servers")
     }
 
+    def createConnectionTypes() {
+        println "Creating Connection Types"
+        String[] connections = ["Serial", "Ethernet", "Parallel", "IEEE", "USB"]
+        ConnectionType[] ct = new ConnectionType[connections.length]
+        for (int i = 0; i < connections.length; i++) {
+            ct[i] = new ConnectionType(connection: connections[i])
+            ct[i].save(failOnError: true)
+        }
+        println "Created " + ConnectionType.count() + " ConnectionTypes"
+    }
+
+    def createDataCategories() {
+        println "Creating Data Categories"
+        String[] categories = ["A - Paper", "B - Hybrid", "C - Partly Compliant", "D - Full Compliant"]
+        DataCategory[] dc = new DataCategory[categories.length]
+        for (int i = 0; i < categories.length; i++) {
+            dc[i] = new DataCategory(category: categories[i])
+            dc[i].save(failOnError: true)
+        }
+        println "Created " + DataCategory.count() + " DataCategories"
+    }
+
     def createModuleTypes(){
         println "Creating Module Types"
         String[] types = ["Column Oven", "Autosampler",  "Mass Spectrometer", "Unary LC Pump", "Binary LC Pump", "Quarternary LC Pump", "Degasser", "Detector"]
@@ -49,9 +74,20 @@ class BootStrap {
 
     def createQualifications() {
         println "Creating Qualifications"
-        def qualOne = new Qualification(qualificationDate: new Date(), qualificationType: "Validation", comment: "Erste Validierung von Analyst.")
+        def qualOne = new Qualification(qualificationDate: new Date(), qualificationType: QualificationType.findByType('Validation'), comment: "Erste Validierung von Analyst.")
         qualOne.save(failOnError: true)
         println "Created " + Qualification.count() + " Qualifications"
+    }
+
+    def createQualificationTypes() {
+        println "Creating Qualification Types"
+        String[] types = ["Qualification", "Validation", "Calibration", "Periodic Review"]
+        QualificationType[] qt = new QualificationType[types.length]
+        for (int i = 0; i < types.length; i++) {
+            qt[i] = new QualificationType(type: types[i])
+            qt[i].save(failOnError: true)
+        }
+        println "Created " + QualificationType.count() + " QualificationTypes"
     }
 
     def createSoftware() {
@@ -99,13 +135,13 @@ class BootStrap {
     }
 
     def createComputerRoles() {
-        println("Creating Computer Roles")
-        def dbServer = new ComputerRole("Database Server")
-        def fileServer = new ComputerRole("Fileserver")
-        def client = new ComputerRole("Client")
-        dbServer.save(failOnError: true)
-        fileServer.save(failOnError: true)
-        client.save(failOnError: true)
+        println "Creating Computer Roles"
+        String[] roles = ["Database Server", "Fileserver", "Unspecified Server", "Unspecified Client", "Acquisition Client", "Processing Server", "Application Server", "Communication Server", "Office Client"]
+        ComputerRole[] cr = new ComputerRole[roles.length]
+        for (int i = 0; i < roles.length; i++) {
+            cr[i] = new ComputerRole(role: roles[i])
+            cr[i].save(failOnError: true)
+        }
         println('Created ' + ComputerRole.count() + ' ComputerRoles.')
     }
 

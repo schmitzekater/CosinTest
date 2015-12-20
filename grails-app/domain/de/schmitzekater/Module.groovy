@@ -83,4 +83,8 @@ class Module extends QualifiableObject{
          * Similar function is "beforeInsert()", when the object is initially saved
          */
     }
+
+    String toString() {
+        getDisplayString()
+    }
 }
