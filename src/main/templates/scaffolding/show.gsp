@@ -7,34 +7,28 @@
 </head>
 
 <body role="document">
-<div class="container"><!-- Container for all content -->
-    <div class="row"><!-- First Row -->
-    <g:render template="/navigation/navLeft"/>
-        <div id="show-${propertyName}" class="col-md-6" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]"/></h1>
-            <g:if test="\${flash.message}">
-                <<div class="alert alert-info" role="alert">\${flash.message}</div>
-            </g:if>
-            <f:display bean="${propertyName}"/>
-            <g:form resource="\${this.${propertyName}}" method="DELETE">
-                <fieldset class="buttons">
-                    <g:link class="edit" action="edit" resource="\${this.${propertyName}}"><g:message
-                            code="default.button.edit.label" default="Edit"/></g:link>
-                    <input class="delete" type="submit"
-                           value="\${message(code: 'default.button.delete.label', default: 'Delete')}"
-                           onclick="return confirm('\${message(code: '
-                           default.button.delete.confirm.message
-                           ', default: '
-                           Are
-                           you
-                           sure ? ')}'
-                           )
-                           ;"/>
-                </fieldset>
-            </g:form>
-        </div>
-        <g:render template="/navigation/navRight"/>
-        </div>
-</div>
+    <div id="show-${propertyName}" role="main">
+        <h1><g:message code="default.show.label" args="[entityName]"/></h1>
+        <g:if test="\${flash.message}">
+            <div class="alert alert-info" role="alert">\${flash.message}</div>
+        </g:if>
+        <f:display bean="${propertyName}"/>
+        <g:form resource="\${this.${propertyName}}" method="DELETE">
+            <fieldset class="buttons">
+                <g:link class="edit" action="edit" resource="\${this.${propertyName}}"><g:message
+                        code="default.button.edit.label" default="Edit"/></g:link>
+                <input class="delete" type="submit"
+                       value="\${message(code: 'default.button.delete.label', default: 'Delete')}"
+                       onclick="return confirm('\${message(code: '
+                       default.button.delete.confirm.message
+                       ', default: '
+                       Are
+                       you
+                       sure ? ')}'
+                       )
+                       ;"/>
+            </fieldset>
+        </g:form>
+    </div>
 </body>
 </html>

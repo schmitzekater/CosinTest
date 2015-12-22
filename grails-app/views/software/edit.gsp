@@ -14,7 +14,7 @@
 </head>
 
 <body role="document">
-    <div id="edit-${controllerName}" class="col-md-6" role="main">
+    <div id="edit-${controllerName}" role="main">
         <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
         <g:form controller="Software" action="update" method="PUT">
             <g:hiddenField name="id" value="${software.id}"/>

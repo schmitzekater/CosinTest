@@ -36,7 +36,7 @@ class BootStrap {
         serverOne.addToInstalledSoftware(analystSW)
         clientOne.addToInstalledSoftware(analystSW)
         analystSW.addToQualifications(Qualification.findById(1))
-        println("System " + analyst.systemName + " has " + analyst.clients.size() + " clients and " + analyst.servers.size() + " servers")
+        println "System $analyst.systemName has ${analyst.clients.size()} clients and ${analyst.servers.size()} servers"
     }
 
     def createConnectionTypes() {

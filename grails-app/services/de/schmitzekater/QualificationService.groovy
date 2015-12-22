@@ -5,10 +5,6 @@ import grails.transaction.Transactional
 @Transactional
 class QualificationService {
 
-    def serviceMethod() {
-
-    }
-
     def createQualification(Date qualificationDate, String qualificationType, QualifiableObject qualificationObject, String comment) {
         println "Im Service"
         def qual = new Qualification(qualificationDate: qualificationDate, qualificationType: QualificationType.findByType(qualificationType), qualificationObject: qualificationObject, comment: comment)
@@ -16,7 +12,7 @@ class QualificationService {
         else throw new QualificationException(message: 'Qualification Error', qualification: qual, qualifiableObject: qualObj)
     }
     def createQualification(){
-        println "Im Service ohne Parameter"
+
     }
 
 }

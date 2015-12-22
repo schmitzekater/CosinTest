@@ -1,14 +1,9 @@
 <%@ page defaultCodec="html" %>
-<div class="row-fluid">
+<div class="row">
     <div class="col-xs-4">
         <h4>
             <div class="control-group ${invalid ? 'error' : ''}">
-                <g:if test="${required}">
-                    <label class="label label-primary" for="${property}">${label}</label>
-                </g:if>
-                <g:else>
-                    <label class="label label-default" for="${property}">${label}</label>
-                </g:else>
+                <label class="control-label" for="${property}">${label}${required? ' *': ''} </label>
             </div>
         </h4>
     </div>
