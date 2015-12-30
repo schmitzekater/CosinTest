@@ -3,25 +3,25 @@
         <f:with bean="module">
             <f:display property="moduleName"/>
             <f:display property="moduleSerial"/>
-            <f:display property="ModuleModel"/>
+            <f:display property="moduleModel"/>
             <f:display property="moduleFirmware"/>
             <f:display property="moduleVendor"/>
             <f:display property="moduleType"/>
             <f:display property="moduleConnection"/>
             <f:display property="unit"/>
-            <g:if test="${needsCalibration}">
+            <g:if test="${module.needsCalibration==true}">
                 <f:display property="needsCalibration"/>
                 <tr>
                     <td><label class="label" for="${calibInterval}"/>${label}</td>
                     <td>${module.getCalibrationDisplayString()}</td>
                 </tr>
-                <f:display property="calibInterval"/>
-                <f:display property="calibPeriod"/>
+                %{--<f:display property="calibInterval"/>
+                <f:display property="calibPeriod"/>--}%
                 <f:display property="lastCalibration"/>
                 <f:display property="nextCalibration"/>
             </g:if>
             <f:display property="productiveDate"/>
-            <g:if test="${retireDate!=null}">
+            <g:if test="${module.retireDate!=null}">
                 <f:display property="retireDate"/>
             </g:if>
             </f:with>

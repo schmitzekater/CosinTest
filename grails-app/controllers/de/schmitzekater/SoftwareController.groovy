@@ -5,9 +5,12 @@ class SoftwareController {
     static defaultAction = "list"
 
     def qualificationService
-    def index() {}
+    def index() {
+        redirect action: list(), params: params
+    }
     def list() {
-        def sw = Software.getAll()
+        if(!params.max) params.max = 10
+        def sw = Software.list(params)
         render view:"/layouts/list", model: [model:sw, count: Software.count]
     }
 

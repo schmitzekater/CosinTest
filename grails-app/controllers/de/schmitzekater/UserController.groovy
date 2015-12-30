@@ -10,7 +10,9 @@ class UserController {
     static defaultAction = "list"
 
     def userService
-    def index() { }
+    def index() {
+        redirect action: list(), params: params
+    }
     def changePassword(User user, String oldPw, String newPw){
         if(oldPw != newPw){
             println("Condition met")
@@ -72,7 +74,8 @@ class UserController {
      * @return List of user
      */
     def list() {
-        def users = User.getAll()
+        if(!params.max) params.max = 10
+        def users = User.list(params)
         render view:"/layouts/list", model: [model:users, count: User.count]
     }
     /**

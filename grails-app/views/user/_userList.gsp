@@ -2,10 +2,10 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <td><g:message code="user.userId.label"/> </td>
-        <td><g:message code="user.password.label"/> </td>
-        <td><g:message code="user.signature.label"/> </td>
-        <td><g:message code="person.label"/></td>
+        <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
+        <g:sortableColumn property="password" title="${message(code:'user.password.label', default: 'Password')}"/>
+        <g:sortableColumn property="signature" title="${message(code: 'user.signature.label', default: 'Signature')}"/>
+        <g:sortableColumn property="person" title="${message(code:'person.label', default: 'Person')}"/>
     </tr>
     </thead>
     <tbody>

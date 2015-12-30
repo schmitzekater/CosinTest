@@ -4,11 +4,11 @@ class ComputerController {
     static scaffold = Computer
 
     def index() {
-        def computer = Computer.getAll()
-        render view:"/layouts/list", model: [model:computer, count: Computer.count]
+        redirect action: 'list', params: params
     }
     def list() {
-        def computer = Computer.getAll()
+        if(!params.max) params.max = 10
+        def computer = Computer.list(params)
         render view:"/layouts/list", model: [model:computer, count: Computer.count]
     }
     def detail(){

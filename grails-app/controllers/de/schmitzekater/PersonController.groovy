@@ -4,10 +4,13 @@ class PersonController {
     static scaffold = Person
     static defaultAction = "list"
     def personService
-    def index() { }
+    def index() {
+        redirect action: 'list', params: params
+    }
 
     def list(){
-        def persons = Person.getAll()
+        if(!params.max) params.max = 10
+        def persons = Person.list(params)
         render view:"/layouts/list", model: [model:persons, count: Person.count]
     }
 

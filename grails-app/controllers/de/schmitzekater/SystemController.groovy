@@ -5,11 +5,12 @@ class SystemController {
     static defaultAction = "list"
 
     def index() {
-        list()
+        redirect action: list(), params: params
     }
 
     def list() {
-        def systems = System.getAll()
+        if(!params.max) params.max = 10
+        def systems = System.list(params)
         render view:"/layouts/list", model: [model:systems, count: System.count]
     }
 

@@ -82,6 +82,17 @@ class Module extends QualifiableObject{
          * This function is fired before the object is updated in the database.
          * Similar function is "beforeInsert()", when the object is initially saved
          */
+        if(needsCalibration && lastCalibration!=null){
+                setNextCalibration()
+            }
+        this.save(failOnError: true)
+    }
+
+    def beforeInsert(){
+        if(needsCalibration && lastCalibration!=null){
+            setNextCalibration()
+        }
+        this.save(failOnError: true)
     }
 
     String toString() {
