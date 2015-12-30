@@ -12,7 +12,7 @@
             </g:if>
 
             <li class="list-group-item">
-                <a class="home" href="\${createLink(uri: '/')}">
+                <a class="home" href="/">
                     <g:message code="default.home.label"/>
                 </a>
             </li>

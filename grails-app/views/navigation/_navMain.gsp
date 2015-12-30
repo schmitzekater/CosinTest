@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">COSIN</a>
+            <a class="${controllerName == null ? 'active ' : ''}navbar-brand " href="/">COSIN</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar">
@@ -17,9 +17,9 @@
                 Inspiration by Dan Vega
                 http://therealdanvega.com/blog/2014/03/30/grails-views-controller-and-action-name
                 -->
-                <li class="${controllerName == null ? 'active' : ''}">
+               <!-- <li class="${controllerName == null ? 'active' : ''}">
                     <a href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
-                </li>
+                </li> -->
                 <li class="${controllerName == 'user' ? 'active' : ''}">
                     <a href="${createLink(uri: '/user')}"><g:message code="user.label"/></a>
                 </li>
@@ -44,14 +44,9 @@
                 <li class="${controllerName == 'computer' ? 'active' : ''}">
                     <a href="${createLink(uri: '/computer')}"><g:message code="computer.label"/></a>
                 </li>
-                <g:if test="">
-                    <li>
-                        <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-                    </li>
-                </g:if>
-                <g:else>
-                    <p class="navbar-text">Logged in as: User</p>
-                </g:else>
+                <li class="${controllerName == 'config' ? 'active' : ''}">
+                    <a href="${createLink(uri: '/config')}"><g:message code="default.config.label"/></a>
+                </li>
             </ul>
         </div>
     </div>
