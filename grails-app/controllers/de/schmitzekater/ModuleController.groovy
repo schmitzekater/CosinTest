@@ -12,7 +12,7 @@ class ModuleController {
     def list() {
         if (!params.max) params.max = 10
         def modules = Module.list(params)
-        render view:"/layouts/list", model: [model: modules, count: Module.count]
+        render view:"/layouts/list", model: [model: [modules], count: Module.count]
     }
     def addQualification(){
         def qualification
@@ -21,6 +21,9 @@ class ModuleController {
             def module = Module.get(params.id)
             module.addToQualifications(qualification)
             if(qualification.qualificationType.toString().equalsIgnoreCase("Calibration")){
+                /**
+                 * TODO: Neueste Kalibrierung???
+                 */
                 println "Qualification Type: "+qualification.qualificationType.toString()
                 Date qualDate = qualification.qualificationDate
                 module.setLastCalibration(qualDate)
@@ -40,20 +43,21 @@ class ModuleController {
     }
 
     def show(){
-        render view: "/layouts/detail", model:  [module: Module.findById(params.id)]
+        redirect action: 'detail', params: params
     }
 
-    def update(){
-        /**
+   /* def update(){
+        *//**
          * Before the module is updated the next calibration should be calculated.
-         */
+         *//*
         println "Update fired"
+        def module = Module.get(params.module)
+        module.properties = params
+        println "Module: " + module.getDisplayString()
         try {
             def qualification = Qualification.get(params.qualification.id)
             println "Qualification: " + qualification.getDisplayString()
-            def module = Module.get(params.module.id)
-            module.properties = params
-            println "Module: " + module.getDisplayString()
+
             // Den Code nur ausführen, wenn man das Modul kalibrieren muss
             if (module.needsCalibration) {
                 // Diesen Code nur ausführen, wenn auch eine Qualifizierung gespeichert wurde
@@ -61,20 +65,22 @@ class ModuleController {
                     // Diesen Code nur ausführen, wenn eine Kalibrierung gespeichert wurde
                     if (qualification.qualificationType.compareToIgnoreCase('Calibration')) {
                         Date qualDate = qualification.qualificationDate
-                        /**
+                        *//**
                          * TODO: Die jüngste Kalibrierung suchen
-                         */
+                         *//*
                         module.lastCalibration = qualDate
                         module.setNextCalibration()
+
                     }
                 }
             }
         }
         catch(NullPointerException ne){
-            /*
+            *//*
             Keine Qualifizierung
-             */
+             *//*
         }
-        module.save(failOnError: true)
-    }
+        module.save()
+        redirect action: 'list'
+    }*/
 }

@@ -1,10 +1,10 @@
 <%@ page defaultCodec="html" %>
-<!-- template /user/detail/department/display -->
+<!-- Template: person/detail/user/displayWrapper.gsp -->
 <tr>
     <td><b>${label}</b></td>
     <td>
         <g:if test="${value}">
-            <g:link controller="department" id="${value.id}" action="detail">
+            <g:link controller="user" id="${value.id}" action="detail">
                 ${value.getDisplayString()}
             </g:link>
         </g:if>

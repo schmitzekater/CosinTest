@@ -22,3 +22,4 @@
     </g:each>
     </tbody>
 </table>
+<g:render template="/layouts/addPaginateButtons"/>

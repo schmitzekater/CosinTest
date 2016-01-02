@@ -80,7 +80,7 @@ dependencies {
     compile "org.grails.plugins:cache"
     compile "org.hibernate:hibernate-ehcache"
     compile "org.grails.plugins:scaffolding"
-    compile "org.grails.plugins:fields:2.0.3"                   // Rendering fields
+    compile "org.grails.plugins:fields:2.1.1"                   // Rendering fields
     //compile "org.grails.plugins:mongodb"
     // MongoDB Plugin for auditlogs (3.0.3 not working, 4.0.6 instead???)
     compile "org.grails.plugins:audit-logging:2.0.0-SNAPSHOT"   // Audit Plugin

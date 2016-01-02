@@ -1,5 +1,5 @@
 <%@ page defaultCodec="html" %>
-<!-- Template: person/detail/user/display -->
+<!-- Template: person/detail/person/displayWrapper.gsp -->
 <tr>
     <td><b>${label}</b></td>
     <td>

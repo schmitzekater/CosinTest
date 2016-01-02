@@ -22,11 +22,7 @@ DRY!
     <%-- main content for page
         specific template will be loaded upon controllerName --%>
     <g:render template="${controllerName}List" />
-    <div class="paginateButtons">
-        <g:if test="${params.int('max')<count}">
-            <g:message code="default.page.label"/> <g:paginate total="${count}" prev="&lt;" next="&gt;"/>
-        </g:if>
-    </div>
+
 </div>
 
 </body>

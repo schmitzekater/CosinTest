@@ -29,13 +29,13 @@ class Module extends QualifiableObject{
         moduleType nullable: true
         unit nullable: true
 
-        productiveDate nullable: true
-        retireDate nullable: true
+        productiveDate nullable: true, max: new Date(), min: new Date(80,0,0)
+        retireDate nullable: true, max: new Date(), min: new Date(80,0,0)
         moduleConnection nullable: true
         needsCalibration nullable: false
         lastCalibration nullable: true
         nextCalibration nullable: true
-        calibInterval nullable: true
+        calibInterval nullable: true, min: 1, max: 365
         calibPeriod nullable: true, inList: ['D', 'W', 'M', 'Y']
     }
 

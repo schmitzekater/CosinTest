@@ -7,6 +7,7 @@
         <g:sortableColumn property="moduleName" title="${message(code: 'module.moduleName.label', default: 'Name')}" />
         <g:sortableColumn property="moduleVendor" title="${message(code: 'module.moduleVendor.label', default: 'Vendor')}"/>
         <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
+        <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
     </tr>
     </thead>
     <tbody>
@@ -17,7 +18,7 @@
             <td><f:display property='moduleType'/></td>
             <td><f:display property='moduleSerial'/></td>
             <td><f:display property='moduleName'/></td>
-            <td><f:display property='moduleVendor'/></td>
+            <td><f:display property='moduleVendor' wrapper="list/link/vendor"/></td>
             <td><f:display property='unit'/></td>
             <g:render template="/layouts/editInfoButtons" model="[model: module]"/>
             </f:with>
@@ -25,3 +26,4 @@
     </g:each>
     </tbody>
 </table>
+<g:render template="/layouts/addPaginateButtons"/>

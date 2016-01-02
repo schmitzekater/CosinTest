@@ -3,29 +3,24 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <td>Id</td>
-        <td><g:message code="computer.computerName.label"/></td>
-        <td><g:message code="computer.computerVendor.label"/> </td>
-        <td><g:message code="computer.computerRole.label"/></td>
-        <td><g:message code="system.name.label"/></td>
+        <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
+        <g:sortableColumn property="computerName" title="${message(code: 'computer.computerName.label', default: 'Name')}"/>
+        <g:sortableColumn property="computerVendor" title="${message(code: 'computer.computerVendor.label', default: 'Vendor')}"/>
+        <g:sortableColumn property="computerRole" title="${message(code: 'computer.computerRole.label', default: 'Role')}"/>
+        <g:sortableColumn property="system" title="${message(code: 'system.name.label', default: 'System')}"/>
     </tr>
     </thead>
     <tbody>
     <g:each var="computer" in="${model}">
         <tr>
-            <td><g:link action="detail" id="${computer.id}">${computer.id}</g:link></td>
-            %{-- TODO: Umstellen auf Felder!! Dabei auf missing values achten!--}%
-            <td>${computer.computerName}</td>
-            <td><g:link controller="vendor" id="${computer.computerVendor.id}" action="detail">${computer.computerVendor.getDisplayString()}</g:link></td>
-            <td>${computer.computerRole?.getDisplayString()}</td>
-            <td>
-                <g:if test="${computer.system != null}">
-                    <g:link controller="system" id="${computer.system.id}" action="detail"> ${computer.system.systemName}</g:link>
-                </g:if>
-                <g:else>
-                    --
-                </g:else>
-            </td>
+            <f:with bean="${computer}">
+                <f:display property="id" wrapper="list/link"/>
+                <f:display property="computerName"  wrapper="list"/>
+                <f:display property="computerVendor" wrapper="list/link/vendor"/>
+                <f:display property="computerRole" wrapper="list"/>
+                <f:display property="system" wrapper="list/link/system"/>
+            </f:with>
+
             <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
                 <g:render template="/layouts/editInfoButtons" model="[model: computer]"/>
             </g:if>

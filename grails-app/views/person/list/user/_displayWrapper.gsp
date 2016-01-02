@@ -1,4 +1,4 @@
-<!-- Template: /person/list/user/_display.gsp -->
+<!-- Template: /person/list/user/_displayWrapper.gsp -->
 <td>
     <g:if test="${value}">
         <g:link controller="user" id="${value.id}" action="detail">${value.getDisplayString()}</g:link>
