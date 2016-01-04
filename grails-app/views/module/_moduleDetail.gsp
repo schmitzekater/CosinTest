@@ -1,28 +1,24 @@
 <table class="table table-striped">
     <tbody>
         <f:with bean="module">
-            <f:display property="moduleName"/>
-            <f:display property="moduleSerial"/>
-            <f:display property="moduleModel"/>
-            <f:display property="moduleFirmware"/>
-            <f:display property="moduleVendor"/>
-            <f:display property="moduleType"/>
-            <f:display property="moduleConnection"/>
-            <f:display property="unit"/>
+            <f:display property="moduleName" wrapper="detail"/>
+            <f:display property="moduleSerial" wrapper="detail"/>
+            <f:display property="moduleModel" wrapper="detail"/>
+            <f:display property="moduleFirmware" wrapper="detail"/>
+            <f:display property="moduleVendor" wrapper="detail/link/vendor"/>
+            <f:display property="moduleType" wrapper="detail"/>
+            <f:display property="moduleConnection" wrapper="detail"/>
+            <f:display property="unit" wrapper="detail/link/unit"/>
             <g:if test="${module.needsCalibration==true}">
-                <f:display property="needsCalibration"/>
-                <tr>
-                    <td><label class="label" for="${calibInterval}"/>${label}</td>
-                    <td>${module.getCalibrationDisplayString()}</td>
-                </tr>
+                <f:display property="needsCalibration"  wrapper="detail/date/calibInterval"/>
                 %{--<f:display property="calibInterval"/>
                 <f:display property="calibPeriod"/>--}%
-                <f:display property="lastCalibration"/>
-                <f:display property="nextCalibration"/>
+                <f:display property="lastCalibration" wrapper="detail/date"/>
+                <f:display property="nextCalibration" wrapper="detail/date/colored"/>
             </g:if>
-            <f:display property="productiveDate"/>
+            <f:display property="productiveDate" wrapper="detail/date"/>
             <g:if test="${module.retireDate!=null}">
-                <f:display property="retireDate"/>
+                <f:display property="retireDate" wrapper="detail/date"/>
             </g:if>
             </f:with>
         </tbody>

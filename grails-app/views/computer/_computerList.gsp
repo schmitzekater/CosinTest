@@ -1,5 +1,4 @@
 <%@ page import="de.schmitzekater.*" %>
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -20,7 +19,7 @@
                 <f:display property="computerRole" wrapper="list"/>
                 <f:display property="system" wrapper="list/link/system"/>
             </f:with>
-
+            %{--Only render the Buttons if on Computer-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
                 <g:render template="/layouts/editInfoButtons" model="[model: computer]"/>
             </g:if>

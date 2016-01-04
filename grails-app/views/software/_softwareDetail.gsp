@@ -1,10 +1,10 @@
 <table class="table table-striped">
     <tbody>
         <f:with bean="software">
-            <f:display property="softwareName"/>
-            <f:display property="softwareVersion"/>
-            <f:display property="softwareVendor"/>
-            <f:display property="system"/>
+            <f:display property="softwareName" wrapper="detail"/>
+            <f:display property="softwareVersion" wrapper="detail"/>
+            <f:display property="softwareVendor" wrapper="detail/link/vendor"/>
+            <f:display property="system" wrapper="detail/link/system"/>
             </f:with>
         </tbody>
 </table>

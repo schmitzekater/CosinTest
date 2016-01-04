@@ -1,5 +1,5 @@
 <%@ page defaultCodec="html" %>
-<!-- Template: software/show/system/display -->
+<!-- Template: software/show/system/displayWrapper.gsp-->
 <tr>
     <td><b>${label}</b></td>
     <td>

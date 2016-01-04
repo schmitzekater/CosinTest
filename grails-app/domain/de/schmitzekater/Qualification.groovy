@@ -2,26 +2,20 @@ package de.schmitzekater
 
 
 class Qualification {
-
-    public final static String[] types = ["Qualification", "Validation", "Calibration", "Periodic Review"]
-
     Date qualificationDate
-    // String qualificationType
     String comment
     File attachment
 
-    static auditable
+    static auditable = true
     static belongsTo = [qualificationObject: QualifiableObject]
     static hasOne = [qualificationType: QualificationType]
 
     static constraints = {
         attachment nullable: true
         comment nullable: true
-        qualificationDate nullable: false
-        qualificationType nullable: false//, inList: types.toList()
+        qualificationDate nullable: false, max: new Date()+1
+        qualificationType nullable: false
         qualificationObject nullable: true
-        // software nullable: true
-        //module nullable: true
     }
 
     String getDisplayString(){

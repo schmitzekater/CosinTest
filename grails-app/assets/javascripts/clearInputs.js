@@ -17,9 +17,12 @@ function refresh(){
         var default_value = this.value;
         jQuery(this).focus(function(){
             if(this.value == default_value) {this.value = '';}
+
         });
         jQuery(this).blur(function(){
             if(this.value == '') {this.value = default_value;}
         });
     });
+
+    $(".messages").delay(5000).fadeOut('slow') // Hide messages and errors
 }

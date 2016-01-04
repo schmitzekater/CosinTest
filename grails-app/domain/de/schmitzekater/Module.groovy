@@ -35,7 +35,7 @@ class Module extends QualifiableObject{
         needsCalibration nullable: false
         lastCalibration nullable: true
         nextCalibration nullable: true
-        calibInterval nullable: true, min: 1, max: 365
+        calibInterval nullable: true, min: 0, max: 365
         calibPeriod nullable: true, inList: ['D', 'W', 'M', 'Y']
     }
 

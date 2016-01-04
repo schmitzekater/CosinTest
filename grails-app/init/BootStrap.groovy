@@ -16,6 +16,7 @@ class BootStrap {
                 if (!QualificationType.count()) createQualificationTypes()
                 if (!Qualification.count()) createQualifications()
                 if (!ModuleType.count()) createModuleTypes()
+                if (!Module.count()) createModules()
                 if (!DataCategory.count()) createDataCategories()
                 if (!ConnectionType.count()) createConnectionTypes()
                 createBindings()
@@ -37,6 +38,15 @@ class BootStrap {
         clientOne.addToInstalledSoftware(analystSW)
         analystSW.addToQualifications(Qualification.findById(1))
         println "System $analyst.systemName has ${analyst.clients.size()} clients and ${analyst.servers.size()} servers"
+    }
+
+    def createModules(){
+        println "Creating Modules"
+        def sampler = new Module(moduleSerial: 'AS0815', moduleName: 'AS-12', moduleModel: 'CTC PAL xT', moduleType: ModuleType.findByModuleType('Autosampler'), moduleConnection: ConnectionType.findByConnection('Serial'), moduleFirmware: '4.0.2', needsCalibration: true, calibInterval: 2, calibPeriod: 'W')
+        def pump = new Module(moduleSerial: 'G13289', moduleName: 'Pump-26', moduleModel: 'G1260', moduleType: ModuleType.findByModuleType('Unary LC Pump'), moduleConnection: ConnectionType.findByConnection('Ethernet'), moduleFirmware: 'A55.1', needsCalibration: false)
+        pump.save(failOnError: true)
+        sampler.save(failOnError: true)
+        println "Created "+Module.count()+" Modules"
     }
 
     def createConnectionTypes() {

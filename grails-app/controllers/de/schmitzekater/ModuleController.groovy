@@ -12,22 +12,26 @@ class ModuleController {
     def list() {
         if (!params.max) params.max = 10
         def modules = Module.list(params)
-        render view:"/layouts/list", model: [model: [modules], count: Module.count]
+        render view:"/layouts/list", model: [model: modules, count: Module.count]
     }
     def addQualification(){
         def qualification
         try{
+            // Create the new Qualification
             qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment)
             def module = Module.get(params.id)
+            // Add the Qualification to the module
             module.addToQualifications(qualification)
+            // Was the Qualification a Calibration??
             if(qualification.qualificationType.toString().equalsIgnoreCase("Calibration")){
-                /**
-                 * TODO: Neueste Kalibrierung???
-                 */
-                println "Qualification Type: "+qualification.qualificationType.toString()
+                // Get the last Calibration of the module
+                def latestCalibration = module.lastCalibration
                 Date qualDate = qualification.qualificationDate
-                module.setLastCalibration(qualDate)
-                module.setNextCalibration()
+                if(latestCalibration ==null || qualDate>latestCalibration){
+                    // Calculate the next calibration only if there wasn't any or the calibration is the newest.
+                    module.setLastCalibration(qualDate)
+                    module.setNextCalibration()
+                }
                 module.save()
             }
             flash.message = message(code: 'default.added.Qualification',args: ['Qualification',qualification.qualificationDate, module.moduleName])
@@ -45,42 +49,4 @@ class ModuleController {
     def show(){
         redirect action: 'detail', params: params
     }
-
-   /* def update(){
-        *//**
-         * Before the module is updated the next calibration should be calculated.
-         *//*
-        println "Update fired"
-        def module = Module.get(params.module)
-        module.properties = params
-        println "Module: " + module.getDisplayString()
-        try {
-            def qualification = Qualification.get(params.qualification.id)
-            println "Qualification: " + qualification.getDisplayString()
-
-            // Den Code nur ausführen, wenn man das Modul kalibrieren muss
-            if (module.needsCalibration) {
-                // Diesen Code nur ausführen, wenn auch eine Qualifizierung gespeichert wurde
-                if (qualification) {
-                    // Diesen Code nur ausführen, wenn eine Kalibrierung gespeichert wurde
-                    if (qualification.qualificationType.compareToIgnoreCase('Calibration')) {
-                        Date qualDate = qualification.qualificationDate
-                        *//**
-                         * TODO: Die jüngste Kalibrierung suchen
-                         *//*
-                        module.lastCalibration = qualDate
-                        module.setNextCalibration()
-
-                    }
-                }
-            }
-        }
-        catch(NullPointerException ne){
-            *//*
-            Keine Qualifizierung
-             *//*
-        }
-        module.save()
-        redirect action: 'list'
-    }*/
 }

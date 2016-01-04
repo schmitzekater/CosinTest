@@ -1,3 +1,4 @@
+<%@ page import="de.schmitzekater.*" %>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -5,23 +6,26 @@
         <g:sortableColumn property="moduleType" title="${message(code: 'ModuleType.label', default: 'Module Type')}" />
         <g:sortableColumn property="moduleSerial" title="${message(code: 'module.moduleSerial.label', default: 'Serial')}"/>
         <g:sortableColumn property="moduleName" title="${message(code: 'module.moduleName.label', default: 'Name')}" />
-        <g:sortableColumn property="moduleVendor" title="${message(code: 'module.moduleVendor.label', default: 'Vendor')}"/>
+        <g:sortableColumn property="moduleVendor" title="${message(code: 'vendor.label', default: 'Vendor')}"/>
         <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
-        <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
+        <td><g:message code= 'action.label'/></td>
     </tr>
     </thead>
     <tbody>
     <g:each var="module" in="${model}">
         <tr>
             <f:with bean="${module}">
-            <td><g:link action="show" id="${module.id}"><f:display property="id"/></g:link></td>
-            <td><f:display property='moduleType'/></td>
-            <td><f:display property='moduleSerial'/></td>
-            <td><f:display property='moduleName'/></td>
-            <td><f:display property='moduleVendor' wrapper="list/link/vendor"/></td>
-            <td><f:display property='unit'/></td>
-            <g:render template="/layouts/editInfoButtons" model="[model: module]"/>
+            <f:display property="id" wrapper="list/link"/>
+            <f:display property='moduleType' wrapper="list"/>
+            <f:display property='moduleSerial' wrapper="list"/>
+            <f:display property='moduleName' wrapper="list"/>
+            <f:display property='moduleVendor' wrapper="list/link/vendor"/>
+            <f:display property='unit' wrapper="list/link/unit"/>
             </f:with>
+            %{--Only render the Buttons if on Module-Controller--}%
+            <g:if test="${controllerName.compareToIgnoreCase('Module')==0}">
+                <g:render template="/layouts/editInfoButtons" model="[model: module]"/>
+            </g:if>
         </tr>
     </g:each>
     </tbody>

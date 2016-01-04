@@ -30,13 +30,17 @@ class ConfigController {
             qualificationType = qualificationTypeService.createQualificationType(params.type)
             if(qualificationType.save()){
                 flash.message = message(code: 'default.created.qualificationType.message', args:[params.type])
-                def qualificationTypes = QualificationType.list()
-                render template: 'qualificationTypesList', model: [qualificationTypes: qualificationTypes]
+
+            }
+            else{
+                flash.error = 'Something went wrong'
             }
         }
         catch(QualificationTypeException qte){
             flash.error = qte.message
         }
+        def qualificationTypes = QualificationType.list()
+        render template: 'qualificationTypesList', model: [qualificationTypes: qualificationTypes]
     }
     def addModuleType(String type){
         def moduleType
@@ -44,13 +48,13 @@ class ConfigController {
             moduleType = moduleTypeService.createModuleType(params.type)
             if(moduleType.save()){
                 flash.message = message(code: 'default.created.moduleType.message', args:[params.type])
-                def moduleTypes = ModuleType.list()
-                render template: 'moduleTypesList', model: [moduleTypes: moduleTypes]
             }
         }
         catch(ModuleTypeException mte){
             flash.error = mte.message
         }
+        def moduleTypes = ModuleType.list()
+        render template: 'moduleTypesList', model: [moduleTypes: moduleTypes]
     }
     def addConnectionType(String type){
         def connectionType
@@ -58,13 +62,13 @@ class ConfigController {
             connectionType = connectionTypeService.createConnectionType(params.type)
             if(connectionType.save()){
                 flash.message = message(code: 'default.created.connectionType.message', args:[params.type])
-                def connectionTypes = ConnectionType.list()
-                render template: 'connectionTypesList', model: [connectionTypes: connectionTypes]
             }
         }
         catch(ConnectionTypeException cte){
             flash.error = cte.message
         }
+        def connectionTypes = ConnectionType.list()
+        render template: 'connectionTypesList', model: [connectionTypes: connectionTypes]
     }
     def addDataCategory(String category){
         def dataCategory
@@ -72,13 +76,13 @@ class ConfigController {
             dataCategory = dataCategoryService.createDataCategory(params.category)
             if(dataCategory.save()){
                 flash.message = message(code: 'default.created.dataCategory.message', args:[params.category])
-                def dataCategories = DataCategory.list()
-                render template: 'dataCategoriesList', model: [dataCategories: dataCategories]
             }
         }
         catch(DataCategoryException dce){
             flash.error = dce.message
         }
+        def dataCategories = DataCategory.list()
+        render template: 'dataCategoriesList', model: [dataCategories: dataCategories]
     }
     def addComputerRole(String role){
         def computerRole
@@ -86,13 +90,12 @@ class ConfigController {
             computerRole = computerRoleService.createComputerRole(params.role)
             if(computerRole.save()){
                 flash.message = message(code: 'default.created.computerRole.message', args:[params.role])
-                def computerRoles = ComputerRole.list()
-                render template: "computerRolesList", model: [computerRoles: computerRoles]
             }
         }
         catch(ComputerRoleException cre){
             flash.error = cre.message
         }
-
+        def computerRoles = ComputerRole.list()
+        render template: "computerRolesList", model: [computerRoles: computerRoles]
     }
 }
