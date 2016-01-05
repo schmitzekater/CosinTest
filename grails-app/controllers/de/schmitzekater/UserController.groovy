@@ -13,6 +13,10 @@ class UserController {
     def index() {
         redirect action: list(), params: params
     }
+
+    def show(){
+        redirect action: 'detail', params: params
+    }
     def changePassword(User user, String oldPw, String newPw){
         if(oldPw != newPw){
             println("Condition met")
@@ -86,6 +90,7 @@ class UserController {
         def user = User.findById(params.id)
         render view: "/layouts/detail", model: [user: user]
     }
+
 
     def update() {
 

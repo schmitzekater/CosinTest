@@ -7,6 +7,9 @@ class Computer {
     static hasOne = [computerVendor: Vendor, computerLocation: Location, computerRole: ComputerRole]
     static hasMany = [installedSoftware: Software]
     static belongsTo = [system: System]
+  /*  static mapping = {
+        system joinTable: [name: 'mm_system_computer', key: 'mm_computer_id']
+    }*/
     static constraints = {
         computerName blank: false, maxSize: 50
         computerVendor nullable: true
@@ -26,3 +29,6 @@ class Computer {
     }
 
 }
+
+class Client extends Computer{}
+class Server extends Computer{}

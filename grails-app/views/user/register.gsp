@@ -16,53 +16,86 @@
 
 <body role="document">
     <!-- Main Block start -->
-        <div id="create-User" class="col-md-6" role="main">
+        <div id="create-User"  role="main">
             <h1><g:message code="default.create.label" args="[entityName]"/></h1>
 
-        <!-- main content for page -->
-            <g:form action="register" controller="user">
+        <g:form action="register" controller="user">
+            <table class="table-striped table-condensed"
                 <fieldset class="form">
-
-                    <div class="fieldcontain required-indicator">
-                        <label for="userId">UserId</label>
-                        <g:textField name="userId" value="${user.userId}"/>
-                    </div>
-                    <div class="fieldcontain required-indicator">
-                        <label for="password">Password</label>
-                        <g:textField name="password" value="${user?.password}"/>
-                    </div>
-                    <div class="fieldcontain required-indicator">
-                        <label for="passwordRepeat">Password Repeat</label>
-                        <g:passwordField name="passwordRepeat" value="${user?.passwordRepeat}"/>
-                    </div>
-
-                    <div class="fieldcontain required-indicator">
-                        <label for="signature">Signature</label>
-                        <g:textField name="signature" value="${user?.signature}"/>
-                    </div>
-                    <div class="fieldcontain required-indicator">
-                        <label for="signatureRepeat">Signature</label>
-                        <g:textField name="signatureRepeat" value="${user?.signatureRepeat}"/>
-                    </div>
-                    <div class="fieldcontain required-indicator">
-                        <label for="firstName">First Name</label>
-                        <g:textField name="firstName" value="${user?.firstName}"/>
-                    </div>
-                    <div class="fieldcontain required-indicator">
-                        <label for="lastName">Last Name</label>
-                        <g:textField name="lastName" value="${user?.lastName}"/>
-                    </div>
-
-                    <div class="fieldcontain required-indicator">
-                        <label for="email">Email</label>
-                        <g:textField name="email" value="${user?.email}"/>
-                    </div>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="userId"><g:message code="user.userId.label"/> *</label>
+                        </td>
+                        <td>
+                            <g:textField name="userId" value="${user.userId}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="password"><g:message code="user.password.label"/> *</label>
+                        </td>
+                        <td>
+                            <g:passwordField name="password" value="${user?.password}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="passwordRepeat"><g:message code="user.password.label"/> <g:message code="default.entry.repeat"/> *</label>
+                        </td>
+                        <td>
+                            <g:passwordField name="passwordRepeat" value="${user?.passwordRepeat}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="signature"><g:message code="user.signature.label"/> *</label>
+                        </td>
+                        <td>
+                            <g:textField name="signature" value="${user?.signature}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                          <label for="signatureRepeat"><g:message code="user.signature.label"/> <g:message code="default.entry.repeat"/> *</label>
+                        </td>
+                        <td>
+                            <g:textField name="signatureRepeat" value="${user?.signatureRepeat}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="firstName"><g:message code="person.firstName.label"/> *</label>
+                        </td>
+                        <td>
+                            <g:textField name="firstName" value="${user?.firstName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="lastName"><g:message code="person.lastName.label"/> *</label>
+                        </td>
+                        <td>
+                            <g:textField name="lastName" value="${user?.lastName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="control-group ${invalid ? 'error' : ''}">
+                            <label for="email"><g:message code="person.email.label"/> *</label>
+                        </td>
+                        <td>
+                            <g:textField name="email" value="${user?.email}"/>
+                        </td>
+                    </tr>
+                    <tr class="form-actions">
+                        <td colspan="2">
+                            <g:submitButton name="register" class="btn btn-primary"
+                                        value="${message(code: 'default.button.create.label', default: 'Register')}"/>
+                        </td>
+                    </tr>
                 </fieldset>
-                <div class="form-actions">
-                    <g:submitButton name="register" class="btn btn-primary"
-                                    value="${message(code: 'default.button.create.label', default: 'Register')}"/>
-                </div>
+                </table>
             </g:form>
-        </div>                                                                          <!-- Main Block end -->
+
+        </div>
 </body>
 </html>

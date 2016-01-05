@@ -8,12 +8,12 @@
 <table class="table table-striped">
     <tbody>
         <f:with bean="user">
-            <f:display property="userId"/>
-            <f:display property="signature"/>
-            <f:display property="person.email"/>
-            <f:display property="dateCreated"/>
-            <f:display property="isAdmin"/>
-            <f:display property="person"/>
+            <f:display property="userId" wrapper="detail"/>
+            <f:display property="signature" wrapper="detail/secret"/>
+            <f:display property="dateCreated" wrapper="detail/date"/>
+            <f:display property="isAdmin" wrapper="detail"/>
+            <f:display property="person" wrapper="detail/link/person"/>
+            <f:display property="lastPasswordChange" wrapper="detail/date"/>
         </f:with>
     </tbody>
 </table>

@@ -19,18 +19,21 @@
         <g:form controller="Software" action="update" method="PUT">
             <g:hiddenField name="id" value="${software.id}"/>
             <fieldset class="form">
-                <f:with bean="software">
-                    <f:field property="softwareName"/>
-                    <f:field property="softwareVersion"/>
-                    <f:field property="softwareVendor"/>
-                    <f:field property="system"/>
-                </f:with>
+                <table class="table-condensed table-striped">
+                    <f:with bean="software">
+                        <f:field property="softwareName" wrapper="edit/table"/>
+                        <f:field property="softwareVersion" wrapper="edit/table"/>
+                        <f:field property="softwareVendor" wrapper="edit/table"/>
+                        <f:field property="system" wrapper="edit/table"/>
+                    </f:with>
+                </table>
             </fieldset>
             <fieldset class="buttons">
                 <input class="save" action="update" type="submit"
                        value="${message(code: 'default.button.update.label', default: 'Update')}"/>
             </fieldset>
         </g:form>
+        <g:render template="/layouts/addQualification"/>
     </div>
 </body>
 </html>

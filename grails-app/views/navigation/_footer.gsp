@@ -1,4 +1,4 @@
-<div class="footer">
+<div class="footer navbar-fixed-bottom">
     <div class="container">
         <ul class="nav nav-tabs nav-justified">
             <li class="${controllerName == null ? 'active' : ''}">

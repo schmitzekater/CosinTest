@@ -9,14 +9,14 @@
 <html>
     <head>
         <g:set var="entityName" value="${controllerName.capitalize()}"/>
-        <title><g:message code="default.show.label" args="[entityName]"/></title>
+        <title><g:message code="default.detail.label" args="[entityName]"/></title>
         <meta name="layout" content="main" />
     </head>
 
     <body role="document">
         <!-- Main Block start -->
         <div id="detail-${entityName}" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]"/></h1>
+            <h1><g:message code="default.detail.label" args="[entityName]"/></h1>
             <!-- main content for page -->
             <g:render template="${controllerName}Detail" />
         </div>

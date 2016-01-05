@@ -8,11 +8,12 @@
 
     <tbody>
         <f:with bean="system">
-            <f:display property="systemName"/>
-            <f:display property="systemDepartment"/>
-            <f:display property="systemOwner"/>
-            <f:display property="processOwner"/>
-            <f:display property="area"/>
+            <f:display property="systemName" wrapper="detail"/>
+            <f:display property="systemDepartment" wrapper="detail/link/department"/>
+            <f:display property="systemOwner" wrapper="detail/link/person"/>
+            <f:display property="processOwner" wrapper="detail/link/person"/>
+            <f:display property="area" wrapper="detail"/>
+            <f:display property="systemDataCategory" wrapper="detail"/>
         </f:with>
     </tbody>
 </table>
@@ -26,10 +27,12 @@
 <g:if test="${controllerName.compareToIgnoreCase('system')==0}">
     <%-- Get the software of the system --%>
     <h3><g:message code="software.label"/></h3>
-    <g:render template="/software/softwareList"/>
+    <g:render template="/software/softwareList"  model="[model: system.software]"/>
+    <g:render template="/layouts/addSoftware"/>
     <%-- Get the computers of the system --%>
     <h3><g:message code="system.servers.label"/></h3>
     <g:render template="/computer/computerList" model="${[model: system.servers]}"/>
     <h3><g:message code="system.clients.label"/></h3>
     <g:render template="/computer/computerList" model="${[model: system.clients]}"/>
+    <g:render template="/layouts/addComputer"/>
 </g:if>

@@ -1,3 +1,3 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<!-- Template: /user/list/password/_displayWrapper.gsp -->
+<!-- Template: /_fields/list/secret/_displayWrapper.gsp -->
 <td>*****</td>

@@ -115,9 +115,9 @@ class BootStrap {
 
     def createComputers() {
         println("Creating Computers")
-        def serverOne = new Computer(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'), computerRole: ComputerRole.findByRole("Fileserver"))
-        def clientOne = new Computer(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'), computerRole: ComputerRole.findByRole("Client"))
-        def clientOffice = new Computer(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'), computerRole: ComputerRole.findByRole("Client"))
+        def serverOne = new Server(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'), computerRole: ComputerRole.findByRole("Fileserver"))
+        def clientOne = new Client(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'), computerRole: ComputerRole.findByRole("Client"))
+        def clientOffice = new Client(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'), computerRole: ComputerRole.findByRole("Client"))
         serverOne.save(failOnError: true)
         clientOne.save(failOnError: true)
         clientOffice.save(failOnError: true)

@@ -7,13 +7,16 @@ class System {
     boolean isActive
     Blob dataFlow
     Date retirementDate // TODO Set it manually
-    //enum area   {GCP, GLP, GMP}
     String area
 
 
     static belongsTo = [systemDepartment: Department, systemOwner: Person, processOwner: Person]
-    static hasMany = [units: Unit, software: Software, servers: Computer, clients: Computer, systemOwner: Person, processOwner: Person]
+    static hasMany = [units: Unit, software: Software, servers: Server, clients: Client, systemOwner: Person, processOwner: Person]
     static hasOne = [systemDataCategory: DataCategory]
+    /*static mapping = {
+        servers joinTable: [name: 'mm_system_computer', key: 'mm_system_id']
+        clients joinTable: [name: 'mm_system_computer', key: 'mm_system_id']
+    }*/
     static auditable = true
 
     static constraints = {

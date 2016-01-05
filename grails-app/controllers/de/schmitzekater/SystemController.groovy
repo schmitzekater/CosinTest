@@ -8,6 +8,10 @@ class SystemController {
         redirect action: list(), params: params
     }
 
+    def show(){
+        redirect action: 'detail', params: params
+    }
+
     def list() {
         if(!params.max) params.max = 10
         def systems = System.list(params)
@@ -16,6 +20,7 @@ class SystemController {
 
     def create() {
         def system = new System(params)
+        system.isActive = true
         if (system.validate()){
             system.save(failOnError: true)
            flash.message = message(code: 'default.created.message', args: ['System', system.systemName])
@@ -23,6 +28,36 @@ class SystemController {
         } else {
             flash.message = message(code: 'default.not.created.message', args:['System', system.systemName])
             logger.error('System could not be created')
+        }
+
+    }
+
+    def addSoftware(){
+        def software = Software.get(params.software)
+        def system = System.get(params.id)
+        system.addToSoftware(software)
+        redirect action: 'show', id: system.id
+    }
+
+    def addComputer(){
+        try{
+            //TODO: Wenn eins nicht kommt, kein Ding, lass es aus
+            def system = System.get(params.id)
+            def server = Server.get(params.server)
+            def client = Client.get(params.client)
+            if(server)
+            {
+                system.addToServers(server)
+            }
+            if(client)
+            {
+                system.addToClients(client)
+            }
+            redirect action: 'show', id: system.id
+        }
+        catch(Exception ne){
+            flash.error = message(code: 'error.not.updated.message', args: ['System', 'Invalid Computer'])
+            redirect action:'show'
         }
 
     }

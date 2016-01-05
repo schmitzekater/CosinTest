@@ -7,7 +7,9 @@
         <g:sortableColumn property="softwareVersion" title="${message(code: 'software.softwareVersion.label', default: 'Version')}"/>
         <g:sortableColumn property="softwareVendor" title="${message(code: 'vendor.vendorName.label', default: 'Vendor')}"/>
         <g:sortableColumn property="system" title="${message(code: 'system.systemName.label', default: 'System')}" />
-        <td><g:message code= 'action.label'/></td>
+        <g:if test="${controllerName.compareToIgnoreCase('Software')==0}">
+            <td><g:message code= 'action.label'/></td>
+        </g:if>
     </tr>
     </thead>
     <tbody>
@@ -28,3 +30,4 @@
     </g:each>
     </tbody>
 </table>
+<g:render template="/layouts/addPaginateButtons"/>
