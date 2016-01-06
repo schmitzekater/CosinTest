@@ -1,0 +1,24 @@
+<%@ page import="de.schmitzekater.*" %>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <g:sortableColumn property="id" title="${message(code: 'default.id.label', default:'Id')}" />
+        <g:sortableColumn property="departmentName" title="${message(code: 'department.departmentName.label', default:'Department')}" />
+        <g:sortableColumn property="supervisor" title="${message(code: 'department.supervisor.label', default:'Supervisor')}" />
+        <td><g:message code= 'action.label'/></td>
+    </tr>
+    </thead>
+    <tbody>
+    <g:each var="department" in="${model}">
+       <tr>
+            <f:with bean="${department}">
+                <f:display property="id" wrapper="list"/>
+                <f:display property="departmentName" wrapper="list"/>
+                <f:display property="supervisor" wrapper="list/link" widget="edit/queries/person/supervisor"/>
+            </f:with>
+           <g:render template="/layouts/editInfoButtons" model="[model: department]"/>
+        </tr>
+    </g:each>
+    </tbody>
+</table>
+<g:render template="/layouts/addPaginateButtons"/>

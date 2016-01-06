@@ -10,4 +10,22 @@ class DepartmentController {
         def departments = Department.list(params)
         render view:"/layouts/list", model: [model: departments, count: Department.count]
     }
+
+    def createDepartment(){
+        def department = new Department(params)
+        if(department.validate()){
+            department.save(failOnError: true)
+            flash.message = message(code: 'default.created.message', args: ['Department', department.departmentName])
+            redirect(action: 'list')
+        }
+    }
+
+    def show(){
+        redirect action: 'detail', params: params
+    }
+
+    def detail(){
+        def department = Department.findById(params.id)
+        render view: "/layouts/detail", model: [department: department]
+    }
 }
