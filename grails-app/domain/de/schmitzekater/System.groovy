@@ -2,7 +2,8 @@ package de.schmitzekater
 
 import java.sql.Blob
 
-class System {
+class System implements Serializable{
+    private static final long serialVersionUID = 1
     String systemName
     boolean isActive
     Blob dataFlow
@@ -11,12 +12,9 @@ class System {
 
 
     static belongsTo = [systemDepartment: Department, systemOwner: Person, processOwner: Person]
-    static hasMany = [units: Unit, software: Software, servers: Server, clients: Client, systemOwner: Person, processOwner: Person]
+    static hasMany = [units: Unit, software: Software, systemOwner: Person, processOwner: Person]
     static hasOne = [systemDataCategory: DataCategory]
-    /*static mapping = {
-        servers joinTable: [name: 'mm_system_computer', key: 'mm_system_id']
-        clients joinTable: [name: 'mm_system_computer', key: 'mm_system_id']
-    }*/
+
     static auditable = true
 
     static constraints = {
@@ -29,10 +27,7 @@ class System {
         systemDataCategory nullable: true
         area nullable: false, inList: ["GCP", "GLP", "GMP"]
         software nullable: true
-        servers nullable: true
-        clients nullable: true
         retirementDate nullable: true, display: false
-
     }
 
     String getDisplayString() {
@@ -43,4 +38,13 @@ class System {
         getDisplayString()
     }
 
+    /**
+     * Angelehnt an Spring security Plugin (Verbindung System / Computer / Computerrolle)
+     */
+    Set<Computer> getComputer(){
+        SystemRole.findAllBySystem(this)*.computer
+    }
+    Set<SystemRole> getSystemRole(){
+        SystemRole.findAllBySystem(this)
+    }
 }

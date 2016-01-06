@@ -1,23 +1,21 @@
 package de.schmitzekater
 
 
-class Computer {
+class Computer implements Serializable{
+    private static final long serialVersionUID = 1
+
     String computerName
 
-    static hasOne = [computerVendor: Vendor, computerLocation: Location, computerRole: ComputerRole]
+    static hasOne = [computerVendor: Vendor, computerLocation: Location]
     static hasMany = [installedSoftware: Software]
-    static belongsTo = [system: System]
-  /*  static mapping = {
-        system joinTable: [name: 'mm_system_computer', key: 'mm_computer_id']
-    }*/
+    static mapping = {
+        computerVendor sort: 'name', order: 'asc'
+    }
     static constraints = {
-        computerName blank: false, maxSize: 50
+        computerName blank: false, maxSize: 50, unique: true
         computerVendor nullable: true
         computerLocation nullable: true
-        computerRole nullable: true
         installedSoftware nullable: true
-        //unit nullable: true
-        system nullable: true
     }
 
     String getDisplayString() {
@@ -27,8 +25,12 @@ class Computer {
     String toString() {
         getDisplayString()
     }
+    Set<SystemRole> getSystemRoles(){
+        SystemRole.findAllByComputer(this)
+    }
+    Set<SystemRole> getSystemRolesBySystem(System system){
+        SystemRole.findAllByComputerAndSystem(this, system)
+    }
 
 }
 
-class Client extends Computer{}
-class Server extends Computer{}

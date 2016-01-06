@@ -6,7 +6,7 @@ class ComputerRole {
     static hasMany = [computer: Computer]
     static constraints = {
         computer nullable: true
-        role blank: false, unique: true
+        role blank: false
     }
 
     public ComputerRole(String role) {
