@@ -1,3 +1,4 @@
+<%@ page import="de.schmitzekater.SystemRole" %>
 <%--
   Created by IntelliJ IDEA.
   User: Alexander
@@ -30,9 +31,7 @@
     <g:render template="/software/softwareList"  model="[model: system.software]"/>
     <g:render template="/layouts/addSoftware"/>
     <%-- Get the computers of the system --%>
-    <h3><g:message code="system.servers.label"/></h3>
-    <g:render template="/computer/computerList" model="${[model: system.servers]}"/>
-    <h3><g:message code="system.clients.label"/></h3>
-    <g:render template="/computer/computerList" model="${[model: system.clients]}"/>
-    <g:render template="/layouts/addComputer"/>
+    <h3><g:message code="computer.label"/></h3>
+    <g:render template="/computer/computerList" model="${[model: system.getComputer()]}"/>
+    <g:render template="/layouts/addComputer" />
 </g:if>

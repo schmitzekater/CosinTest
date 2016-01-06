@@ -1,7 +1,7 @@
-<!-- Template: /system/list/department/_display.gsp -->
+<!-- Template: /_fields/list/link/user/_displayWrapper.gsp -->
 <td>
     <g:if test="${value}">
-        <g:link controller="Department" action="detail" id="${value.id}">
+        <g:link controller="user" action="detail" id="${value.id}">
             ${value.getDisplayString()}
         </g:link>
     </g:if>

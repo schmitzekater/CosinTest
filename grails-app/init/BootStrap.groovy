@@ -32,12 +32,17 @@ class BootStrap {
         println "Found Empower: "+empower.getDisplayString()
         def serverOne = Computer.findByComputerName("NUCRODATA")
         def clientOne = Computer.findByComputerName("PC1234")
-        analyst.addToServers(serverOne)
-        analyst.addToClients(clientOne)
+        ComputerRole server = ComputerRole.findByRole("Fileserver")
+        ComputerRole dbserver = ComputerRole.findByRole("Database Server")
+        ComputerRole client = ComputerRole.findByRole("Acquisition Client")
+        def firstRole = SystemRole.create(serverOne, analyst, server, true)
+        def secondRole = SystemRole.create(clientOne, analyst, client, true)
+        def thirdRole = SystemRole.create(serverOne, analyst, dbserver, true )
         serverOne.addToInstalledSoftware(analystSW)
         clientOne.addToInstalledSoftware(analystSW)
         analystSW.addToQualifications(Qualification.findById(1))
-        println "System $analyst.systemName has ${analyst.clients.size()} clients and ${analyst.servers.size()} servers"
+        println "${SystemRole.count()} System Roles created."
+        println "System $analyst.systemName has ${analyst.getComputer().size()} Computer"
     }
 
     def createModules(){
@@ -115,9 +120,9 @@ class BootStrap {
 
     def createComputers() {
         println("Creating Computers")
-        def serverOne = new Server(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'), computerRole: ComputerRole.findByRole("Fileserver"))
-        def clientOne = new Client(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'), computerRole: ComputerRole.findByRole("Client"))
-        def clientOffice = new Client(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'), computerRole: ComputerRole.findByRole("Client"))
+        def serverOne = new Computer(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'))//, computerRole: ComputerRole.findByRole("Fileserver"))
+        def clientOne = new Computer(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'))//, computerRole: ComputerRole.findByRole("Client"))
+        def clientOffice = new Computer(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'))//, computerRole: ComputerRole.findByRole("Client"))
         serverOne.save(failOnError: true)
         clientOne.save(failOnError: true)
         clientOffice.save(failOnError: true)

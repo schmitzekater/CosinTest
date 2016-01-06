@@ -16,9 +16,4 @@ class UserService {
         else throw new UserException(message: "Ungültiger User", user: user)
     }
 
-
-
-    def serviceMethod() {
-
-    }
 }

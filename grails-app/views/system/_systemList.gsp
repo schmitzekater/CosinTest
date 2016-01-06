@@ -7,6 +7,10 @@
         <g:sortableColumn property="systemDepartment" title="${message(code: 'department.departmentName.label', default:'Department')}" />
         <g:sortableColumn property="systemOwner" title="${message(code: 'system.systemOwner.label', default:'System Owner')}" />
         <g:sortableColumn property="processOwner" title="${message(code: 'system.processOwner.label', default:'System Owner')}" />
+        <g:sortableColumn property="systemDataCategory" title="${message(code: 'system.dataCategory.label', default:'Data Category')}" />
+        <td><b><g:message code="computer.label"/></b></td>
+        <td><b><g:message code="unit.label"/></b></td>
+        <td><b><g:message code="software.label"/></b></td>
         <td><g:message code= 'action.label'/></td>
     </tr>
     </thead>
@@ -19,6 +23,10 @@
                 <f:display property="systemDepartment" wrapper="list/link"/>
                 <f:display property="systemOwner" wrapper="list/link"/>
                 <f:display property="processOwner" wrapper="list/link"/>
+                <f:display property="systemDataCategory" wrapper="list"/>
+                <td>${system.computer.size()}</td>
+                <td>${system.units.size()}</td>
+                <td>${system.software.size()}</td>
             </f:with>
            <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
         </tr>

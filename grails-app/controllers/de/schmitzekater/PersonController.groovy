@@ -8,6 +8,10 @@ class PersonController {
         redirect action: 'list', params: params
     }
 
+    def show(){
+        redirect action: 'detail', params: params
+    }
+
     def list(){
         if(!params.max) params.max = 10
         def persons = Person.list(params)
@@ -22,6 +26,7 @@ class PersonController {
             redirect(action: 'details', params: person.id)
         } catch (PersonException pe) {
             flash.message = pe.message
+            redirect(action: 'create')
         }
         if(!person){
 

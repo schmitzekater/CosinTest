@@ -3,6 +3,7 @@ package de.schmitzekater
 class SystemController {
     static scaffold = System
     static defaultAction = "list"
+    def systemRoleService
 
     def index() {
         redirect action: list(), params: params
@@ -18,7 +19,7 @@ class SystemController {
         render view:"/layouts/list", model: [model:systems, count: System.count]
     }
 
-    def create() {
+    def createSystem() {
         def system = new System(params)
         system.isActive = true
         if (system.validate()){
@@ -40,32 +41,21 @@ class SystemController {
     }
 
     def addComputer(){
-        try{
-            //TODO: Wenn eins nicht kommt, kein Ding, lass es aus
-            def system = System.get(params.id)
-            def server = Server.get(params.server)
-            def client = Client.get(params.client)
-            if(server)
-            {
-                system.addToServers(server)
-            }
-            if(client)
-            {
-                system.addToClients(client)
-            }
-            redirect action: 'show', id: system.id
-        }
-        catch(Exception ne){
-            flash.error = message(code: 'error.not.updated.message', args: ['System', 'Invalid Computer'])
-            redirect action:'show'
-        }
+        def system = System.get(params.id)
+        def computer = Computer.get(params.computer)
+        def computerRole = ComputerRole.get(params.computerRole)
+        def systemRole = systemRoleService.createSystemRole(computer, system, computerRole)
+        redirect action: 'show', id: params.id
+    }
 
+    def addUnit(){
+        def unit = Unit.get(params.unit)
+        def system = System.get(params.id)
+        system.addToUnits(unit)
+        redirect action: 'show', id: system.id
     }
 
     def update() {
-        params.each { name, value ->
-            println("Name: " + name + " Value: " + value)
-        }
         def system = System.findById(params['id'])
 
         if (system) {

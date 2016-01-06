@@ -11,4 +11,11 @@ class UnitController {
         def units = Unit.list(params)
         render view: "/layouts/list", model: [model: units, count: Unit.count()]
     }
+
+    def addModule(){
+        def module = Module.get(params.module)
+        def unit = Unit.get(params.id)
+        unit.addToModules(module)
+        redirect action: 'show', id: module.id
+    }
 }

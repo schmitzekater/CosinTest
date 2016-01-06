@@ -10,6 +10,9 @@ class Vendor {
         module nullable: true
         software nullable: true
     }
+    static mapping = {
+        sort name: "asc"
+    }
 
     String getDisplayString() {
         return name
