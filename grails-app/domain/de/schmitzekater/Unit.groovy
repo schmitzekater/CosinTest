@@ -10,7 +10,8 @@ class Unit {
         //computer nullable: true
         modules nullable: true
         location nullable: true
-        unitName blank: false, maxSize: 50
+        system nullable: true
+        unitName blank: false, maxSize: 50, unique: true
     }
 
     String getDisplayString() {

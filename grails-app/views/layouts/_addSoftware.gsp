@@ -7,8 +7,7 @@
         <fieldset>
             <f:field property="software" wrapper="edit" widget="detail/select/software"/>
             <input class="save btn btn-primary" action="addSoftware" type="submit"
-                   value="${message(code: 'default.button.add.label', default: 'Add')}"/>
+                   value="${message(code: 'default.button.add.label', default: 'Add')}" title="${message(code: 'button.add.title', default: 'Add')}"/>
         </fieldset>
-
     </g:form>
 </div>

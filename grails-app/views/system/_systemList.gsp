@@ -11,7 +11,9 @@
         <td><b><g:message code="computer.label"/></b></td>
         <td><b><g:message code="unit.label"/></b></td>
         <td><b><g:message code="software.label"/></b></td>
-        <td><g:message code= 'action.label'/></td>
+        <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
+            <td><g:message code= 'action.label'/></td>
+        </g:if>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +30,9 @@
                 <td>${system.units.size()}</td>
                 <td>${system.software.size()}</td>
             </f:with>
-           <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
+           <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
+               <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
+           </g:if>
         </tr>
     </g:each>
     </tbody>

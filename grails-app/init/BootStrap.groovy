@@ -17,6 +17,7 @@ class BootStrap {
                 if (!Qualification.count()) createQualifications()
                 if (!ModuleType.count()) createModuleTypes()
                 if (!Module.count()) createModules()
+                if (!Unit.count()) createUnits()
                 if (!DataCategory.count()) createDataCategories()
                 if (!ConnectionType.count()) createConnectionTypes()
                 createBindings()
@@ -44,10 +45,17 @@ class BootStrap {
         println "${SystemRole.count()} System Roles created."
         println "System $analyst.systemName has ${analyst.getComputer().size()} Computer"
     }
+    def createUnits(){
+        println "Creating Units"
+        def unit = new Unit(unitName: "LCMS01", system: System.findBySystemName("Analyst"))
+        unit.save(failOnError: true)
+        unit.addToModules(Module.findByModuleName('AS-12'))
+        println "Created "+Unit.count()+" Units"
+    }
 
     def createModules(){
         println "Creating Modules"
-        def sampler = new Module(moduleSerial: 'AS0815', moduleName: 'AS-12', moduleModel: 'CTC PAL xT', moduleType: ModuleType.findByModuleType('Autosampler'), moduleConnection: ConnectionType.findByConnection('Serial'), moduleFirmware: '4.0.2', needsCalibration: true, calibInterval: 2, calibPeriod: 'W')
+        def sampler = new Module(moduleSerial: 'AS0815', moduleName: 'AS-12', moduleModel: 'CTC PAL xT', moduleType: ModuleType.findByModuleType('Autosampler'), moduleConnection: ConnectionType.findByConnection('Serial'), moduleFirmware: '4.0.2', needsCalibration: true, calibInterval: 2, calibPeriod: 'Weeks')
         def pump = new Module(moduleSerial: 'G13289', moduleName: 'Pump-26', moduleModel: 'G1260', moduleType: ModuleType.findByModuleType('Unary LC Pump'), moduleConnection: ConnectionType.findByConnection('Ethernet'), moduleFirmware: 'A55.1', needsCalibration: false)
         pump.save(failOnError: true)
         sampler.save(failOnError: true)

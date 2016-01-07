@@ -1,5 +1,7 @@
 package de.schmitzekater
-import org.springframework.context.i18n.LocaleContextHolder as LCH
+
+import java.text.SimpleDateFormat
+
 
 class Module extends QualifiableObject{
     String moduleName
@@ -36,7 +38,7 @@ class Module extends QualifiableObject{
         lastCalibration nullable: true
         nextCalibration nullable: true
         calibInterval nullable: true, min: 0, max: 365
-        calibPeriod nullable: true, inList: ['D', 'W', 'M', 'Y']
+        calibPeriod nullable: true, inList: ['Days', 'Weeks', 'Month', 'Years']
     }
 
     String getDisplayString(){
@@ -50,31 +52,29 @@ class Module extends QualifiableObject{
         return calibPeriod
     }
     def setNextCalibration(){
-        int days
+        Calendar c = Calendar.getInstance()
+        c.setTime(lastCalibration)
         switch (calibPeriod){
-            case('D'): days = 1
+            case('Days'): c.add(Calendar.DATE,calibInterval)
                 break
-            case('W'): days = 7
+            case('Weeks'): c.add(Calendar.DATE, calibInterval*7)
                 break
-            case('M'): days = 30
+            case('Month'): c.add(Calendar.MONTH, calibInterval)
                 break
-            case('Y'): days = 365
+            case('Years'): c.add(Calendar.YEAR, calibInterval)
                 break
         }
-        /**
-         * TODO: Fix monthly values and regard leap-years
-         */
-        nextCalibration = lastCalibration + (days*calibInterval)
+        nextCalibration = c.getTime()
     }
     String getCalibrationDisplayString(){
-        if(calibInterval == 1 && calibPeriod == 'D') return 'daily'
-        if(calibInterval == 1 && calibPeriod == 'W') return 'weekly'
-        if(calibInterval == 1 && calibPeriod == 'M') return 'monthly'
-        if(calibInterval == 1 && calibPeriod == 'Y') return 'yearly'
-        if(calibInterval > 1 && calibPeriod == 'D') return calibInterval + ' Days'
-        if(calibInterval > 1 && calibPeriod == 'W') return calibInterval + ' Weeks'
-        if(calibInterval > 1 && calibPeriod == 'M') return calibInterval + ' Months'
-        if(calibInterval > 1 && calibPeriod == 'Y') return calibInterval + ' Years'
+        if(calibInterval == 1 && calibPeriod == 'Days') return 'daily'
+        if(calibInterval == 1 && calibPeriod == 'Weeks') return 'weekly'
+        if(calibInterval == 1 && calibPeriod == 'Month') return 'monthly'
+        if(calibInterval == 1 && calibPeriod == 'Years') return 'yearly'
+        if(calibInterval > 1 && calibPeriod == 'Days') return calibInterval + ' Days'
+        if(calibInterval > 1 && calibPeriod == 'Weeks') return calibInterval + ' Weeks'
+        if(calibInterval > 1 && calibPeriod == 'Month') return calibInterval + ' Months'
+        if(calibInterval > 1 && calibPeriod == 'Years') return calibInterval + ' Years'
     }
 
     def beforeUpdate(){
@@ -104,7 +104,7 @@ class Module extends QualifiableObject{
             Inspired by: http://stackoverflow.com/questions/30623429/grails-how-to-use-exists-notexists-within-createcriteria
          */
         createCriteria().list() {
-            sqlRestriction('not exists (select 1 from Module m inner join Unit u on m.id = u.module_id where u.module_id = this_.id) ')
+            sqlRestriction('not exists (select 1 from Module m inner join Unit u on u.id = m.unit_id where m.id = this_.id) ')
         }
     }
 }

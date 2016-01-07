@@ -14,20 +14,30 @@
 </head>
 
 <body role="document">
-    <div id="edit-${controllerName}" class="col-md-6" role="main">
-        <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
-        <g:form controller="Module" action="update" method="PUT">
-            <g:hiddenField name="id" value="${module.id}"/>
-            <fieldset class="form">
-                <f:all bean="module">
-
-                </f:all>
-            </fieldset>
-            <fieldset class="buttons">
-                <input class="save" action="update" type="submit"
-                       value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-            </fieldset>
-        </g:form>
-    </div>
+    <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
+    <g:form controller="module" action="update" method="PUT">
+        <g:hiddenField name="id" value="${module.id}"/>
+        <fieldset class="form">
+            <table class="table-condensed table-striped">
+                <f:with bean="module">
+                    <f:field property="moduleName" wrapper="edit/table"/>
+                    <f:field property="moduleSerial" wrapper="edit/table"/>
+                    <f:field property="moduleModel" wrapper="edit/table"/>
+                    <f:field property="moduleFirmware" wrapper="edit/table"/>
+                    <f:field property="moduleVendor" wrapper="edit/table"/>
+                    <f:field property="moduleType" wrapper="edit/table"/>
+                    <f:field property="moduleConnection" wrapper="edit/table"/>
+                    <f:field property="needsCalibration" wrapper="edit/table"/>
+                    <f:field property="calibInterval" wrapper="edit/table"/>
+                    <f:field property="calibPeriod" wrapper="edit/table"/>
+                    <f:field property="productiveDate" wrapper="edit/table" widget="edit/date"/>
+                </f:with>
+            </table>
+        </fieldset>
+        <fieldset class="buttons">
+            <input class="save" action="update" type="submit"
+                   value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+        </fieldset>
+    </g:form>
 </body>
 </html>

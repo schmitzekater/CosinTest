@@ -48,6 +48,13 @@ class SystemController {
         redirect action: 'show', id: params.id
     }
 
+    def removeComputer(){
+        def system = System.get(params.id)
+        def computer= Computer.get(params.computer)
+        SystemRole.remove(computer, system, true)
+        redirect action: 'detail', id: system.id
+    }
+
     def addUnit(){
         def unit = Unit.get(params.unit)
         def system = System.get(params.id)

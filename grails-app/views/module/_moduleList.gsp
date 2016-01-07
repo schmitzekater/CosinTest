@@ -8,7 +8,9 @@
         <g:sortableColumn property="moduleName" title="${message(code: 'module.moduleName.label', default: 'Name')}" />
         <g:sortableColumn property="moduleVendor" title="${message(code: 'vendor.label', default: 'Vendor')}"/>
         <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
-        <td><g:message code= 'action.label'/></td>
+        <g:if test="${controllerName.compareToIgnoreCase('Module')==0}">
+            <td><g:message code= 'action.label'/></td>
+        </g:if>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +27,15 @@
             %{--Only render the Buttons if on Module-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Module')==0}">
                 <g:render template="/layouts/editInfoButtons" model="[model: module]"/>
+            </g:if>
+            %{-- Render the remove button if on Unit controller --}%
+            <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
+                <td class="btn-group-xs">
+                    <g:form controller = "unit" id="${params.id}" params="[module: module.id]">
+                        <g:actionSubmit action="removeModule" class="btn btn-danger"
+                                        value="${message(code: 'default.button.remove.miniLabel', default: 'Remove')}"/>
+                    </g:form>
+                </td>
             </g:if>
         </tr>
     </g:each>
