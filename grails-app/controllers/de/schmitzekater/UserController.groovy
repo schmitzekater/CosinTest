@@ -1,19 +1,21 @@
 package de.schmitzekater
 
-import ch.qos.logback.classic.Level
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import grails.validation.Validateable
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured('ROLE_READ')
 class UserController {
     static scaffold = User
     static defaultAction = "list"
 
     def userService
+
+    @Secured('ROLE_READ')
     def index() {
         redirect action: list(), params: params
     }
 
+    @Secured('ROLE_READ')
     def show(){
         redirect action: 'detail', params: params
     }
@@ -35,11 +37,13 @@ class UserController {
      * Hier kann ein User aus einer bestehenden Person angelegt werden.
      * @return Neuer user
      */
+
+    @Secured('ROLE_CREATE')
     def createUser() {
         def user
         try {
             user = userService.createUser(params.userId, params.password, params.signature, params.person)
-            flash.message = message(code: 'default.created.message', args: ['User', user.userId])
+            flash.message = message(code: 'default.created.message', args: ['User', user.username])
             redirect(action: 'show', params: user.id)
         } catch (UserException ue) {
             flash.message = ue.message
@@ -54,6 +58,7 @@ class UserController {
      * @param urc die Parameter für User und Person
      * @return user
      */
+    @Secured('ROLE_ADMIN')
     def register(UserRegistrationCommand urc) {
         if (urc.hasErrors()) {
             render view: "register", model: [user: urc]
@@ -64,7 +69,7 @@ class UserController {
             user.person = new Person(urc.properties).save()
             if (user.person && user.validate() && user.save()) {
 
-                flash.message = message(code: 'default.created.message', args: ['User', user.userId])
+                flash.message = message(code: 'default.created.message', args: ['User', user.username])
                 redirect action: "list"
             } else {
                 log.debug("User konnt nicht gespeichert werden. Controller User, Action Register")
@@ -77,6 +82,7 @@ class UserController {
      * Auflistung aller user
      * @return List of user
      */
+    @Secured('ROLE_READ')
     def list() {
         if(!params.max) params.max = 10
         def users = User.list(params)
@@ -86,21 +92,22 @@ class UserController {
      * Detaillierte Ansicht eines users
      * @return Details eines Users
      */
+    @Secured('ROLE_READ')
     def detail() {
         def user = User.findById(params.id)
         render view: "/layouts/detail", model: [user: user]
     }
 
-
+    @Secured('ROLE_EDIT')
     def update() {
 
         def user = User.findById(params.id)
 
         if (user) {
-            def oldUserId = user.userId
+            def oldUserId = user.username
             user.properties = params
             if (user.save()) {
-                flash.message = message(code: 'default.updated.message', args: ['User', user.userId])
+                flash.message = message(code: 'default.updated.message', args: ['User', user.username])
                 redirect(action: "detail", id: params['id'])
             } else {
                 flash.error = message(code: 'error.not.updated.message', args: ['User', oldUserId])
@@ -117,6 +124,8 @@ class UserController {
  * UserRegistrationCommand
  * Command-Object um einen User und eine Person gleichzeitig zu erstellen.
  */
+
+@Secured('ROLE_READ')
 class UserRegistrationCommand implements Validateable {
     String userId
     String password
@@ -134,7 +143,7 @@ class UserRegistrationCommand implements Validateable {
         Password darf nicht gleich dem Usernamen sein.
         Die Signatur darf nicht gleich dem Usernamen sein.
          */
-        password size: 6..30, blank: false, nullable: false, validator: { passwd, urc -> return passwd != urc.userId }
+        password  blank: false, nullable: false, validator: { passwd, urc -> return passwd != urc.userId }
         passwordRepeat nullable: false, validator: { passwd2, urc ->
             if (passwd2 != urc.password) {
                 return 'user.rejectPassword.noMatch'

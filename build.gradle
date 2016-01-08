@@ -85,6 +85,7 @@ dependencies {
     // MongoDB Plugin for auditlogs (3.0.3 not working, 4.0.6 instead???)
     compile "org.grails.plugins:audit-logging:2.0.0-SNAPSHOT"   // Audit Plugin
     compile 'org.grails.plugins:ajax-tags:1.0.0.RC1'            // Ajax Plugin
+    compile 'org.grails.plugins:spring-security-core:3.0.2'
 
 
     runtime "org.grails.plugins:asset-pipeline"

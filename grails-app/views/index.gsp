@@ -35,7 +35,7 @@
 
             </div>
         </div>
-    <div id="home" class="col-md-6" role="home">
+    <div id="home" class="col-md-8" role="home">
 
         <div id="page-body" role="home">
             <h1>Welcome to Grails</h1>
@@ -54,7 +54,7 @@
             </div>
         </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <g:render template="/navigation/navRight"/>
             <h1 class="content-expand">Installed Plugins</h1>
             <ul class="expand-content">

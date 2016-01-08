@@ -6,7 +6,7 @@
         <g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}"/>
         <g:sortableColumn property="email" title="${message(code: 'person.email.label', default: 'Email')}"/>
         <g:sortableColumn property="department" title="${message(code: 'department.departmentName.label', default: 'Email')}"/>
-        <g:sortableColumn property="user" title="${message(code: 'user.userId.label', default: 'User ID')}"/>
+        <g:sortableColumn property="user" title="${message(code: 'user.username.label', default: 'User ID')}"/>
     </tr>
     </thead>
     <tbody>

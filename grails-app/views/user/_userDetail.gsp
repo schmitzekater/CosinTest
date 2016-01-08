@@ -8,7 +8,7 @@
 <table class="table table-striped">
     <tbody>
         <f:with bean="user">
-            <f:display property="userId" wrapper="detail"/>
+            <f:display property="username" wrapper="detail"/>
             <f:display property="signature" wrapper="detail/secret"/>
             <f:display property="dateCreated" wrapper="detail/date"/>
             <f:display property="isAdmin" wrapper="detail"/>

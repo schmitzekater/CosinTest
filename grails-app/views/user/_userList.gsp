@@ -3,7 +3,7 @@
     <thead>
     <tr>
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
-        <g:sortableColumn property="userId" title="${message(code: 'user.userId.label', default: 'User ID')}"/>
+        <g:sortableColumn property="username" title="${message(code: 'user.username.label', default: 'User ID')}"/>
         <g:sortableColumn property="password" title="${message(code:'user.password.label', default: 'Password')}"/>
         <g:sortableColumn property="signature" title="${message(code: 'user.signature.label', default: 'Signature')}"/>
         <g:sortableColumn property="person" title="${message(code:'person.label', default: 'Person')}"/>
@@ -14,7 +14,7 @@
         <tr>
             <f:with bean="${user}">
                 <f:display property="id" wrapper="list/link"/>
-                <f:display property="userId" wrapper="list"/>
+                <f:display property="username" wrapper="list"/>
                 <f:display property="password" wrapper="list/secret"/>
                 <f:display property="signature" wrapper="list/secret"/>
                 <f:display property="person" wrapper="list/link"/>

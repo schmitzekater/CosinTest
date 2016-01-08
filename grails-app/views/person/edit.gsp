@@ -9,7 +9,7 @@
 <body role="document">
 <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
 <g:form controller="person" action="update" method="PUT">
-    <g:hiddenField name="id" value="${module.id}"/>
+    <g:hiddenField name="id" value="${person.id}"/>
     <fieldset class="form">
         <table class="table-condensed table-striped">
             <f:with bean="person">

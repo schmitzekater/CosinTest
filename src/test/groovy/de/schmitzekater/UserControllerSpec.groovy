@@ -20,7 +20,7 @@ class UserControllerSpec extends Specification {
         given: "A correct user"
 
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com")
-        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), user: peterPerson)
+        def peter = new User(username: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), user: peterPerson)
 
         when: "Peter tries to change his password"
         peter.changePassword(peter, peter.getPassword(), "vielgeheimer")
@@ -56,7 +56,7 @@ class UserControllerSpec extends Specification {
         userId   | password   | passwordRepeat | signature | signatureRepeat | anticipatedValid | fieldInError      | errorCode
         "hansal" | "password" | "falsch"       | "Hanssig" | "Hanssig"       | false            | "passwordRepeat"  | "validator.invalid"
         "hansal" | "password" | "password"     | "Hanssig" | "passtnicht"    | false            | "signatureRepeat" | "validator.invalid"
-        "hans"   | "password" | "password"     | "Hanssig" | "Hanssig"       | false            | "userId"          | "size.toosmall"
+        "hans"   | "password" | "password"     | "Hanssig" | "Hanssig"       | false            | "username"          | "size.toosmall"
         "hansal" | "password" | "password"     | "Hanssig" | "Hanssig"       | true             | null              | null
     }
 }

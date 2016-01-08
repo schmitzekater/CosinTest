@@ -182,17 +182,46 @@ class BootStrap {
     }
 
     def createUsers() {
-        println("Creating Users")
-        def lisaU = new User(userId: 'lisamu', password: 'password', signature: 'lisassignature', person: Person.findByLastName('Mueller'), lastPasswordChange: new Date())
-        def berndU = new User(userId: 'berndw', password: 'password', signature: 'berndistoll', person: Person.findByLastName('Waldorf'), lastPasswordChange: new Date())
-        def hansU = new User(userId: 'hanszi', password: 'password', signature: 'Musicismylife', person: Person.findByLastName('Zimmer'), lastPasswordChange: new Date())
-        def peterU = new User(userId: 'peterh', password: 'password', signature: 'HERRMANN!', person: Person.findByLastName('Herrmann'), lastPasswordChange: new Date())
-        def ernaU = new User(userId: 'ernaka', password: 'password', signature: 'weissichnicht', person: Person.findByLastName('Kasubke'), lastPasswordChange: new Date())
+        println "Creating Users"
+        def lisaU = new User('lisamu','password', 'lisassignature', Person.findByLastName('Mueller'))
+        def berndU = new User('berndw','password', 'berndistoll',  Person.findByLastName('Waldorf'))
+        def hansU = new User( 'hanszi',  's3cre3dO',  'Musicismylife',  Person.findByLastName('Zimmer'))
+        def peterU = new User( 'peterh',  's3cre3dO',  'HERRMANN!',  Person.findByLastName('Herrmann'))
+        def ernaU = new User( 'ernaka',  's3cre3dO',  'weissichnicht',  Person.findByLastName('Kasubke'))
         lisaU.save(failOnError: true)
         berndU.save(failOnError: true)
         hansU.save(failOnError: true)
         peterU.save(failOnError: true)
         ernaU.save(failOnError: true)
+        def deleteRole = new Role('ROLE_DELETE').save()
+        def editRole = new Role('ROLE_EDIT').save()
+        def createRole = new Role('ROLE_CREATE').save()
+        def readRole = new Role('ROLE_READ').save()
+
+        def adminGroup = new RoleGroup('ROLE_ADMIN').save()
+        def superGroup = new RoleGroup('ROLE_SUPER').save()
+        def normGroup = new RoleGroup('ROLE_NORMAL').save()
+        def readGroup = new RoleGroup('ROLE_RO').save()
+        RoleGroupRole.create adminGroup, deleteRole, true
+        RoleGroupRole.create adminGroup, editRole, true
+        RoleGroupRole.create adminGroup, createRole, true
+        RoleGroupRole.create adminGroup, readRole, true
+
+        RoleGroupRole.create superGroup, editRole, true
+        RoleGroupRole.create superGroup, createRole, true
+        RoleGroupRole.create superGroup, readRole, true
+
+        RoleGroupRole.create normGroup, createRole, true
+        RoleGroupRole.create normGroup, readRole, true
+
+        RoleGroupRole.create readGroup, readRole, true
+
+        UserRoleGroup.create lisaU, adminGroup, true
+        UserRoleGroup.create berndU, superGroup, true
+        UserRoleGroup.create hansU, normGroup, true
+        UserRoleGroup.create peterU, readGroup, true
+
+
         println('Created ' + User.count() + ' user.')
     }
 

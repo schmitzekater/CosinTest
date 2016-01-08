@@ -20,14 +20,14 @@
             <h1><g:message code="default.create.label" args="[entityName]"/></h1>
 
         <g:form action="register" controller="user">
-            <table class="table-striped table-condensed"
+            <table class="table-striped table-condensed">
                 <fieldset class="form">
                     <tr>
                         <td class="control-group ${invalid ? 'error' : ''}">
-                            <label for="userId"><g:message code="user.userId.label"/> *</label>
+                            <label for="username"><g:message code="user.username.label"/> *</label>
                         </td>
                         <td>
-                            <g:textField name="userId" value="${user.userId}"/>
+                            <g:textField name="username" value="${user.username}"/>
                         </td>
                     </tr>
                     <tr>

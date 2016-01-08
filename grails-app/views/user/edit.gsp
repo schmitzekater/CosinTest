@@ -23,7 +23,7 @@
                 <fieldset class="form">
                     <table class="table-condensed table-striped">
                         <f:with bean="user">
-                            <f:field property="userId" wrapper="edit/table"/>
+                            <f:field property="username" wrapper="edit/table"/>
                             <f:field property="password" wrapper="edit/table/secret"/>
                             <f:field property="signature" wrapper="edit/table/secret"/>
                         </f:with>

@@ -14,7 +14,7 @@ class UserIntegrationSpec extends Specification {
         given: "First new User"
         def hansPerson = new Person(firstName: "Hans", lastName: "Albers", email: "hans.albers@beruehmte-saenger.de").save(failOnError: true)
        // def hansPerson = Mock(Person).save(failOnError: true)
-        def hans = new User(userId: 'hansat', password: 'secret', signature: 'signature', isAdmin: false, isReadOnly: false,
+        def hans = new User(username: 'hansat', password: 'secret', signature: 'signature', isAdmin: false, isReadOnly: false,
                 person:  hansPerson)
         hans.lastPasswordChange = new Date()
 
@@ -24,13 +24,13 @@ class UserIntegrationSpec extends Specification {
         then: "The user is saved and can be found"
         hans.errors.errorCount == 0
         hans.id != null
-        User.get(hans.id).userId == hans.userId
+        User.get(hans.id).username == hans.username
     }
 
     def "Make sure all fields are set"(){
         given: "A User with an unset field"
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com").save(failOnError: true)
-        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
+        def peter = new User(username: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
 
         when: "Peter is saved"
         peter.save()
@@ -43,7 +43,7 @@ class UserIntegrationSpec extends Specification {
     def "Change password of a user is no problem"(){
         given: "Peter is given again"
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com").save(failOnError: true)
-        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
+        def peter = new User(username: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
         peter.save()
         when: "Password is changed"
         def savedPeter = User.get(peter.id)
@@ -58,7 +58,7 @@ class UserIntegrationSpec extends Specification {
     def "Now we have enough of Peter, let's delete him"() {
         given: "Peter for the last time"
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com").save(failOnError: true)
-        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
+        def peter = new User(username: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
         peter.save()
 
         when: "Peter is deleted"
@@ -72,8 +72,8 @@ class UserIntegrationSpec extends Specification {
     def "Let's check the constraints of the Class User"(){
         given: "Lazy Peter who fails on multiple items"
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com").save(failOnError: true)
-        def peter = new User(userId: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
-        peter.userId="pete"
+        def peter = new User(username: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), person: peterPerson)
+        peter.username="pete"
         peter.password= "short"
         peter.signature="big"
         peter.save()
@@ -87,15 +87,15 @@ class UserIntegrationSpec extends Specification {
         "short" == peter.errors.getFieldError("password").rejectedValue
         "size.toosmall" == peter.errors.getFieldError("signature").code
         "big" == peter.errors.getFieldError("signature").rejectedValue
-        "size.toosmall" == peter.errors.getFieldError("userId").code
+        "size.toosmall" == peter.errors.getFieldError("username").code
         !peter.errors.getFieldError("lastPasswordChange")
     }
 
     def "Let's check if a user login might be given twice"(){
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com").save(failOnError: true)
-        def peteOne = new User(userId: "peters", password: "password", signature: "signature", isReadOnly: false, isAdmin: false, lastPasswordChange: new Date(),
+        def peteOne = new User(username: "peters", password: "password", signature: "signature", isReadOnly: false, isAdmin: false, lastPasswordChange: new Date(),
                 person: peterPerson)
-        def peteTwo = new User(userId: "peters", password: "password", signature: "signature", isReadOnly: false, isAdmin: false, lastPasswordChange: new Date(),
+        def peteTwo = new User(username: "peters", password: "password", signature: "signature", isReadOnly: false, isAdmin: false, lastPasswordChange: new Date(),
                 person: new Person(firstName: "Peter", lastName: "Panzer", email: "peter@panzer.de").save())
 
         when: "We validate the peters"
@@ -106,14 +106,14 @@ class UserIntegrationSpec extends Specification {
 
         then: "Peter 2 has errors"
         peteTwo.hasErrors()
-        peteTwo.errors.getFieldError("userId")
-        "peters" == peteTwo.errors.getFieldError("userId").rejectedValue
+        peteTwo.errors.getFieldError("username")
+        "peters" == peteTwo.errors.getFieldError("username").rejectedValue
     }
 
     def "The password must not match the userId" (){
-        given: "Peter who wants to use his userId as password"
+        given: "Peter who wants to use his username as password"
         def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com").save()
-        def peter = new User(userId: "peters", password: "peters", signature: "big", isreadOnly: false, lastPasswordChange: new Date(), person: peterPerson)
+        def peter = new User(username: "peters", password: "peters", signature: "big", isreadOnly: false, lastPasswordChange: new Date(), person: peterPerson)
 
         when: "We validate Peter"
         peter.validate()
