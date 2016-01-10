@@ -1,44 +1,101 @@
 package de.schmitzekater
 
 import grails.validation.Validateable
-import grails.plugin.springsecurity.annotation.Secured
 
-@Secured('ROLE_READ')
 class UserController {
     static scaffold = User
     static defaultAction = "list"
 
     def userService
+    def passwordEncoder
+    transient springSecurityService
 
-    @Secured('ROLE_READ')
     def index() {
         redirect action: list(), params: params
     }
 
-    @Secured('ROLE_READ')
     def show(){
         redirect action: 'detail', params: params
     }
-    def changePassword(User user, String oldPw, String newPw){
-        if(oldPw != newPw){
-            println("Condition met")
-            Date now = new Date()
-            user.setPassword(newPw)
-            user.setLastPasswordChange(now)
-
+    def editPassword(){
+        render view: 'editPassword'
+    }
+    def changeOwnPassword(){
+        User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
+        println "Current user $user"
+        params.each{ key, value ->
+            println "Key $key, Value: $value"
         }
-        else {
-            println("Error, new Password cannot be the old Password")
-            user.setErrors(new Error("Error, new Password cannot be the old Password"))
+        if(user){
+            //Check if old Password is correct
+            //CharSequence oldPw = params.oldPw
+            //if(passwordEncoder.matches( (oldPw, user.password)){ // THIS IS NOT WORKING! matches expects CharSequence and there is always a String passed !!!!!
+                //Check if newPW = newPWRepeat
+            def newPw = params.newPw
+            def newPwRepeat = params.newPwRepeat
+            if(newPw == newPwRepeat){
+                println "Checking if the new password is entered correct twice"
+               /* //If correct check if oldPW != newPW
+                newPw = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(newPw,  user.username) : newPw
+                if(newPw != oldPw) // SEE ABOVE; NOT WORKUNG
+                {*/
+                    println "All good"
+                    // If new Password is not the old password save user
+                    user.password = newPw
+                    user.passwordExpired = false
+                    user.save()
+                    flash.message = message(code: 'password.updated.message', args: [user.username])
+                    redirect action: 'list'
+                }
+                   /* else{
+                        println "Old password used again"
+                        // Old Password used
+                        user.errors.reject('user.password.oldPw', ['oldPw', 'newPw','class User'] as Object, '[Property [{0}] and propertx{1} of class [{2}] shall not be used twice]')
+                        user.errors.rejectValue('newPw', 'user.password.repeatForbid')
+                        user.errors.rejectValue('newPwRepeat', 'user.password.repeatForbid')
+                    }*/
+                //}
+                else{
+                    println "Password was not entered twice correct"
+                    // Password repeat does not match
+                    flash.error = message(code: 'error.password.repeat')
+                    redirect action: 'editPassword'
+                }
+            //}
+            /*else{
+                println "Old password false"
+                // Old Password was false
+                user.errors.reject('user.password.oldPw', 'Old PW false')
+            }*/
+        }
+
+    }
+
+    def changeUserPassword(){
+        def user = User.get(params.id)
+        if(user){
+            if(params.newPw == params.newPwRepeat){
+                user.accountExpired = false
+                user.accountLocked = false
+                user.passwordExpired = true
+                user.enabled = true
+                user.password = params.newPw
+                user.save()
+                User: user
+            }
+            else{
+                user.errors.reject('user.password.noMatchRepeat', ['newPw', 'class User'] as Object, '[Property [{0}] of class [{1}] does not match confirmation]')
+                user.errors.rejectValue('newPw', 'user.password.noMatchRepeat')
+            }
         }
     }
+
 
     /**
      * Hier kann ein User aus einer bestehenden Person angelegt werden.
      * @return Neuer user
      */
 
-    @Secured('ROLE_CREATE')
     def createUser() {
         def user
         try {
@@ -58,7 +115,6 @@ class UserController {
      * @param urc die Parameter für User und Person
      * @return user
      */
-    @Secured('ROLE_ADMIN')
     def register(UserRegistrationCommand urc) {
         if (urc.hasErrors()) {
             render view: "register", model: [user: urc]
@@ -82,7 +138,6 @@ class UserController {
      * Auflistung aller user
      * @return List of user
      */
-    @Secured('ROLE_READ')
     def list() {
         if(!params.max) params.max = 10
         def users = User.list(params)
@@ -92,17 +147,13 @@ class UserController {
      * Detaillierte Ansicht eines users
      * @return Details eines Users
      */
-    @Secured('ROLE_READ')
     def detail() {
         def user = User.findById(params.id)
         render view: "/layouts/detail", model: [user: user]
     }
 
-    @Secured('ROLE_EDIT')
     def update() {
-
         def user = User.findById(params.id)
-
         if (user) {
             def oldUserId = user.username
             user.properties = params
@@ -125,9 +176,8 @@ class UserController {
  * Command-Object um einen User und eine Person gleichzeitig zu erstellen.
  */
 
-@Secured('ROLE_READ')
 class UserRegistrationCommand implements Validateable {
-    String userId
+    String username
     String password
     String passwordRepeat
     String signature
@@ -149,7 +199,7 @@ class UserRegistrationCommand implements Validateable {
                 return 'user.rejectPassword.noMatch'
             } else return (passwd2 == urc.password)
         }
-        signature size: 6..30, blank: false, nullable: false, validator: { sig, urc -> return sig != urc.userId }
+        signature minSize: 6, blank: false, nullable: false, validator: { sig, urc -> return sig != urc.userId }
         signatureRepeat nullable: false, blank: false, validator: { sig2, urc ->
             if (sig2 != urc.signature) {
                 return 'user.rejectSignature.noMatch'

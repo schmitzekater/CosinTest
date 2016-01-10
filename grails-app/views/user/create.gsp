@@ -18,6 +18,7 @@
                     <f:field property="password" wrapper="edit/table/secret"/>
                     <f:field property="signature" wrapper="edit/table/secret"/>
                     <f:field property="person" wrapper="/edit/table" widget="edit/queries/person"/>
+                    %{-- TODO: RoleGroup hinzufügen--}%
                 </f:with>
             </table>
         </fieldset>

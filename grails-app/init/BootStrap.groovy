@@ -185,11 +185,13 @@ class BootStrap {
         println "Creating Users"
         def lisaU = new User('lisamu','password', 'lisassignature', Person.findByLastName('Mueller'))
         def berndU = new User('berndw','password', 'berndistoll',  Person.findByLastName('Waldorf'))
-        def hansU = new User( 'hanszi',  's3cre3dO',  'Musicismylife',  Person.findByLastName('Zimmer'))
-        def peterU = new User( 'peterh',  's3cre3dO',  'HERRMANN!',  Person.findByLastName('Herrmann'))
-        def ernaU = new User( 'ernaka',  's3cre3dO',  'weissichnicht',  Person.findByLastName('Kasubke'))
+        def hansU = new User( 'hanszi',  'password',  'Musicismylife',  Person.findByLastName('Zimmer'))
+        def peterU = new User( 'peterh',  'password',  'HERRMANN!',  Person.findByLastName('Herrmann'))
+        def ernaU = new User( 'ernaka',  'password',  'weissichnicht',  Person.findByLastName('Kasubke'))
+
         lisaU.save(failOnError: true)
         berndU.save(failOnError: true)
+        berndU.passwordExpired = true
         hansU.save(failOnError: true)
         peterU.save(failOnError: true)
         ernaU.save(failOnError: true)
@@ -198,10 +200,10 @@ class BootStrap {
         def createRole = new Role('ROLE_CREATE').save()
         def readRole = new Role('ROLE_READ').save()
 
-        def adminGroup = new RoleGroup('ROLE_ADMIN').save()
-        def superGroup = new RoleGroup('ROLE_SUPER').save()
-        def normGroup = new RoleGroup('ROLE_NORMAL').save()
-        def readGroup = new RoleGroup('ROLE_RO').save()
+        def adminGroup = new RoleGroup('ROLE_ADMIN', 'Administrator').save()
+        def superGroup = new RoleGroup('ROLE_SUPER', 'Superuser').save()
+        def normGroup = new RoleGroup('ROLE_NORMAL', 'User').save()
+        def readGroup = new RoleGroup('ROLE_RO', 'Read-Only').save()
         RoleGroupRole.create adminGroup, deleteRole, true
         RoleGroupRole.create adminGroup, editRole, true
         RoleGroupRole.create adminGroup, createRole, true

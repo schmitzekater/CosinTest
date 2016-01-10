@@ -6,6 +6,7 @@
         <g:sortableColumn property="username" title="${message(code: 'user.username.label', default: 'User ID')}"/>
         <g:sortableColumn property="password" title="${message(code:'user.password.label', default: 'Password')}"/>
         <g:sortableColumn property="signature" title="${message(code: 'user.signature.label', default: 'Signature')}"/>
+        <td><b><g:message code="user.roleGroup.label"/></b></td>
         <g:sortableColumn property="person" title="${message(code:'person.label', default: 'Person')}"/>
     </tr>
     </thead>
@@ -17,6 +18,11 @@
                 <f:display property="username" wrapper="list"/>
                 <f:display property="password" wrapper="list/secret"/>
                 <f:display property="signature" wrapper="list/secret"/>
+                <td>
+                    <g:each var="roleGroup" in="${user.getAuthorities()}">
+                        ${roleGroup.displayString} <br/>
+                    </g:each>
+                </td>
                 <f:display property="person" wrapper="list/link"/>
             </f:with>
             <g:render template="/layouts/editInfoButtons" model="[model: user]" />

@@ -31,5 +31,7 @@
 <h3><g:message code="qualification.list.label"/> </h3>
 %{--Display the sorted qualifications with the newest Qualification on Top--}%
 <g:render template="/layouts/listQualifications" model="[model: module.qualifications.sort { it.qualificationDate }.reverse()]"/>
-<hr/>
-<g:render template="/layouts/addQualification"/>
+<sec:ifAnyGranted roles="'ROLE_EDIT', 'ROLE_CREATE'">
+    <hr/>
+    <g:render template="/layouts/addQualification"/>
+</sec:ifAnyGranted>

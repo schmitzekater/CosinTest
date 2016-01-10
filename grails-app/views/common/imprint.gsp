@@ -23,21 +23,10 @@
 
     <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.css?compile=false"/>
     <link rel="stylesheet" href="/assets/font-awesome-all.css?compile=false"/>
-
-
-    <title>Personenliste</title>
+    <meta name="layout" content="main"/>
 </head>
 
 <body>
-<g:render template="/navigation/navMain"/>
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-
-        </div>
-
-        <div class="col-md-6"><!-- content mitte -->
-
 
             <h1>Imprint</h1>
 
@@ -64,12 +53,5 @@
             Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo</p>
         </div>
 
-        <div class="col-md-4">
-            <h2><g:message code="default.right.sidebar"/></h2>
-
-        </div>
-    </div> <!-- row -->
-</div> <!-- container -->
-<g:render template="/navigation/footer"/>
 </body>
 </html>

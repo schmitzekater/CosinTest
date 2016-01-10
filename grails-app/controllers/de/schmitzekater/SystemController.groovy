@@ -37,7 +37,13 @@ class SystemController {
         def software = Software.get(params.software)
         def system = System.get(params.id)
         system.addToSoftware(software)
-        redirect action: 'show', id: system.id
+        redirect action: 'detail', id: system.id
+    }
+    def removeSoftware(){
+        def software = Software.get(params.software)
+        def system = System.get(params.id)
+        system.removeFromSoftware(software)
+        redirect action: 'detail', id: system.id
     }
 
     def addComputer(){
@@ -45,7 +51,7 @@ class SystemController {
         def computer = Computer.get(params.computer)
         def computerRole = ComputerRole.get(params.computerRole)
         def systemRole = systemRoleService.createSystemRole(computer, system, computerRole)
-        redirect action: 'show', id: params.id
+        redirect action: 'detail', id: params.id
     }
 
     def removeComputer(){
@@ -59,7 +65,13 @@ class SystemController {
         def unit = Unit.get(params.unit)
         def system = System.get(params.id)
         system.addToUnits(unit)
-        redirect action: 'show', id: system.id
+        redirect action: 'detail', id: system.id
+    }
+    def removeUnit(){
+        def unit = Unit.get(params.unit)
+        def system = System.get(params.id)
+        system.removeFromUnits(unit)
+        redirect action: 'detail', id: system.id
     }
 
     def update() {

@@ -22,9 +22,9 @@
             <f:with bean="${system}">
                 <f:display property="id" wrapper="list"/>
                 <f:display property="systemName" wrapper="list"/>
-                <f:display property="systemDepartment" wrapper="list/link"/>
-                <f:display property="systemOwner" wrapper="list/link"/>
-                <f:display property="processOwner" wrapper="list/link"/>
+                <f:display property="systemDepartment" wrapper="list/link/department"/>
+                <f:display property="systemOwner" wrapper="list/link/person"/>
+                <f:display property="processOwner" wrapper="list/link/person"/>
                 <f:display property="systemDataCategory" wrapper="list"/>
                 <td>${system.computer.size()}</td>
                 <td>${system.units.size()}</td>

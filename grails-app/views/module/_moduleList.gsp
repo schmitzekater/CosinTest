@@ -30,12 +30,14 @@
             </g:if>
             %{-- Render the remove button if on Unit controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
-                <td class="btn-group-xs">
-                    <g:form controller = "unit" id="${params.id}" params="[module: module.id]">
-                        <g:actionSubmit action="removeModule" class="btn btn-danger"
-                                        value="${message(code: 'default.button.remove.miniLabel', default: 'Remove')}"/>
-                    </g:form>
-                </td>
+                <sec:ifAnyGranted roles="'ROLE_EDIT', 'ROLE_DELETE'">
+                    <td class="btn-group-xs">
+                        <g:form controller = "unit" id="${params.id}" params="[module: module.id]">
+                            <g:actionSubmit action="removeModule" class="btn btn-danger"
+                                            value="${message(code: 'default.button.remove.miniLabel', default: 'Remove')}"/>
+                        </g:form>
+                    </td>
+                </sec:ifAnyGranted>
             </g:if>
         </tr>
     </g:each>

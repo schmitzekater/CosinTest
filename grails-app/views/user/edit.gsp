@@ -26,6 +26,7 @@
                             <f:field property="username" wrapper="edit/table"/>
                             <f:field property="password" wrapper="edit/table/secret"/>
                             <f:field property="signature" wrapper="edit/table/secret"/>
+                            %{-- TODO: RoleGroup hinzufügen--}%
                         </f:with>
                     </table>
                 </fieldset>

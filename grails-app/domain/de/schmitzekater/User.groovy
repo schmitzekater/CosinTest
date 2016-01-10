@@ -13,16 +13,12 @@ class User implements Serializable{
     String password
     String signature
     boolean enabled = true
-    boolean accountExpired = false
-    boolean accountLocked = false
-    boolean passwordExpired = false
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
+    int falsePasswordCount = 0
 
-    User(String username, String password, String signature){
-        this()
-        this.username = username
-        this.password = password
-        this.signature = signature
-    }
+
     User(String username, String password, String signature, Person person){
         this()
         this.username = username
@@ -32,16 +28,13 @@ class User implements Serializable{
     }
 
     static transients = ['springSecurityService']
-    /*static mapping = {
-        table: '`user`'
-        password column: '`password`'
-    }*/
+
     static auditable = true
     static belongsTo = [person: Person]
     static constraints = {
         username size: 6..25,  unique: true, nullable: false
-        password blank: false, nullable: false
-        signature size: 6..30, blank: false
+        password blank: false, nullable: false, minSize: 6
+        signature minSize: 6, blank: false
         person nullable: false
     }
     String getDisplayString(){
@@ -58,7 +51,6 @@ class User implements Serializable{
     }
 
     def beforeInsert() {
-        println "Before Insert"
         encodePassword()
     }
 
@@ -69,7 +61,6 @@ class User implements Serializable{
     }
 
     protected void encodePassword() {
-        println "Encode password"
         password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
     }
 
@@ -78,7 +69,6 @@ class User implements Serializable{
     }
 
     def onSave = {
-        println "Inserting new User $username, ($password, $signature, $person.firstName, $person.lastName"
         // may optionally refer to newState map
     }
     def onDelete = {

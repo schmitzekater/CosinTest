@@ -39,12 +39,14 @@
             </g:if>
         %{-- Render the remove button if on System controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
-                <td class="btn-group-xs">
-                    <g:form controller = "system" id="${params.id}" params="[computer: computer.id]">
-                        <g:actionSubmit action="removeComputer" class="btn btn-danger"
-                                        value="${message(code: 'default.button.remove.miniLabel', default: 'Remove')}"/>
-                    </g:form>
-                </td>
+                <sec:ifAnyGranted roles="'ROLE_EDIT', 'ROLE_DELETE'">
+                    <td class="btn-group-xs">
+                        <g:form controller = "system" id="${params.id}" params="[computer: computer.id]">
+                            <g:actionSubmit action="removeComputer" class="btn btn-danger"
+                                            value="${message(code: 'default.button.remove.miniLabel', default: 'Remove')}"/>
+                        </g:form>
+                    </td>
+                </sec:ifAnyGranted>
             </g:if>
         </tr>
     </g:each>

@@ -6,6 +6,7 @@
             <div class="panel-body">
                 <p><g:message code="default.right.welcome.loggedin"/> <sec:username/></p>
                 <p><g:link controller="logout"><g:message code="default.user.logout"/></g:link></p>
+                <p><g:link  controller="user" action="editPassword" ><g:message code="edit.password.label"/></g:link></p>
                 <p><sec:access expression="hasRole('ROLE_DELETE')"> You can delete</sec:access></p>
                 <p><sec:access expression="hasRole('ROLE_CREATE')"> You can create</sec:access></p>
                 <p><sec:access expression="hasRole('ROLE_EDIT')"> You can edit</sec:access></p>

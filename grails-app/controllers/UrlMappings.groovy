@@ -10,6 +10,8 @@ class UrlMappings {
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')
-        "/common/imprint"(view: '/common/imprint')
+        "403"(view: '/accessDenied')
+        "/imprint"(view: '/common/imprint')
+        "/disclaimer"(view: '/common/disclaimer')
     }
 }

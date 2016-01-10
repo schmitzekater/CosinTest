@@ -10,10 +10,12 @@ class RoleGroup implements Serializable {
 	private static final long serialVersionUID = 1
 
 	String name
+	String displayString
 
-	RoleGroup(String name) {
+	RoleGroup(String name, String displayString) {
 		this()
 		this.name = name
+		this.displayString = displayString
 	}
 
 	Set<Role> getAuthorities() {
