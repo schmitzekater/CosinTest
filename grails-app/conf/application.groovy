@@ -1,5 +1,9 @@
 import de.schmitzekater.User
+<<<<<<< HEAD
+import de.schmitzekater.UserService
+=======
 import grails.plugin.springsecurity.userdetails.GrailsUser
+>>>>>>> master
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'de.schmitzekater.User'
@@ -61,6 +65,25 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 
+<<<<<<< HEAD
+grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
+	// handle InteractiveAuthenticationSuccessEvent
+	println "InteractiveAuthenticationSuccessEvent"
+	}
+grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx ->
+	// handle AbstractAuthenticationFailureEvent
+	println "AbstractAuthenticationFailureEvent"
+	def userService = appCtx.getBean('userService')
+	def source = e.getSource()
+	String user = source.getPrincipal()
+	println "User: "+user
+	if(user){
+
+			userService.failedLogin(user)
+
+	}
+
+=======
 /*
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
 	// handle InteractiveAuthenticationSuccessEvent
@@ -93,6 +116,7 @@ grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx 
 			println "Unsuccessful tries: $cosuser.falsePasswordCount"
 		}
 	}
+>>>>>>> master
 }
 grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 	// handle AuthenticationSuccessEvent
@@ -100,12 +124,20 @@ grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 	println "AuthenticationSuccessEvent"
 }
 grails.plugin.springsecurity.onAuthenticationSwitchUserEvent = { e, appCtx ->
+<<<<<<< HEAD
+	// handle AuthenticationSwitchUserEvent
+=======
     // handle AuthenticationSwitchUserEvent
+>>>>>>> master
 	println "AuthenticationSwitchUserEvent"
 }
 grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
 	// handle AuthorizationEvent
 	println "AuthorizationEvent"
+<<<<<<< HEAD
+}
+=======
 }
 */
 
+>>>>>>> master
