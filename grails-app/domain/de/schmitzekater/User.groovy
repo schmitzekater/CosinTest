@@ -88,5 +88,18 @@ class User implements Serializable{
         getDisplayString()
     }
 
+    def resetBadPasswordCount() {
+        falsePasswordCount = 0
+    }
+
+    def incrementBadPasswordCount() {
+        falsePasswordCount++
+        if (falsePasswordCount > 3) lockAccount()
+    }
+
+    def lockAccount() {
+        accountLocked = true
+    }
+
 
 }
