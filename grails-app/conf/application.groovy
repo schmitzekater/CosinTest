@@ -1,9 +1,5 @@
 import de.schmitzekater.User
-<<<<<<< HEAD
 import de.schmitzekater.UserService
-=======
-import grails.plugin.springsecurity.userdetails.GrailsUser
->>>>>>> master
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'de.schmitzekater.User'
@@ -65,7 +61,6 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 
-<<<<<<< HEAD
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
 	// handle InteractiveAuthenticationSuccessEvent
 	println "InteractiveAuthenticationSuccessEvent"
@@ -83,40 +78,6 @@ grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx 
 
 	}
 
-=======
-/*
-grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
-	// handle InteractiveAuthenticationSuccessEvent
-	println "InteractiveAuthenticationSuccessEvent"
-	println "AppCtx: "+appCtx.toString()
-	def source = e.getSource()
-	def user = source.getPrincipal()
-	if(user instanceof GrailsUser){
-		println "We have a grails user!!"
-		def cosuser = user as User
-		if(cosuser){
-			println "User $cosuser.username logged on successful"
-			cosuser.resetBadPasswordCount()
-		}
-	}
-	else println "User: $user.toString()"
-
-}
-grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx ->
-	// handle AbstractAuthenticationFailureEvent
-	println "AbstractAuthenticationFailureEvent"
-	def source = e.getSource()
-	def user = source.getPrincipal()
-	if(user instanceof GrailsUser){
-		println "User $user.username"
-		def cosuser = User.findByUsername(user.username)
-		if(cosuser){
-			println "User $cosuser.username tried to logon unsuccessful"
-			cosuser.incrementBadPasswordCount()
-			println "Unsuccessful tries: $cosuser.falsePasswordCount"
-		}
-	}
->>>>>>> master
 }
 grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 	// handle AuthenticationSuccessEvent
@@ -124,20 +85,10 @@ grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 	println "AuthenticationSuccessEvent"
 }
 grails.plugin.springsecurity.onAuthenticationSwitchUserEvent = { e, appCtx ->
-<<<<<<< HEAD
 	// handle AuthenticationSwitchUserEvent
-=======
-    // handle AuthenticationSwitchUserEvent
->>>>>>> master
 	println "AuthenticationSwitchUserEvent"
 }
 grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
 	// handle AuthorizationEvent
 	println "AuthorizationEvent"
-<<<<<<< HEAD
 }
-=======
-}
-*/
-
->>>>>>> master
