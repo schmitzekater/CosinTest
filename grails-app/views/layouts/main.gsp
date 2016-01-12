@@ -18,7 +18,7 @@
 <body>
 <g:if test="${controllerName!=null}">
     <g:set var="entityName" value="${controllerName != null ? controllerName.capitalize(): ''}"/>
-    <g:set var="action" value="${message(code: 'default.' + actionName + '.label', default: actionName.capitalize())}"/>
+    <g:set var="action" value="${message(code: '$/default.$actionName.label/$', default: 'Action')}"/>
 </g:if>
 <g:render template="/navigation/navMain"/>                                          <!-- Navigation Bar Top -->
 <div class="container"><!-- Container for all content -->

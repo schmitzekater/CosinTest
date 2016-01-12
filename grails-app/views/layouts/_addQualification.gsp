@@ -1,7 +1,7 @@
 <%@ page import="de.schmitzekater.Qualification" %>
 <hr/>
 <h2><g:message code="default.add.Qualification"/></h2>
-    <g:form controller="${controllerName}" action="addQualification" it="${params.id}">
+    <g:form controller="${controllerName}" action="addQualification" it="${params.id}" enctype="multipart/form-data">
         <g:hiddenField name="id" value="${params.id}"/>
         <fieldset class="form">
             <table class="table-condensed table-striped">
@@ -59,10 +59,13 @@
                         </div>
                     </div>
                 </div>
-                <g:uploadForm controller="${controllerName}" action="saveAttachment" id="QualificationAttachment">
+                <div class="col-xs-6">
+                    <div class="controls">
                     <input type="file" name="attachment"/>
-                    <input type="submit"/>
-                </g:uploadForm>
+                    </div>
+                </div>
+            </div>
+
             </table>
             <input class="save btn btn-primary" action="addQualification" type="submit"
                       value="${message(code: 'default.button.add.label', default: 'Add')}"/>

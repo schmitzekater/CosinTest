@@ -116,15 +116,15 @@ grails {
 			TRUNCATE_LENGTH = 500
 			largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255
 			actorClosure = { request, session ->
-				session.user?.username
-				/*if (request.applicationContext.springSecurityService.principal instanceof java.lang.String){
+				//session.user?.username
+				if (request.applicationContext.springSecurityService.principal instanceof String){
                     return request.applicationContext.springSecurityService.principal
                 }
                 def username = request.applicationContext.springSecurityService.principal?.username
                 if (SpringSecurityUtils.isSwitched()){
                     username = SpringSecurityUtils.switchedUserOriginalUsername+" AS "+username
                 }
-                return username*/
+                return username
 			}
 			stampEnabled = false
 			stampAlways = false
@@ -136,3 +136,4 @@ grails {
 
 
 grails.plugin.auditLog.auditDomainClassName = 'de.schmitzekater.AuditLogEvent'
+grails.plugin.auditLog.stampEnabled = false
