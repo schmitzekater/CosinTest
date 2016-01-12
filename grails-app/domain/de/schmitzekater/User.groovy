@@ -20,6 +20,7 @@ class User implements Serializable{
 
 
     User(String username, String password, String signature, Person person){
+        //noinspection GroovyAssignabilityCheck
         this()
         this.username = username
         this.password = password
@@ -29,7 +30,7 @@ class User implements Serializable{
 
     static transients = ['springSecurityService']
 
-    static auditable = true
+    static auditable = [mask: ['password', 'signature']]
     static belongsTo = [person: Person]
     static constraints = {
         username size: 6..25,  unique: true, nullable: false
@@ -78,6 +79,7 @@ class User implements Serializable{
     def onChange = { oldMap, newMap ->
         println "User $username was changed ..."
         oldMap.each({ key, oldVal ->
+            //noinspection GroovyAssignabilityCheck,GroovyAssignabilityCheck
             if (oldVal != newMap[key]) {
                 println " * $key changed from $oldVal to " + newMap[key] + " for " + username
             }
@@ -94,7 +96,7 @@ class User implements Serializable{
 
     def incrementFalsePasswordCount() {
         falsePasswordCount++
-        if (falsePasswordCount > 3) lockAccount()
+        if (falsePasswordCount >= 3) lockAccount()
     }
 
     def lockAccount() {

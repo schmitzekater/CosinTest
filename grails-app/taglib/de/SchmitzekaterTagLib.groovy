@@ -30,12 +30,11 @@ class SchmitzekaterTagLib {
         def source = groovyPageLocator.findTemplate(controllerName, template)
 
         if (source) {
-            log.info("Found template " + template + " in path " + path)
-            println "Template ${template} found"
+            log.info("Found template $template in path $path")
+            println "Template $template found"
             return true
         } else {
-            log.error("No template found for " + template + " in path " + path)
-            println "Template ${template} not found"
+            log.debug("No template found for $template in path $path")
             return false
         }
     }

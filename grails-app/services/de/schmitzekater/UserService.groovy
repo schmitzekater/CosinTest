@@ -28,4 +28,12 @@ class UserService {
               */
         }
     }
+
+    def successfulLogin(String username) {
+        def user = User.findByUsername(username)
+        if (user && user.falsePasswordCount > 0) {
+            user.resetFalsePasswordCount()
+            user.save()
+        }
+    }
 }
