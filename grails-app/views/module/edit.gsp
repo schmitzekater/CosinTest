@@ -5,7 +5,7 @@
   Time: 21:43
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.Qualification" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -39,5 +39,6 @@
                    value="${message(code: 'default.button.update.label', default: 'Update')}"/>
         </fieldset>
     </g:form>
+<g:render template="/layouts/addQualification" model="[qualification: new de.schmitzekater.Qualification()]"/>
 </body>
 </html>

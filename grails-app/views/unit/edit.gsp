@@ -27,7 +27,6 @@
                    value="${message(code: 'default.button.update.label', default: 'Update')}" title="Hans"/>
         </fieldset>
     </g:form>
-
     <g:render template="/layouts/addModule" />
 </div>
 

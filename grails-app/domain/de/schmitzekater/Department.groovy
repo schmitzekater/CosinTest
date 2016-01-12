@@ -7,7 +7,7 @@ class Department {
 
     static constraints = {
         departmentName size: 3..60, blank: false
-        supervisor nullable: true
+        supervisor nullable: false
     }
 
     String getDisplayString() {

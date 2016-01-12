@@ -29,7 +29,7 @@
             </table>
         </fieldset>
         <fieldset class="buttons">
-            <input class="save" action="update" type="submit"
+            <input class="btn btn-success" action="update" type="submit"
                    value="${message(code: 'default.button.update.label', default: 'Update')}"/>
         </fieldset>
     </g:form>

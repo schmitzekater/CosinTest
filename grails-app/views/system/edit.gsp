@@ -38,6 +38,13 @@
         </fieldset>
     </g:form>
 </div>
-
+<%-- Get the software of the system --%>
+<h3><g:message code="software.label"/></h3>
+<g:render template="/software/softwareList" model="[model: system.software]"/>
+<g:render template="/layouts/addSoftware"/>
+<%-- Get the computers of the system --%>
+<h3><g:message code="computer.label"/></h3>
+<g:render template="/computer/computerList" model="${[model: system.getComputer()]}"/>
+<g:render template="/layouts/addComputer"/>
 </body>
 </html>

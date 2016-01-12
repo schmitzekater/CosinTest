@@ -1,43 +1,71 @@
 <%@ page import="de.schmitzekater.Qualification" %>
 <hr/>
 <h2><g:message code="default.add.Qualification"/></h2>
-<div class="container-fluid">
     <g:form controller="${controllerName}" action="addQualification" it="${params.id}">
         <g:hiddenField name="id" value="${params.id}"/>
-        <fieldset class="well">
-           <dl>
-                <dt>
-                    <label for="QualificationType"><g:message code="qualification.qualificationType.label"/></label>
-                </dt>
-                <dd>
-                    <g:select from="${de.schmitzekater.QualificationType.findAll()}" name="qualificationType"
-                              id="QualificationType"/>
-                </dd>
-                <dt>
-                    <label for="QualificationDate"><g:message code="qualification.qualificationDate.label"/></label>
-                </dt>
-                <dd>
-                    <g:datePicker name="qualificationDate" id="QualificationDate" precision="day" relativeYears="[-3..2]"/>
-                </dd>
-                <dt>
-                    <label for="QualificationComment"><g:message code="qualification.comment.label"/></label>
-                </dt>
-                <dd>
+        <fieldset class="form">
+            <table class="table-condensed table-striped">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="control-group ${invalid ? 'error' : ''}">
+                            <label for="QualificationType"><g:message
+                                    code="qualification.qualificationType.label"/></label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="controls">
+                            <g:select from="${de.schmitzekater.QualificationType.findAll()}" name="qualificationType"
+                                      id="QualificationType"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="control-group ${invalid ? 'error' : ''}">
+                            <label for="QualificationDate"><g:message
+                                    code="qualification.qualificationDate.label"/></label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="controls">
+                            <g:datePicker name="qualificationDate" id="QualificationDate" precision="day"
+                                          relativeYears="[-3..2]"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="control-group ${invalid ? 'error' : ''}">
+                            <label for="QualificationComment"><g:message code="qualification.comment.label"/></label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="controls">
                     <g:textArea name="comment" id="QualificationComment"/>
-                </dd>
-                <dt>
-                    <label for="QualificationAttachment"><g:message code="qualification.qualificationAttachment.label"/></label>
-                </dt>
-                <dd>
-                    <g:uploadForm controller="${controllerName}" action="saveAttachment" id="QualificationAttachment">
-                        <input type="file" name="attachment"/>
-                        <input type="submit"/>
-                    </g:uploadForm>
-                </dd>
-               <hr/>
-               <input class="save btn btn-primary" action="addQualification" type="submit"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="control-group ${invalid ? 'error' : ''}">
+                            <label for="QualificationAttachment"><g:message
+                                    code="qualification.qualificationAttachment.label"/></label>
+                        </div>
+                    </div>
+                </div>
+                <g:uploadForm controller="${controllerName}" action="saveAttachment" id="QualificationAttachment">
+                    <input type="file" name="attachment"/>
+                    <input type="submit"/>
+                </g:uploadForm>
+            </table>
+            <input class="save btn btn-primary" action="addQualification" type="submit"
                       value="${message(code: 'default.button.add.label', default: 'Add')}"/>
-            </dl>
+
         </fieldset>
     </g:form>
-</div>

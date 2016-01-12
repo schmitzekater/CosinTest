@@ -1,5 +1,8 @@
 package de.schmitzekater
 
+import org.grails.datastore.mapping.query.Restrictions
+import org.hibernate.criterion.DetachedCriteria
+
 class Person {
     static hasOne = [user: User, department: Department]
     static hasMany = [system: System]
@@ -33,9 +36,10 @@ class Person {
             sqlRestriction('not exists (select 1 from Person p inner join User u on p.id = u.person_id where u.person_id = this_.id) ')
         }
     }
+
     static List<Person> getAvailableSupervisors() {
         createCriteria().list() {
-            sqlRestriction('not exists (select 1 from Person p inner join Department d on p.id = d.supervisor_id where d.supervisor_id = this_.id) ')
+            sqlRestriction('not exists (select 1 from Person p inner join Department d on p.id = d.supervisor_id where d.supervisor_id = this_.id)')
         }
     }
 

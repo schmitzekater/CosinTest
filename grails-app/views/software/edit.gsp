@@ -33,7 +33,10 @@
                        value="${message(code: 'default.button.update.label', default: 'Update')}"/>
             </fieldset>
         </g:form>
-        <g:render template="/layouts/addQualification"/>
+        <sec:ifAnyGranted roles="'ROLE_EDIT, ROLE_CREATE'">
+            <hr/>
+            <g:render template="/layouts/addQualification"/>
+        </sec:ifAnyGranted>
     </div>
 </body>
 </html>

@@ -28,4 +28,20 @@ class DepartmentController {
         def department = Department.findById(params.id)
         render view: "/layouts/detail", model: [department: department]
     }
+
+    def edit() {
+        def department = Department.findById(params.id)
+        // Get the List of persons that are not supervisors
+        List<Person> supervisors = Person.getAvailableSupervisors()
+        //add the current supervisor if present
+        if (department.supervisor != null) {
+            supervisors.add(department.supervisor)
+        }
+        render view: "edit", model: [department: department, availableSupervisors: supervisors]
+    }
+
+    def create() {
+        List<Person> supervisors = Person.getAvailableSupervisors()
+        render view: "create", model: [department: new Department(), availableSupervisors: supervisors]
+    }
 }

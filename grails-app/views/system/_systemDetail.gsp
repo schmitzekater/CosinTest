@@ -22,16 +22,5 @@
     <g:actionSubmit action="edit" class="btn btn-primary"
                     value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
 </g:form>
-<%-- Wenn das Template ausserhalb von System aufgerufen wird, sparen wir uns den anderen Kram
-    TODO: Verstecken beim Aufruf, bei Bedarf aufklappen.
---%>
-<g:if test="${controllerName.compareToIgnoreCase('system')==0}">
-    <%-- Get the software of the system --%>
-    <h3><g:message code="software.label"/></h3>
-    <g:render template="/software/softwareList"  model="[model: system.software]"/>
-    <g:render template="/layouts/addSoftware"/>
-    <%-- Get the computers of the system --%>
-    <h3><g:message code="computer.label"/></h3>
-    <g:render template="/computer/computerList" model="${[model: system.getComputer()]}"/>
-    <g:render template="/layouts/addComputer" />
-</g:if>
+
+
