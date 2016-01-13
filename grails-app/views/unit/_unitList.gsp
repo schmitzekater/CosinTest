@@ -7,7 +7,7 @@
         <g:sortableColumn property="system" title="${message(code:'system.label', default: 'System')}"/>
         <td><b><g:message code="module.count.label"/></b></td>
         <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
-            <td><g:message code= 'action.label'/></td>
+            <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
     </tr>
     </thead>

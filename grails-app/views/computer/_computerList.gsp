@@ -1,5 +1,5 @@
 <%@ page import="de.schmitzekater.*" %>
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <thead>
     <tr>
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
@@ -11,10 +11,11 @@
             </td>
         </g:if>
         <g:else>
-           <td>
-               <b>${message(code: 'computer.computerRole.label', default: 'Role')}</b>
-           </td>
+            <th>
+                <a href="#">${message(code: 'computer.computerRole.label', default: 'Role')}</a>
+            </th>
         </g:else>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -39,14 +40,13 @@
             </g:if>
         %{-- Render the remove button if on System controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
-                <sec:ifAnyGranted roles="'ROLE_EDIT', 'ROLE_DELETE'">
-                    <td class="btn-group-xs">
-                        <g:form controller = "system" id="${params.id}" params="[computer: computer.id]">
-                            <g:actionSubmit action="removeComputer" class="btn btn-danger"
-                                            value="${message(code: 'default.button.remove.miniLabel', default: 'Remove')}"/>
-                        </g:form>
-                    </td>
-                </sec:ifAnyGranted>
+                <td>
+                <sec:link controller="system" action="edit" id="${params.id}" params="[computer: computer.id]"
+                          expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="color:red" title='<g:message
+                        code="system.remove.computer"/>'>&nbsp
+                </sec:link>
+                </td
             </g:if>
         </tr>
     </g:each>

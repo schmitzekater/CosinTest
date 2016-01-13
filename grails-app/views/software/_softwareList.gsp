@@ -8,7 +8,7 @@
         <g:sortableColumn property="softwareVendor" title="${message(code: 'vendor.vendorName.label', default: 'Vendor')}"/>
         <g:sortableColumn property="system" title="${message(code: 'system.systemName.label', default: 'System')}" />
         <g:if test="${controllerName.compareToIgnoreCase('Software')==0}">
-            <td><g:message code= 'action.label'/></td>
+            <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
     </tr>
     </thead>

@@ -103,5 +103,13 @@ class User implements Serializable{
         accountLocked = true
     }
 
+    boolean isPasswordExpired() {
+        passwordExpired
+    }
+
+    boolean isAccountLocked() {
+        accountLocked
+    }
+
 
 }

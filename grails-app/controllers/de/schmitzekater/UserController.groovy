@@ -70,7 +70,11 @@ class UserController {
         }
 
     }
-
+    /**
+     * This function is used when the admin changes the  password for a user.
+     * The password will be set to expired, so that the user has to change it upon logon.
+     * @return
+     */
     def changeUserPassword(){
         def user = User.get(params.id)
         if(user){
@@ -89,13 +93,50 @@ class UserController {
             }
         }
     }
+    /**
+     * Thius function is used when a user tries to log on with an expired password
+     */
+    def passwordExpired() {
+        [username: session['SPRING_SECURITY_LAST_USERNAME']]
+    }
 
+    def updatePassword(String password, String password_new, String password_new_2) {
+        String username = session['SPRING_SECURITY_LAST_USERNAME']
+        if (!username) {
+            flash.error = 'Sorry, an error has occurred'
+            redirect controller: 'login', action: 'auth'
+            return
+        }
+        if (!password || !password_new || !password_new_2 || password_new !=
+                password_new_2) {
+            flash.error = 'Please enter your current password and a valid new password'
+            render view: 'passwordExpired', model: [username:
+                                                            session['SPRING_SECURITY_LAST_USERNAME']]
+            return
+        }
+        User user = User.findByUsername(username)
+        if (!passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
+            flash.error = 'Current password is incorrect'
+            render view: 'passwordExpired', model: [username:
+                                                            session['SPRING_SECURITY_LAST_USERNAME']]
+            return
+        }
+        if (passwordEncoder.isPasswordValid(user.password, password_new, null /*salt*/)) {
+            flash.error = 'Please choose a different password from your current one'
+            render view: 'passwordExpired', model: [username:
+                                                            session['SPRING_SECURITY_LAST_USERNAME']]
+            return
+        }
+        user.password = password_new
+        user.passwordExpired = false
+        user.save() // if you have password constraints check them here
+        redirect controller: 'login', action: 'auth'
+    }
 
     /**
      * Hier kann ein User aus einer bestehenden Person angelegt werden.
      * @return Neuer user
      */
-
     def createUser() {
         def user
         try {
@@ -155,6 +196,13 @@ class UserController {
     def update() {
         def user = User.findById(params.id)
         if (user) {
+            def roleGroup = RoleGroup.findById(params.userRoleGroup)
+            if (roleGroup) {
+                /* Delete User from his role(s). */
+                UserRoleGroup.removeAll(user, true)
+                /* Add the new Role */
+                UserRoleGroup.create user, roleGroup, true
+            }
             def oldUserId = user.username
             user.properties = params
             if (user.save()) {

@@ -5,7 +5,7 @@
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default:'Id')}" />
         <g:sortableColumn property="departmentName" title="${message(code: 'department.departmentName.label', default:'Department')}" />
         <g:sortableColumn property="supervisor" title="${message(code: 'department.supervisor.label', default:'Supervisor')}" />
-        <td><g:message code= 'action.label'/></td>
+        <th><a href="#"><g:message code='action.label'/></a></th>
     </tr>
     </thead>
     <tbody>

@@ -26,7 +26,12 @@
                             <f:field property="username" wrapper="edit/table"/>
                             <f:field property="password" wrapper="edit/table/secret"/>
                             <f:field property="signature" wrapper="edit/table/secret"/>
-                            %{-- TODO: RoleGroup hinzufügen--}%
+                            <tr>
+                                <td><label for="userRoleGroup"><g:message code="user.roleGroup.label"/></label></td>
+                                <td><g:select from="${RoleGroup.findAll()}" optionKey="id" optionValue="displayString"
+                                              noSelection="${['null': '<N/A>']}" value="${user.getAuthorities()}"
+                                              name="userRoleGroup"/></td>
+                            </tr>
                         </f:with>
                     </table>
                 </fieldset>

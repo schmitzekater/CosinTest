@@ -1,6 +1,11 @@
 import de.schmitzekater.User
 import de.schmitzekater.UserService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import org.springframework.security.authentication.AccountExpiredException
+import org.springframework.security.authentication.CredentialsExpiredException
+import org.springframework.security.authentication.DisabledException
+import org.springframework.security.authentication.LockedException
+import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'de.schmitzekater.User'
@@ -9,6 +14,7 @@ grails.plugin.springsecurity.authority.className = 'de.schmitzekater.Role'
 grails.plugin.springsecurity.authority.groupAuthorityNameField = 'authorities'
 grails.plugin.springsecurity.useSecurityEventListener = true
 grails.plugin.springsecurity.useRoleGroups = true
+grails.plugin.springsecurity.apf.storeLastUsername = true            // Store the credentials even on failed login
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.rejectIfNoRule = true					// Block any URL that is not permitted
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap" // use the following map to secure actions
@@ -29,7 +35,11 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/logout', access: ['permitAll']],
 		[pattern: '/logout/**', access: ['permitAll']],
 		[pattern: '/auditLogEvent/**', access: ['permitAll']],
-		[pattern: '/user/editPassword**', access: ['isAuthenticated()']],
+		[pattern: '/user/editPassword/**', access: ['isAuthenticated()']],
+		[pattern: '/user/passwordExpired', access: ['permitAll']],
+		[pattern: '/user/passwordExpired/**', access: ['permitAll']],
+		[pattern: '/user/updatePassword', access: ['permitAll']],
+		[pattern: '/user/updatePassword/**', access: ['permitAll']],
 		[pattern: '/user/**', access: ['ROLE_DELETE']],
 		[pattern: '/config/**', access: ['ROLE_DELETE']],
 		[pattern: '/**/create/**', access: ['ROLE_CREATE']],
@@ -63,6 +73,14 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/favicon.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
+
+grails.plugin.springsecurity.failureHandler.exceptionMappings = [
+		[exception: LockedException.name, url: '/user/accountLocked'],
+		[exception: DisabledException.name, url: '/user/accountDisabled'],
+		[exception: AccountExpiredException.name, url: '/user/accountExpired'],
+		[exception: CredentialsExpiredException.name, url: '/user/passwordExpired']
+]
+
 /**
  * Security Event Handling
  */
@@ -85,6 +103,7 @@ grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx 
 	String user = source.getPrincipal()
 	println "User: "+user
 	if(user){
+		if (e instanceof AuthenticationFailureBadCredentialsEvent)
 			userService.failedLogin(user)
 	}
 
@@ -108,7 +127,7 @@ grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
  * Audit Log configuration
  */
 
-grails {
+/*grails {
 	plugin {
 		auditLog {
 
@@ -130,10 +149,14 @@ grails {
 			stampAlways = false
 		}
 	}
-}
+}*/
 
 // Added by the Audit-Logging plugin:
 
 
 grails.plugin.auditLog.auditDomainClassName = 'de.schmitzekater.AuditLogEvent'
 grails.plugin.auditLog.stampEnabled = false
+grails.plugin.auditLog.actorClosure = { request, session -> session.user?.username }
+grails.plugin.auditLog.logIds = true
+grails.plugin.auditLog.TRUNCATE_LENGTH = 500
+grails.plugin.auditLog.largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255

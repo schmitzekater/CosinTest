@@ -8,11 +8,11 @@
         <g:sortableColumn property="systemOwner" title="${message(code: 'system.systemOwner.label', default:'System Owner')}" />
         <g:sortableColumn property="processOwner" title="${message(code: 'system.processOwner.label', default:'System Owner')}" />
         <g:sortableColumn property="systemDataCategory" title="${message(code: 'system.dataCategory.label', default:'Data Category')}" />
-        <td><b><g:message code="computer.label"/></b></td>
-        <td><b><g:message code="unit.label"/></b></td>
-        <td><b><g:message code="software.label"/></b></td>
+        <th><a><g:message code="computer.label"/></a></th>
+        <th><a><g:message code="unit.label"/></a></th>
+        <th><a><g:message code="software.label"/></a></th>
         <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
-            <td><g:message code= 'action.label'/></td>
+            <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
     </tr>
     </thead>
