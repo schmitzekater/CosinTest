@@ -4,8 +4,8 @@
         <f:display property="id" wrapper="detail"/>
         <f:display property="actor" wrapper="detail"/>
         <f:display property="uri" wrapper="detail"/>
-        <f:display property="className" wrapper="detail"/>
-        <f:display property="persistedObjectId" wrapper="detail"/>
+        <f:display property="className" wrapper="detail/link/auditTrailEvent"/>
+        %{--<f:display property="persistedObjectId" wrapper="detail"/>--}%
         <f:display property="persistedObjectVersion" wrapper="detail"/>
         <f:display property="eventName" wrapper="detail"/>
         <f:display property="propertyName" wrapper="detail"/>

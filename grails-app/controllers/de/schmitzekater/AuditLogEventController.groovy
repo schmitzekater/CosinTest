@@ -30,7 +30,9 @@ class AuditLogEventController {
     }
 
     def list() {
-        if (!params.max) params.max = 10
+        if (!params.max) params.max = 50
+        if (!params.order) params.order = 'desc'
+        if (!params.sort) params.sort = 'dateCreated'
         render view: "/layouts/list", model: [model: AuditLogEvent.list(params), count: AuditLogEvent.count()]
     }
 

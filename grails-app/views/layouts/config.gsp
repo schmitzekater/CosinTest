@@ -28,14 +28,15 @@
 
     <div class="row"><!-- First Row -->
         <div class="col-md-2">
-            <g:render template="configNavLeft"/>                                  <!-- Sidebar Left  -->
-        </div>
-        <div class="col-md-8">
+            <g:render template="/config/configNavLeft"/>                                  <!-- Sidebar Left  -->
+            <g:render template="/navigation/navRight"/>
+     </div>
+        <div class="col-md-10">
             <g:layoutBody/>                                                             <!-- Main Content  -->
         </div>
-        <div class="col-md-2">
-            <g:render template="/navigation/navRight"/>                                 <!-- Sidebar Right -->
-        </div> <!--col-md-2 -->
+        %{--<div class="col-md-2">
+                                            <!-- Sidebar Right -->
+        </div> <!--col-md-2 -->--}%
     </div>                                                                          <!-- end row -->
 </div>                                                                              <!-- end container -->
 <g:render template="/navigation/footer"/>

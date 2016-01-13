@@ -4,16 +4,23 @@
         <li class="list-group-item active">
             <g:message code="default.left.sidebar"/>
         </li>
+        <sec:access expression="hasRole('ROLE_DELETE')">
+            <li class="list-group-item">
+                <g:link action="config" controller="config">
+                    <g:message code="config.edit.strings"/>
+                </g:link>
+            </li>
+        </sec:access>
         <li class="list-group-item">
-            Add QT
-        </li>
-        <li class="list-group-item">
-            Add Cr...
+            <g:link controller="auditLogEvent" action="list">
+                <g:message code="auditTrail.label"/>
+            </g:link>
         </li>
 
         <li class="list-group-item">
-            <a class="home" href="\${createLink(uri: '/')}">
-                <g:message code="default.home.label"/>
+            <a class="home" href="/">
+                <span class="glyphicon glyphicon-home" aria-hidden="true">&nbsp</span><g:message
+                    code="default.home.label"/>
             </a>
         </li>
     </ul>
