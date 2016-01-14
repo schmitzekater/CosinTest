@@ -33,10 +33,10 @@
                        value="${message(code: 'default.button.update.label', default: 'Update')}"/>
             </fieldset>
         </g:form>
-        <sec:ifAnyGranted roles="'ROLE_EDIT, ROLE_CREATE'">
+        <sec:access expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE')">
             <hr/>
             <g:render template="/layouts/addQualification"/>
-        </sec:ifAnyGranted>
+        </sec:access>
     </div>
 </body>
 </html>

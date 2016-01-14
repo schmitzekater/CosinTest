@@ -8,7 +8,7 @@
             </f:with>
         </tbody>
 </table>
-<sec:ifAnyGranted roles="'ROLE_DELETE, ROLE_EDIT, ROLE_CREATE'">
+<sec:ifAnyGranted roles="'ROLE_DELETE,ROLE_EDIT,ROLE_CREATE'">
     <g:form controller="software" id="${software.id}">
         <g:actionSubmit action="edit" class="btn btn-primary"
                         value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>

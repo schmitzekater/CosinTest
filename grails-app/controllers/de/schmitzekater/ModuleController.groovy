@@ -56,4 +56,17 @@ class ModuleController {
     def show(){
         redirect action: 'detail', params: params
     }
+
+    def listAllQualifications() {
+        if (!params.max) params.max = 20
+        if (!params.sort) params.sort = qualificationDate
+        if (!params.order) params.order = desc
+        def qualificationList = Qualification.getAll()
+        for (qualification in qualificationList) {
+            if (qualification.qualificationObject.instanceOf(Software)) {
+                qualificationList.remove(qualification)
+            }
+        }
+        render view: "/layouts/listAllQualifications", model: [model: qualificationList]
+    }
 }
