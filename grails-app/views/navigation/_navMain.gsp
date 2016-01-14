@@ -20,9 +20,11 @@
                <!-- <li class="${controllerName == null ? 'active' : ''}">
                     <a href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
                 </li> -->
+                <sec:access controller='user'>
                 <li class="${controllerName == 'user' ? 'active' : ''}">
                     <a href="${createLink(uri: '/user/list')}"><g:message code="user.label"/></a>
                 </li>
+                </sec:access>
                 <li class="${controllerName == 'person' ? 'active' : ''}">
                     <a href="${createLink(uri: '/person/list')}"><g:message code="person.label"/></a>
                 </li>
@@ -44,8 +46,11 @@
                 <li class="${controllerName == 'computer' ? 'active' : ''}">
                     <a href="${createLink(uri: '/computer/list')}"><g:message code="computer.label"/></a>
                 </li>
-                <li class="${controllerName == 'config' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/config')}"><g:message code="default.config.label"/></a>
+                <li class="${controllerName == 'vendor' ? 'active' : ''}">
+                    <a href="${createLink(uri: '/vendor/list')}"><g:message code="vendor.label"/></a>
+                </li>
+                <li class="${controllerName == 'config' || controllerName == 'auditLogEvent' ? 'active' : ''}">
+                    <a href="${createLink(uri: '/config/index')}"><g:message code="default.config.label"/></a>
                 </li>
             </ul>
         </div>

@@ -7,7 +7,11 @@ class ConfigController {
     def connectionTypeService
     def computerRoleService
 
-    def index() {
+    def index(){
+
+    }
+
+    def config() {
         def qt = QualificationType.list()
         def cr = ComputerRole.list()
         def dc = DataCategory.list()

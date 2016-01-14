@@ -41,7 +41,9 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/user/updatePassword', access: ['permitAll']],
 		[pattern: '/user/updatePassword/**', access: ['permitAll']],
 		[pattern: '/user/**', access: ['ROLE_DELETE']],
-		[pattern: '/config/**', access: ['ROLE_DELETE']],
+		[pattern: '/config/index', access: ['permitAll']],
+		[pattern: '/config/**', access: ['permitAll']],
+		[pattern: '/config/config/**', access: ['ROLE_DELETE']],
 		[pattern: '/**/create/**', access: ['ROLE_CREATE']],
 		[pattern: '/person/createPerson/**', access: ['ROLE_CREATE']],
 		[pattern: '/**/edit/**', access: ['ROLE_EDIT']],
@@ -156,7 +158,7 @@ grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
 
 grails.plugin.auditLog.auditDomainClassName = 'de.schmitzekater.AuditLogEvent'
 grails.plugin.auditLog.stampEnabled = false
-grails.plugin.auditLog.actorClosure = { request, session -> session.user?.username }
+grails.plugin.auditLog.actorClosure = { request, session -> request.applicationContext.springSecurityService.currentUser }
 grails.plugin.auditLog.logIds = true
 grails.plugin.auditLog.TRUNCATE_LENGTH = 500
 grails.plugin.auditLog.largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255

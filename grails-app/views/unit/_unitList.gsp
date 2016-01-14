@@ -5,7 +5,7 @@
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
         <g:sortableColumn property="unitName" title="${message(code: 'unit.unitName.label', default: 'Name')}"/>
         <g:sortableColumn property="system" title="${message(code:'system.label', default: 'System')}"/>
-        <td><b><g:message code="module.count.label"/></b></td>
+        <th><a href="#"><g:message code="module.count.label"/></a></th>
         <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
             <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
