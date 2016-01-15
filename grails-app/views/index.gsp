@@ -14,18 +14,18 @@
 
     <div class="row"><!-- First Row -->
         <div class="col-md-2">
-        <g:render template="/navigation/navRight"/>
+            <g:render template="/navigation/navRight"/>
 
         </div>
-    <div id="home" class="col-md-10" role="home">
 
-        <div id="page-body" role="home">
+        <div id="home" class="col-md-10" role="home">
+
+            <div id="page-body" role="home">
             <h1>Welcome to Grails</h1>
             <p>Congratulations, you have successfully started your first Grails application! At the moment
                this is the default page, feel free to modify it to either redirect to a controller or display whatever
                content you may choose. Below is a list of controllers that are currently deployed in this application,
                click on each to execute its default action:</p>
-
 
         </div>
         </div>

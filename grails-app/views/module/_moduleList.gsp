@@ -9,6 +9,14 @@
         <g:sortableColumn property="moduleVendor" title="${message(code: 'vendor.label', default: 'Vendor')}"/>
         <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
         <g:if test="${controllerName.compareToIgnoreCase('Module')==0}">
+            <th>
+                <a href="#">${message(code: 'module.calibrationInterval.label', default: 'Calibration Interval')}</a>
+            </th>
+            <th>
+                <a href="#">${message(code: 'module.nextCalibration.label', default: 'Next Calibration')}</a>
+            </th>
+        </g:if>
+        <g:if test="${controllerName.compareToIgnoreCase('Module') == 0}">
             <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
     </tr>
@@ -23,6 +31,10 @@
             <f:display property='moduleName' wrapper="list"/>
             <f:display property='moduleVendor' wrapper="list/link/vendor"/>
             <f:display property='unit' wrapper="list/link/unit"/>
+                <g:if test="${controllerName.compareToIgnoreCase('Module') == 0}">
+                    <f:display property="needsCalibration" wrapper="list/date/calibInterval/"/>
+                    <f:display property="nextCalibration" wrapper="list/date/colored" widget="detail/date/colored"/>
+                </g:if>
             </f:with>
             %{--Only render the Buttons if on Module-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Module')==0}">
@@ -30,11 +42,15 @@
             </g:if>
             %{-- Render the remove button if on Unit controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
-                <sec:link controller="unit" id="${params.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')"
-                          params="[module: module.id]">
+                <td><g:link action="detail" id="${module.id}" controller="module">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
+                            code="info.module"/>'>
+                </g:link>
+                    <sec:link controller="unit" id="${params.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')"
+                              params="[module: module.id]" action="removeModule">
                     <span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"
                           title='<g:message code="unit.remove.module"/>'></span>
-                </sec:link>
+                    </sec:link></td>
             </g:if>
         </tr>
     </g:each>

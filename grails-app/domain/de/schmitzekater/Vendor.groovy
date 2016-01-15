@@ -3,6 +3,7 @@ package de.schmitzekater
 class Vendor {
     String name
 
+    static auditable = true
     static hasMany = [computer: Computer, module: Module, software: Software]
     static constraints = {
         name blank: false

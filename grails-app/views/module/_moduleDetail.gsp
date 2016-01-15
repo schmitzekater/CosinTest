@@ -11,8 +11,6 @@
             <f:display property="unit" wrapper="detail/link/unit"/>
             <g:if test="${module.needsCalibration==true}">
                 <f:display property="needsCalibration"  wrapper="detail/date/calibInterval"/>
-                %{--<f:display property="calibInterval"/>
-                <f:display property="calibPeriod"/>--}%
                 <f:display property="lastCalibration" wrapper="detail/date"/>
                 <f:display property="nextCalibration" wrapper="detail/date/colored"/>
             </g:if>

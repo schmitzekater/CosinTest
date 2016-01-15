@@ -7,7 +7,7 @@
         <g:sortableColumn property="computerVendor" title="${message(code: 'computer.computerVendor.label', default: 'Vendor')}"/>
         <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
             <th>
-            <a href="#">${message(code: 'computer.computerRole.label', default: 'Role')} (${message(code: 'system.name.label', default: 'System')})</a>
+                <a href="#">${message(code: 'computer.computerRole.label', default: 'Role')} (${message(code: 'system.name.label', default: 'System')})</a>
             </th>
         </g:if>
         <g:else>

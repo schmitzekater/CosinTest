@@ -30,7 +30,7 @@
                                 <td><label for="userRoleGroup"><g:message code="user.roleGroup.label"/></label></td>
                                 <td><g:select from="${RoleGroup.findAll()}" optionKey="id" optionValue="displayString"
                                               noSelection="${['null': '<N/A>']}" value="${user.getAuthorities()}"
-                                              name="userRoleGroup"/></td>
+                                              name="userRoleGroup" multiple="false"/></td>
                             </tr>
                         </f:with>
                     </table>

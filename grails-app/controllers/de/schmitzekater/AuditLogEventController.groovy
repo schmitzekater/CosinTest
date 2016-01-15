@@ -33,7 +33,15 @@ class AuditLogEventController {
         if (!params.max) params.max = 50
         if (!params.order) params.order = 'desc'
         if (!params.sort) params.sort = 'dateCreated'
-        render view: "/layouts/list", model: [model: AuditLogEvent.list(params), count: AuditLogEvent.count()]
+        if (!params.offset) params.offset = 0
+        if (!params.dateFrom) params.dateFrom = new Date().minus(14)
+        if (!params.dateTo) params.dateTo = new Date()
+        def c = AuditLogEvent.createCriteria()
+        def auditLogList = c.list(max: params.max, offset: params.offset) {
+            between("dateCreated", params.dateFrom, params.dateTo)
+            order(params.sort, params.order)
+        }
+        render view: "/layouts/list", model: [model: auditLogList, count: auditLogList.getTotalCount()]
     }
 
     def show() {

@@ -5,7 +5,7 @@ class Computer implements Serializable{
     private static final long serialVersionUID = 1
 
     String computerName
-
+    static auditable = true
     static hasOne = [computerVendor: Vendor, computerLocation: Location]
     static hasMany = [installedSoftware: Software]
     static mapping = {

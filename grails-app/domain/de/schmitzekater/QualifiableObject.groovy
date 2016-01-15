@@ -6,7 +6,7 @@ abstract class QualifiableObject {
         qualifications nullable: true
     }
     static mapping = {
-        tablePerHierarchy false
+        //tablePerHierarchy false
     }
     static hasMany = [qualifications: Qualification]
 

@@ -30,7 +30,8 @@
         <div class="col-md-2">
             <g:render template="/config/configNavLeft"/>                                  <!-- Sidebar Left  -->
             <g:render template="/navigation/navRight"/>
-     </div>
+        </div>
+
         <div class="col-md-10">
             <g:layoutBody/>                                                             <!-- Main Content  -->
         </div>

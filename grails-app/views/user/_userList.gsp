@@ -24,7 +24,7 @@
                         ${roleGroup.displayString} <br/>
                     </g:each>
                 </td>
-                <f:display property="person" wrapper="list/link"/>
+                <f:display property="person" wrapper="list/link/person"/>
             </f:with>
             <g:render template="/layouts/editInfoButtons" model="[model: user]" />
 

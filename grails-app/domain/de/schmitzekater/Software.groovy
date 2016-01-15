@@ -5,7 +5,7 @@ class Software extends QualifiableObject{
     String softwareVersion
     String softwareIqOq
 
-
+    static auditable = true
     static hasOne = [softwareVendor: Vendor]
     static belongsTo = [system: System, computer: Computer]
 

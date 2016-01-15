@@ -1,3 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<!-- Template: /_fields/date/list/_displayWrapper.gsp -->
-<td>${value}</td>
+<!-- Template: /_fields/list/date/calibInterval/_displayWrapper.gsp -->
+<td>
+    <g:if test="${value}">
+        ${bean.getCalibrationDisplayString()}
+    </g:if>
+    <g:else>
+        --
+    </g:else>
+</td>

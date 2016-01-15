@@ -3,6 +3,7 @@ package de.schmitzekater
 class Unit {
     String unitName
 
+    static auditable = true
     static hasMany = [modules: Module]
     static hasOne = [location: Location]
     static belongsTo = [system: System]

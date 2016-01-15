@@ -19,6 +19,7 @@ class Module extends QualifiableObject{
     String calibPeriod
     boolean needsCalibration
 
+    static auditable = true
     static hasOne= [moduleVendor: Vendor, moduleType : ModuleType, moduleConnection : ConnectionType]
     static belongsTo = [unit: Unit]
 
@@ -104,7 +105,7 @@ class Module extends QualifiableObject{
             Inspired by: http://stackoverflow.com/questions/30623429/grails-how-to-use-exists-notexists-within-createcriteria
          */
         createCriteria().list() {
-            sqlRestriction('not exists (select 1 from Module m inner join Unit u on u.id = m.unit_id where m.id = this_.id) ')
+            sqlRestriction('not exists (select 1 from Qualifiable_Object m inner join Unit u on u.id = m.unit_id where m.id = this_.id) ')
         }
     }
 }

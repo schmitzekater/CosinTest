@@ -7,7 +7,7 @@ class ConfigController {
     def connectionTypeService
     def computerRoleService
 
-    def index(){
+    def index() {
 
     }
 

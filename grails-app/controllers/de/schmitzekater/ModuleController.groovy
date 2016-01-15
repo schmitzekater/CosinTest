@@ -1,5 +1,7 @@
 package de.schmitzekater
 
+import java.util.Map
+
 class ModuleController {
     static scaffold = Module
     static defaultAction = "list"
@@ -57,16 +59,23 @@ class ModuleController {
         redirect action: 'detail', params: params
     }
 
-    def listAllQualifications() {
+    def listAllModuleQualifications() {
         if (!params.max) params.max = 20
-        if (!params.sort) params.sort = qualificationDate
-        if (!params.order) params.order = desc
-        def qualificationList = Qualification.getAll()
-        for (qualification in qualificationList) {
-            if (qualification.qualificationObject.instanceOf(Software)) {
-                qualificationList.remove(qualification)
+        if (!params.sort) params.sort = 'qualificationDate'
+        if (!params.order) params.order = 'desc'
+        if (!params.offset) params.offset = 0
+        if (!params.dateFrom) params.dateFrom = new Date().minus(14)
+        if (!params.dateTo) params.dateTo = new Date()
+        def c = Qualification.createCriteria()
+        def qualificationList = c.list(max: params.max, offset: params.offset) {
+            qualificationObject {
+                eq("class", de.schmitzekater.Module)
             }
+            and {
+                between("qualificationDate", params.dateFrom, params.dateTo)
+            }
+            order(params.sort, params.order)
         }
-        render view: "/layouts/listAllQualifications", model: [model: qualificationList]
+        render view: "/layouts/listAllModuleQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()], params: params
     }
 }
