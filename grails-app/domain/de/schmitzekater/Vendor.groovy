@@ -2,6 +2,9 @@ package de.schmitzekater
 
 class Vendor {
     String name
+    String url
+    Address address
+
 
     static auditable = true
     static hasMany = [computer: Computer, module: Module, software: Software]
@@ -10,6 +13,8 @@ class Vendor {
         computer nullable: true
         module nullable: true
         software nullable: true
+        url nullable: true, url: true
+        address nullable: true
     }
     static mapping = {
         sort name: "asc"
