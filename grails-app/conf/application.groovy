@@ -16,6 +16,7 @@ grails.plugin.springsecurity.useSecurityEventListener = true
 grails.plugin.springsecurity.useRoleGroups = true
 grails.plugin.springsecurity.apf.storeLastUsername = true            // Store the credentials even on failed login
 grails.plugin.springsecurity.logout.postOnly = false
+grails.plugin.springsecurity.logout.afterLogoutUrl = '/login'
 grails.plugin.springsecurity.rejectIfNoRule = true					// Block any URL that is not permitted
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap" // use the following map to secure actions
 grails.plugin.springsecurity.interceptUrlMap = [

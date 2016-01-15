@@ -19,6 +19,9 @@
         <g:if test="${controllerName.compareToIgnoreCase('Module') == 0}">
             <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
+        <g:else>
+            <th></th>
+        </g:else>
     </tr>
     </thead>
     <tbody>
@@ -44,12 +47,13 @@
             <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
                 <td><g:link action="detail" id="${module.id}" controller="module">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
-                            code="info.module"/>'>
+                            code="info.module"/>'></span>
                 </g:link>
                     <sec:link controller="unit" id="${params.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')"
                               params="[module: module.id]" action="removeModule">
-                    <span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"
-                          title='<g:message code="unit.remove.module"/>'></span>
+                        <span onclick="return confirm('${message(code: 'remove.confirmation.question')}')"
+                              class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"
+                              title='<g:message code="unit.remove.module"/>'></span>
                     </sec:link></td>
             </g:if>
         </tr>

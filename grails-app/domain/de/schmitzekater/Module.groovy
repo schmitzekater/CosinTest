@@ -103,6 +103,7 @@ class Module extends QualifiableObject{
     static List<Module> getAvailableModules() {
         /*  Get the list of Modules, that are not bound to a unit
             Inspired by: http://stackoverflow.com/questions/30623429/grails-how-to-use-exists-notexists-within-createcriteria
+            If "tablePerHierarchy false" in Qualifiable Object replace "Qualifiable_Object" with "Module"
          */
         createCriteria().list() {
             sqlRestriction('not exists (select 1 from Qualifiable_Object m inner join Unit u on u.id = m.unit_id where m.id = this_.id) ')

@@ -18,11 +18,12 @@
       <div class='panel panel-heading'><g:message code='login.header'/></div>
      
     <table class="table table-hover">
-        <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" class="cssform"
+        <form action="${postUrl ? postUrl : '/login/authenticate'}" method="POST" id="loginForm" class="cssform"
               autocomplete="off">
             <tr>
                 <td><label for='username'><g:message code='user.username.label'/></label></td>
-                <td><input type="text" class="text_" name="${usernameParameter ?: 'username'}" id="username"/></td>
+                <td><input type="text" class="text_" name="${username ? username : 'username'}" id="username"
+                           value="${username ? username : ''}"/></td>
             </tr>
             <tr>
                 <td><label for='password'><g:message code='user.password.label'/></label></td>

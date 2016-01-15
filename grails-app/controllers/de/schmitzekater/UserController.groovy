@@ -20,6 +20,63 @@ class UserController {
     def editPassword(){
         render view: 'editPassword'
     }
+
+    def lockAccount() {
+        def user = User.get(params.id)
+        if (user) {
+            user.accountLocked = true
+            user.save()
+            flash.message = message(code: 'user.accountLocked', args: [user.username])
+            redirect view: '/layouts/list'
+        } else {
+            flash.error = message(code: "error.generic.error")
+            redirect view: '/layouts/list'
+        }
+    }
+
+
+    def unlockAccount() {
+        def user = User.get(params.id)
+        if (user) {
+            user.accountLocked = false
+            user.save()
+            flash.message = message(code: 'user.accountUnLocked', args: [user.username])
+            redirect view: '/layouts/list'
+        } else {
+            flash.error = message(code: "error.generic.error")
+            redirect view: '/layouts/list'
+        }
+    }
+
+
+    def enableAccount() {
+        def user = User.get(params.id)
+        if (user) {
+            user.enabled = true
+            user.save()
+            flash.message = message(code: 'user.accountLocked', args: [user.username])
+            redirect view: '/layouts/list'
+        } else {
+            flash.error = message(code: "error.generic.error")
+            redirect view: '/layouts/list'
+        }
+    }
+
+
+    def disableAccount() {
+        def user = User.get(params.id)
+        if (user) {
+            user.enabled = false
+            user.save()
+            flash.message = message(code: 'user.accountLocked', args: [user.username])
+            redirect view: '/layouts/list'
+        } else {
+            flash.error = message(code: "error.generic.error")
+            redirect view: '/layouts/list'
+        }
+    }
+
+
     def changeOwnPassword(){
         User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
         println "Current user $user"
@@ -75,23 +132,44 @@ class UserController {
      * The password will be set to expired, so that the user has to change it upon logon.
      * @return
      */
-    def changeUserPassword(){
-        def user = User.get(params.id)
+    def changeUserPassword(User user) {
+        //def user = User.get(params.id)
         if(user){
-            if(params.newPw == params.newPwRepeat){
+            println "Habe user $user.username"
+            if (params.password.equals(params.newPwRepeat)) {
+                println "PW gleich"
                 user.accountExpired = false
                 user.accountLocked = false
                 user.passwordExpired = true
                 user.enabled = true
-                user.password = params.newPw
-                user.save()
-                User: user
+                user.password = params.password
+                if (user.validate() && user.save(failOnError: true)) {
+                    println "User gespeichert nach PW Änderunge"
+                    flash.message = message(code: 'password.updated.message', args: [user.username])
+                    redirect view: '/layouts/list'
+                } else {
+                    println "Fehler im Speichern, nicht gespeichert"
+                    flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
+                    render view: 'editUserPassword', model: [user: user]
+                }
             }
             else{
-                user.errors.reject('user.password.noMatchRepeat', ['newPw', 'class User'] as Object, '[Property [{0}] of class [{1}] does not match confirmation]')
-                user.errors.rejectValue('newPw', 'user.password.noMatchRepeat')
+                println "Parameter stimmen nicht überein"
+                //flash.error = message(code: 'user.rejectPassword.noMatch', args:['User', user.username])
+                user.errors.reject('user.rejectPassword.noMatch', 'Password does not match')
+                user.errors.rejectValue('password', 'user.rejectPassword.noMatch')
+                render view: 'editUserPassword', model: [user: user]
             }
+        } else {
+            println "Das war nix"
+            render view: 'editUserPassword', [user: user]
         }
+    }
+
+    def editUserPassword() {
+        def user = User.findById(params.id)
+        println "Habe user $user.username"
+        [user: user]
     }
     /**
      * Thius function is used when a user tries to log on with an expired password
@@ -129,8 +207,14 @@ class UserController {
         }
         user.password = password_new
         user.passwordExpired = false
-        user.save() // if you have password constraints check them here
-        redirect controller: 'login', action: 'auth'
+        if (user.validate() && user.save(failOnError: true)) {
+            flash.message = message(code: 'password.updated.message', args: [user.username])
+            redirect controller: 'login', action: 'auth', model: [username: user.username]
+        } else {
+            flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
+            redirect action: 'passwordExpired'
+        }
+
     }
 
     /**

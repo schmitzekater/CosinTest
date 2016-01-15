@@ -11,3 +11,7 @@
 *= require mobile
 *= require_self
 */
+.buttons input.remove {
+    background: transparent url(../images/skin/exclamation.png) 5px 50% no-repeat;
+    padding-left: 28px;
+}

@@ -31,7 +31,6 @@ class SchmitzekaterTagLib {
 
         if (source) {
             log.info("Found template $template in path $path")
-            println "Template $template found"
             return true
         } else {
             log.debug("No template found for $template in path $path")

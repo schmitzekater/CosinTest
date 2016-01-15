@@ -22,9 +22,6 @@ class UnitController {
     }
 
     def removeModule(){
-        params.each{ key, value ->
-            println "Key: "+key+" Value: "+value
-        }
         def module = Module.get(params.module)
         def unit = Unit.get(params.id)
         unit.removeFromModules(module)
