@@ -130,3 +130,10 @@ security:
 auditLog:
     tablename: "audit"
     auditDomainClassName: "grails.example.AuditLogEvent"
+
+quartz:
+    pluginEnabled: true
+    jdbcStore: false
+    autoStartup: true
+    waitForJobsToCompleteOnShutdown: true
+    purgeQuartzTablesOnStartup: false

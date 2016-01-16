@@ -100,6 +100,7 @@ class UserController {
                     // If new Password is not the old password save user
                     user.password = newPw
                     user.passwordExpired = false
+                    user.passwordChangeDate = new Date()
                     user.save()
                     flash.message = message(code: 'password.updated.message', args: [user.username])
                     redirect action: 'list'
@@ -137,7 +138,7 @@ class UserController {
         if(user){
             println "Habe user $user.username"
             if (params.password.equals(params.newPwRepeat)) {
-                println "PW gleich"
+                user.passwordChangeDate = new Date()
                 user.accountExpired = false
                 user.accountLocked = false
                 user.passwordExpired = true
@@ -168,7 +169,6 @@ class UserController {
 
     def editUserPassword() {
         def user = User.findById(params.id)
-        println "Habe user $user.username"
         [user: user]
     }
     /**
@@ -207,6 +207,7 @@ class UserController {
         }
         user.password = password_new
         user.passwordExpired = false
+        user.passwordChangeDate = new Date()
         if (user.validate() && user.save(failOnError: true)) {
             flash.message = message(code: 'password.updated.message', args: [user.username])
             redirect controller: 'login', action: 'auth', model: [username: user.username]
@@ -225,6 +226,14 @@ class UserController {
         def user
         try {
             user = userService.createUser(params.userId, params.password, params.signature, params.person)
+            if(user) {
+                def roleGroup = RoleGroup.findById(params.userRoleGroup)
+                if (roleGroup) {
+                    /* Add the new Role */
+                    UserRoleGroup.create user, roleGroup, true
+                }
+            }
+
             flash.message = message(code: 'default.created.message', args: ['User', user.username])
             redirect(action: 'show', params: user.id)
         } catch (UserException ue) {
@@ -249,6 +258,11 @@ class UserController {
 
             user.person = new Person(urc.properties).save()
             if (user.person && user.validate() && user.save()) {
+                def roleGroup = RoleGroup.findById(params.userRoleGroup)
+                if (roleGroup) {
+                    /* Add the new Role */
+                    UserRoleGroup.create user, roleGroup, true
+                }
 
                 flash.message = message(code: 'default.created.message', args: ['User', user.username])
                 redirect action: "list"
@@ -317,6 +331,7 @@ class UserRegistrationCommand implements Validateable {
     String firstName
     String lastName
     String email
+    Date passwordChangeDate = new Date()
 
     static constraints = {
         importFrom Person
@@ -325,13 +340,13 @@ class UserRegistrationCommand implements Validateable {
         Password darf nicht gleich dem Usernamen sein.
         Die Signatur darf nicht gleich dem Usernamen sein.
          */
-        password  blank: false, nullable: false, validator: { passwd, urc -> return passwd != urc.userId }
+        password  blank: false, nullable: false, validator: { passwd, urc -> return passwd != urc.username }
         passwordRepeat nullable: false, validator: { passwd2, urc ->
             if (passwd2 != urc.password) {
                 return 'user.rejectPassword.noMatch'
             } else return (passwd2 == urc.password)
         }
-        signature minSize: 6, blank: false, nullable: false, validator: { sig, urc -> return sig != urc.userId }
+        signature minSize: 6, blank: false, nullable: false, validator: { sig, urc -> return sig != urc.username }
         signatureRepeat nullable: false, blank: false, validator: { sig2, urc ->
             if (sig2 != urc.signature) {
                 return 'user.rejectSignature.noMatch'

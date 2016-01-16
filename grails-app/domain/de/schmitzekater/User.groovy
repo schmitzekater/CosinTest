@@ -12,6 +12,7 @@ class User implements Serializable{
     String username
     String password
     String signature
+    Date passwordChangeDate
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -19,13 +20,14 @@ class User implements Serializable{
     int falsePasswordCount = 0
 
 
-    User(String username, String password, String signature, Person person){
+    User(String username, String password, String signature, Person person, Date passwordChangeDate){
         //noinspection GroovyAssignabilityCheck
         this()
         this.username = username
         this.password = password
         this.signature = signature
         this.person = person
+        this.passwordChangeDate = passwordChangeDate
     }
 
     static transients = ['springSecurityService']
@@ -35,6 +37,7 @@ class User implements Serializable{
     static constraints = {
         username size: 6..25,  unique: true, nullable: false
         password blank: false, nullable: false, minSize: 6
+        passwordChangeDate nullable: true
         signature minSize: 6, blank: false
         person nullable: false
     }
@@ -53,6 +56,7 @@ class User implements Serializable{
 
     def beforeInsert() {
         encodePassword()
+        if(!passwordChangeDate) passwordChangeDate = new Date()
     }
 
     def beforeUpdate() {

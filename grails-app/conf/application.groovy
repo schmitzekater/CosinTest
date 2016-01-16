@@ -164,3 +164,10 @@ grails.plugin.auditLog.actorClosure = { request, session -> request.applicationC
 grails.plugin.auditLog.logIds = true
 grails.plugin.auditLog.TRUNCATE_LENGTH = 500
 grails.plugin.auditLog.largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255
+
+/*
+quartz.pluginEnabled = true
+quartz.jdbcStore = false
+quartz.autoStartup = false
+quartz.waitForJobsToCompleteOnShutdown = true
+quartz.purgeQuartzTablesOnStartup = false*/

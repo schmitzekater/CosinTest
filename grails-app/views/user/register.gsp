@@ -86,6 +86,12 @@
                             <g:textField name="email" value="${user?.email}"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td><label for="userRoleGroup"><g:message code="user.roleGroup.label"/></label></td>
+                        <td><g:select from="${RoleGroup.findAll()}" optionKey="id" optionValue="displayString"
+                                      noSelection="${['null': '<N/A>']}"
+                                      name="userRoleGroup" multiple="false"/></td>
+                    </tr>
                     <tr class="form-actions">
                         <td colspan="2">
                             <g:submitButton name="register" class="btn btn-primary"

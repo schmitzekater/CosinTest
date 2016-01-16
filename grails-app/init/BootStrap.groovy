@@ -183,11 +183,11 @@ class BootStrap {
 
     def createUsers() {
         println "Creating Users"
-        def lisaU = new User('lisamu','password', 'lisassignature', Person.findByLastName('Mueller'))
-        def berndU = new User('berndw','password', 'berndistoll',  Person.findByLastName('Waldorf'))
-        def hansU = new User( 'hanszi',  'password',  'Musicismylife',  Person.findByLastName('Zimmer'))
-        def peterU = new User( 'peterh',  'password',  'HERRMANN!',  Person.findByLastName('Herrmann'))
-        def ernaU = new User( 'ernaka',  'password',  'weissichnicht',  Person.findByLastName('Kasubke'))
+        def lisaU = new User('lisamu','password', 'lisassignature', Person.findByLastName('Mueller'), null)
+        def berndU = new User('berndw','password', 'berndistoll',  Person.findByLastName('Waldorf'), new Date()-1)
+        def hansU = new User( 'hanszi',  'password',  'Musicismylife',  Person.findByLastName('Zimmer'), new Date()-2)
+        def peterU = new User( 'peterh',  'password',  'HERRMANN!',  Person.findByLastName('Herrmann'), new Date()-3)
+        def ernaU = new User( 'ernaka',  'password',  'weissichnicht',  Person.findByLastName('Kasubke'), new Date()-4)
 
         lisaU.save(failOnError: true)
         berndU.save(failOnError: true)
