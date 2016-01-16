@@ -21,14 +21,13 @@ class ExpirePasswordsJob {
 
         def users = User.executeQuery(
                 'from User u where u.passwordChangeDate <= :cutoffDate',
-                [cutoffDate: new Date() - 2])
+                [cutoffDate: new Date() - 2]) // TODO: Set real value!!
 
         for (user in users) {
             // flush each separately so one failure doesn't rollback all of the others
             try {
                 user.passwordExpired = true
                 user.save(flush: true)
-                //userCache.removeUserFromCache user.username
             }
             catch (e) {
                 log.error "problem expiring password for user $user.username : $e.message", e

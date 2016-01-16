@@ -13,7 +13,7 @@
         </sec:access>
         <li class="list-group-item">
             <g:link controller="auditLogEvent" action="list">
-                <g:message code="auditTrail.label"/>
+                <g:message code="auditTrail.list.label"/>
             </g:link>
         </li>
 
