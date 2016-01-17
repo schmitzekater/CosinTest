@@ -18,15 +18,20 @@ class PersonController {
         render view:"/layouts/list", model: [model:persons, count: Person.count]
     }
 
-    def createPerson(String lastName, String firstName, String email) {
+    def create(){
+        respond new Person(params)
+    }
+
+    def save() {
+        println "Creating Person"
         def person
         try {
-            person = personService.createPerson(lastName, firstName, email)
-            flash.message = "Neue Person hinzugefügt: ${person.lastName}, ${person.firstName}"
-            redirect(action: 'details', params: person.id)
+            person = personService.createPerson(params.lastName, params.firstName, params.email)
+            flash.message = message(code: 'default.created.message', args: [message(code:'person.label'),person.getDisplayString()])
+            redirect action: 'detail', id: person.id
         } catch (PersonException pe) {
-            flash.message = pe.message
-            redirect(action: 'create')
+            flash.error = pe.message
+            respond pe.person.errors, view: 'create'
         }
         if(!person){
 

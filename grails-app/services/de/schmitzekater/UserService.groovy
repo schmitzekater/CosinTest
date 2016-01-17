@@ -12,7 +12,7 @@ class UserService {
 
     def createUser(String uid, String pwd, String sig, Person per) {
         def user = new User(username: uid, password: pwd, signature: sig, person: per, passwordChangeDate: new Date())
-        if (user.validate()) return user
+        if (user.validate() && user.save()) return user
         else throw new UserException(message: "Ungültiger User", user: user)
     }
 

@@ -16,7 +16,6 @@
                 <f:field property="firstName" wrapper="edit/table"/>
                 <f:field property="lastName" wrapper="edit/table"/>
                 <f:field property="email" wrapper="edit/table"/>
-                <f:field property="department" wrapper="/edit/table"/>
             </f:with>
         </table>
     </fieldset>

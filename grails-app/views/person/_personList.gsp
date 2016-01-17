@@ -5,8 +5,7 @@
         <g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}"/>
         <g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}"/>
         <g:sortableColumn property="email" title="${message(code: 'person.email.label', default: 'Email')}"/>
-        <g:sortableColumn property="department" title="${message(code: 'department.departmentName.label', default: 'Email')}"/>
-        <g:sortableColumn property="user" title="${message(code: 'user.username.label', default: 'User ID')}"/>
+        <g:sortableColumn property="user" title="${message(code: 'user.username.label', default: 'Username')}"/>
         <th><a href="#"><g:message code='action.label'/></a></th>
     </tr>
     </thead>
@@ -18,7 +17,6 @@
                 <f:display property="lastName" wrapper="list"/>
                 <f:display property="firstName" wrapper="list"/>
                 <f:display property="email" wrapper="list"/>
-                <f:display property="department" wrapper="list/link/department"/>
                 <f:display property="user" wrapper="list/link/user"/>
             </f:with>
             <g:render template="/layouts/editInfoButtons" model="[model: person]" />

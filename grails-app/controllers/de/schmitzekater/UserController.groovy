@@ -224,21 +224,27 @@ class UserController {
      */
     def createUser() {
         def user
-        try {
-            user = userService.createUser(params.userId, params.password, params.signature, params.person)
-            if(user) {
-                def roleGroup = RoleGroup.findById(params.userRoleGroup)
-                if (roleGroup) {
-                    /* Add the new Role */
-                    UserRoleGroup.create user, roleGroup, true
-                }
+        def person
+        if(params.person && params.person!='null'){
+            person = Person.findById(params.person)
+        }
+        else {
+            flash.error = 'Person must be selected!'
+            redirect action: 'create', params: params
+        }
+        user = new User(username: params.username, password: params.password, signature: params.signature, person: person)
+        if(user.validate() & user.save()) {
+            def roleGroup = RoleGroup.findById(params.userRoleGroup)
+            if (roleGroup) {
+                /* Add the new Role */
+                UserRoleGroup.create user, roleGroup, true
             }
-
             flash.message = message(code: 'default.created.message', args: ['User', user.username])
-            redirect(action: 'show', params: user.id)
-        } catch (UserException ue) {
-            flash.message = ue.message
-            logger.error(ue.message)
+            redirect action: 'show', id: user.id
+        }
+        else{
+            flash.error = message(code: 'default.not.created.message', args: ['User', user.username])
+            respond user.errors, view: 'create'
         }
 
     }
@@ -304,7 +310,7 @@ class UserController {
             def oldUserId = user.username
             user.properties = params
             if (user.save()) {
-                flash.message = message(code: 'default.updated.message', args: ['User', user.username])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label'), user.username])
                 redirect(action: "detail", id: params['id'])
             } else {
                 flash.error = message(code: 'error.not.updated.message', args: ['User', oldUserId])

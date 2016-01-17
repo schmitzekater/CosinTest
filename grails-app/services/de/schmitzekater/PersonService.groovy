@@ -13,10 +13,9 @@ class PersonService {
     MessageSource messageSource
 
     def createPerson(String lastName, String firstName, String email) {
-        println "Creating user"
         def person = new Person(firstName: firstName, lastName: lastName, email: email)
-        if (person.validate()) return person
-        else throw new PersonException(message: messageSource.getMessage('error.create.person', ['Person', [person.id]],null), person: person)
+        if (person.validate() && person.save()) return person
+        else throw new PersonException(message: 'Error creating person', person: person)
     }
 
 

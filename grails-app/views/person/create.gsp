@@ -17,12 +17,11 @@
                     <f:field property="firstName" wrapper="edit/table"/>
                     <f:field property="lastName" wrapper="edit/table"/>
                     <f:field property="email" wrapper="edit/table"/>
-                    <f:field property="department" wrapper="/edit/table"/>
                 </f:with>
             </table>
         </fieldset>
         <fieldset class="buttons">
-            <input class="save" action="create" type="submit"
+            <input class="save" action="save" type="submit"
                    value="${message(code: 'default.button.create.label', default: 'Create')}"/>
         </fieldset>
     </g:form>

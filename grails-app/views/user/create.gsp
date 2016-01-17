@@ -10,7 +10,7 @@
 <body role="document">
 <div id="edit-${controllerName}" role="main">
     <h1><g:message code="default.create.label" args="[entityName]"/></h1>
-    <g:form controller="User" action="save">
+    <g:form controller="User" action="createUser">
         <fieldset class="form">
             <table class="table-condensed table-striped">
                 <f:with bean="user">
@@ -28,7 +28,7 @@
             </table>
         </fieldset>
         <fieldset class="buttons">
-            <input class="save" action="create" type="submit"
+            <input class="save" action="createUser" type="submit"
                    value="${message(code: 'default.button.create.label', default: 'Create')}"/>
         </fieldset>
     </g:form>
