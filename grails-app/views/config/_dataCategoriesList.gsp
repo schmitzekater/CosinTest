@@ -14,7 +14,12 @@
     </g:form>
     <ul>
         <g:each var="dc" in="${dataCategories}">
-            <li>${dc.toString()}</li>
+            <li>${dc.toString()}
+                <sec:link action="editDataCategory" id="${dc.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
+                <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
+                        code="edit.dataCategory"/>'>
+                 </sec:link>
+            </li>
         </g:each>
     </ul>
 </div>

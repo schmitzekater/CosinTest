@@ -102,4 +102,90 @@ class ConfigController {
         def computerRoles = ComputerRole.list()
         render template: "computerRolesList", model: [computerRoles: computerRoles]
     }
+
+    def updateComputerRole(){
+        def computerRole = ComputerRole.findById(params.id)
+        if(computerRole){
+            computerRole.role = params.role
+            if(computerRole.save(failOnError: true)){
+                flash.message = message(code: 'default.updated.message', args: ['Computer Role', params.role])
+            }
+            else{
+                flash.error = message(code: 'default.not.updated.message', args: ['Computer Role', computerRole.role])
+            }
+            redirect action: 'config'
+        }
+    }
+
+    def updateDataCategory(){
+        def dataCategory = DataCategory.findById(params.id)
+        if(dataCategory){
+            dataCategory.category = params.category
+            if(dataCategory.save(failOnError: true)){
+                flash.message = message(code: 'default.updated.message', args: ['Data Category', params.category])
+            }
+            else{
+                flash.error = message(code: 'default.not.updated.message', args: ['Data Category', dataCategory.category])
+            }
+            redirect action: 'config'
+        }
+    }
+
+    def updateConnectionType(){
+        def connectionType = ConnectionType.findById(params.id)
+        if(connectionType){
+            connectionType.connection= params.connection
+            if(connectionType.save(failOnError: true)){
+                flash.message = message(code: 'default.updated.message', args: ['Connection Type', params.connection])
+            }
+            else{
+                flash.error = message(code: 'default.not.updated.message', args: ['Connection Type', connectionType.connection])
+            }
+            redirect action: 'config'
+        }
+    }
+
+    def updateModuleType(){
+        def moduleType = ModuleType.findById(params.id)
+        if(moduleType){
+            moduleType.moduleType= params.type
+            if(moduleType.save(failOnError: true)){
+                flash.message = message(code: 'default.updated.message', args: ['Module Type', params.type])
+            }
+            else{
+                flash.error = message(code: 'default.not.updated.message', args: ['Module Type', moduleType.moduleType])
+            }
+            redirect action: 'config'
+        }
+    }
+
+    def updateQualificationType(){
+        def qualificationType = QualificationType.findById(params.id)
+        if(qualificationType){
+            qualificationType.type = params.type
+            if(qualificationType.save(failOnError: true)){
+                flash.message = message(code: 'default.updated.message', args: ['Qualification Type', params.type])
+            }
+            else{
+                flash.error = message(code: 'default.not.updated.message', args: ['Qualification Type', qualificationType.type])
+            }
+            redirect action: 'config'
+        }
+    }
+
+    def editQualificationType (QualificationType type){
+        respond type
+    }
+    def editModuleType (ModuleType type){
+        respond type
+    }
+    def editConnectionType (ConnectionType type){
+        respond type
+    }
+    def editComputerRole (ComputerRole role){
+        respond role
+    }
+    def editDataCategory (DataCategory category){
+        respond category
+    }
 }

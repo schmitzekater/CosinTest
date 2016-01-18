@@ -136,7 +136,6 @@ class UserController {
     def changeUserPassword(User user) {
         //def user = User.get(params.id)
         if(user){
-            println "Habe user $user.username"
             if (params.password.equals(params.newPwRepeat)) {
                 user.passwordChangeDate = new Date()
                 user.accountExpired = false
@@ -145,17 +144,14 @@ class UserController {
                 user.enabled = true
                 user.password = params.password
                 if (user.validate() && user.save(failOnError: true)) {
-                    println "User gespeichert nach PW Änderunge"
                     flash.message = message(code: 'password.updated.message', args: [user.username])
                     redirect view: '/layouts/list'
                 } else {
-                    println "Fehler im Speichern, nicht gespeichert"
                     flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
                     render view: 'editUserPassword', model: [user: user]
                 }
             }
             else{
-                println "Parameter stimmen nicht überein"
                 //flash.error = message(code: 'user.rejectPassword.noMatch', args:['User', user.username])
                 user.errors.reject('user.rejectPassword.noMatch', 'Password does not match')
                 user.errors.rejectValue('password', 'user.rejectPassword.noMatch')

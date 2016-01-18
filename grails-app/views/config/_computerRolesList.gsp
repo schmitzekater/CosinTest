@@ -14,7 +14,12 @@
     </g:form>
     <ul>
         <g:each var="cr" in="${computerRoles}">
-            <li>${cr.toString()}</li>
+            <li>${cr.toString()}
+                <sec:link action="editComputerRole" id="${cr.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
+                        code="edit.computerRole"/>'>
+                </sec:link>
+            </li>
         </g:each>
     </ul>
 </div>

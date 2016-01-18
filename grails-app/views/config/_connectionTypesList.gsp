@@ -14,7 +14,12 @@
     </g:form>
     <ul>
         <g:each var="ct" in="${connectionTypes}">
-            <li>${ct.toString()}</li>
+            <li>${ct.toString()}
+                <sec:link action="editConnectionType" id="${ct.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
+                        code="edit.connectionType"/>'>
+                </sec:link>
+            </li>
         </g:each>
     </ul>
 </div>

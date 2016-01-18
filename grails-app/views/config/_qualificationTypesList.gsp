@@ -1,4 +1,4 @@
-<div class="panel-body" id="qualificationTypes">
+<div class="panel-body" id="qualificationTypes" onload="fadeMessages()">
     <g:form>
         <label><g:message code="default.add.short.label"/>: </label>
         <g:textField name="type" id="QualificationType" value="QualificationType"/>
@@ -15,7 +15,12 @@
 
     <ul>
         <g:each var="qt" in="${qualificationTypes}">
-            <li>${qt.toString()}</li>
+            <li>${qt.toString()}
+                <sec:link action="editQualificationType" id="${qt.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
+                        code="edit.qualificationType"/>'>
+                </sec:link>
+            </li>
         </g:each>
     </ul>
 </div>

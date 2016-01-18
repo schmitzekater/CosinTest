@@ -26,3 +26,14 @@ function refresh(){
 
     $(".messages").delay(5000).fadeOut('slow') // Hide messages and errors
 }
+
+
+function fadeMessages(){
+    /**
+     * Fade messages after loaded
+     */
+    $(".messages").delay(5000).fadeOut('slow')
+    $(document).ready(function () {
+        window.setTimeout("fadeMessages();", 5000);
+    })
+}

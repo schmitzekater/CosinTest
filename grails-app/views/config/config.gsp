@@ -10,10 +10,11 @@
 <head>
     <meta name="layout" content="config"/>
     <title><g:message code="default.config.label"/></title>
+
 </head>
 
 
-<body role="document">
+<body role="document" onload="fadeMessages()" >
 <div id="edit-${controllerName}" role="main">
     <h1><g:message code="default.config.label"/></h1>
     <div class="panel panel-default">
@@ -39,6 +40,6 @@
         <g:render template="dataCategoriesList" model="${dataCategories}"/>
     </div>
 </div>
-<asset:javascript src="clearInputs.js"/>
+
 </body>
 </html>

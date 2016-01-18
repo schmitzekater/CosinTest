@@ -15,10 +15,11 @@
     <asset:javascript src="bootstrap-all.js"/>
     <asset:stylesheet src="bootstrap-all.css"/>
     <asset:stylesheet src="font-awesome-all.css"/>
+    <asset:javascript src="clearInputs.js"/>
     <g:layoutHead/>
 </head>
 
-<body>
+<body onload="refresh()" onscroll="fadeMessages()">
 <g:render template="/navigation/navMain"/>                                          <!-- Navigation Bar Top -->
 <div class="container"><!-- Container for all content -->
     <div class="well-sm">
