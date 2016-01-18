@@ -38,10 +38,14 @@
             <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
                 <g:render template="/layouts/editInfoButtons" model="[model: computer]"/>
             </g:if>
-        %{-- Render the remove button if on System controller --}%
+            %{-- Render the remove button if on System controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
                 <td>
-                <sec:link controller="system" action="edit" id="${params.id}" params="[computer: computer.id]"
+                <g:link action="detail" id="${computer.id}" controller="computer">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
+                            code="info.computer"/>'></span>
+                </g:link>
+                <sec:link controller="system" action="removeComputer" id="${params.id}" params="[computer: computer.id]"
                           expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
                     <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="color:red" title='<g:message
                         code="system.remove.computer"/>'>&nbsp

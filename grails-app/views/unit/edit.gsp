@@ -18,12 +18,11 @@
                 <f:with bean="unit">
                     <f:field property="unitName" wrapper="edit/table"/>
                     <f:field property="system" wrapper="edit/table"/>
-                    <f:field property="modules" wrapper="edit/table"/>
                 </f:with>
             </table>
         </fieldset>
         <fieldset class="buttons">
-            <input class="save" action="update" type="submit"
+            <input class="btn btn-success" action="update" type="submit"
                    value="${message(code: 'default.button.update.label', default: 'Update')}" title="Hans"/>
         </fieldset>
     </g:form>

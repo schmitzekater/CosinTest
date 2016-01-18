@@ -20,7 +20,24 @@
                 <f:display property="system" wrapper="list/link"/>
                 <td>${unit.modules.size()}</td>
             </f:with>
-            <g:render template="/layouts/editInfoButtons" model="[model: unit]" />
+            %{--Only render the Buttons if on Unit-Controller--}%
+            <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
+                <g:render template="/layouts/editInfoButtons" model="[model: unit]" />
+            </g:if>
+            %{-- Render the remove button if on System controller --}%
+            <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
+                <td>
+                <g:link action="detail" id="${unit.id}" controller="unit">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
+                            code="info.unit"/>'></span>
+                </g:link>
+                <sec:link controller="system" action="removeUnit" id="${params.id}" params="[unit: unit.id]"
+                          expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="color:red" title='<g:message
+                        code="system.remove.unit"/>'>&nbsp
+                </sec:link>
+                </td
+            </g:if>
         </tr>
     </g:each>
     </tbody>

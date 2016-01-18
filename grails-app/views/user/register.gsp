@@ -51,7 +51,7 @@
                             <label for="signature"><g:message code="user.signature.label"/> *</label>
                         </td>
                         <td>
-                            <g:textField name="signature" value="${user?.signature}"/>
+                            <g:passwordField name="signature" value="${user?.signature}"/>
                         </td>
                     </tr>
                     <tr>
@@ -59,7 +59,7 @@
                           <label for="signatureRepeat"><g:message code="user.signature.label"/> <g:message code="default.entry.repeat"/> *</label>
                         </td>
                         <td>
-                            <g:textField name="signatureRepeat" value="${user?.signatureRepeat}"/>
+                            <g:passwordField name="signatureRepeat" value="${user?.signatureRepeat}"/>
                         </td>
                     </tr>
                     <tr>

@@ -1,12 +1,21 @@
 <%@ page import="de.schmitzekater.Module" %>
 <hr/>
-<h4><g:message code="default.add.Module"/></h4>
+<h4 onclick='$("#addModule").toggle()' title="Show/Hide"> <g:message code="default.add.Module"/></h4>
 <sec:access expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE')">
-    <div class="container-fluid">
+
+    <div class="container-fluid" id="addModule" style="display:none">
         <g:form controller="${controllerName}" action="addModule" it="${params.id}">
             <g:hiddenField name="id" value="${params.id}"/>
             <fieldset>
-                <f:field property="modules" wrapper="edit/module" widget="/edit/queries/module"></f:field>
+                <table class="table-condensed">
+                    <f:field property="modules" wrapper="edit/table" widget="/edit/queries/module"></f:field>
+                    <tr>
+                        <td colspan="2">
+                            <input class="save btn btn-primary" action="addModule" type="submit"
+                                   value="${message(code: 'default.add.Module', default: 'Add')}" title="${message(code: 'add.module.to.unit', default: 'Add')}"/>
+                        </td>
+                    </tr>
+                </table>
             </fieldset>
         </g:form>
     </div>

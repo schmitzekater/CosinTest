@@ -15,16 +15,31 @@ class UnitController {
     }
 
     def addModule(){
-        def module = Module.get(params.module)
-        def unit = Unit.get(params.id)
-        unit.addToModules(module)
-        redirect action: 'detail', id: unit.id
+        def unit
+        def module
+        try{
+            module = Module.get(params.module)
+            unit = Unit.get(params.id)
+            unit.addToModules(module)
+            flash.message = message(code: "module.added.to.unit", args:[module.moduleName, unit.unitName])
+        }
+        catch(Exception e){
+            flash.error = e.localizedMessage
+        }
+        redirect action: 'detail', id: params.id
     }
 
     def removeModule(){
-        def module = Module.get(params.module)
-        def unit = Unit.get(params.id)
-        unit.removeFromModules(module)
+        def unit
+        try{
+            def module = Module.get(params.module)
+            unit = Unit.get(params.id)
+            unit.removeFromModules(module)
+            flash.message = message(code: "module.removed.from.unit", args:[module.moduleName, unit.unitName])
+        }
+        catch (Exception e){
+            flash.error = e.localizedMessage
+        }
         redirect action: 'detail', id: unit.id
     }
 

@@ -10,9 +10,6 @@
         <div class="controls">
             <%=widget%>
             <g:if test="${invalid}"><span class="help-inline">${errors.join('<br>')}</span></g:if>
-            <input class="save btn btn-success" action="addModule" type="submit"
-                   value="${message(code: 'default.button.add.mini.label', default: 'Add')}"
-                   title="${message(code: 'button.add.title', default: 'Add')}"/>
         </div>
     </div>
 

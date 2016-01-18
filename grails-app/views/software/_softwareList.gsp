@@ -10,6 +10,9 @@
         <g:if test="${controllerName.compareToIgnoreCase('Software')==0}">
             <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
+        <g:else>
+            <th/>
+        </g:else>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +28,20 @@
             %{--Only render the Buttons if on Software-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Software')==0}">
                 <g:render template="/layouts/editInfoButtons" model="[model: software]"/>
+            </g:if>
+            %{-- Render the remove button if on System controller --}%
+            <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
+                <td>
+                <g:link action="detail" id="${software.id}" controller="software">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
+                            code="info.software"/>'></span>
+                </g:link>
+                <sec:link controller="system" action="removeSoftware" id="${params.id}" params="[software: software.id]"
+                          expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="color:red" title='<g:message
+                        code="system.remove.software"/>'>&nbsp
+                </sec:link>
+                </td
             </g:if>
         </tr>
     </g:each>

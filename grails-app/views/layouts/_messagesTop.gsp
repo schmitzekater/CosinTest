@@ -1,5 +1,5 @@
 <g:if test="${flash.message}">
-    <div class="alert alert-info" role="info" id="topAlerts">${flash.message}</div>
+    <div class="alert alert-success" role="info" id="topAlerts">${flash.message}</div>
 </g:if>
 <g:if test="${flash.error}">
     <div class="alert alert-danger" role="alert" style="display: block" id="topErrors">${flash.error}
