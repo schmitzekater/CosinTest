@@ -37,4 +37,40 @@ class SchmitzekaterTagLib {
             return false
         }
     }
+
+    def cancelButton = { attrs, body ->
+        out << """
+            <input class="btn btn-error" type="button" onclick="window.history.back()" value="${
+            message(code: 'default.cancel.button', default: 'Cancel')
+        }" title="${message(code: 'default.cancel.button', default: 'Cancel')}"/>
+                """
+
+    }
+
+    def addEditCancelButtons = { attrs, body ->
+        out << """
+         <fieldset class="buttons">
+            <input class="btn btn-success" action="update" type="submit"
+                   value="${message(code: 'default.button.update.label', default: 'Update')}" title="${
+            message(code: 'default.button.update.label', default: 'Update')
+        }"/>
+            <input class="btn btn-danger" type="button" onclick="window.history.back()" value="${
+            message(code: 'default.cancel.button', default: 'Cancel')
+        }" title="${message(code: 'default.cancel.button', default: 'Cancel')}"/>
+          </fieldset>
+            """
+    }
+    def addCreateCancelButtons = { attrs, body ->
+        out << """
+         <fieldset class="buttons">
+             <input class="btn btn-primary" action="create" type="submit"
+                   value="${message(code: 'default.button.create.label', default: 'Create')}" title="${
+            message(code: 'default.button.create.label', default: 'Create')
+        }"/>
+            <input class="btn btn-danger" type="button" onclick="window.history.back()" value="${
+            message(code: 'default.cancel.button', default: 'Cancel')
+        }" title="${message(code: 'default.cancel.button', default: 'Cancel')}"/>
+          </fieldset>
+            """
+    }
 }

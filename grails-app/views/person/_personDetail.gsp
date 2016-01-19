@@ -9,10 +9,10 @@
 
    </tbody>
 </table>
-<g:form controller="person" id="${person.id}">
-    <g:actionSubmit action="edit" class="btn btn-primary"
-                    value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
-</g:form>
+<sec:link action="edit" class="btn btn-primary" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+          id="${person.id}" title="${message(code: "edit.person")}" controller="person">
+    <g:message code='default.button.edit.label' default='Edit'/>
+</sec:link>
 %{--Falls wir das Template unter User aufrufen, soll uns nicht nochmal der User begegnen!!--}%
 <g:if test="${controllerName.compareToIgnoreCase('user')!=0}">
     %{--Wenn ein User assoziiert ist, kommt hier ein Link zum User rein.--}%

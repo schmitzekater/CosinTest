@@ -12,4 +12,11 @@
     <g:if test="${controllerName.compareToIgnoreCase("User") == 0}">
         <g:render template="/layouts/userEditButtons" model="[model: model]"></g:render>
     </g:if>
+    <g:if test="${controllerName.compareToIgnoreCase("Module") == 0 || controllerName.compareToIgnoreCase("Software") == 0}">
+        <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+                  action="addQualificationToObject">
+            <span class="glyphicon glyphicon-wrench" aria-hidden="true" title='<g:message
+                code="default.add.Qualification"/>'>
+        </sec:link>
+    </g:if>
 </td>

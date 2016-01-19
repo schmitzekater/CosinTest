@@ -30,9 +30,9 @@ class VendorController {
 
     def save(){
         def address = new Address(params.address)
-        address.save()
+        address.save(failOnError: true)
         def vendor = new Vendor(name: params.name, url: params.url, address: address)
-        vendor.save()
-        render view: "/layouts/detail"
+        vendor.save(failOnError: true)
+        redirect action: "detail", id: vendor.id
     }
 }

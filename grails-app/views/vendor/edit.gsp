@@ -34,10 +34,7 @@
                 </f:with>
             </table>
         </fieldset>
-        <fieldset class="buttons">
-            <input class="btn btn-primary" action="update" type="submit"
-                   value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-        </fieldset>
+        <cos:addEditCancelButtons/>
     </g:form>
 </div>                                                                          <!-- Main Block end -->
 </body>

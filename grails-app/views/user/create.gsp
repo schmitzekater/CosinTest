@@ -28,8 +28,11 @@
             </table>
         </fieldset>
         <fieldset class="buttons">
-            <input class="save" action="createUser" type="submit"
+            <input class="btn btn-primary" action="createUser" type="submit"
                    value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+            <input class="btn btn-danger" type="button" onclick="window.history.back()"
+                   value="${message(code: 'default.cancel.button', default: 'Cancel')}"
+                   title="${message(code: 'default.cancel.button', default: 'Cancel')}"/>
         </fieldset>
     </g:form>
 </div>

@@ -32,10 +32,7 @@
                 </f:with>
             </table>
         </fieldset>
-        <fieldset class="buttons">
-            <input class="btn btn-primary" action="create" type="submit"
-                   value="${message(code: 'default.button.create.label', default: 'Create')}"/>
-        </fieldset>
+        <cos:addCreateCancelButtons/>
     </g:form>
 </div>
 </body>

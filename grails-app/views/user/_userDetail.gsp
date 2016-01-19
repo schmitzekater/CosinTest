@@ -15,10 +15,10 @@
         </f:with>
     </tbody>
 </table>
-<g:form controller="user" id="${user.id}">
-    <g:actionSubmit action="edit" class="btn btn-primary"
-                    value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
-</g:form>
+<sec:link action="edit" class="btn btn-primary" expression="hasRole('ROLE_DELETE')"
+          id="${user.id}" title="${message(code: "edit.user")}" controller="user">
+    <g:message code='default.button.edit.label' default='Edit'/>
+</sec:link>
 %{--Falls wir das Template unter Person aufrufen, soll uns nicht nochmal die Person begegnen!!--}%
 <g:if test="${controllerName.compareToIgnoreCase('person')!=0}">
 %{--Da ein User immer eine Person haben muss, können wir uns den Test auf eine Person sparen, und können diese direkt anzeigen.--}%

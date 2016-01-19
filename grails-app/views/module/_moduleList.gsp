@@ -7,13 +7,17 @@
         <g:sortableColumn property="moduleSerial" title="${message(code: 'module.moduleSerial.label', default: 'Serial')}"/>
         <g:sortableColumn property="moduleName" title="${message(code: 'module.moduleName.label', default: 'Name')}" />
         <g:sortableColumn property="moduleVendor" title="${message(code: 'vendor.label', default: 'Vendor')}"/>
-        <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}" />
+        <g:sortableColumn property="moduleFirmware"
+                          title="${message(code: 'module.moduleFirmware.label', default: 'Firmware')}"/>
+        <g:sortableColumn property="moduleConnection"
+                          title="${message(code: 'connection.label', default: 'Connection')}"/>
         <g:if test="${controllerName.compareToIgnoreCase('Module')==0}">
+            <g:sortableColumn property="unit" title="${message(code: 'unit.label', default: 'Unit')}"/>
             <th>
                 <a href="#">${message(code: 'module.calibrationInterval.label', default: 'Calibration Interval')}</a>
             </th>
-            <th>
-                <a href="#">${message(code: 'module.nextCalibration.label', default: 'Next Calibration')}</a>
+            <g:sortableColumn property="nextCalibration"
+                              title="${message(code: 'module.nextCalibration.label', default: 'Next Calibration')}"/>
             </th>
         </g:if>
         <g:if test="${controllerName.compareToIgnoreCase('Module') == 0}">
@@ -33,8 +37,10 @@
             <f:display property='moduleSerial' wrapper="list"/>
             <f:display property='moduleName' wrapper="list"/>
             <f:display property='moduleVendor' wrapper="list/link/vendor"/>
-            <f:display property='unit' wrapper="list/link/unit"/>
+                <f:display property='moduleFirmware' wrapper="list"/>
+                <f:display property='moduleConnection' wrapper="list"/>
                 <g:if test="${controllerName.compareToIgnoreCase('Module') == 0}">
+                    <f:display property='unit' wrapper="list/link/unit"/>
                     <f:display property="needsCalibration" wrapper="list/date/calibInterval/"/>
                     <f:display property="nextCalibration" wrapper="list/date/colored" widget="detail/date/colored"/>
                 </g:if>

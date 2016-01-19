@@ -21,10 +21,7 @@
                 </f:with>
             </table>
         </fieldset>
-        <fieldset class="buttons">
-            <input class="btn btn-success" action="update" type="submit"
-                   value="${message(code: 'default.button.update.label', default: 'Update')}" title="Hans"/>
-        </fieldset>
+        <cos:addEditCancelButtons/>
     </g:form>
     <g:render template="/layouts/addModule" />
 </div>

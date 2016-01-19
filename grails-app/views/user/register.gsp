@@ -96,6 +96,9 @@
                         <td colspan="2">
                             <g:submitButton name="register" class="btn btn-primary"
                                         value="${message(code: 'default.button.create.label', default: 'Register')}"/>
+                            <input class="btn btn-danger" type="button" onclick="window.history.back()"
+                                   value="${message(code: 'default.cancel.button', default: 'Cancel')}"
+                                   title="${message(code: 'default.cancel.button', default: 'Cancel')}"/>
                         </td>
                     </tr>
                 </fieldset>

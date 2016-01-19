@@ -11,7 +11,6 @@
         <f:display property="address.country" wrapper="detail"/>
     </f:with>
 
-
     </tbody>
 </table>
 <sec:link controller="vendor" id="${vendor.id}" action="edit">

@@ -32,10 +32,7 @@
                 </f:with>
             </table>
         </fieldset>
-        <fieldset class="buttons">
-            <input class="btn btn-success" action="update" type="submit"
-                   value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-        </fieldset>
+        <cos:addEditCancelButtons/>
     </g:form>
 </div>
 <g:render template="/layouts/addSoftware"/>

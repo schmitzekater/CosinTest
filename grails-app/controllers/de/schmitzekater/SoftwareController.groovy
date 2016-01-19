@@ -29,6 +29,14 @@ class SoftwareController {
         }
     }
 
+    /**
+     * This function renders only the template to add a new Qualification.
+     * Same as in "Module" TODO: One Controller? Always the same action??
+     */
+    def addQualificationToObject() {
+        render view: "/layouts/addQualificationToObject", params: params
+    }
+
 
     def saveAttachment(){
         def attachment = request.getFile('attachment').inputStream.text

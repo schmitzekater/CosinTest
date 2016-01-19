@@ -8,7 +8,7 @@
         </f:with>
     </tbody>
 </table>
-<g:form controller="department" id="${department.id}">
-    <g:actionSubmit action="edit" class="btn btn-primary"
-                    value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
-</g:form>
+<sec:link action="edit" class="btn btn-primary" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+          id="${department.id}" title="${message(code: "edit.department")}" controller="department">
+    <g:message code='default.button.edit.label' default='Edit'/>
+</sec:link>

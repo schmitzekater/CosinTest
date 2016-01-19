@@ -28,10 +28,7 @@
                     </f:with>
                 </table>
             </fieldset>
-            <fieldset class="buttons">
-                <input class="save" action="update" type="submit"
-                       value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-            </fieldset>
+            <cos:addEditCancelButtons/>
         </g:form>
         <sec:access expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE')">
             <hr/>

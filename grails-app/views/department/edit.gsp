@@ -5,7 +5,7 @@
   Time: 19:32
 --%>
 
-<%@ page import="de.schmitzekater.System" contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.*" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +28,7 @@
                 </f:with>
             </table>
         </fieldset>
-        <fieldset class="buttons">
-            <input class="btn btn-success" action="update" type="submit"
-                   value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-        </fieldset>
+        <cos:addEditCancelButtons/>
     </g:form>
 </div>
 

@@ -18,11 +18,10 @@
         </f:with>
     </tbody>
 </table>
-%{--<g:form controller="system" id="${system.id}">--}%
-    <sec:link expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')" controller="system" id="${system.id}" action="edit" class="btn btn-primary">
-        ${message(code: 'default.button.edit.label', default: 'Edit')}
-    </sec:link>
-%{--</g:form>--}%
+<sec:link expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')" controller="system" id="${system.id}"
+          action="edit" class="btn btn-primary">
+    ${message(code: 'default.button.edit.label', default: 'Edit')}
+</sec:link>
 <%-- Get thte units of the system --%>
 <h3><g:message code="unit.list.label"/></h3>
 <g:if test="${system.units.size()>0}">

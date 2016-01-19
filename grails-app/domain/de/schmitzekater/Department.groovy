@@ -3,7 +3,7 @@ package de.schmitzekater
 class Department {
     String departmentName
     static belongsTo = [supervisor: Person]
-    static hasMany = [systems: System, persons: Person]
+    static hasMany = [systems: System]
 
     static auditable = true
 

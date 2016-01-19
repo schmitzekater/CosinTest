@@ -21,10 +21,10 @@
             </f:with>
         </tbody>
 </table>
-<g:form controller="module" id="${module.id}">
-    <g:actionSubmit action="edit" class="btn btn-primary"
-                    value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
-</g:form>
+<sec:link action="edit" class="btn btn-primary" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+          id="${module.id}" title="${message(code: "edit.module")}" controller="module">
+    <g:message code='default.button.edit.label' default='Edit'/>
+</sec:link>
 <hr/>
 <h3><g:message code="qualification.list.label"/> </h3>
 %{--Display the sorted qualifications with the newest Qualification on Top--}%
