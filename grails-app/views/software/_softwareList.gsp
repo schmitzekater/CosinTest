@@ -24,6 +24,7 @@
                 <f:display property="softwareVersion" wrapper="list"/>
                 <f:display property="softwareVendor" wrapper="list/link/vendor"/>
                 <f:display property="system" wrapper="list/link/system"/>
+
             </f:with>
             %{--Only render the Buttons if on Software-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Software')==0}">
