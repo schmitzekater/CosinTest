@@ -11,9 +11,10 @@ class System implements Serializable{
     String area
 
 
-    static belongsTo = [systemDepartment: Department, systemOwner: Person, processOwner: Person]
+    static belongsTo = [Person, Department]
     static hasMany = [units: Unit, software: Software, systemOwner: Person, processOwner: Person]
-    static hasOne = [systemDataCategory: DataCategory]
+    static hasOne = [systemDataCategory: DataCategory, systemDepartment: Department]
+    static mappedBy = [software: 'system', systemOwner: 'systemOwnerSystem', processOwner: 'processOwnerSystem']
 
     static auditable = true
 

@@ -7,7 +7,9 @@ class Software extends QualifiableObject{
 
     static auditable = true
     static hasOne = [softwareVendor: Vendor]
-    static belongsTo = [system: System, computer: Computer]
+    static hasMany = [computer: Computer, system: System]
+    static belongsTo = [System, Computer]
+    static mappedBy = [system: 'software']
 
     static constraints = {
         softwareName blank: false, maxSize: 50

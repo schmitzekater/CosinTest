@@ -3,9 +3,12 @@
 <dt>${label}
 <dl>
     <g:if test="${value}">
-        <g:link controller="person" action="detail" id="${value.id}">
-            ${value.getDisplayString()}
-        </g:link>
+        <g:each var="person" in="${value}">
+            <g:link controller="person" action="detail" id="${person.id}">
+                ${person.getDisplayString()}
+            </g:link>
+            <br/>
+        </g:each>
     </g:if>
     <g:else>
         --

@@ -9,6 +9,8 @@ class Address {
     String county
     String country
 
+    static hasOne = [vendor: Vendor]
+    static belongsTo = [Vendor]
     static constraints = {
         streetOne nullable: true
         streetTwo nullable: true
@@ -16,6 +18,7 @@ class Address {
         city nullable: true
         county nullable: true
         country nullable: true
+        vendor nullable: true
     }
 
     String getTableString(){

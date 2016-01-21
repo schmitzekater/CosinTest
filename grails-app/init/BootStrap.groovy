@@ -139,9 +139,16 @@ class BootStrap {
 
     def createVendors() {
         println("Creating Vendors")
-        def sciex = new Vendor(name: 'AB Sciex')
-        def waters = new Vendor(name: 'Waters')
-        def dell = new Vendor(name: 'Dell')
+        def addressOne = new Address(streetOne: "Street", zip: '88888', country: 'deu', county: 'BW')
+        def addressTwo = new Address(streetOne: "Street", zip: '9999', country: 'deu', county: 'BY')
+        def addressThree = new Address(streetOne: "Street", zip: '11111', country: 'deu', county: 'RP')
+        addressOne.save()
+        addressTwo.save()
+        addressThree.save()
+        println "Create ${Address.count()} Addresses"
+        def sciex = new Vendor(name: 'AB Sciex', address: addressOne)
+        def waters = new Vendor(name: 'Waters', address: addressTwo)
+        def dell = new Vendor(name: 'Dell', address: addressThree)
         sciex.save(failOnError: true)
         waters.save(failOnError: true)
         dell.save(failOnError: true)

@@ -5,7 +5,7 @@ import org.hibernate.criterion.DetachedCriteria
 
 class Person {
     static hasOne = [user: User, department: Department]
-    static hasMany = [system: System]
+    static hasMany = [processOwnerSystem: System, systemOwnerSystem: System]
     static auditable = true
     String firstName
     String lastName
@@ -17,7 +17,8 @@ class Person {
         email email: true, blank: false
         user nullable: true, blank: true
         department nullable: true, blank: true
-        system nullable: true
+        processOwnerSystem nullable: true
+        systemOwnerSystem nullable: true
     }
 
     String toString() {

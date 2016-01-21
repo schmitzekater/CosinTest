@@ -1,5 +1,9 @@
 package de.schmitzekater
 
+import grails.transaction.Transactional
+
+import static org.springframework.http.HttpStatus.CREATED
+
 class SystemController {
     static scaffold = System
     static defaultAction = "list"
@@ -78,6 +82,18 @@ class SystemController {
         def system = System.findById(params['id'])
 
         if (system) {
+            if (params.systemOwner){
+                for (systemOwner in params.systemOwner){
+                    def so = Person.get(systemOwner)
+                    if(so) system.addToSystemOwner(so)
+                }
+            }
+            if (params.processOwner){
+                for (processOwner in params.processOwner){
+                    def po = Person.get(processOwner)
+                    if(po) system.addToProcessOwner(po)
+                }
+            }
             def oldSystemName = system.systemName
             system.properties = params
             if (system.save()) {
@@ -92,6 +108,46 @@ class SystemController {
             //  response.sendError(404)
         }
 
+    }
+
+    /*
+        Edited the default controller-method.
+     */
+    @Transactional
+    def save(System system) {
+        if (system== null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        if (system.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond system.errors, view: 'create'
+            return
+        }
+
+        system.save flush: true
+        if (params.systemOwner){
+            for (systemOwner in params.systemOwner){
+                def so = Person.get(systemOwner)
+                if(so) system.addToSystemOwner(so)
+            }
+        }
+        if (params.processOwner){
+            for (processOwner in params.processOwner){
+                def po = Person.get(processOwner)
+                if(po) system.addToProcessOwner(po)
+            }
+        }
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'system.label', default: 'System'), system.id])
+                redirect system
+            }
+           respond system, [status: CREATED]
+        }
     }
     def detail() {
         def system = System.findById(params.id)

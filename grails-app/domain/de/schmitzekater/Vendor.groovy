@@ -1,5 +1,7 @@
 package de.schmitzekater
 
+import org.apache.catalina.filters.AddDefaultCharsetFilter
+
 class Vendor {
     String name
     String urlOne
