@@ -4,7 +4,8 @@
     <tr>
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
         <g:sortableColumn property="name" title="${message(code: 'vendor.name.label', default: 'Name')}"/>
-        <g:sortableColumn property="url" title="${message(code:'vendor.url.label', default: 'URL')}"/>
+        <g:sortableColumn property="urlOne" title="${message(code: 'vendor.urlOne.label', default: 'URL')}"/>
+        <g:sortableColumn property="emailOne" title="${message(code: 'vendor.emailOne.label', default: 'URL')}"/>
         <g:sortableColumn property="address" title="${message(code: 'vendor.address.label', default: 'Address')}"/>
 
         <th><a href="#"><g:message code='action.label'/></a></th>
@@ -16,7 +17,8 @@
             <f:with bean="${vendor}" wrapper="list">
                 <f:display property="id" wrapper="list/link"/>
                 <f:display property="name" wrapper="list"/>
-                <f:display property="url" wrapper="list/link/externally"/>
+                <f:display property="urlOne" wrapper="list/link/externally"/>
+                <f:display property="emailOne" wrapper="list/link/mail"/>
                 <f:display property="address" wrapper="list/address"/>
             </f:with>
 

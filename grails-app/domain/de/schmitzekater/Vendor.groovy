@@ -2,7 +2,13 @@ package de.schmitzekater
 
 class Vendor {
     String name
-    String url
+    String urlOne
+    String urlTwo
+    String fax
+    String phoneOne
+    String phoneTwo
+    String emailOne
+    String emailTwo
     Address address
 
 
@@ -13,7 +19,13 @@ class Vendor {
         computer nullable: true
         module nullable: true
         software nullable: true
-        url nullable: true, url: true
+        urlOne nullable: true, url: true
+        urlTwo nullable: true, url: true
+        fax nullable: true
+        phoneOne nullable: true
+        phoneTwo nullable: true
+        emailOne nullable: true, email: true
+        emailTwo nullable: true, email: true
         address nullable: true
     }
     static mapping = {
