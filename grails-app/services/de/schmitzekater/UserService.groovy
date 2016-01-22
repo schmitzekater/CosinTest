@@ -11,12 +11,14 @@ class UserException extends RuntimeException {
 @Transactional
 class UserService {
 
-    def logger
 
     def createUser(String uid, String pwd, String sig, Person per) {
         def user = new User(username: uid, password: pwd, signature: sig, person: per, passwordChangeDate: new Date())
         if (user.validate() && user.save()) return user
-        else throw new UserException(message: "Ungültiger User", user: user)
+        else {
+            log.error("Could not create user $uid in UserService")
+            throw new UserException(message: "Ungültiger User", user: user)
+        }
     }
 
     def failedLogin(String username) {
@@ -27,10 +29,11 @@ class UserService {
         if(user){
             user.incrementFalsePasswordCount()
             user.save()
-            println("${new Date()}: Unsuccessful login attempt from $user.username")
+            log.warn("Unsuccessful login attempt from $user.username")
         }
         else{
-            println("${new Date()}: User tried to log on: $username")
+            def message = "User tried to log on: $username"
+            log.error(message)
             /**
              * This would be a good part to count login-tries with different names to prevent DOS-attacks and block IPs
               */
@@ -45,9 +48,9 @@ class UserService {
         if (user) {
             user.resetFalsePasswordCount()
             user.save()
-            println("${new Date()}: Successful login attempt from $user.username")
+            log.info("Successful login attempt from $user.username")
         } else {
-            println("${new Date()}: How the hell could $username log in and not be in the database????")
+            log.error("How the hell could $username log in and not be in the database????")
         }
     }
 }

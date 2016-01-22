@@ -77,15 +77,15 @@ class User implements Serializable{
         // may optionally refer to newState map
     }
     def onDelete = {
-        println "User $username was deleted"
+        log.warn("User $username was deleted")
         // may optionally refer to oldState map
     }
     def onChange = { oldMap, newMap ->
-        println "User $username was changed ..."
+        log.info("User $username was changed ...")
         oldMap.each({ key, oldVal ->
             //noinspection GroovyAssignabilityCheck,GroovyAssignabilityCheck
             if (oldVal != newMap[key]) {
-                println " * $key changed from $oldVal to " + newMap[key] + " for " + username
+                log.info(" * $key changed from $oldVal to " + newMap[key] + " for " + username)
             }
         })
     }

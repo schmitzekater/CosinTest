@@ -22,6 +22,8 @@ class ComputerController {
         def software = Software.get(params.software)
         def computer = Computer.get(params.id)
         computer.addToInstalledSoftware(software)
+        flash.message = "Added $software.softwareName to Computer $computer.computerName"
+        log.info "Added $software.softwareName to Computer $computer.computerName"
         redirect action: 'detail', id: computer.id
     }
 

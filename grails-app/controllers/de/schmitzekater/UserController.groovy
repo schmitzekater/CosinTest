@@ -27,9 +27,11 @@ class UserController {
             user.accountLocked = true
             user.save()
             flash.message = message(code: 'user.accountLocked', args: [user.username])
+            log.info(flash.message)
             redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
+            log.error(flash.message)
             redirect view: '/layouts/list'
         }
     }
@@ -41,9 +43,11 @@ class UserController {
             user.accountLocked = false
             user.save()
             flash.message = message(code: 'user.accountUnLocked', args: [user.username])
+            log.info(flash.message)
             redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
+            log.error(flash.message)
             redirect view: '/layouts/list'
         }
     }
@@ -55,9 +59,11 @@ class UserController {
             user.enabled = true
             user.save()
             flash.message = message(code: 'user.accountLocked', args: [user.username])
+            log.info(flash.message)
             redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
+            log.error(flash.message)
             redirect view: '/layouts/list'
         }
     }
@@ -69,9 +75,11 @@ class UserController {
             user.enabled = false
             user.save()
             flash.message = message(code: 'user.accountLocked', args: [user.username])
+            log.info(flash.message)
             redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
+            log.error(flash.message)
             redirect view: '/layouts/list'
         }
     }
@@ -79,10 +87,7 @@ class UserController {
 
     def changeOwnPassword(){
         User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
-        println "Current user $user"
-        params.each{ key, value ->
-            println "Key $key, Value: $value"
-        }
+
         if(user){
             //Check if old Password is correct
             //CharSequence oldPw = params.oldPw
@@ -103,6 +108,7 @@ class UserController {
                     user.passwordChangeDate = new Date()
                     user.save()
                     flash.message = message(code: 'password.updated.message', args: [user.username])
+                log.info(flash.message)
                     redirect action: 'list'
                 }
                    /* else{
@@ -117,6 +123,7 @@ class UserController {
                     println "Password was not entered twice correct"
                     // Password repeat does not match
                     flash.error = message(code: 'error.password.repeat')
+                log.error(flash.message)
                     redirect action: 'editPassword'
                 }
             //}
@@ -145,9 +152,11 @@ class UserController {
                 user.password = params.password
                 if (user.validate() && user.save(failOnError: true)) {
                     flash.message = message(code: 'password.updated.message', args: [user.username])
+                    log.info(flash.message)
                     redirect view: '/layouts/list'
                 } else {
                     flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
+                    log.error(flash.message)
                     render view: 'editUserPassword', model: [user: user]
                 }
             }
@@ -158,7 +167,7 @@ class UserController {
                 render view: 'editUserPassword', model: [user: user]
             }
         } else {
-            println "Das war nix"
+            log.error "Error in changeUserPassword for $user.username"
             render view: 'editUserPassword', [user: user]
         }
     }
@@ -168,7 +177,7 @@ class UserController {
         [user: user]
     }
     /**
-     * Thius function is used when a user tries to log on with an expired password
+     * This function is used when a user tries to log on with an expired password
      */
     def passwordExpired() {
         [username: session['SPRING_SECURITY_LAST_USERNAME']]
@@ -178,12 +187,14 @@ class UserController {
         String username = session['SPRING_SECURITY_LAST_USERNAME']
         if (!username) {
             flash.error = 'Sorry, an error has occurred'
+            log.error(flash.error)
             redirect controller: 'login', action: 'auth'
             return
         }
         if (!password || !password_new || !password_new_2 || password_new !=
                 password_new_2) {
             flash.error = 'Please enter your current password and a valid new password'
+            log.error(flash.error)
             render view: 'passwordExpired', model: [username:
                                                             session['SPRING_SECURITY_LAST_USERNAME']]
             return
@@ -191,12 +202,14 @@ class UserController {
         User user = User.findByUsername(username)
         if (!passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
             flash.error = 'Current password is incorrect'
+            log.error(flash.error)
             render view: 'passwordExpired', model: [username:
                                                             session['SPRING_SECURITY_LAST_USERNAME']]
             return
         }
         if (passwordEncoder.isPasswordValid(user.password, password_new, null /*salt*/)) {
             flash.error = 'Please choose a different password from your current one'
+            log.error(flash.error)
             render view: 'passwordExpired', model: [username:
                                                             session['SPRING_SECURITY_LAST_USERNAME']]
             return
@@ -206,9 +219,11 @@ class UserController {
         user.passwordChangeDate = new Date()
         if (user.validate() && user.save(failOnError: true)) {
             flash.message = message(code: 'password.updated.message', args: [user.username])
+            log.info(flash.message)
             redirect controller: 'login', action: 'auth', model: [username: user.username]
         } else {
             flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
+            log.error(flash.error)
             redirect action: 'passwordExpired'
         }
 
@@ -219,6 +234,7 @@ class UserController {
      * @return Neuer user
      */
     def createUser() {
+        log.info("createUser() called")
         def user
         def person
         if(params.person && params.person!='null'){
@@ -226,6 +242,7 @@ class UserController {
         }
         else {
             flash.error = 'Person must be selected!'
+            log.error(flash.error)
             redirect action: 'create', params: params
         }
         user = new User(username: params.username, password: params.password, signature: params.signature, person: person)
@@ -236,10 +253,13 @@ class UserController {
                 UserRoleGroup.create user, roleGroup, true
             }
             flash.message = message(code: 'default.created.message', args: ['User', user.username])
+            log.info(flash.message)
+
             redirect action: 'show', id: user.id
         }
         else{
             flash.error = message(code: 'default.not.created.message', args: ['User', user.username])
+            log.error(flash.error)
             respond user.errors, view: 'create'
         }
 
@@ -267,9 +287,10 @@ class UserController {
                 }
 
                 flash.message = message(code: 'default.created.message', args: ['User', user.username])
+                log.info(flash.message)
                 redirect action: "list"
             } else {
-                log.debug("User konnt nicht gespeichert werden. Controller User, Action Register")
+                log.error("User konnt nicht gespeichert werden. Controller User, Action Register")
                 return [user: urc]
             }
         }
@@ -307,9 +328,11 @@ class UserController {
             user.properties = params
             if (user.save()) {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label'), user.username])
+                log.info(flash.message)
                 redirect(action: "detail", id: params['id'])
             } else {
                 flash.error = message(code: 'error.not.updated.message', args: ['User', oldUserId])
+                log.error(flash.error)
                 redirect(action: "edit", id: params['id'])
             }
 

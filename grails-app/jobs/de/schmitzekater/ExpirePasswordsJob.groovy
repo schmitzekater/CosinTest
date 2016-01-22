@@ -16,7 +16,7 @@ class ExpirePasswordsJob {
     @Transactional
     void execute() {
         def date = new Date()
-        println "${date}: Running Job Expire Passwords."
+        log.info " Running Job Expire Passwords."
 
 
         def users = User.executeQuery(
@@ -28,6 +28,7 @@ class ExpirePasswordsJob {
             try {
                 user.passwordExpired = true
                 user.save(flush: true)
+                log.info "Password for $user.username set to expired."
             }
             catch (e) {
                 log.error "problem expiring password for user $user.username : $e.message", e
