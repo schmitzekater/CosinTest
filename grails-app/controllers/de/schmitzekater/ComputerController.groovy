@@ -17,4 +17,23 @@ class ComputerController {
     def show(){
         render view: "/layouts/detail", model:  [computer: Computer.findById(params.id)]
     }
+
+    def addSoftware() {
+        def software = Software.get(params.software)
+        def computer = Computer.get(params.id)
+        computer.addToInstalledSoftware(software)
+        redirect action: 'detail', id: computer.id
+    }
+
+    def removeSoftware() {
+        def software = Software.get(params.software)
+        def computer = Computer.get(params.id)
+        computer.removeFromInstalledSoftware(software)
+        redirect action: 'detail', id: computer.id
+    }
+
+    def addSoftwareToComputer() {
+        render view: "/layouts/addSoftwareToComputer", params: params
+    }
+
 }

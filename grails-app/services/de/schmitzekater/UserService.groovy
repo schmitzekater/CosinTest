@@ -1,6 +1,7 @@
 package de.schmitzekater
 
 import grails.transaction.Transactional
+import org.apache.log4j.Logger
 
 class UserException extends RuntimeException {
     String message
@@ -10,6 +11,8 @@ class UserException extends RuntimeException {
 @Transactional
 class UserService {
 
+    def logger
+
     def createUser(String uid, String pwd, String sig, Person per) {
         def user = new User(username: uid, password: pwd, signature: sig, person: per, passwordChangeDate: new Date())
         if (user.validate() && user.save()) return user
@@ -17,12 +20,17 @@ class UserService {
     }
 
     def failedLogin(String username) {
+        /*
+        After unsuccessful login the false password counter will be incremented.
+         */
         def user = User.findByUsername(username)
         if(user){
             user.incrementFalsePasswordCount()
             user.save()
+            println("${new Date()}: Unsuccessful login attempt from $user.username")
         }
         else{
+            println("${new Date()}: User tried to log on: $username")
             /**
              * This would be a good part to count login-tries with different names to prevent DOS-attacks and block IPs
               */
@@ -30,10 +38,16 @@ class UserService {
     }
 
     def successfulLogin(String username) {
+        /*
+        After successful login the false password counter will be reset
+         */
         def user = User.findByUsername(username)
         if (user) {
             user.resetFalsePasswordCount()
             user.save()
+            println("${new Date()}: Successful login attempt from $user.username")
+        } else {
+            println("${new Date()}: How the hell could $username log in and not be in the database????")
         }
     }
 }

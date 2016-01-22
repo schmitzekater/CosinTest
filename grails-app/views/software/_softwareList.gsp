@@ -39,8 +39,22 @@
                 </g:link>
                 <sec:link controller="system" action="removeSoftware" id="${params.id}" params="[software: software.id]"
                           expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
-                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="color:red" title='<g:message
+                    <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="color:red" title='<g:message
                         code="system.remove.software"/>'>&nbsp
+                </sec:link>
+                </td
+            </g:if>
+            <g:if test="${controllerName.compareToIgnoreCase('Computer') == 0}">
+                <td>
+                <g:link action="detail" id="${software.id}" controller="software">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
+                            code="info.software"/>'></span>
+                </g:link>
+                <sec:link controller="computer" action="removeSoftware" id="${params.id}"
+                          params="[software: software.id]"
+                          expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
+                    <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="color:red" title='<g:message
+                        code="computer.remove.software"/>'>&nbsp
                 </sec:link>
                 </td
             </g:if>

@@ -12,7 +12,7 @@ class Qualification {
 
     static constraints = {
         attachment nullable: true
-        comment nullable: true
+        comment nullable: true, maxSize: 1000
         qualificationDate nullable: false, max: new Date()+1
         qualificationType nullable: false
         qualificationObject nullable: true

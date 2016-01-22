@@ -19,4 +19,11 @@
                 code="default.add.Qualification"/>'>
         </sec:link>
     </g:if>
+    <g:if test="${controllerName.compareToIgnoreCase("Computer") == 0}">
+        <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+                  action="addSoftwareToComputer">
+            <span class="glyphicon glyphicon-plus-sign" style="color: green" aria-hidden="true" title='<g:message
+                code="default.add.Software"/>'>
+        </sec:link>
+    </g:if>
 </td>

@@ -6,6 +6,7 @@ class BootStrap {
         environments {
             development {
                 if (!Person.count()) createPersons()
+                if (!Role.count() && !RoleGroup.count()) createUserRoles()
                 if (!User.count()) createUsers()
                 if (!Department.count()) createDepartments()
                 if (!ComputerRole.count()) createComputerRoles()
@@ -22,7 +23,36 @@ class BootStrap {
                 if (!ConnectionType.count()) createConnectionTypes()
                 createBindings()
             }
+            production {
+                if (!Role.count() && !RoleGroup.count()) createUserRoles()
+                if (!Person.count() && !User.count()) createProductionUsers()
+                else {
+                    def admin = User.findByUsername('administrator')
+                    if (admin) {
+                        admin.accountLocked = false
+                        admin.accountExpired = false
+                        admin.setPasswordChangeDate(new Date())
+                    }
+                }
+                if (!QualificationType.count()) createQualificationTypes()
+                if (!ComputerRole.count()) createComputerRoles()
+                if (!DataCategory.count()) createDataCategories()
+                if (!ConnectionType.count()) createConnectionTypes()
+                if (!ModuleType.count()) createModuleTypes()
+            }
         }
+    }
+
+    def createProductionUsers() {
+        def adminPerson = new Person(firstName: 'Administrator', lastName: 'System', email: 'support@cosin.de')
+        adminPerson.save(failOnError: true)
+        def adminUser = new User('administrator', 'password', 'signature', adminPerson, null)
+        adminUser.save(failOnError: true)
+        assert Person.count() == 1
+        assert User.count() == 1
+        def adminGroup = RoleGroup.findByDisplayString('Administrator')
+        UserRoleGroup.create adminUser, adminGroup, true
+        assert UserRoleGroup.count() == 1
     }
 
     def createBindings() {
@@ -202,6 +232,23 @@ class BootStrap {
         hansU.save(failOnError: true)
         peterU.save(failOnError: true)
         ernaU.save(failOnError: true)
+
+        def adminGroup = RoleGroup.findByDisplayString('Administrator')
+        def superGroup = RoleGroup.findByDisplayString('Superuser')
+        def normGroup = RoleGroup.findByDisplayString('User')
+        def readGroup = RoleGroup.findByDisplayString('Read-Only')
+
+        UserRoleGroup.create lisaU, adminGroup, true
+        UserRoleGroup.create berndU, superGroup, true
+        UserRoleGroup.create hansU, normGroup, true
+        UserRoleGroup.create peterU, readGroup, true
+
+
+        println('Created ' + User.count() + ' user.')
+    }
+
+    def createUserRoles() {
+        println "Creating Roles."
         def deleteRole = new Role('ROLE_DELETE').save()
         def editRole = new Role('ROLE_EDIT').save()
         def createRole = new Role('ROLE_CREATE').save()
@@ -224,14 +271,7 @@ class BootStrap {
         RoleGroupRole.create normGroup, readRole, true
 
         RoleGroupRole.create readGroup, readRole, true
-
-        UserRoleGroup.create lisaU, adminGroup, true
-        UserRoleGroup.create berndU, superGroup, true
-        UserRoleGroup.create hansU, normGroup, true
-        UserRoleGroup.create peterU, readGroup, true
-
-
-        println('Created ' + User.count() + ' user.')
+        println "Created ${Role.count()} Roles and ${RoleGroup.count()} Groups."
     }
 
     def createPersons() {

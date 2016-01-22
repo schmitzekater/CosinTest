@@ -19,13 +19,13 @@ class ModuleController {
     def addQualification(){
         def qualification
         try{
-            def f = request.getFile('attachment')
+            /*def f = request.getFile('attachment')
             String name = f.getOriginalFilename()
             //TODO Weitere Verzeichnisse anlege
             def uploadDir = servletContext.getRealPath("/uploads")
             File fileDest = new File(uploadDir,name)
             println "Dest: $fileDest"
-            f.transferTo(fileDest)
+            f.transferTo(fileDest)*/
             // Create the new Qualification
             qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment)
             def module = Module.get(params.id)

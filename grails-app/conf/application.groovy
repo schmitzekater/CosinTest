@@ -1,10 +1,12 @@
 import de.schmitzekater.User
 import de.schmitzekater.UserService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.userdetails.GrailsUser
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent
 
 // Added by the Spring Security Core plugin:
@@ -61,6 +63,8 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/addQualification/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/saveAttachment', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/addSoftware/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
+		[pattern: '/**/addSoftwareToComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
+		[pattern: '/**/removeSoftwareFromComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/removeSoftware/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/addComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/removeComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
@@ -91,23 +95,25 @@ grails.plugin.springsecurity.failureHandler.exceptionMappings = [
  * Security Event Handling
  */
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
-	// Fired when a user has successful logged on an the Authorization pricipal is available
-	println "InteractiveAuthenticationSuccessEvent"
+	// Fired when a user has successful logged on an the Authorization principal is available
+	// The user is looked up in the database and the false password counter will be reset.
+	def user
 	def userService = appCtx.getBean('userService')
 	def source = e.getSource()
-	String user = source.getPrincipal()
-	println "User: " + user
+	def principal = source.getPrincipal()
+	if (principal instanceof GrailsUser) {
+		user = principal.getUsername()
+	}
 	if (user) {
 		userService.successfulLogin(user)
 	}
 }
 grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx ->
 	// Fired on unsuccesful login events
-	println "AbstractAuthenticationFailureEvent"
+	// If the username is found in the database the false Password counter will be incremented
 	def userService = appCtx.getBean('userService')
 	def source = e.getSource()
-	String user = source.getPrincipal()
-	println "User: "+user
+	def user = source.getPrincipal()
 	if(user){
 		if (e instanceof AuthenticationFailureBadCredentialsEvent)
 			userService.failedLogin(user)
@@ -117,48 +123,18 @@ grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx 
 grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 	// handle AuthenticationSuccessEvent
 	// is intially fired before the Authentication is registered
-	println "AuthenticationSuccessEvent"
 
 }
 grails.plugin.springsecurity.onAuthenticationSwitchUserEvent = { e, appCtx ->
 	// Fired on switched user events. Not used in the application
-	println "AuthenticationSwitchUserEvent"
 }
 grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
 	// Not used in the application
-	println "AuthorizationEvent"
 }
 
 /**
  * Audit Log configuration
  */
-
-/*grails {
-	plugin {
-		auditLog {
-
-			logIds = true
-			TRUNCATE_LENGTH = 500
-			largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255
-			actorClosure = { request, session ->
-				//session.user?.username
-				if (request.applicationContext.springSecurityService.principal instanceof String){
-                    return request.applicationContext.springSecurityService.principal
-                }
-                def username = request.applicationContext.springSecurityService.principal?.username
-                if (SpringSecurityUtils.isSwitched()){
-                    username = SpringSecurityUtils.switchedUserOriginalUsername+" AS "+username
-                }
-                return username
-			}
-			stampEnabled = false
-			stampAlways = false
-		}
-	}
-}*/
-
-// Added by the Audit-Logging plugin:
-
 
 grails.plugin.auditLog.auditDomainClassName = 'de.schmitzekater.AuditLogEvent'
 grails.plugin.auditLog.stampEnabled = false

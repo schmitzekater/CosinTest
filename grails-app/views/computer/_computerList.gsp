@@ -5,6 +5,7 @@
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>
         <g:sortableColumn property="computerName" title="${message(code: 'computer.computerName.label', default: 'Name')}"/>
         <g:sortableColumn property="computerVendor" title="${message(code: 'computer.computerVendor.label', default: 'Vendor')}"/>
+        <th><a><g:message code="software.label"/></a></th>
         <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
             <th>
                 <a href="#">${message(code: 'computer.computerRole.label', default: 'Role')} (${message(code: 'system.name.label', default: 'System')})</a>
@@ -25,6 +26,7 @@
                 <f:display property="id" wrapper="list/link"/>
                 <f:display property="computerName"  wrapper="list"/>
                 <f:display property="computerVendor" wrapper="list/link/vendor"/>
+                <td>${computer.installedSoftware.size()}</td>
                 <g:if test="${controllerName.compareToIgnoreCase("System")==0}">
                     %{-- Only render the computers and roles, that are used by this system. --}%
                     <g:render template="/computer/computerRolesList" model="${roles=computer.getSystemRolesBySystem(System.get(params.id))}"/>
