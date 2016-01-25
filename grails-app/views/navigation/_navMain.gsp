@@ -28,11 +28,11 @@
                 <li class="${controllerName == 'person' ? 'active' : ''}">
                     <a href="${createLink(uri: '/person/list')}"><g:message code="person.label"/></a>
                 </li>
-                <li class="${controllerName == 'system' ? 'active' : ''}">
-                    <a href="${createLink(uri: '/system/list')}"><g:message code="system.label"/></a>
-                </li>
                 <li class="${controllerName == 'department' ? 'active' : ''}">
                     <a href="${createLink(uri: '/department/list')}"><g:message code="department.label"/></a>
+                </li>
+                <li class="${controllerName == 'system' ? 'active' : ''}">
+                    <a href="${createLink(uri: '/system/list')}"><g:message code="system.label"/></a>
                 </li>
                 <li class="${controllerName == 'unit' ? 'active' : ''}">
                     <a href="${createLink(uri: '/unit/list')}"><g:message code="unit.label"/></a>

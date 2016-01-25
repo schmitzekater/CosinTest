@@ -12,9 +12,9 @@ class System implements Serializable{
 
 
     static belongsTo = [Person, Department]
-    static hasMany = [units: Unit, software: Software, systemOwner: Person, processOwner: Person]
+    static hasMany = [units: Unit, usesSoftware: Software, systemOwner: Person, processOwner: Person]
     static hasOne = [systemDataCategory: DataCategory, systemDepartment: Department]
-    static mappedBy = [software: 'system', systemOwner: 'systemOwnerSystem', processOwner: 'processOwnerSystem']
+    static mappedBy = [ systemOwner: 'systemOwnerSystem', processOwner: 'processOwnerSystem']
 
     static auditable = true
 
@@ -27,7 +27,7 @@ class System implements Serializable{
         units nullable: true
         systemDataCategory nullable: true
         area nullable: false, inList: ["GCP", "GLP", "GMP"]
-        software nullable: true
+        usesSoftware nullable: true
         retirementDate nullable: true, display: false
     }
 

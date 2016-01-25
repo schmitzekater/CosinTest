@@ -26,23 +26,22 @@
         </div>
 <g:form action="${actionName}">
     <div class="panel-body">
-
                 <table>
                     <tr>
-                        <td>From:</td>
+                        <td><g:message code="date.dateFrom"/></td>
                         <td><g:datePicker name="dateFrom" value="${params.dateFrom}" precision="day"
                                           relativeYears="[-25..1]"/></td>
                     </tr>
                     <tr>
-                        <td>To:</td>
+                        <td><g:message code="date.dateTo"/></td>
                         <td><g:datePicker name="dateTo" value="${params.dateTo}" precision="day"
                                           relativeYears="[-25..1]"/></td>
                     </tr>
                     <tr>
-                        <td>Max:</td>
+                        <td><g:message code="entries.max"/></td>
                         <td><g:select name="max" from="[10, 25, 50]" value="${params.max}"/></td>
                     </tr>
-                    <td colspan="2"><input type="submit" value="Search" class="btn btn-primary"></td>
+                    <td colspan="2"><input type="submit" value="${message(code: 'filter.list.label')}" class="btn btn-primary"></td>
                 </table>
         </div>
     </div>

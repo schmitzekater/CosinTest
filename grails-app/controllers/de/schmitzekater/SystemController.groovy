@@ -37,16 +37,16 @@ class SystemController {
 
     }
 
-    def addSoftware(){
+    def addSoftware(System system){
         def software = Software.get(params.software)
-        def system = System.get(params.id)
-        system.addToSoftware(software)
+        //def system = System.get(params.id)
+        system.addToUsesSoftware(software)
         redirect action: 'detail', id: system.id
     }
     def removeSoftware(){
         def software = Software.get(params.software)
         def system = System.get(params.id)
-        system.removeFromSoftware(software)
+        system.removeFromUsesSoftware(software)
         redirect action: 'detail', id: system.id
     }
 
@@ -76,6 +76,18 @@ class SystemController {
         def system = System.get(params.id)
         system.removeFromUnits(unit)
         redirect action: 'detail', id: system.id
+    }
+
+    def addSoftwareToSystem(System system){
+        model: [system: system]
+    }
+
+    def addUnitToSystem(System system){
+        model: [system: system]
+    }
+
+    def addComputerToSystem(System system){
+        model: [system: system]
     }
 
     def update() {

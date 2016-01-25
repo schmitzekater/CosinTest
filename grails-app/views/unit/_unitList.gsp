@@ -33,7 +33,7 @@
                 </g:link>
                 <sec:link controller="system" action="removeUnit" id="${params.id}" params="[unit: unit.id]"
                           expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
-                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true" style="color:red" title='<g:message
+                    <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="color:red" title='<g:message
                         code="system.remove.unit"/>'>&nbsp
                 </sec:link>
                 </td

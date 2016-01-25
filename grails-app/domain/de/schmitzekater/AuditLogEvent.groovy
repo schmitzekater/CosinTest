@@ -51,8 +51,8 @@ class AuditLogEvent implements Serializable {
         eventName(nullable: true)
         propertyName(nullable: true)
 
-        oldValue(nullable: true)
-        newValue(nullable: true)
+        oldValue(nullable: true, maxSize: 3000)
+        newValue(nullable: true, maxSize: 3000)
 
         // for large column support (as in < 1.0.6 plugin versions), use
         // oldValue(nullable: true, maxSize: 65534)

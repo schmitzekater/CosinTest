@@ -32,6 +32,6 @@
         <cos:addEditCancelButtons/>
     </g:form>
 </div>
-<g:render template="/layouts/addSoftware"/>
+<g:render template="/layouts/addSoftware" model="[model: computer]"/>
 </body>
 </html>

@@ -65,13 +65,17 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/saveAttachment', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/addSoftware/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/addSoftwareToComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
+		[pattern: '/**/addSoftwareToSystem/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
+		[pattern: '/**/addModuleToUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/removeSoftwareFromComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/removeSoftware/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/addComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
+		[pattern: '/**/addComputerToSystem/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/removeComputer/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/addModule/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_CREATE')"]],
 		[pattern: '/**/removeModule/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/addUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
+		[pattern: '/**/addUnitToSystem/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/removeUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 
 ]

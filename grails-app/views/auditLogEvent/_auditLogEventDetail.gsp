@@ -23,4 +23,5 @@
         </f:with>
         </tbody>
     </table>
+    <div class="label label-info">${auditLogEventInstance.toString()}</div>
 </body>

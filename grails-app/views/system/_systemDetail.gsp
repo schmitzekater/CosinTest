@@ -22,6 +22,7 @@
           action="edit" class="btn btn-primary">
     ${message(code: 'default.button.edit.label', default: 'Edit')}
 </sec:link>
+<g:render template="/layouts/editInfoButtons" model="[model: system]" />
 <%-- Get thte units of the system --%>
 <h3><g:message code="unit.list.label"/></h3>
 <g:if test="${system.units.size()>0}">
@@ -32,8 +33,8 @@
 </g:else>
 <%-- Get the software of the system --%>
 <h3><g:message code="software.list.label"/></h3>
-<g:if test="${system.software.size()>0}">
-    <g:render template="/software/softwareList" model="[model: system.software]"/>
+<g:if test="${system.usesSoftware.size()>0}">
+    <g:render template="/software/softwareList" model="[model: system.usesSoftware]"/>
 </g:if>
 <g:else>
     <g:message code="system.no.software"/>

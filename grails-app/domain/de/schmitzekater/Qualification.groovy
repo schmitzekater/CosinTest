@@ -6,7 +6,7 @@ class Qualification {
     String comment
     File attachment
 
-    //static auditable = true
+    static auditable = true
     static belongsTo = [qualificationObject: QualifiableObject]
     static hasOne = [qualificationType: QualificationType]
 

@@ -13,6 +13,6 @@
 </head>
 
 <body>
-<g:render template="/layouts/addSoftware" model="[params: params]"/>
+<g:render template="/layouts/addSoftware"/>
 </body>
 </html>

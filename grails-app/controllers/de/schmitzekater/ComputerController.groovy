@@ -11,33 +11,34 @@ class ComputerController {
         def computer = Computer.list(params)
         render view:"/layouts/list", model: [model:computer, count: Computer.count]
     }
-    def detail(){
-        render view: "/layouts/detail", model:  [computer: Computer.findById(params.id)]
+    def detail(Computer computer){
+        render view: "/layouts/detail", model:  [computer: computer]
     }
-    def show(){
-        render view: "/layouts/detail", model:  [computer: Computer.findById(params.id)]
+    def show(Computer computer){
+        render view: "/layouts/detail", model:  [computer: computer]
+    }
+    def edit(Computer computer) {
+        respond computer
     }
 
-    def addSoftware() {
+    def addSoftware(Computer computer) {
         def software = Software.get(params.software)
-        def computer = Computer.get(params.id)
         computer.addToInstalledSoftware(software)
         flash.message = "Added $software.softwareName to Computer $computer.computerName"
         log.info(flash.message)
         redirect action: 'detail', id: computer.id
     }
 
-    def removeSoftware() {
+    def removeSoftware(Computer computer) {
         def software = Software.get(params.software)
-        def computer = Computer.get(params.id)
         computer.removeFromInstalledSoftware(software)
         flash.message = "Removed $software.softwareName from Computer $computer.computerName"
         log.info(flash.message)
         redirect action: 'detail', id: computer.id
     }
 
-    def addSoftwareToComputer() {
-        render view: "/layouts/addSoftwareToComputer", params: params
+    def addSoftwareToComputer(Computer computer) {
+        model: [computer: computer]
     }
 
 }

@@ -5,11 +5,10 @@ class Software extends QualifiableObject{
     String softwareVersion
     String softwareIqOq
 
-    static auditable = true
+    static auditable = [ignore:['version','lastUpdated','qualifications']]
     static hasOne = [softwareVendor: Vendor]
     static hasMany = [computer: Computer, system: System]
     static belongsTo = [System, Computer]
-    static mappedBy = [system: 'software']
 
     static constraints = {
         softwareName blank: false, maxSize: 50
@@ -18,6 +17,9 @@ class Software extends QualifiableObject{
         softwareVendor nullable: true
         system nullable: true
         computer nullable: true
+    }
+    def getAuditLogUri = {
+       getDisplayString()
     }
 
     String getDisplayString() {
@@ -29,16 +31,17 @@ class Software extends QualifiableObject{
     }
 
     static List<Software> getAvailableSoftware(Object obj) {
+        String query
+        println "Got Object $obj"
         if (obj instanceof Computer) {
             def computer = (Computer) obj
-            String query = "not exists (select 1 from COMPUTER_INSTALLED_SOFTWARE cis where cis.computer_id = $computer.id and cis.software_id = this_.id) "
-            createCriteria().list() {
-                sqlRestriction(query)
-            }
+            query = "not exists (select 1 from COMPUTER_INSTALLED_SOFTWARE cis where cis.computer_id = $computer.id and cis.software_id = this_.id) "
         } else if (obj instanceof System) {
-            createCriteria().list() {
-                sqlRestriction('not exists (select 1 from Software s inner join System sys on s.id = sys.software_id where sys.software_id = this_.id) ')
-            }
+            def system = (System)obj
+            query = "not exists (select 1 from SYSTEM_USES_SOFTWARE cis where cis.system_id = $system.id and cis.software_id = this_.id) "
+        }
+        createCriteria().list() {
+            sqlRestriction(query)
         }
     }
 

@@ -28,7 +28,7 @@
                 <f:display property="systemDataCategory" wrapper="list"/>
                 <td>${system.computer.size()}</td>
                 <td>${system.units.size()}</td>
-                <td>${system.software.size()}</td>
+                <td>${system.usesSoftware.size()}</td>
             </f:with>
            <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
                <g:render template="/layouts/editInfoButtons" model="[model: system]"/>

@@ -14,32 +14,22 @@ class UnitController {
         render view: "/layouts/list", model: [model: units, count: Unit.count]
     }
 
-    def addModule(){
-        def unit
+    def addModuleToUnit(Unit unit) {
+        model: [unit: unit]
+    }
+
+    def addModule(Unit unit){
         def module
-        try{
-            module = Module.get(params.module)
-            unit = Unit.get(params.id)
-            unit.addToModules(module)
-            flash.message = message(code: "module.added.to.unit", args:[module.moduleName, unit.unitName])
-        }
-        catch(Exception e){
-            flash.error = e.localizedMessage
-        }
+        module = Module.get(params.module)
+        unit.addToModules(module)
+        flash.message = message(code: "module.added.to.unit", args:[module.moduleName, unit.unitName])
         redirect action: 'detail', id: params.id
     }
 
-    def removeModule(){
-        def unit
-        try{
-            def module = Module.get(params.module)
-            unit = Unit.get(params.id)
-            unit.removeFromModules(module)
-            flash.message = message(code: "module.removed.from.unit", args:[module.moduleName, unit.unitName])
-        }
-        catch (Exception e){
-            flash.error = e.localizedMessage
-        }
+    def removeModule(Unit unit){
+        def module = Module.get(params.module)
+        unit.removeFromModules(module)
+        flash.message = message(code: "module.removed.from.unit", args:[module.moduleName, unit.unitName])
         redirect action: 'detail', id: unit.id
     }
 

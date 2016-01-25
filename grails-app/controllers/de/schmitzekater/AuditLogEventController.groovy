@@ -30,16 +30,32 @@ class AuditLogEventController {
     }
 
     def list() {
-        if (!params.max) params.max = 50
-        if (!params.order) params.order = 'desc'
-        if (!params.sort) params.sort = 'dateCreated'
-        if (!params.offset) params.offset = 0
-        if (!params.dateFrom) params.dateFrom = new Date().minus(14)
-        if (!params.dateTo) params.dateTo = new Date()
+        Date dateFrom
+        Date dateUntil
+        int max = params.max ? params.max.toInteger() : 25
+        def sortBy = params.sort ? params.sort : 'dateCreated'
+        def orderBy = params.order ? params.order : 'desc'
+        int offset = params.offset ? params.offset.toInteger() : 0
+        if (params.dateFrom instanceof Date) {
+            dateFrom = params.dateFrom
+        } else if (params.dateFrom instanceof String) {
+            dateFrom = Date.parseToStringDate(params.dateFrom)
+        } else dateFrom = new Date().minus(14)
+        if (params.dateTo instanceof Date) {
+            dateUntil = params.dateTo
+        } else if (params.dateTo instanceof String) {
+            dateUntil = Date.parseToStringDate(params.dateTo)
+        } else dateUntil = new Date()
+        params.max = max
+        params.offset = offset
+        params.dateFrom = dateFrom
+        params.dateTo = dateUntil
+        params.sort = sortBy
+        params.order = orderBy
         def c = AuditLogEvent.createCriteria()
-        def auditLogList = c.list(max: params.max, offset: params.offset) {
-            between("dateCreated", params.dateFrom, params.dateTo)
-            order(params.sort, params.order)
+        def auditLogList = c.list(max: max, offset: offset) {
+            between("dateCreated", dateFrom, dateUntil.plus(1))
+            order (sortBy, orderBy)
         }
         render view: "/layouts/list", model: [model: auditLogList, count: auditLogList.getTotalCount()]
     }
