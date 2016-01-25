@@ -28,4 +28,18 @@ class Software extends QualifiableObject{
         getDisplayString()
     }
 
+    static List<Software> getAvailableSoftware(Object obj) {
+        if (obj instanceof Computer) {
+            def computer = (Computer) obj
+            String query = "not exists (select 1 from COMPUTER_INSTALLED_SOFTWARE cis where cis.computer_id = $computer.id and cis.software_id = this_.id) "
+            createCriteria().list() {
+                sqlRestriction(query)
+            }
+        } else if (obj instanceof System) {
+            createCriteria().list() {
+                sqlRestriction('not exists (select 1 from Software s inner join System sys on s.id = sys.software_id where sys.software_id = this_.id) ')
+            }
+        }
+    }
+
 }

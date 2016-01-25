@@ -1,3 +1,4 @@
+<%@ page import="de.schmitzekater.Software" %>
 <!-- template: _fields/detail/select/software/_widget.gsp -->
-<g:select name="software" from="${de.schmitzekater.Software.all}"
-          optionKey="id"  noSelection="${['null':'<N/A>']}"></g:select>
+<g:select name="software" from="${Software.getAvailableSoftware(computer)}"
+          optionKey="id" noSelection="${['null': '<N/A>']}"/>
