@@ -71,7 +71,7 @@ class BootStrap {
         def thirdRole = SystemRole.create(serverOne, analyst, dbserver, true )
         serverOne.addToInstalledSoftware(analystSW)
         clientOne.addToInstalledSoftware(analystSW)
-        analystSW.addToQualifications(Qualification.findById(1))
+        for (i in 1..Qualification.count()) analystSW.addToQualifications(Qualification.get(i))
         log.info "${SystemRole.count()} System Roles created."
         log.info "System $analyst.systemName has ${analyst.getComputer().size()} Computer"
     }
@@ -127,8 +127,12 @@ class BootStrap {
 
     def createQualifications() {
         log.info "Creating Qualifications"
-        def qualOne = new Qualification(qualificationDate: new Date(), qualificationType: QualificationType.findByType('Validation'), comment: "Erste Validierung von Analyst.")
-        qualOne.save(failOnError: true)
+        def type = QualificationType.findByType('Validation')
+        def qual = []
+        for (i in 0..30) {
+            qual[i] = new Qualification(qualificationDate: new Date().minus(i), qualificationType: type, comment: "Validierung ${i + 1} von Analyst.")
+            qual[i].save failOnError: true
+        }
         log.info "Created " + Qualification.count() + " Qualifications"
     }
 

@@ -23,7 +23,7 @@ class ComputerController {
         def computer = Computer.get(params.id)
         computer.addToInstalledSoftware(software)
         flash.message = "Added $software.softwareName to Computer $computer.computerName"
-        log.info "Added $software.softwareName to Computer $computer.computerName"
+        log.info(flash.message)
         redirect action: 'detail', id: computer.id
     }
 
@@ -31,6 +31,8 @@ class ComputerController {
         def software = Software.get(params.software)
         def computer = Computer.get(params.id)
         computer.removeFromInstalledSoftware(software)
+        flash.message = "Removed $software.softwareName from Computer $computer.computerName"
+        log.info(flash.message)
         redirect action: 'detail', id: computer.id
     }
 

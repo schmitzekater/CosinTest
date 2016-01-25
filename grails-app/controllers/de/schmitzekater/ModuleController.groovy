@@ -6,6 +6,7 @@ class ModuleController {
     static scaffold = Module
     static defaultAction = "list"
     def qualificationService
+    def qualifiableObjectService
 
     def index() {
         redirect action: 'list', params: params
@@ -60,48 +61,21 @@ class ModuleController {
     }
 
     def listAllModuleQualifications() {
-        if (!params.max) params.max = 20
-        if (!params.sort) params.sort = 'qualificationDate'
-        if (!params.order) params.order = 'desc'
-        if (!params.offset) params.offset = 0
-        if (!params.dateFrom) params.dateFrom = new Date().minus(14)
-        if (!params.dateTo) params.dateTo = new Date()
-        def c = Qualification.createCriteria()
-        def qualificationList = c.list(max: params.max, offset: params.offset) {
-            qualificationObject {
-                eq("class", de.schmitzekater.Module)
-            }
-
-            and {
-                between("qualificationDate", params.dateFrom, params.dateTo)
-            }
-            order(params.sort, params.order)
-        }
-        render view: "/layouts/listAllModuleQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()], params: params
+        def checkedParams = qualifiableObjectService.checkParams(params)
+        def qualificationList = QualificationService.getQualificationList(Module, checkedParams.max, checkedParams.offset,
+                checkedParams.dateFrom, checkedParams.dateUntil, checkedParams.sortBy, checkedParams.orderBy)
+        render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
+                params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
+                         params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
     }
 
     def listAllModuleCalibrations() {
-        if (!params.max) params.max = 20
-        if (!params.sort) params.sort = 'qualificationDate'
-        if (!params.order) params.order = 'desc'
-        if (!params.offset) params.offset = 0
-        if (!params.dateFrom) params.dateFrom = new Date().minus(14)
-        if (!params.dateTo) params.dateTo = new Date()
-        def c = Qualification.createCriteria()
-        def qualificationList = c.list(max: params.max, offset: params.offset) {
-            qualificationObject {
-                eq("class", de.schmitzekater.Module)
-            }
-            qualificationType {
-                ilike('type', 'Calibration')
-            }
-
-            and {
-                between("qualificationDate", params.dateFrom, params.dateTo)
-            }
-            order(params.sort, params.order)
-        }
-        render view: "/layouts/listAllModuleQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()], params: params
+        def checkedParams = qualifiableObjectService.checkParams(params)
+        def qualificationList = QualificationService.getCalibrationList(Module, checkedParams.max, checkedParams.offset,
+                checkedParams.dateFrom, checkedParams.dateUntil, checkedParams.sortBy, checkedParams.orderBy)
+        render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
+                params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
+                         params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
     }
 
     /**

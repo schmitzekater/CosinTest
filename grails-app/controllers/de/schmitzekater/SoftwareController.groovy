@@ -1,10 +1,13 @@
 package de.schmitzekater
 
 class SoftwareController {
+
+
     static scaffold = Software
     static defaultAction = "list"
 
     def qualificationService
+    def qualifiableObjectService
     def index() {
         redirect action: list(), params: params
     }
@@ -29,7 +32,16 @@ class SoftwareController {
         }
     }
 
-    /**
+    def listAllSoftwareQualifications() {
+        def checkedParams = qualifiableObjectService.checkParams(params)
+        def qualificationList = QualificationService.getQualificationList(Software, checkedParams.max, checkedParams.offset,
+                checkedParams.dateFrom, checkedParams.dateUntil, checkedParams.sortBy, checkedParams.orderBy)
+        render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
+                params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
+                         params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
+    }
+
+/**
      * This function renders only the template to add a new Qualification.
      * Same as in "Module" TODO: One Controller? Always the same action??
      */

@@ -17,6 +17,38 @@ class QualificationService {
 
     }
 
+    static getCalibrationList(Class aclass, int max, int offset, Date dateFrom, Date dateUntil, String sortBy, String orderBy) {
+        def c = Qualification.createCriteria()
+        def qualificationList = c.list(max: max, offset: offset) {
+            qualificationObject {
+                eq("class", aclass)
+            }
+            qualificationType {
+                ilike('type', 'Calibration')
+            }
+            and {
+                between("qualificationDate", dateFrom, dateUntil)
+            }
+            order(sortBy, orderBy)
+        }
+        qualificationList
+    }
+
+    static getQualificationList(Class aclass, int max, int offset, Date dateFrom, Date dateUntil, String sortBy, String orderBy) {
+        def c = Qualification.createCriteria()
+        def qualificationList = c.list(max: max, offset: offset) {
+            qualificationObject {
+                eq("class", aclass)
+            }
+            and {
+                between("qualificationDate", dateFrom, dateUntil.plus(1))
+                // Not nice, but otherwise values from today are not shown!!!!!!!
+            }
+            order(sortBy, orderBy)
+        }
+        qualificationList
+    }
+
 }
 
 
