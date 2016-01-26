@@ -15,7 +15,7 @@
     </g:if>
     %{--Render the User-Buttons when on user controller--}%
     <g:if test="${controllerName.compareToIgnoreCase("User") == 0}">
-        <g:render template="/layouts/userEditButtons" model="[model: model]"></g:render>
+        <g:render template="/layouts/userEditButtons" model="[model: model]"/>
     </g:if>
     <g:if test="${controllerName.compareToIgnoreCase("Module") == 0 || controllerName.compareToIgnoreCase("Software") == 0}">
         <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"

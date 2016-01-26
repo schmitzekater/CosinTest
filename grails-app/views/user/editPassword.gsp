@@ -26,7 +26,7 @@
                             <label for="newPw"><g:message code="user.new.password.label"/> *</label>
                         </td>
                         <td>
-                            <g:passwordField name="newPw" value="newPw"/>
+                            <g:passwordField name="newPw"/>
                         </td>
                     </tr>
                     <tr>
@@ -34,7 +34,7 @@
                             <label for="newPwRepeat"><g:message code="user.new.password.repeat.label"/> *</label>
                         </td>
                         <td>
-                            <g:passwordField name="newPwRepeat" value="newPwRepeat"/>
+                            <g:passwordField name="newPwRepeat"/>
                         </td>
                     </tr>
                 </table>

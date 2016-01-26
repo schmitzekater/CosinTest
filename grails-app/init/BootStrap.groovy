@@ -224,11 +224,11 @@ class BootStrap {
 
     def createUsers() {
         log.info "Creating Users"
-        def lisaU = new User('lisamu','password', 'lisassignature', Person.findByLastName('Mueller'), null)
-        def berndU = new User('berndw','password', 'berndistoll',  Person.findByLastName('Waldorf'), new Date()-1)
-        def hansU = new User( 'hanszi',  'password',  'Musicismylife',  Person.findByLastName('Zimmer'), new Date()-2)
-        def peterU = new User( 'peterh',  'password',  'HERRMANN!',  Person.findByLastName('Herrmann'), new Date()-3)
-        def ernaU = new User( 'ernaka',  'password',  'weissichnicht',  Person.findByLastName('Kasubke'), new Date()-4)
+        def lisaU = new User('lisamu', 'Password1', 'lisassignature', Person.findByLastName('Mueller'), null)
+        def berndU = new User('berndw', 'Password1', 'berndistoll', Person.findByLastName('Waldorf'), new Date() - 1)
+        def hansU = new User('hanszi', 'Password1', 'Musicismylife', Person.findByLastName('Zimmer'), new Date() - 2)
+        def peterU = new User('peterh', 'Password1', 'HERRMANN!', Person.findByLastName('Herrmann'), new Date() - 3)
+        def ernaU = new User('ernaka', 'Password1', 'weissichnicht', Person.findByLastName('Kasubke'), new Date() - 4)
 
         lisaU.save(failOnError: true)
         berndU.save(failOnError: true)

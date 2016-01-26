@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="control-group ${invalid ? 'error' : ''}">
-                            <label for="QualificationAttachment"><g:message
+                            <label for="qualificationAttachment"><g:message
                                     code="qualification.qualificationAttachment.label"/></label>
                         </div>
                     </div>

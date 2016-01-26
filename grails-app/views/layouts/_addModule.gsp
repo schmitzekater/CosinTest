@@ -8,7 +8,7 @@
             <g:hiddenField name="id" value="${params.id}"/>
             <fieldset>
                 <table class="table-condensed">
-                    <f:field property="modules" wrapper="edit/table" widget="/edit/queries/module"></f:field>
+                    <f:field property="modules" wrapper="edit/table" widget="/edit/queries/module"/>
                     <tr>
                         <td colspan="2">
                             <input class="save btn btn-primary" action="addModule" type="submit"

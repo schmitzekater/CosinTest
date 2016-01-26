@@ -35,7 +35,7 @@ class UserControllerSpec extends Specification {
         def urc = mockCommandObject(UserRegistrationCommand)
 
         and: "a set of intial values from the spock test"
-        urc.userId = userId
+        urc.username = userId
         urc.password = password
         urc.passwordRepeat = passwordRepeat
         urc.signature = signature

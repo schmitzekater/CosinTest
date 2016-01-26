@@ -106,11 +106,20 @@ class UserController {
                     user.password = newPw
                     user.passwordExpired = false
                     user.passwordChangeDate = new Date()
+                if (user.validate(password: newPw)) {
                     user.save()
                     flash.message = message(code: 'password.updated.message', args: [user.username])
-                log.info(flash.message)
+                    log.info(flash.message)
                     redirect action: 'list'
+                } else {
+                    user.errors.each { k ->
+                        println "Error $k"
+                    }
+                    flash.error = message(code: "user.password.repeatForbid")
+                    redirect action: 'editPassword'
                 }
+
+            }
                    /* else{
                         println "Old password used again"
                         // Old Password used
@@ -156,7 +165,7 @@ class UserController {
                     redirect view: '/layouts/list'
                 } else {
                     flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
-                    log.error(flash.message)
+                    log.error(flash.error)
                     render view: 'editUserPassword', model: [user: user]
                 }
             }
