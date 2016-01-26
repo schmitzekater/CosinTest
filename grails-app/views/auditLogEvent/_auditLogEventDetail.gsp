@@ -23,5 +23,8 @@
         </f:with>
         </tbody>
     </table>
-    <div class="label label-info">${auditLogEventInstance.toString()}</div>
+<span class="glyphicon glyphicon-arrow-left" style="color: darkblue" aria-hidden="true" onclick="window.history.back()"
+      title="${message(code: 'default.back.label', default: 'Back')}">&nbsp;<g:message
+        code="default.back.label"/></span>
+
 </body>

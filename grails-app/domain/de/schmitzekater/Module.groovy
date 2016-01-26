@@ -10,7 +10,7 @@ class Module extends QualifiableObject{
     String moduleFirmware
 
     Date productiveDate
-    Date retireDate
+    Date retirementDate
     Date lastCalibration
     Date nextCalibration
     def messageSource
@@ -18,6 +18,7 @@ class Module extends QualifiableObject{
     int calibInterval
     String calibPeriod
     boolean needsCalibration
+    boolean isActive
 
     static auditable = true
     static hasOne= [moduleVendor: Vendor, moduleType : ModuleType, moduleConnection : ConnectionType]

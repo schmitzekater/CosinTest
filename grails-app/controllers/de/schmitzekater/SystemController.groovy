@@ -23,6 +23,20 @@ class SystemController {
         render view:"/layouts/list", model: [model:systems, count: System.count]
     }
 
+    def retire(System system) {
+        system.setIsActive(false)
+        system.setRetirementDate(params.retirementDate)
+        if (system.save(failOnError: true)) {
+            flash.message = message(code: 'system.successful.retired', args: ['System', system.systemName])
+            log.info(flash.message)
+            redirect action: 'list'
+        } else {
+            flash.error = message(code: 'error.retiring.system', args: ['System', system.systemName])
+            log.error(flash.error)
+        }
+    }
+
+
     def createSystem() {
         def system = new System(params)
         system.isActive = true

@@ -209,6 +209,7 @@ class UserController {
             return
         }
         User user = User.findByUsername(username)
+        println "Got user $user.username"
         if (!passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
             flash.error = 'Current password is incorrect'
             log.error(flash.error)
@@ -229,7 +230,7 @@ class UserController {
         if (user.validate() && user.save(failOnError: true)) {
             flash.message = message(code: 'password.updated.message', args: [user.username])
             log.info(flash.message)
-            redirect controller: 'login', action: 'auth', model: [username: user.username]
+            redirect controller: 'login', action: 'auth', model: [username: user.username, user: user]
         } else {
             flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
             log.error(flash.error)

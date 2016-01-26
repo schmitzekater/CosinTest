@@ -60,6 +60,19 @@ class ModuleController {
         redirect action: 'detail', params: params
     }
 
+    def retire(Module module) {
+        module.setIsActive(false)
+        module.setRetirementDate(params.retirementDate)
+        if (module.save(failOnError: true)) {
+            flash.message = message(code: 'module.successful.retired', args: ['Module', module.toString()])
+            log.info(flash.message)
+            redirect action: 'list'
+        } else {
+            flash.error = message(code: 'error.retiring.module', args: ['Module', module.toString()])
+            log.error(flash.error)
+        }
+    }
+
     def listAllModuleQualifications() {
         def checkedParams = qualifiableObjectService.checkParams(params)
         def qualificationList = QualificationService.getQualificationList(Module, checkedParams.max, checkedParams.offset,
