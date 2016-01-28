@@ -1,4 +1,4 @@
-<div class="footer navbar-fixed-bottom">
+<div class="footer navbar">
     <div class="container">
         <ul class="nav nav-tabs nav-justified">
             <li class="${controllerName == null ? 'active' : ''}">
@@ -19,37 +19,3 @@
         </ul>
     </div>
 </div>
-%{--
-<div class="footer" role="contentinfo">
-    <div class="well">
-        <div class="row">
-            <div class="col-md-2">
-
-            </div>
-
-            <div class="col-md-1">
-                <g:link controller="user" action="list">User List</g:link>
-            </div>
-
-            <div class="col-md-1">
-                <g:link controller="user" action="list">Person List</g:link>
-            </div>
-
-            <div class="col-md-1">
-                Link 3
-            </div>
-
-            <div class="col-md-1">
-                Link 4
-            </div>
-
-            <div class="col-md-4" align="right">
-                App version: <g:meta name="info.app.version"/> Powered by Grails <g:meta
-                    name="info.app.grailsVersion"/></>
-        </div>
-
-        <div class="col-md-2">
-        </div>
-    </div>
-</div>
---}%

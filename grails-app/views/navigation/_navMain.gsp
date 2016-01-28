@@ -52,6 +52,7 @@
                 <li class="${controllerName == 'config' || controllerName == 'auditLogEvent' ? 'active' : ''}">
                     <a href="${createLink(uri: '/config/index')}"><g:message code="default.config.label"/></a>
                 </li>
+
             </ul>
         </div>
     </div>

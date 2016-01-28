@@ -11,6 +11,13 @@ class ConfigController {
 
     }
 
+    def setLanguage(){
+        def targetUri = params.targetUri ?: "/"
+        redirect(uri: targetUri)
+        //redirect(uri: request.getHeader('referer', ), params: [params.lang  = lang])
+
+    }
+
     def config() {
         def qt = QualificationType.list()
         def cr = ComputerRole.list()

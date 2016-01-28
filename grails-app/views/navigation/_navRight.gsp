@@ -28,5 +28,29 @@
                     <g:render template="${controllerName}Right"/>
                 </g:if>
         </g:if>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default"><g:message code="language.label"/></button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only"><g:message code="language.toggle.dropdown"/></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <g:link controller="config" action="setLanguage" params="[lang:'de', targetUri: (request.forwardURI - request.contextPath)]">
+                        <g:img dir="images" file="de.png"/> <g:message code="language.german.label"/>
+                    </g:link>
+                </li>
+                <li>
+                    <g:link controller="config" action="setLanguage" params="[lang:'en', targetUri: (request.forwardURI - request.contextPath)]">
+                        <g:img dir="images" file="gb.png"/> <g:message code="language.english.label"/>
+                    </g:link>
+                </li>
+                <li>
+                    <g:link controller="config" action="setLanguage" params="[lang:'fr', targetUri: (request.forwardURI - request.contextPath)]">
+                        <g:img dir="images" file="fr.png"/> <g:message code="language.french.label"/>
+                    </g:link>
+                </li>
+            </ul>
+        </div>
             </div> <!-- panel-body -->
         </div> <!-- panel -->
