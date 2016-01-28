@@ -48,4 +48,13 @@ class System implements Serializable{
     Set<SystemRole> getSystemRole(){
         SystemRole.findAllBySystem(this)
     }
+
+    def onChange = { oldMap, newMap ->
+        oldMap.each({ key, oldVal ->
+            if (oldVal != newMap[key]) {
+                log.info " * $key changed from $oldVal to " + (newMap[key] == null ? 'null' : newMap[key]) + " for " + getDisplayString()
+            }
+        })
+
+    }
 }

@@ -52,8 +52,8 @@ class Person {
     }
     def onChange = { oldMap, newMap ->
         oldMap.each({ key, oldVal ->
-            if (oldVal != newMap[key]) {
-                println " * $key changed from $oldVal to " + newMap[key] + " for " + userId
+            if (oldVal != newMap[key] || newMap[key] == null) {
+                log.info " * $key changed from $oldVal to " + (newMap[key] == null ? 'null' : newMap[key]) + " for " + getDisplayString()
             }
         })
     }

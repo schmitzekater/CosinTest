@@ -30,6 +30,7 @@ class BootStrap {
                     def admin = User.findByUsername('administrator')
                     if (admin) {
                         admin.accountLocked = false
+                        admin.resetFalsePasswordCount()
                         admin.accountExpired = false
                         admin.setPasswordChangeDate(new Date())
                     }

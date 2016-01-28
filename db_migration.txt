@@ -1,0 +1,13 @@
+Erstellt 27. Januar 2016
+Plugin:     https://grails.org/plugin/database-migration
+Doc:        http://grails-plugins.github.io/grails-database-migration/docs/manual/ref/Diff%20Scripts/dbm-gorm-diff.html
+HowTo:      http://grails.github.io/grails-howtos/en/manageDatabases.html
+
+
+- Database-Migration Plugin installiert.
+- Erstes changelog.groovy in grails-app/migrations/ erstellt aus Domain-Klassen:
+        grails dbm-generate-gorm-changelog changelog.groovy
+
+- Nach Changes muss neues Script ausgeführt werden
+- grails dbm-generate-gorm-changelog changelog_<DATE>.groovy
+- grails dbm-changelog-sync
