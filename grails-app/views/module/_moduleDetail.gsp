@@ -15,8 +15,8 @@
                 <f:display property="nextCalibration" wrapper="detail/date/colored"/>
             </g:if>
             <f:display property="productiveDate" wrapper="detail/date"/>
-            <g:if test="${module.retireDate!=null}">
-                <f:display property="retireDate" wrapper="detail/date"/>
+            <g:if test="${module.retirementDate != null}">
+                <f:display property="retirementDate" wrapper="detail/date"/>
             </g:if>
             </f:with>
         </tbody>

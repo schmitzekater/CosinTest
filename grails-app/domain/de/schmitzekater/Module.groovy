@@ -33,8 +33,10 @@ class Module extends QualifiableObject{
         moduleType nullable: true
         unit nullable: true
 
-        productiveDate nullable: true, max: new Date(), min: new Date(80,0,0)
-        retireDate nullable: true, max: new Date(), min: new Date(80,0,0)
+        productiveDate nullable: true, max: new Date().plus(1), min: new Date(80, 0, 0)
+        // +1 accepts now + 1 days: Otherwise cannot be applied "now".
+        retirementDate nullable: true, max: new Date().plus(1), min: new Date(80, 0, 0)
+        // +1 accepts now + 1 days: Otherwise cannot be applied "now".
         moduleConnection nullable: true
         needsCalibration nullable: false
         lastCalibration nullable: true

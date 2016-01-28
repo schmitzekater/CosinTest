@@ -46,7 +46,7 @@ class BootStrap {
     def createProductionUsers() {
         def adminPerson = new Person(firstName: 'Administrator', lastName: 'System', email: 'support@cosin.de')
         adminPerson.save(failOnError: true)
-        def adminUser = new User('administrator', 'password', 'signature', adminPerson, null)
+        def adminUser = new User('administrator', 'System1', 'signature', adminPerson, null)
         adminUser.save(failOnError: true)
         assert Person.count() == 1
         assert User.count() == 1
