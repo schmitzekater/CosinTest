@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>COSIN &raquo COmputerized Software INventory<g:layoutTitle default="Welcome"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" href="/images/cosine_128.png">
+    <%--
+        Lizenz: Kommerziellen gebrauch gestattet, backlink erforderlich
+        Autor: Icons8
+        Website: www.icons8.com
+    --%>
+    <link rel="icon" type="image/x-icon" href="${createLinkTo(dir:'images',file:'favicon.ico')}">
+    <link rel="apple-touch-icon-precomposed" href="${createLinkTo(dir:'images',file:'cosine_128.png')}">
     <%-- Metro Tile on Windows 8+ --%>
     <meta name="msapplication-TileColor" content="#9900ff" />
-    <meta name="msapplication-TileImage" content="/images/cosine_128.png">
-
-
+    <meta name="msapplication-TileImage" content="${createLinkTo(dir:'images',file:'cosine_128.png')}">
     <asset:javascript src="jquery-2.1.3.js"/>
     <asset:javascript src="bootstrap-all.js"/>
     <asset:stylesheet src="bootstrap-all.css"/>

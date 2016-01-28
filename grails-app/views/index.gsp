@@ -21,12 +21,16 @@
         <div id="home" class="col-md-10" role="home">
 
             <div id="page-body" role="home">
-            <h1>Welcome to Grails</h1>
-            <p>Congratulations, you have successfully started your first Grails application! At the moment
-               this is the default page, feel free to modify it to either redirect to a controller or display whatever
-               content you may choose. Below is a list of controllers that are currently deployed in this application,
-               click on each to execute its default action:</p>
+            <h1><g:message code="index.welcome.message"/></h1>
 
+            <g:if test="${session.language=='en'}">
+                <p>Welcome to the <f>CO</f>mputerized <f>S</f>ystem <f>IN</f>ventory.</p>
+                <g:render template="/common/en/index"/>
+               ${session.language}
+            </g:if>
+                <g:if test="${session.language=='de'}">
+                    Und nun das Ganze auf Deutsch!! Trulla!!
+                </g:if>
         </div>
         </div>
     </div>                                                                          <!-- end row -->

@@ -13,6 +13,7 @@ class ConfigController {
 
     def setLanguage(){
         def targetUri = params.targetUri ?: "/"
+        session['language'] = params.lang
         redirect(uri: targetUri)
         //redirect(uri: request.getHeader('referer', ), params: [params.lang  = lang])
 
