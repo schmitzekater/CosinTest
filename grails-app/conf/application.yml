@@ -123,15 +123,18 @@ environments:
                     testOnReturn: false
                     jdbcInterceptors: ConnectionState
                     defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+---
 security:
     user:
         password: password
     alex:
         password: geheim
+---
 auditLog:
     tablename: "audit"
     auditDomainClassName: "grails.example.AuditLogEvent"
-
+---
 quartz:
     pluginEnabled: true
     jdbcStore: false

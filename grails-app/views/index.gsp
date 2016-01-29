@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="home"/>
-        <title>Welcome to Grails</title>
+        <title><g:message code="index.welcome.message"/></title>
 
     </head>
 <body role="document">
