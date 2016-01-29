@@ -4,11 +4,13 @@
             <li class="${controllerName == null ? 'active' : ''}">
                 <a href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
             </li>
-            <li class="${controllerName == 'imprint' ? 'active' : ''}">
-                <a href="${createLink(uri: '/imprint')}"><g:message code="imprint.label"/> </a>
+            <li class="${actionName == 'imprint' ? 'active' : ''}">
+                <a href="${createLink(uri: '/common/imprint')}"><g:message code="imprint.label"/> </a>
             </li>
-            <li class="${controllerName == 'disclaimer' ? 'active' : ''}">
-                <a href="${createLink(uri: '/disclaimer')}"><g:message code="disclaimer.label"/> </a>
+            <li class="${actionName == 'disclaimer' ? 'active' : ''}">
+                <g:link controller="common" action="disclaimer">
+                    <g:message code="disclaimer.label"/> </a>
+                </g:link>
             </li>
             <li role="presentation" class="disabled">
                 <a href="#"><g:message code="app.version.label"/> <g:meta name="info.app.version"/></a>

@@ -11,7 +11,7 @@ class UrlMappings {
         "500"(view:'/error')
         "404"(view:'/notFound')
         "403"(view: '/accessDenied')
-        "/imprint"(view: '/common/imprint')
+        "/imprint"(view: '/common/en/imprint')
         "/disclaimer"(view: '/common/disclaimer')
     }
 }
