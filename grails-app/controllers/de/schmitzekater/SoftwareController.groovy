@@ -23,12 +23,20 @@ class SoftwareController {
             qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.software, params.comment)
             def software = Software.get(params.id)
             software.addToQualifications(qualification)
+            def lastQualification = software.lastQualification
+            Date qualDate = qualification.qualificationDate
+            if(lastQualification ==null || qualDate>lastQualification){
+                // Set the latest Qualification for the software
+                software.setLastQualification(qualDate)
+            }
+            software.save(failOnError: true)
             flash.message = message(code: 'default.added.Qualification',args: ['Qualification',qualification.qualificationDate, software.softwareName ])
+            log.info(flash.message)
             redirect action: "list"
         }
         catch (QualificationException qe){
             flash.message = qe.message
-            logger.error(qe.message)
+            log.error(qe.message)
         }
     }
 

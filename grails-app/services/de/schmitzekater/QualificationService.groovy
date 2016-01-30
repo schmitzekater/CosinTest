@@ -1,25 +1,29 @@
 package de.schmitzekater
 
 import grails.transaction.Transactional
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Transactional
 class QualificationService {
 
-    def createQualification(Date qualificationDate, String qualificationType, QualifiableObject qualificationObject, String comment) {
-        println "Im Service"
+    def fileHandleService
+    def attachmentFile
 
+    def createQualification(Date qualificationDate, String qualificationType, QualifiableObject qualificationObject, String comment, MultipartHttpServletRequest request) {
+        if(request){
+           attachmentFile = fileHandleService.uploadQualificationFile(request)
+        }
         def qual = new Qualification(qualificationDate: qualificationDate, qualificationType: QualificationType.findByType(qualificationType),
-                qualificationObject: qualificationObject, comment: comment)
+                qualificationObject: qualificationObject, comment: comment, attachment: attachmentFile)
         if (qual.validate()&&qual.save()) return qual
-        else throw new QualificationException(message: 'Qualification Error', qualification: qual, qualifiableObject: qualObj)
-    }
-    def createQualification(){
-
+        else throw new QualificationException(message: 'Qualification Error', qualification: qual, qualifiableObject: qualificationObject)
     }
 
-    static getCalibrationList(Class aclass, int max, int offset, Date dateFrom, Date dateUntil, String sortBy, String orderBy) {
+
+    static getCalibrationList(Class aclass, Map params){
         def c = Qualification.createCriteria()
-        def qualificationList = c.list(max: max, offset: offset) {
+        def qualificationList = c.list(max: params.max, offset: params.offset) {
             qualificationObject {
                 eq("class", aclass)
             }
@@ -27,24 +31,24 @@ class QualificationService {
                 ilike('type', 'Calibration')
             }
             and {
-                between("qualificationDate", dateFrom, dateUntil)
+                between("qualificationDate", params.dateFrom, params.dateUntil.plus(1))
             }
-            order(sortBy, orderBy)
+            order(params.sortBy, params.orderBy)
         }
         qualificationList
     }
 
-    static getQualificationList(Class aclass, int max, int offset, Date dateFrom, Date dateUntil, String sortBy, String orderBy) {
+    static getQualificationList(Class aclass, Map params) {
         def c = Qualification.createCriteria()
-        def qualificationList = c.list(max: max, offset: offset) {
+        def qualificationList = c.list(max: params.max, offset: params.offset) {
             qualificationObject {
                 eq("class", aclass)
             }
             and {
-                between("qualificationDate", dateFrom, dateUntil.plus(1))
+                between("qualificationDate", params.dateFrom, params.dateUntil.plus(1))
                 // Not nice, but otherwise values from today are not shown!!!!!!!
             }
-            order(sortBy, orderBy)
+            order(params.sortBy, params.orderBy)
         }
         qualificationList
     }

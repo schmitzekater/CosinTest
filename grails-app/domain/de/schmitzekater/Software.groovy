@@ -4,6 +4,7 @@ class Software extends QualifiableObject{
     String softwareName
     String softwareVersion
     String softwareIqOq
+    Date   lastQualification
 
     static auditable = [ignore:['version','lastUpdated','qualifications']]
     static hasOne = [softwareVendor: Vendor]
@@ -17,6 +18,7 @@ class Software extends QualifiableObject{
         softwareVendor nullable: true
         system nullable: true
         computer nullable: true
+        lastQualification nullable: true
     }
     def getAuditLogUri = {
        getDisplayString()

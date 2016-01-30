@@ -15,48 +15,38 @@ class ModuleController {
     def list() {
         if (!params.max) params.max = 10
         def modules = Module.list(params)
-        render view:"/layouts/list", model: [model: modules, count: Module.count]
-    }
-    def addQualification(){
-        def qualification
-        try{
-            /*def f = request.getFile('attachment')
-            String name = f.getOriginalFilename()
-            //TODO Weitere Verzeichnisse anlege
-            def uploadDir = servletContext.getRealPath("/uploads")
-            File fileDest = new File(uploadDir,name)
-            println "Dest: $fileDest"
-            f.transferTo(fileDest)*/
-            // Create the new Qualification
-            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment)
-            def module = Module.get(params.id)
-            // Add the Qualification to the module
-            module.addToQualifications(qualification)
-            // Was the Qualification a Calibration??
-            if(qualification.qualificationType.toString().equalsIgnoreCase("Calibration")){
-                // Get the last Calibration of the module
-                def latestCalibration = module.lastCalibration
-                Date qualDate = qualification.qualificationDate
-                if(latestCalibration ==null || qualDate>latestCalibration){
-                    // Calculate the next calibration only if there wasn't any or the calibration is the newest.
-                    module.setLastCalibration(qualDate)
-                    module.setNextCalibration()
-                }
-                module.save()
-            }
-            flash.message = message(code: 'default.added.Qualification',args: ['Qualification',qualification.qualificationDate, module.moduleName])
-            redirect action: "show", id: module.id
-        }
-        catch (QualificationException qe){
-            flash.message = qe.message
-            logger.error(qe.message)
-        }
-    }
-    def detail(){
-        render view: "/layouts/detail", model:  [module: Module.findById(params.id)]
+        render view: "/layouts/list", model: [model: modules, count: Module.count]
     }
 
-    def show(){
+    def addQualification() {
+        def qualification
+        // Create the new Qualification
+        qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment, request)
+        def module = Module.get(params.id)
+        // Add the Qualification to the module
+        module.addToQualifications(qualification)
+        // Was the Qualification a Calibration??
+        if (qualification.qualificationType.toString().equalsIgnoreCase("Calibration")) {
+            // Get the last Calibration of the module
+            def latestCalibration = module.lastCalibration
+            Date qualDate = qualification.qualificationDate
+            if (latestCalibration == null || qualDate > latestCalibration) {
+                // Calculate the next calibration only if there wasn't any or the calibration is the newest.
+                module.setLastCalibration(qualDate)
+                module.setNextCalibration()
+            }
+            module.save()
+        }
+        flash.message = message(code: 'default.added.Qualification', args: ['Qualification', qualification.qualificationDate, module.moduleName])
+        redirect action: "show", id: module.id
+    }
+
+
+    def detail() {
+        render view: "/layouts/detail", model: [module: Module.findById(params.id)]
+    }
+
+    def show() {
         redirect action: 'detail', params: params
     }
 
@@ -75,8 +65,7 @@ class ModuleController {
 
     def listAllModuleQualifications() {
         def checkedParams = qualifiableObjectService.checkParams(params)
-        def qualificationList = QualificationService.getQualificationList(Module, checkedParams.max, checkedParams.offset,
-                checkedParams.dateFrom, checkedParams.dateUntil, checkedParams.sortBy, checkedParams.orderBy)
+        def qualificationList = QualificationService.getQualificationList(Module, checkedParams)
         render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
                 params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
                          params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
@@ -84,19 +73,24 @@ class ModuleController {
 
     def listAllModuleCalibrations() {
         def checkedParams = qualifiableObjectService.checkParams(params)
-        def qualificationList = QualificationService.getCalibrationList(Module, checkedParams.max, checkedParams.offset,
-                checkedParams.dateFrom, checkedParams.dateUntil, checkedParams.sortBy, checkedParams.orderBy)
+        def qualificationList = QualificationService.getCalibrationList(Module, checkedParams)
         render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
-                params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
-                         params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
+                params: [checkedParams, params.dateTo = checkedParams.dateUntil]
     }
 
-    /**
-     * This function renders only the template to add a new Qualification.
-     * Same as in "Software"
-     * @return
-     */
+/**
+ * This function renders only the template to add a new Qualification.
+ * Same as in "Software"
+ * @return
+ */
     def addQualificationToObject() {
         render view: "/layouts/addQualificationToObject", params: params
     }
+
+    def handleQualificationException(QualificationException qe) {
+        flash.error = qe.message
+        log.error(qe.message)
+        render view: '/error', model: [exception: qe]
+    }
+
 }

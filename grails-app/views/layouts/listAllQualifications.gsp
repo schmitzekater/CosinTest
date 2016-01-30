@@ -62,6 +62,8 @@
                       title="${message(code: 'QualificationType.label', default: 'QualificationType')}"
                       params="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
         <th></th>
+        <th></th>
+
     </tr>
     </thead>
 </g:form>
@@ -73,6 +75,14 @@
                         id="${qualification.qualificationObject.id}">${qualification.qualificationObject}</g:link></td>
             <td>${qualification.comment}</td>
             <td>${qualification.qualificationType}</td>
+         <td>
+            <g:if test="${qualification.attachment}">
+                <a href="${qualification.attachment.absolutePath}" target="_blank" >Link</a>
+            </g:if>
+             <g:else>
+                 --
+             </g:else>
+         </td>
         </tr>
     </g:each>
     </tbody>

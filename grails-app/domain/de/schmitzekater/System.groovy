@@ -26,7 +26,7 @@ class System implements Serializable{
         processOwner nullable: true
         units nullable: true
         systemDataCategory nullable: true
-        area nullable: false, inList: ["GCP", "GLP", "GMP"]
+        area nullable: false, inList: ["GCP", "GLP", "GMP", "GxP"]
         usesSoftware nullable: true
         retirementDate nullable: true, display: false
     }

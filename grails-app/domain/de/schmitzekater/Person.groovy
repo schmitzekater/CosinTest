@@ -1,8 +1,5 @@
 package de.schmitzekater
 
-import org.grails.datastore.mapping.query.Restrictions
-import org.hibernate.criterion.DetachedCriteria
-
 class Person {
     static hasOne = [user: User, department: Department]
     static hasMany = [processOwnerSystem: System, systemOwnerSystem: System]
