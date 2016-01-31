@@ -18,27 +18,25 @@ class ModuleController {
         render view: "/layouts/list", model: [model: modules, count: Module.count]
     }
 
-    def addQualification() {
-        def qualification
-        // Create the new Qualification
-        qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment, request)
-        def module = Module.get(params.id)
-        // Add the Qualification to the module
-        module.addToQualifications(qualification)
-        // Was the Qualification a Calibration??
-        if (qualification.qualificationType.toString().equalsIgnoreCase("Calibration")) {
-            // Get the last Calibration of the module
-            def latestCalibration = module.lastCalibration
-            Date qualDate = qualification.qualificationDate
-            if (latestCalibration == null || qualDate > latestCalibration) {
-                // Calculate the next calibration only if there wasn't any or the calibration is the newest.
-                module.setLastCalibration(qualDate)
-                module.setNextCalibration()
-            }
-            module.save()
+    def addQualification(Module module) {
+        if(!module){
+            flash.error = message(code: 'module.isEmpty')
+            log.error(flash.error)
         }
-        flash.message = message(code: 'default.added.Qualification', args: ['Qualification', qualification.qualificationDate, module.moduleName])
-        redirect action: "show", id: module.id
+        else{
+            def qualification
+            // Create the new Qualification
+            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment, request)
+            // add Qualification to the Module
+            if(qualifiableObjectService.addQualification(module, qualification)){
+                flash.message = message(code: 'default.added.Qualification', args: ['Qualification', qualification.qualificationDate, module.moduleName])
+                redirect action: "show", id: module.id
+            }
+            else{
+                flash.error = message(code: 'qualification.not.added')
+                log.error(flash.error)
+            }
+        }
     }
 
 
@@ -51,9 +49,7 @@ class ModuleController {
     }
 
     def retire(Module module) {
-        module.setIsActive(false)
-        module.setRetirementDate(params.retirementDate)
-        if (module.save(failOnError: true)) {
+        if (qualifiableObjectService.retireModule(module)) {
             flash.message = message(code: 'module.successful.retired', args: ['Module', module.toString()])
             log.info(flash.message)
             redirect action: 'list'
@@ -67,8 +63,7 @@ class ModuleController {
         def checkedParams = qualifiableObjectService.checkParams(params)
         def qualificationList = QualificationService.getQualificationList(Module, checkedParams)
         render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
-                params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
-                         params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
+                params: [checkedParams, params.dateTo = checkedParams.dateUntil]
     }
 
     def listAllModuleCalibrations() {

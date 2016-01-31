@@ -12,8 +12,10 @@ class QualificationService {
 
     def createQualification(Date qualificationDate, String qualificationType, QualifiableObject qualificationObject, String comment, MultipartHttpServletRequest request) {
         if(request){
+            // Upload th eattachment
            attachmentFile = fileHandleService.uploadQualificationFile(request)
         }
+        // Create a new Qualification
         def qual = new Qualification(qualificationDate: qualificationDate, qualificationType: QualificationType.findByType(qualificationType),
                 qualificationObject: qualificationObject, comment: comment, attachment: attachmentFile)
         if (qual.validate()&&qual.save()) return qual

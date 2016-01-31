@@ -40,5 +40,34 @@ class QualifiableObjectService {
         params.orderBy = orderBy
         return params
     }
+    def addQualification(Module module, Qualification qualification){
+        // Add the Qualification to the module
+        if(module.addToQualifications(qualification)){
+            // Was the Qualification a Calibration??
+            if (qualification.qualificationType.toString().equalsIgnoreCase("Calibration")) {
+                // Get the last Calibration of the module
+                def latestCalibration = module.lastCalibration
+                Date qualDate = qualification.qualificationDate
+                if (latestCalibration == null || qualDate > latestCalibration) {
+                    // Calculate the next calibration only if there wasn't any or the calibration is the newest.
+                    module.setLastCalibration(qualDate)
+                    module.setNextCalibration()
+                    return true
+                }
+            }
+            else{
+                return true
+            }
+        }
+        else {
+            return false
+        }
+    }
+
+    def retireModule(Module module){
+        module.setIsActive(false)
+        module.setRetirementDate(params.retirementDate)
+        return (module.save(failOnError: true))
+    }
 
 }
