@@ -39,9 +39,17 @@ class SystemController {
     }
 
     def editDataFlowFile(System system){
-        //TODO: If file is already present delete it first! Otherwise directory could be spammed with documents
-        File dataFlow = fileHandleService.uploadDataflowFile(request as MultipartHttpServletRequest)
+        //TODO: Check the filename! files from other systems can be overwritten!!!
+        File dataFlow = fileHandleService.uploadDataflowFile(request as MultipartHttpServletRequest, system)
         if(dataFlow){
+            if(system.dataFlow){
+                if(fileHandleService.deleteDataflowFile(system.dataFlow)){
+                    log.info("Deleted old dataflow file $system.dataFlow from System $system.systemName.")
+                }
+                else{
+                    log.error("Could not delete old dataflow file from System $system.systemName")
+                }
+            }
             system.setDataFlow(dataFlow)
             if(system.save(failOnError: true)){
                 flash.message = message(code: 'system.dataFlow.successful.edited', args: ['System', system.systemName, dataFlow.name])
@@ -226,6 +234,15 @@ class SystemController {
     def detail() {
         def system = System.findById(params.id)
         render view: "/layouts/detail", model: [system: system]
+    }
+
+    def handleFileExistsException(FileExistsException fe){
+        if(fe.message=="File exists"){
+            flash.error = message(code: "error.file.exists", args:[fe.existingFile.absolutePath])
+            log.error(flash.error)
+        }
+
+
     }
 
 

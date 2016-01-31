@@ -24,7 +24,7 @@ class SoftwareController {
         }
         else{
             def qualification
-            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.software, params.comment, request)
+            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, software, params.comment, request)
             if(qualifiableObjectService.addQualification(software, qualification)) {
                 flash.message = message(code: 'default.added.Qualification', args: ['Qualification', qualification.qualificationDate, software.softwareName])
                 log.info(flash.message)
@@ -71,4 +71,13 @@ class SoftwareController {
         log.error(qe.message)
         render view: '/error', model: [exception: qe]
     }
+
+    def handleFileExistsException(FileExistsException fe){
+        if(fe.message=="File exists"){
+            flash.error = message(code: "error.file.exists", args:[null,fe.existingFile.absolutePath])
+            log.error(flash.error)
+            render view: '/error', model: [exception: fe]
+        }
+    }
+
 }

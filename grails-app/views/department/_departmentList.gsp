@@ -14,7 +14,7 @@
             <f:with bean="${department}">
                 <f:display property="id" wrapper="list"/>
                 <f:display property="departmentName" wrapper="list"/>
-                <f:display property="supervisor" wrapper="list/link" widget="edit/queries/person/supervisor"/>
+                <f:display property="supervisor" wrapper="list/link/person" />
             </f:with>
            <g:render template="/layouts/editInfoButtons" model="[model: department]"/>
         </tr>

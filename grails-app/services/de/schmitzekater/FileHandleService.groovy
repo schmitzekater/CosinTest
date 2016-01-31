@@ -10,14 +10,26 @@ class FileHandleService {
     MultipartFile file
     String originalFilename = ""
 
-    // TODO: Check if directories exist!
 
-    def serviceMethod() {
-
-    }
-
-    def uploadQualificationFile(MultipartHttpServletRequest request) {
-        return uploadFile(request, 'attachment', '/uploads/qualifications')
+    def uploadQualificationFile(MultipartHttpServletRequest request,QualifiableObject obj, Date qualificationDate) {
+        // Store the files in yearly folders separated by Type
+        String type = "dummy"
+        String name = "nameDummy"
+        if      (obj instanceof Module) type = 'Modules'
+        else if (obj instanceof Software)   type = 'Software'
+        name = obj.getDisplayString()
+        def baseDir = servletContext.getRealPath('/uploads/qualifications')
+        String year = qualificationDate.format('YYYY')
+        String month= qualificationDate.format('MM')
+        File typeFolder             = new File (baseDir, type)
+        if(!typeFolder.exists())    typeFolder.mkdir()
+        File nameFolder             = new File (typeFolder, name)
+        if(!nameFolder.exists())    nameFolder.mkdir()
+        File yearFolder             = new File(nameFolder, year)
+        if(!yearFolder.exists())    yearFolder.mkdir()
+        File monthFolder            = new File (yearFolder, month)
+        if(!monthFolder.exists())   monthFolder.mkdir()
+        return uploadFile(request, 'attachment', monthFolder.absolutePath)
     }
 
     private def uploadFile(MultipartHttpServletRequest request, String name, String targetDir) {
@@ -25,9 +37,11 @@ class FileHandleService {
             file = request.getFile(name)
             originalFilename = file.getOriginalFilename()
             log.info("Got file $file, originalName: $originalFilename")
-            def uploadDir = servletContext.getRealPath(targetDir)
-            File fileDest = new File(uploadDir, originalFilename)
+            File fileDest = new File(targetDir, originalFilename)
             log.info("Dest: $fileDest.absolutePath")
+            if(fileDest.exists()) {
+                throw new FileExistsException(message: 'File exists', existingFile: fileDest)
+            }
             file.transferTo(fileDest)
             return fileDest
         }
@@ -36,9 +50,21 @@ class FileHandleService {
         }
     }
 
-    def uploadDataflowFile(MultipartHttpServletRequest request) {
-        return uploadFile(request, 'dataflow', '/uploads/dataflow')
+    def uploadDataflowFile(MultipartHttpServletRequest request, System system) {
+        // Store the files in System-specific upload-folders.
+        def baseDir = servletContext.getRealPath('/uploads/dataflow')
+        File systemFolder = new File(baseDir, system.systemName)
+        if(!systemFolder.exists()) systemFolder.mkdir()
+        return uploadFile(request, 'dataflow', systemFolder.absolutePath)
     }
 
+    def deleteDataflowFile(File file) {
+        return file.delete()
+    }
 
+}
+
+class FileExistsException extends RuntimeException{
+    String message
+    File existingFile
 }

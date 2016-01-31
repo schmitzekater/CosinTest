@@ -26,7 +26,7 @@ class ModuleController {
         else{
             def qualification
             // Create the new Qualification
-            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.module, params.comment, request)
+            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, module, params.comment, request)
             // add Qualification to the Module
             if(qualifiableObjectService.addQualification(module, qualification)){
                 flash.message = message(code: 'default.added.Qualification', args: ['Qualification', qualification.qualificationDate, module.moduleName])
