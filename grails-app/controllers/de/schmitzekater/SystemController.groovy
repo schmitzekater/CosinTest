@@ -50,9 +50,9 @@ class SystemController {
             }
         }
         else{
-            flash.error = message(code: 'error.editing.dataFlow', args: ['System', system.systemName])
+            flash.error = message(code: 'error.dataFlow.missing', args: ['System', system.systemName])
             log.error(flash.error)
-            redirect action: 'editDataFlow', system: system
+            redirect action: 'editDataFlow', id: system.id
         }
     }
 

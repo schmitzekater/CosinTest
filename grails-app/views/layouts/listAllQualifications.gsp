@@ -10,6 +10,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title><g:message code="qualification.list.label"/></title>
+    <g:set var="siteParams" value="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
 </head>
 
 <body role="document">
@@ -61,28 +62,22 @@
     <g:sortableColumn property="qualificationType"
                       title="${message(code: 'QualificationType.label', default: 'QualificationType')}"
                       params="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
+        <th><a href="#"><g:message code="qualification.qualificationAttachment.label"/></a></th>
         <th></th>
-        <th></th>
-
     </tr>
     </thead>
 </g:form>
     <tbody>
     <g:each var="qualification" in="${model}">
         <tr>
-            <td><g:formatDate format="yyyy-MM-dd" date="${qualification.qualificationDate}"/></td>
-            <td><g:link action="detail"
-                        id="${qualification.qualificationObject.id}">${qualification.qualificationObject}</g:link></td>
-            <td>${qualification.comment}</td>
-            <td>${qualification.qualificationType}</td>
-         <td>
-            <g:if test="${qualification.attachment}">
-                <a href="${qualification.attachment.absolutePath}" target="_blank" >Link</a>
-            </g:if>
-             <g:else>
-                 --
-             </g:else>
-         </td>
+            <f:with bean="${qualification}">
+                <f:display property="qualificationDate" wrapper="list/date"/>
+                <td><g:link action="detail"
+                            id="${qualification.qualificationObject.id}">${qualification.qualificationObject}</g:link></td>
+                <f:display property="qualificationType" wrapper="list"/>
+                <f:display property="comment" wrapper="list"/>
+                <f:display property="attachment" wrapper="list/link/file"/>
+            </f:with>
         </tr>
     </g:each>
     </tbody>

@@ -64,6 +64,24 @@ class QualifiableObjectService {
         }
     }
 
+    def addQualification(Software software, Qualification qualification){
+        if(software.addToQualifications(qualification)){
+            def lastQualification = software.lastQualification
+            Date qualDate = qualification.qualificationDate
+            if(lastQualification ==null || qualDate>lastQualification){
+                // Set the latest Qualification for the software
+                software.setLastQualification(qualDate)
+            }
+            if(software.save(failOnError: true)){
+                return true
+            }
+        }
+        else{
+            return false
+        }
+
+    }
+
     def retireModule(Module module){
         module.setIsActive(false)
         module.setRetirementDate(params.retirementDate)

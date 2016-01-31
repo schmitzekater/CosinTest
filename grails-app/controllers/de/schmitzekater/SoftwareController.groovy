@@ -17,36 +17,31 @@ class SoftwareController {
         render view:"/layouts/list", model: [model:sw, count: Software.count]
     }
 
-    def addQualification(){
-        def qualification
-        try{
-            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.software, params.comment)
-            def software = Software.get(params.id)
-            software.addToQualifications(qualification)
-            def lastQualification = software.lastQualification
-            Date qualDate = qualification.qualificationDate
-            if(lastQualification ==null || qualDate>lastQualification){
-                // Set the latest Qualification for the software
-                software.setLastQualification(qualDate)
-            }
-            software.save(failOnError: true)
-            flash.message = message(code: 'default.added.Qualification',args: ['Qualification',qualification.qualificationDate, software.softwareName ])
-            log.info(flash.message)
-            redirect action: "list"
+    def addQualification(Software software){
+        if(!software){
+            flash.error = message(code: 'software.isEmpty')
+            log.error(flash.error)
         }
-        catch (QualificationException qe){
-            flash.message = qe.message
-            log.error(qe.message)
+        else{
+            def qualification
+            qualification = qualificationService.createQualification(params.qualificationDate, params.qualificationType, params.software, params.comment, request)
+            if(qualifiableObjectService.addQualification(software, qualification)) {
+                flash.message = message(code: 'default.added.Qualification', args: ['Qualification', qualification.qualificationDate, software.softwareName])
+                log.info(flash.message)
+                redirect action: "list"
+            }
+            else{
+                flash.error = message(code: 'qualification.not.added')
+                log.error(flash.error)
+            }
         }
     }
 
     def listAllSoftwareQualifications() {
         def checkedParams = qualifiableObjectService.checkParams(params)
-        def qualificationList = QualificationService.getQualificationList(Software, checkedParams.max, checkedParams.offset,
-                checkedParams.dateFrom, checkedParams.dateUntil, checkedParams.sortBy, checkedParams.orderBy)
+        def qualificationList = QualificationService.getQualificationList(Software, checkedParams)
         render view: "/layouts/listAllQualifications", model: [model: qualificationList, count: qualificationList.getTotalCount()],
-                params: [params.dateFrom = checkedParams.dateFrom, params.dateTo = checkedParams.dateUntil, params.max = checkedParams.max,
-                         params.offset = checkedParams.offset, params.sort = checkedParams.sortBy, params.order = checkedParams.orderBy]
+                params: [checkedParams, params.dateTo = checkedParams.dateUntil]
     }
 
 /**
@@ -69,5 +64,11 @@ class SoftwareController {
 
     def show(){
         render view: "/layouts/detail", model:  [software: Software.findById(params.id)]
+    }
+
+    def handleQualificationException(QualificationException qe) {
+        flash.error = qe.message
+        log.error(qe.message)
+        render view: '/error', model: [exception: qe]
     }
 }

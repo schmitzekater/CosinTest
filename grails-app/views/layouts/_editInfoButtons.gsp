@@ -41,7 +41,7 @@
         </sec:link>
         <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
                   action="editDataFlow" >
-            <span class="glyphicon glyphicon-certificate" style="color: green" aria-hidden="true" title='<g:message
+            <span class="glyphicon glyphicon-list-alt" style="color: green" aria-hidden="true" title='<g:message
                 code="system.edit.dataFlow"/>'>
         </sec:link>
     </g:if>
