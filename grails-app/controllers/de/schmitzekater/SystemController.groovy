@@ -3,11 +3,13 @@ package de.schmitzekater
 import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.CREATED
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 class SystemController {
     static scaffold = System
     static defaultAction = "list"
     def systemRoleService
+    def fileHandleService
 
     def index() {
         redirect action: list(), params: params
@@ -36,6 +38,29 @@ class SystemController {
         }
     }
 
+    def editDataFlowFile(System system){
+        //TODO: If file is already present delete it first! Otherwise directory could be spammed with documents
+        File dataFlow = fileHandleService.uploadDataflowFile(request as MultipartHttpServletRequest)
+        if(dataFlow){
+            system.setDataFlow(dataFlow)
+            if(system.save(failOnError: true)){
+                flash.message = message(code: 'system.dataFlow.successful.edited', args: ['System', system.systemName, dataFlow.name])
+                log.info(flash.message)
+                redirect action: 'detail', id: system.id
+            }
+        }
+        else{
+            flash.error = message(code: 'error.editing.dataFlow', args: ['System', system.systemName])
+            log.error(flash.error)
+            redirect action: 'editDataFlow', system: system
+        }
+    }
+
+    def editDataFlow(System system){
+        model:
+        [system: system]
+    }
+
 
     def createSystem() {
         def system = new System(params)
@@ -45,8 +70,8 @@ class SystemController {
             flash.message = message(code: 'default.created.message', args: ['System', system.systemName])
             redirect(action: 'list')//, params: system.id)
         } else {
-            flash.message = message(code: 'default.not.created.message', args: ['System', system.systemName])
-            logger.error('System could not be created')
+            flash.error = message(code: 'default.not.created.message', args: ['System', system.systemName])
+            log.error('System could not be created')
         }
 
     }

@@ -78,8 +78,14 @@
                 <f:display property="className" wrapper="list/auditTrailEvent/link"/>
             %{--<f:display property="persistedObjectId" wrapper="list/auditTrailEvent"/>--}%
                 <f:display property="propertyName" wrapper="list/auditTrailEvent"/>
-                <f:display property="oldValue" wrapper="list/auditTrailEvent"/>
-                <f:display property="newValue" wrapper="list/auditTrailEvent"/>
+                <g:if test="${auditLogEvent.properties.propertyName==('dataFlow')||auditLogEvent.properties.propertyName==('attachment')}">
+                    <f:display property="oldValue" wrapper="list/auditTrailEvent/file"/>
+                    <f:display property="newValue" wrapper="list/auditTrailEvent/file"/>
+                </g:if>
+                <g:else>
+                    <f:display property="oldValue" wrapper="list/auditTrailEvent"/>
+                    <f:display property="newValue" wrapper="list/auditTrailEvent"/>
+                </g:else>
             </f:with>
             <g:render template="/layouts/editInfoButtons" model="[model: auditLogEvent]"/>
         </tr>

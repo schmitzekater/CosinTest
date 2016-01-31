@@ -15,6 +15,7 @@
             <f:display property="processOwner" wrapper="detail/link/person"/>
             <f:display property="area" wrapper="detail"/>
             <f:display property="systemDataCategory" wrapper="detail"/>
+            <f:display property="dataFlow" wrapper="detail/link/file"/>
         </f:with>
     </tbody>
 </table>

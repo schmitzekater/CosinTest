@@ -6,7 +6,7 @@ class System implements Serializable{
     private static final long serialVersionUID = 1
     String systemName
     boolean isActive
-    Blob dataFlow
+    File dataFlow
     Date retirementDate // TODO Set it manually
     String area
 

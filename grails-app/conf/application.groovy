@@ -81,7 +81,8 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/addUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/addUnitToSystem/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/removeUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
-
+		[pattern: '/system/editDataFlow/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE', 'ROLE_CREATE')"]],
+		[pattern: '/system/editDataFlowFile/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE', 'ROLE_CREATE')"]]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [

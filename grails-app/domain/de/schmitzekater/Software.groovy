@@ -5,6 +5,7 @@ class Software extends QualifiableObject{
     String softwareVersion
     String softwareIqOq
     Date   lastQualification
+    boolean isCfrCompliant
 
     static auditable = [ignore:['version','lastUpdated','qualifications']]
     static hasOne = [softwareVendor: Vendor]
@@ -34,11 +35,11 @@ class Software extends QualifiableObject{
 
     static List<Software> getAvailableSoftware(Object obj) {
         String query
-        println "Got Object $obj"
         if (obj instanceof Computer) {
             def computer = (Computer) obj
             query = "not exists (select 1 from COMPUTER_INSTALLED_SOFTWARE cis where cis.computer_id = $computer.id and cis.software_id = this_.id) "
-        } else if (obj instanceof System) {
+        }
+        else if (obj instanceof System) {
             def system = (System)obj
             query = "not exists (select 1 from SYSTEM_USES_SOFTWARE cis where cis.system_id = $system.id and cis.software_id = this_.id) "
         }

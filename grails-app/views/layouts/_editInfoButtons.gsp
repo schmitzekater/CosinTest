@@ -39,6 +39,11 @@
             <span class="glyphicon glyphicon-tasks" style="color: green" aria-hidden="true" title='<g:message
                 code="default.add.Unit"/>'>
         </sec:link>
+        <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+                  action="editDataFlow" >
+            <span class="glyphicon glyphicon-certificate" style="color: green" aria-hidden="true" title='<g:message
+                code="system.edit.dataFlow"/>'>
+        </sec:link>
     </g:if>
     %{--Display add  add Module button on Unit controller--}%
     <g:if test="${controllerName.compareToIgnoreCase("Unit") == 0}">
