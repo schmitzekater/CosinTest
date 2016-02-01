@@ -3,7 +3,7 @@
 <dt>${label}
 <dl>
     <g:if test="${value}">
-        <a href="file://${value}" target="_blank">${value.name}</a>
+        <g:link controller="common" action="downloadDataflow" id="${bean.id}">${value.name}</g:link>
     </g:if>
     <g:else>
         --

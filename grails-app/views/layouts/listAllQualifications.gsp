@@ -56,12 +56,12 @@
         <g:sortableColumn property="qualificationObject"
                           title="${message(code: 'module.moduleName.label', default: 'Name')}"
                           params="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
+    <g:sortableColumn property="qualificationType"
+                      title="${message(code: 'QualificationType.label', default: 'QualificationType')}"
+                          params="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
         <g:sortableColumn property="comment"
                           title="${message(code: 'qualification.comment.label', default: 'Comment')}"
                           params="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
-    <g:sortableColumn property="qualificationType"
-                      title="${message(code: 'QualificationType.label', default: 'QualificationType')}"
-                      params="[dateFrom: params.dateFrom, dateTo: params.dateTo, max: params.max, offset: params.offset]"/>
         <th><a href="#"><g:message code="qualification.qualificationAttachment.label"/></a></th>
         <th></th>
     </tr>
