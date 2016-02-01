@@ -8,12 +8,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Transactional
 class FileHandleService {
-    def servletContext
     def applicationConfigService
     MultipartFile file
     String originalFilename = ""
 
-
+    /**
+     *
+     * @param request the request that contains the MultipartFile to be uploaded
+     * @param obj the object where the qualification belongs to
+     * @param qualificationDate the date of the qualification where the file belongs to
+     * @return the path of the file (from uploadFile())
+     */
     def uploadQualificationFile(MultipartHttpServletRequest request,QualifiableObject obj, Date qualificationDate) {
         // Store the files in yearly folders separated by Type
         String type = "dummy"
@@ -34,7 +39,13 @@ class FileHandleService {
         if(!monthFolder.exists())   monthFolder.mkdir()
         return uploadFile(request, 'attachment', monthFolder.absolutePath)
     }
-
+    /**
+     *
+     * @param request the request that contains the MultipartFile to be uploaded
+     * @param name Type of file (sent from the GSP as param)
+     * @param targetDir Directory where the file is stored on the server
+     * @return filename including the absolut path.
+     */
     private def uploadFile(MultipartHttpServletRequest request, String name, String targetDir) {
         try {
             file = request.getFile(name)
@@ -52,7 +63,12 @@ class FileHandleService {
             log.error(e.message, e.cause)
         }
     }
-
+    /**
+     *
+     * @param request the request that contains the MultipartFile to be uploaded
+     * @param system The system that own the dataflow file. Needed to create a specific upload-directory for that system
+     * @return the path of the file (from uploadFile())
+     */
     def uploadDataflowFile(MultipartHttpServletRequest request, System system) {
         // Store the files in System-specific upload-folders.
         def baseDir = applicationConfigService.uploadDir + applicationConfigService.dataflowDir
@@ -65,6 +81,13 @@ class FileHandleService {
         return file.delete()
     }
 
+    /**
+     *
+     * @param response the response sent from the controller (CommonController)
+     * @param name the name of the file to be displayed as filename for the download
+     * @param path the path of the file on the server for download
+     * @return renders the file for download.
+     */
     def downloadFile(HttpServletResponse response, String name, String path) {
         response.setContentType("APPLICATION/OCTET-STREAM")
         response.setHeader("Content-Disposition", "Attachment;Filename=\"${name}\"")

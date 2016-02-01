@@ -30,7 +30,11 @@
             </label>
         </div>
         <div class="controls">
-            <span class="btn btn-default btn-file"><input type="file" name="dataflow"  title="${message(code: "hint.file.browse")}"/></span>
+            <span class="btn btn-default btn-file"><input type="file" name="dataflow" onload="showSpinner(true)"
+                                                          onloadeddata="showSpinner(false);
+                                                          refresh()" title="${message(code: "hint.file.browse")}"/>
+            </span>
+            <g:img id="spinner" style="display: none" dir="images" file="spinner.gif"/>
             <input class="save btn btn-primary"  type="submit"
                    value="${message(code: 'default.button.save.label', default: 'Save')}"
                     title="${message(code: 'system.save.dataflow')}"/>

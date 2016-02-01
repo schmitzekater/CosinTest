@@ -39,7 +39,6 @@ class SystemController {
     }
 
     def editDataFlowFile(System system){
-        //TODO: Check the filename! files from other systems can be overwritten!!!
         File dataFlow = fileHandleService.uploadDataflowFile(request as MultipartHttpServletRequest, system)
         if(dataFlow){
             if(system.dataFlow){
