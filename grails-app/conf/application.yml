@@ -99,10 +99,22 @@ environments:
             plugin:
                   fields:
                         disableLookupCache: true
+        config:
+            testVar: Development TestVar
+            uploadDirectory: /cosin/development/uploads
+            qualificationDirectory: /qualifications
+            dataflowDirectory: /dataflow
+            usernameMinSize: 3
+            passwordExpirationDays: 2
     test:
         dataSource:
             dbCreate: update
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+        config:
+            testVar: Test TestVar
+            uploadDirectory: /cosin/test/uploads
+            qualificationDirectory: /qualifications
+            dataflowDirectory: /dataflow
     production:
         dataSources:
             dataSource:
@@ -126,6 +138,12 @@ environments:
                     testOnReturn: false
                     jdbcInterceptors: ConnectionState
                     defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+        config:
+            uploadDirectory: /cosin/prod/uploads
+            qualificationDirectory: /qualifications
+            dataflowDirectory: /dataflow
+            usernameMinSize: 6
+            passwordExpirationDays: 42
 
 ---
 security:

@@ -1,10 +1,17 @@
 import de.schmitzekater.*
+import grails.util.Environment
+import grails.util.GrailsUtil
+import grails.util.Holders
+import grails.web.context.ServletContextHolder
 
 class BootStrap {
+    def servletContext
+    def applicationConfigService
 
     def init = { servletContext ->
         environments {
             development {
+                createUploadFolders()
                 if (!Person.count()) createPersons()
                 if (!Role.count() && !RoleGroup.count()) createUserRoles()
                 if (!User.count()) createUsers()
@@ -24,6 +31,7 @@ class BootStrap {
                 createBindings()
             }
             production {
+                createUploadFolders()
                 if (!Role.count() && !RoleGroup.count()) createUserRoles()
                 if (!Person.count() && !User.count()) createProductionUsers()
                 else {
@@ -40,6 +48,43 @@ class BootStrap {
                 if (!DataCategory.count()) createDataCategories()
                 if (!ConnectionType.count()) createConnectionTypes()
                 if (!ModuleType.count()) createModuleTypes()
+            }
+            test {
+
+            }
+        }
+    }
+
+    def createUploadFolders() {
+        File uploadFolder
+        //String upload = "/uploads"
+        String dataflow = "/dataflow"
+        String qualifications = '/qualifications'
+        uploadFolder = new File(applicationConfigService.uploadDir)
+        if (!uploadFolder.exists()) {
+            log.info("Creating directory $uploadFolder")
+            if (uploadFolder.mkdirs()) {
+                log.info("Success")
+            } else {
+                log.error("Creation of $uploadFolder failed")
+            }
+        }
+        File dataflowFolder = new File(uploadFolder, dataflow)
+        if (!dataflowFolder.exists()) {
+            log.info("Creating directory $dataflowFolder")
+            if (dataflowFolder.mkdir()) {
+                log.info("Success")
+            } else {
+                log.error("Creation of $dataflowFolder failed")
+            }
+        }
+        File qualificationFolder = new File(uploadFolder, qualifications)
+        if (!qualificationFolder.exists()) {
+            log.info("Creating directory $qualificationFolder")
+            if (qualificationFolder.mkdir()) {
+                log.info("Success")
+            } else {
+                log.error("Creation of $qualificationFolder failed")
             }
         }
     }
@@ -69,14 +114,15 @@ class BootStrap {
         ComputerRole client = ComputerRole.findByRole("Acquisition Client")
         def firstRole = SystemRole.create(serverOne, analyst, server, true)
         def secondRole = SystemRole.create(clientOne, analyst, client, true)
-        def thirdRole = SystemRole.create(serverOne, analyst, dbserver, true )
+        def thirdRole = SystemRole.create(serverOne, analyst, dbserver, true)
         serverOne.addToInstalledSoftware(analystSW)
         clientOne.addToInstalledSoftware(analystSW)
         for (i in 1..Qualification.count()) analystSW.addToQualifications(Qualification.get(i))
         log.info "${SystemRole.count()} System Roles created."
         log.info "System $analyst.systemName has ${analyst.getComputer().size()} Computer"
     }
-    def createUnits(){
+
+    def createUnits() {
         log.info "Creating Units"
         def unit = new Unit(unitName: "LCMS01", system: System.findBySystemName("Analyst"))
         unit.save(failOnError: true)
@@ -84,7 +130,7 @@ class BootStrap {
         log.info "Created " + Unit.count() + " Units"
     }
 
-    def createModules(){
+    def createModules() {
         log.info "Creating Modules"
         def sampler = new Module(moduleSerial: 'AS0815', moduleName: 'AS-12', moduleModel: 'CTC PAL xT', moduleType: ModuleType.findByModuleType('Autosampler'), moduleConnection: ConnectionType.findByConnection('Serial'), moduleFirmware: '4.0.2', needsCalibration: true, calibInterval: 2, calibPeriod: 'Weeks')
         def pump = new Module(moduleSerial: 'G13289', moduleName: 'Pump-26', moduleModel: 'G1260', moduleType: ModuleType.findByModuleType('Unary LC Pump'), moduleConnection: ConnectionType.findByConnection('Ethernet'), moduleFirmware: 'A55.1', needsCalibration: false)
@@ -115,12 +161,12 @@ class BootStrap {
         log.info "Created " + DataCategory.count() + " DataCategories"
     }
 
-    def createModuleTypes(){
+    def createModuleTypes() {
         log.info "Creating Module Types"
-        String[] types = ["Column Oven", "Autosampler",  "Mass Spectrometer", "Unary LC Pump", "Binary LC Pump", "Quarternary LC Pump", "Degasser", "Detector"]
+        String[] types = ["Column Oven", "Autosampler", "Mass Spectrometer", "Unary LC Pump", "Binary LC Pump", "Quarternary LC Pump", "Degasser", "Detector"]
         ModuleType[] mt = new ModuleType[types.length]
         for (int i = 0; i < types.length; i++) {
-            mt[i]=new ModuleType(moduleType: types[i])
+            mt[i] = new ModuleType(moduleType: types[i])
             mt[i].save(failOnError: true)
         }
         log.info "Created " + ModuleType.count() + " ModuleTypes"
@@ -163,9 +209,12 @@ class BootStrap {
 
     def createComputers() {
         log.info("Creating Computers")
-        def serverOne = new Computer(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'))//, computerRole: ComputerRole.findByRole("Fileserver"))
-        def clientOne = new Computer(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'))//, computerRole: ComputerRole.findByRole("Client"))
-        def clientOffice = new Computer(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'))//, computerRole: ComputerRole.findByRole("Client"))
+        def serverOne = new Computer(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'))
+//, computerRole: ComputerRole.findByRole("Fileserver"))
+        def clientOne = new Computer(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'))
+//, computerRole: ComputerRole.findByRole("Client"))
+        def clientOffice = new Computer(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'))
+//, computerRole: ComputerRole.findByRole("Client"))
         serverOne.save(failOnError: true)
         clientOne.save(failOnError: true)
         clientOffice.save(failOnError: true)

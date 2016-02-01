@@ -69,4 +69,23 @@ if (Environment.current == Environment.DEVELOPMENT) {
         logger 'grails.app.services.grails.plugin.formfields.FormFieldsTemplateService', WARN, ['STDOUT']
         logger 'grails.plugins.orm.auditable.AuditLogListener', WARN, ['STDOUT']
     }
+} else if (Environment.current == Environment.PRODUCTION) {
+    root(ERROR, ['STDOUT'])
+    def targetDir = BuildSettings.TARGET_DIR
+    if (targetDir) {
+        appender("FULL_STACKTRACE", FileAppender) {
+            file = "${targetDir}/stacktrace.log"
+            append = true
+            encoder(PatternLayoutEncoder) {
+                pattern = "%level %logger - %msg%n"
+            }
+        }
+        logger "StackTrace", ERROR, ['FULL_STACKTRACE'], false
+        //see http://logback.qos.ch/manual/groovy.html for more info
+        logger 'org.springframework.boot.autoconfigure.security', INFO
+        logger 'grails.app.controllers', INFO, ['STDOUT']
+        logger 'grails.app.services', INFO, ['STDOUT']
+        logger 'grails.app.services.grails.plugin.formfields.FormFieldsTemplateService', WARN, ['STDOUT']
+        logger 'grails.plugins.orm.auditable.AuditLogListener', WARN, ['STDOUT']
+    }
 }
