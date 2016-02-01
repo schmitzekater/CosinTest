@@ -1,12 +1,15 @@
 package de.schmitzekater
 
 import grails.transaction.Transactional
+
+import javax.servlet.http.HttpServletResponse
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Transactional
 class FileHandleService {
     def servletContext
+    def applicationConfigService
     MultipartFile file
     String originalFilename = ""
 
@@ -18,7 +21,7 @@ class FileHandleService {
         if      (obj instanceof Module) type = 'Modules'
         else if (obj instanceof Software)   type = 'Software'
         name = obj.getDisplayString()
-        def baseDir = servletContext.getRealPath('/uploads/qualifications')
+        def baseDir = applicationConfigService.uploadDir + applicationConfigService.qualificationDir
         String year = qualificationDate.format('YYYY')
         String month= qualificationDate.format('MM')
         File typeFolder             = new File (baseDir, type)
@@ -52,14 +55,31 @@ class FileHandleService {
 
     def uploadDataflowFile(MultipartHttpServletRequest request, System system) {
         // Store the files in System-specific upload-folders.
-        def baseDir = servletContext.getRealPath('/uploads/dataflow')
+        def baseDir = applicationConfigService.uploadDir + applicationConfigService.dataflowDir
         File systemFolder = new File(baseDir, system.systemName)
-        if(!systemFolder.exists()) systemFolder.mkdir()
+        if (!systemFolder.exists()) systemFolder.mkdirs()
         return uploadFile(request, 'dataflow', systemFolder.absolutePath)
     }
 
     def deleteDataflowFile(File file) {
         return file.delete()
+    }
+
+    def downloadFile(HttpServletResponse response, String name, String path) {
+        response.setContentType("APPLICATION/OCTET-STREAM")
+        response.setHeader("Content-Disposition", "Attachment;Filename=\"${name}\"")
+        def file = new File(path)
+        def fileInputStream = new FileInputStream(file)
+        def outputStream = response.getOutputStream()
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = fileInputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, len);
+        }
+        outputStream.flush()
+        outputStream.close()
+        fileInputStream.close()
+
     }
 
 }
