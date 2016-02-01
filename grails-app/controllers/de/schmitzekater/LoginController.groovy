@@ -28,6 +28,12 @@ import org.springframework.security.web.WebAttributes
 
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * @author Burt Beckwith
+ * @author Alexander Schmitz (modified given template)
+ *
+ * Source: https://github.com/grails-plugins/grails-spring-security-core/blob/master/grails-app/controllers/grails/plugin/springsecurity/LoginController.groovy
+ */
 @Secured('permitAll')
 class LoginController {
 

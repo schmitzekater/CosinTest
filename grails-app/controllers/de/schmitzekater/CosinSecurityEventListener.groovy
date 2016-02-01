@@ -5,6 +5,12 @@ import org.springframework.context.ApplicationListener
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent
 import de.schmitzekater.UserService
 
+/**
+ * Listener that can be used to handle Login events.
+ * Currently implemented in appplication.groovy via grails.plugin.springsecurity.<EVENT>
+ *     TODO: Handle all events within this listener. (SoC)
+ */
+
 @Transactional
 class CosinSecurityEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
 

@@ -2,11 +2,19 @@ package de.schmitzekater
 
 import grails.validation.Validateable
 
+/**
+ * @author Burt Beckwith
+ * @author Alexander Schmitz (extended the template from source)
+ *
+ * Source: http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#personClass
+ *
+ * Controller for the Domain class User
+ */
 class UserController {
     static scaffold = User
     static defaultAction = "list"
 
-    def userService
+    def userService             /** Dependency Injection for the UserService    */
     def passwordEncoder
     transient springSecurityService
 
@@ -17,10 +25,18 @@ class UserController {
     def show(){
         redirect action: 'detail', params: params
     }
+
+    /*
+    render the view to edit the Password
+     */
     def editPassword(){
         render view: 'editPassword'
     }
 
+    /*
+    Method to lock an User
+    TODO: Refactor to Service
+     */
     def lockAccount() {
         def user = User.get(params.id)
         if (user) {
@@ -36,7 +52,10 @@ class UserController {
         }
     }
 
-
+    /*
+     Method to unlock an User
+    TODO: Refactor to Service
+   */
     def unlockAccount() {
         def user = User.get(params.id)
         if (user) {
@@ -52,7 +71,10 @@ class UserController {
         }
     }
 
-
+    /*
+    Method to enable an User
+    TODO: Refactor to Service
+   */
     def enableAccount() {
         def user = User.get(params.id)
         if (user) {
@@ -68,7 +90,10 @@ class UserController {
         }
     }
 
-
+    /*
+      Method to disable an User
+      TODO: Refactor to Service
+       */
     def disableAccount() {
         def user = User.get(params.id)
         if (user) {
@@ -84,7 +109,11 @@ class UserController {
         }
     }
 
-
+    /*
+    Method for the user to edit his password
+    Get's the principal from the current logge-in User
+    TODO: Refactor Password-Checking
+     */
     def changeOwnPassword(){
         User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
 
@@ -112,9 +141,7 @@ class UserController {
                     log.info(flash.message)
                     redirect action: 'list'
                 } else {
-                    user.errors.each { k ->
-                        println "Error $k"
-                    }
+                    user.errors.each
                     flash.error = message(code: "user.password.repeatForbid")
                     redirect action: 'editPassword'
                 }
@@ -144,10 +171,10 @@ class UserController {
         }
 
     }
-    /**
+    /*
      * This function is used when the admin changes the  password for a user.
      * The password will be set to expired, so that the user has to change it upon logon.
-     * @return
+     * TODO: Refactor to Service!
      */
     def changeUserPassword(User user) {
         //def user = User.get(params.id)
@@ -181,17 +208,24 @@ class UserController {
         }
     }
 
+    /*
+    View for the Admin if a password from an user must be edited
+     */
     def editUserPassword() {
         def user = User.findById(params.id)
         [user: user]
     }
-    /**
-     * This function is used when a user tries to log on with an expired password
+    /*
+     * Render view when user with an expired password try to log on
      */
     def passwordExpired() {
         [username: session['SPRING_SECURITY_LAST_USERNAME']]
     }
 
+    /*
+    Method to save the new password
+    TODO: Refactor to Service!
+     */
     def updatePassword(String password, String password_new, String password_new_2) {
         String username = session['SPRING_SECURITY_LAST_USERNAME']
         if (!username) {
@@ -239,9 +273,10 @@ class UserController {
 
     }
 
-    /**
-     * Hier kann ein User aus einer bestehenden Person angelegt werden.
-     * @return Neuer user
+    /*
+     * Method to create a new User (with existing Person!).
+     * @return new User
+     * TODO: Refactor to Service
      */
     def createUser() {
         log.info("createUser() called")
@@ -276,26 +311,28 @@ class UserController {
     }
 
     /**
-     * register
-     * Diese Funktion dient dazu einen neuen User samt Person anzulegen.
-     * @param urc die Parameter für User und Person
+     * Method to register a new User and a new Person simultaniously
+     * @param urc with params for User and Person
      * @return user
+     * TODO: Create extra view (to avoid errors upon initial load! respond new UserRegistrationCommand)
+     * TODO: Refactor to Service
      */
     def register(UserRegistrationCommand urc) {
         if (urc.hasErrors()) {
             render view: "register", model: [user: urc]
             flash.error = message(code: 'form.errors.entries')
         } else {
+            // create a new User instance
             def user = new User(urc.properties)
-
+            //create a new Person instance and save it
             user.person = new Person(urc.properties).save()
             if (user.person && user.validate() && user.save()) {
+                /* Find the group that is selected for the user */
                 def roleGroup = RoleGroup.findById(params.userRoleGroup)
                 if (roleGroup) {
-                    /* Add the new Role */
+                    /* Create the new Role */
                     UserRoleGroup.create user, roleGroup, true
                 }
-
                 flash.message = message(code: 'default.created.message', args: ['User', user.username])
                 log.info(flash.message)
                 redirect action: "list"
@@ -306,26 +343,27 @@ class UserController {
         }
     }
 
-    /**
-     * Auflistung aller user
-     * @return List of user
+    /*
+     * Tabular view of all Users
      */
     def list() {
         if(!params.max) params.max = 10
         def users = User.list(params)
         render view:"/layouts/list", model: [model:users, count: User.count]
     }
-    /**
-     * Detaillierte Ansicht eines users
-     * @return Details eines Users
-     */
+    /*
+     * Detailed view of one User
+     **/
     def detail() {
         def user = User.findById(params.id)
         render view: "/layouts/detail", model: [user: user]
     }
 
-    def update() {
-        def user = User.findById(params.id)
+    /*
+    Method to save an updated User
+    TODO: Refactor to Service!
+     */
+    def update(User user) {
         if (user) {
             def roleGroup = RoleGroup.findById(params.userRoleGroup)
             if (roleGroup) {
@@ -345,7 +383,6 @@ class UserController {
                 log.error(flash.error)
                 redirect(action: "edit", id: params['id'])
             }
-
         } else {
             //  response.sendError(404)
         }
@@ -354,7 +391,7 @@ class UserController {
 }
 /**
  * UserRegistrationCommand
- * Command-Object um einen User und eine Person gleichzeitig zu erstellen.
+ * Command-Object that stores properties of an User and a Person
  */
 
 class UserRegistrationCommand implements Validateable {
@@ -372,8 +409,8 @@ class UserRegistrationCommand implements Validateable {
         importFrom Person
         importFrom User
         /*
-        Password darf nicht gleich dem Usernamen sein.
-        Die Signatur darf nicht gleich dem Usernamen sein.
+        Password must not be the username!
+        Signature must not be the username!
          */
         password  blank: false, nullable: false, validator: { passwd, urc -> return passwd != urc.username }
         passwordRepeat nullable: false, validator: { passwd2, urc ->

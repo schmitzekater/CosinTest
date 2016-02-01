@@ -1,5 +1,10 @@
 package de.schmitzekater
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Controller to handle configuration of smaller Domain classes
+ */
 class ConfigController {
     def qualificationTypeService
     def moduleTypeService
@@ -11,14 +16,19 @@ class ConfigController {
 
     }
 
+    /*
+    Method to change the language of all views via dropdown.
+    Reloads the current URL with the selected language
+     */
     def setLanguage(){
         def targetUri = params.targetUri ?: "/"
         session['language'] = params.lang
         redirect(uri: targetUri)
-        //redirect(uri: request.getHeader('referer', ), params: [params.lang  = lang])
-
     }
 
+    /*
+    View that lists all smaller Domain Classes.
+     */
     def config() {
         def qt = QualificationType.list()
         def cr = ComputerRole.list()
@@ -27,14 +37,15 @@ class ConfigController {
         def ct = ConnectionType.list()
         [qualificationTypes: qt, computerRoles: cr, dataCategories: dc, moduleTypes: mt, connectionTypes: ct]
     }
-    /**
-     * Die folgenden Methoden ergänzen die statischen Strings zu
+
+    /*
+     * The following methods add entries to the smaller domain classes:
      * DataCategory
      * QualificationType
      * ModuleType
      * ConnectionType
      * ComputerRole
-     * Die Seite wird per AJAX in Teilen neu geladen, nachdem ein Element hinzugefügt wurde.
+     * Site will be reloaded per AJAX requests upon change.
      */
     def addQualificationType(){
         def qualificationType
@@ -42,7 +53,6 @@ class ConfigController {
             qualificationType = qualificationTypeService.createQualificationType(params.type)
             if(qualificationType.save()){
                 flash.message = message(code: 'default.created.qualificationType.message', args:[params.type])
-
             }
             else{
                 flash.error = 'Something went wrong'
@@ -111,6 +121,9 @@ class ConfigController {
         render template: "computerRolesList", model: [computerRoles: computerRoles]
     }
 
+    /*
+    The following methods provide editing of already existing smaller Domain class entries.
+     */
     def updateComputerRole(){
         def computerRole = ComputerRole.findById(params.id)
         if(computerRole){
@@ -181,6 +194,9 @@ class ConfigController {
         }
     }
 
+    /*
+    Render the views for all editing methods.
+     */
     def editQualificationType (QualificationType type){
         respond type
     }

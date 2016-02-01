@@ -6,17 +6,25 @@ class SoftwareController {
     static scaffold = Software
     static defaultAction = "list"
 
-    def qualificationService
-    def qualifiableObjectService
+    def qualificationService                /** Dependecy Injection for the QualificationService        */
+    def qualifiableObjectService            /** Dependecy Injection for the QualifiableObjectService    */
     def index() {
         redirect action: list(), params: params
     }
+
+    /*
+    tabular view of all Software
+     */
     def list() {
         if(!params.max) params.max = 10
         def sw = Software.list(params)
         render view:"/layouts/list", model: [model:sw, count: Software.count]
     }
 
+    /*
+    Method to add a new Qualification to a Software
+     TODO: Refactor to another Controller with Module? Same actiosn.
+     */
     def addQualification(Software software){
         if(!software){
             flash.error = message(code: 'software.isEmpty')
@@ -37,6 +45,9 @@ class SoftwareController {
         }
     }
 
+    /*
+    List all Qualifications for the Domain class Software
+     */
     def listAllSoftwareQualifications() {
         def checkedParams = qualifiableObjectService.checkParams(params)
         def qualificationList = QualificationService.getQualificationList(Software, checkedParams)
@@ -44,20 +55,18 @@ class SoftwareController {
                 params: [checkedParams, params.dateTo = checkedParams.dateUntil]
     }
 
-/**
-     * This function renders only the template to add a new Qualification.
-     * Same as in "Module" TODO: One Controller? Always the same action??
+    /*
+    Render the view to add a new Qualification
+    TODO: Refactor to another Controller with Module? Same actiosn.
      */
     def addQualificationToObject() {
         render view: "/layouts/addQualificationToObject", params: params
     }
 
 
-    def saveAttachment(){
-        def attachment = request.getFile('attachment').inputStream.text
-        attachment.transferTo(new File('uploads/qualification/'))
-    }
-
+    /*
+    Detailed view of a single Software
+     */
     def detail(){
         render view: "/layouts/detail", model:  [software: Software.findById(params.id)]
     }
@@ -66,6 +75,9 @@ class SoftwareController {
         render view: "/layouts/detail", model:  [software: Software.findById(params.id)]
     }
 
+    /*
+    Exception Handling
+     */
     def handleQualificationException(QualificationException qe) {
         flash.error = qe.message
         log.error(qe.message)
