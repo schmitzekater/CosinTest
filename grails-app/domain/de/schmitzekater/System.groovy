@@ -1,7 +1,14 @@
 package de.schmitzekater
 
-import java.sql.Blob
-
+/**
+ * @author Alexander Schmitz
+ *
+ * Domain class to represent Systems.
+ * A System may consist of various combinations of Software and Systems.
+ *
+ * Handled via @SystemController
+ * TODO: Implement SystemService
+ */
 class System implements Serializable{
     private static final long serialVersionUID = 1
     String systemName
@@ -40,11 +47,14 @@ class System implements Serializable{
     }
 
     /**
-     * Angelehnt an Spring security Plugin (Verbindung System / Computer / Computerrolle)
+     * Inspired by the Spring Security core plugin. Many-to-Many mapping of Computers and Systems
+     * Method to get all computer that are bound to this system
      */
     Set<Computer> getComputer(){
         SystemRole.findAllBySystem(this)*.computer
     }
+
+
     Set<SystemRole> getSystemRole(){
         SystemRole.findAllBySystem(this)
     }

@@ -22,6 +22,8 @@ package de.schmitzekater
  * AuditLogEvents are reported to the AuditLog table.
  * This requires you to set up a table or allow
  * Grails to create a table for you. (e.g. DDL or db-migration plugin)
+ *
+ * Created by the AuditLogEvent plugin
  */
 class AuditLogEvent implements Serializable {
     private static final long serialVersionUID = 1L

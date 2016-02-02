@@ -4,6 +4,8 @@ import grails.gorm.DetachedCriteria
 
 /**
  * Created by alexa on 06.01.2016.
+ * @author Alexander Schmitz
+ *
  * Inspired hy Spring security core plugin (http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#introduction)
  */
 class SystemRole implements Serializable{
@@ -29,6 +31,12 @@ class SystemRole implements Serializable{
         id composite: ['system', 'computer', 'computerRole']
     }
 
+    /*
+    Specifies the ComputerRole of a Computer within that System
+    A Computer can have multiple Roles inside a System and can belong to multiple Systems.
+    Example: An office Client that is used for multiple Systems.
+    Example2: A server that has multiple Roles inside the System (Database & ApplicationServer)
+     */
     SystemRole(Computer c, System s, ComputerRole cr){
         this()
         computer = c
@@ -41,7 +49,7 @@ class SystemRole implements Serializable{
     }
 
     static boolean exists(long computerId, long systemId, long computerRoleId){
-        println "Computer: $computerId, System: $systemId, Computer Role: $computerRoleId"
+        log.debug "Computer: $computerId, System: $systemId, Computer Role: $computerRoleId"
         criteriaFor(computerId, systemId, computerRoleId).count()
     }
 

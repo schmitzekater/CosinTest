@@ -1,5 +1,10 @@
 package de.schmitzekater
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Superclass for Module and Software
+ */
 abstract class QualifiableObject {
 
     static constraints = {

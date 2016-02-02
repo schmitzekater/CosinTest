@@ -1,5 +1,12 @@
 package de.schmitzekater
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Domain class to store Software.
+ * Handled via @SoftwareController and @QualifiableObjectService
+ * Software can be qualified (Example: Validation for System-Software or Qualification for Infrastructure Software)
+ */
 class Software extends QualifiableObject{
     String softwareName
     String softwareVersion

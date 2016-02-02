@@ -1,7 +1,11 @@
 package de.schmitzekater
 
-import org.apache.catalina.filters.AddDefaultCharsetFilter
-
+/**
+ * @author Alexander Schmitz
+ *
+ * Domain class to represent Vendors of Software or Modules.
+ * Handled via @VendorController
+ */
 class Vendor {
     String name
     String urlOne

@@ -5,6 +5,17 @@ import groovy.transform.ToString
 
 import java.util.regex.Matcher
 
+/**
+ * @author Burt Beckwith
+ * @author Alexander Schmitz
+ *
+ * source: http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#personClass
+ * Class extended from the Spring Security Plugin.
+ *
+ * USer get locked upon 3 unsuccessful login attempts.
+ * Password expires after a given time.
+ * User can be disabled (Deletion not possible!)
+ */
 @EqualsAndHashCode(includes = 'username')
 @ToString(includes = 'username', includeNames = true, includePackage = false)
 class User implements Serializable{
@@ -39,7 +50,7 @@ class User implements Serializable{
     static constraints = {
         username size: 6..25,  unique: true, nullable: false
         password blank: false, nullable: false, minSize: 6, validator: { pwd ->
-            def matchSmall = pwd =~ /(?=[A-Z])/           // Password needs to have a Capital
+            def matchSmall = pwd =~ /(?=[A-Z])/             // Password needs to have a Capital
             def matchCapital = pwd =~ /[a-z]/               // Password needs a small letter
             def matchNumeric = pwd =~ /[0-9]/               // Password needs a number
             return (matchSmall && matchCapital && matchNumeric)

@@ -2,7 +2,15 @@ package de.schmitzekater
 
 import java.text.SimpleDateFormat
 
-
+/**
+ * @author Alexander Schmitz
+ *
+ * Domain class to handle different Modules.
+ * Modules are part of an Unit
+ * Example: Unit containing a MassSpectrometer, Autosampler, HPLC-Pump, Degasser and Column Oven
+ *
+ * Modules might have to be calibrated
+ */
 class Module extends QualifiableObject{
     String moduleName
     String moduleSerial
@@ -55,6 +63,10 @@ class Module extends QualifiableObject{
     String getCalibPeriod(){
         return calibPeriod
     }
+    /** calculate the Date for the next calibration.
+     * Based on calibration intervall and period
+     * @return nextCalibration
+     */
     def setNextCalibration(){
         Calendar c = Calendar.getInstance()
         c.setTime(lastCalibration)
@@ -70,6 +82,8 @@ class Module extends QualifiableObject{
         }
         nextCalibration = c.getTime()
     }
+
+    /** Get a nicer format for displaying the calibration interval */
     String getCalibrationDisplayString(){
         if(calibInterval == 1 && calibPeriod == 'Days') return 'daily'
         if(calibInterval == 1 && calibPeriod == 'Weeks') return 'weekly'
@@ -84,7 +98,8 @@ class Module extends QualifiableObject{
     def beforeUpdate(){
         /**
          * This function is fired before the object is updated in the database.
-         * Similar function is "beforeInsert()", when the object is initially saved
+         * Similar function is "beforeInsert()", when the object is initially saved.
+         * Next Calibration date is calculated.
          */
         if(needsCalibration && lastCalibration!=null){
                 setNextCalibration()
@@ -92,6 +107,7 @@ class Module extends QualifiableObject{
         this.save(failOnError: true)
     }
 
+    /** See above. Upon first storage the next calibration Date is calculated if needed. */
     def beforeInsert(){
         if(needsCalibration && lastCalibration!=null){
             setNextCalibration()
@@ -103,11 +119,11 @@ class Module extends QualifiableObject{
         getDisplayString()
     }
 
-    static List<Module> getAvailableModules() {
-        /*  Get the list of Modules, that are not bound to a unit
+    /*  Get the list of Modules, that are not bound to a unit
             Inspired by: http://stackoverflow.com/questions/30623429/grails-how-to-use-exists-notexists-within-createcriteria
-            If "tablePerHierarchy false" in Qualifiable Object replace "Qualifiable_Object" with "Module"
+            If "tablePerHierarchy  false" in Qualifiable Object replace "Qualifiable_Object" with "Module"
          */
+    static List<Module> getAvailableModules() {
         createCriteria().list() {
             sqlRestriction('not exists (select 1 from Qualifiable_Object m inner join Unit u on u.id = m.unit_id where m.id = this_.id) ')
         }

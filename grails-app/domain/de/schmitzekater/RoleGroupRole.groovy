@@ -5,6 +5,12 @@ import groovy.transform.ToString
 
 import org.apache.commons.lang.builder.HashCodeBuilder
 
+/**
+ * @author Burt Beckwith
+ *
+ * source: http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#authorityGroupAuthorityClass
+ * @RoleGroup can have multiple @Roles and vice versa.
+ */
 @ToString(cache=true, includeNames=true, includePackage=false)
 class RoleGroupRole implements Serializable {
 

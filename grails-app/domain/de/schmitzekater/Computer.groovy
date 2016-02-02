@@ -1,5 +1,13 @@
 package de.schmitzekater
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Domain class to handle Computers.
+ * Computer can have certain Roles inside a System.
+ *
+ * Handled via @ComputerController and @QualifiableObjectService
+ */
 
 class Computer implements Serializable{
     private static final long serialVersionUID = 1
@@ -25,9 +33,13 @@ class Computer implements Serializable{
     String toString() {
         getDisplayString()
     }
+
+    /** Get all Roles from a specific Computer in all Systems */
     Set<SystemRole> getSystemRoles(){
         SystemRole.findAllByComputer(this)
     }
+
+    /** Get only the Roles of a Computer for a specific System */
     Set<SystemRole> getSystemRolesBySystem(System system){
         SystemRole.findAllByComputerAndSystem(this, system)
     }

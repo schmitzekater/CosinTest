@@ -1,5 +1,12 @@
 package de.schmitzekater
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Domain class to store different ModuleTypes that a Module can be
+ * Handled via @ConfigController and @ModuleTypeService
+ * Example: 'Autosampler', 'Mass Spectrometer'
+ */
 class ModuleType {
 
     String moduleType

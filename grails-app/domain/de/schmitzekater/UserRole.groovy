@@ -5,6 +5,13 @@ import groovy.transform.ToString
 
 import org.apache.commons.lang.builder.HashCodeBuilder
 
+/**
+ * @author Burt Beckwith
+ * source: http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#personAuthorityClass
+ *
+ * An User can have multiple Roles and Roles can be bound to multiple Users.
+ * Not used within the application.
+ */
 @ToString(cache=true, includeNames=true, includePackage=false)
 class UserRole implements Serializable {
 
