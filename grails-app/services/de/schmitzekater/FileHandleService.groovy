@@ -6,17 +6,23 @@ import javax.servlet.http.HttpServletResponse
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Service to handle various File functionalities.
+ * Uploads files and renders the output for download.
+ */
 @Transactional
 class FileHandleService {
-    def applicationConfigService
+    def applicationConfigService        /** dependency Injection for the ApplicationConfigService */
     MultipartFile file
     String originalFilename = ""
 
     /**
      *
-     * @param request the request that contains the MultipartFile to be uploaded
-     * @param obj the object where the qualification belongs to
-     * @param qualificationDate the date of the qualification where the file belongs to
+     * @param request  : The request that contains the MultipartFile to be uploaded
+     * @param obj  : The object where the qualification belongs to
+     * @param qualificationDate : The date of the qualification where the file belongs to
      * @return the path of the file (from uploadFile())
      */
     def uploadQualificationFile(MultipartHttpServletRequest request,QualifiableObject obj, Date qualificationDate) {
@@ -41,9 +47,9 @@ class FileHandleService {
     }
     /**
      *
-     * @param request the request that contains the MultipartFile to be uploaded
-     * @param name Type of file (sent from the GSP as param)
-     * @param targetDir Directory where the file is stored on the server
+     * @param request   : The request that contains the MultipartFile to be uploaded
+     * @param name      : Type of file (sent from the GSP as param)
+     * @param targetDir : Directory where the file is stored on the server
      * @return filename including the absolut path.
      */
     private def uploadFile(MultipartHttpServletRequest request, String name, String targetDir) {
@@ -65,8 +71,8 @@ class FileHandleService {
     }
     /**
      *
-     * @param request the request that contains the MultipartFile to be uploaded
-     * @param system The system that own the dataflow file. Needed to create a specific upload-directory for that system
+     * @param request : The request that contains the MultipartFile to be uploaded
+     * @param system  : The system that own the dataflow file. Needed to create a specific upload-directory for that system
      * @return the path of the file (from uploadFile())
      */
     def uploadDataflowFile(MultipartHttpServletRequest request, System system) {
@@ -83,9 +89,9 @@ class FileHandleService {
 
     /**
      *
-     * @param response the response sent from the controller (CommonController)
-     * @param name the name of the file to be displayed as filename for the download
-     * @param path the path of the file on the server for download
+     * @param response : the response sent from the controller (CommonController)
+     * @param name : the name of the file to be displayed as filename for the download
+     * @param path:  the path of the file on the server for download
      * @return renders the file for download.
      */
     def downloadFile(HttpServletResponse response, String name, String path) {

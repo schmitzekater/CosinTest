@@ -9,6 +9,13 @@ import org.springframework.security.authentication.LockedException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent
 
+/**
+ * Application-wide settings, additional to the application.yml file
+ * Handles access to sites and methods (via intercepUrlMap)
+ * Calls functions upon (un)successful login attempts
+ * TODO: Maybe annotate the controllers with @Secured instead of interceptUrlMap
+ *
+ */
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'de.schmitzekater.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'de.schmitzekater.UserRole'
@@ -103,6 +110,7 @@ grails.plugin.springsecurity.failureHandler.exceptionMappings = [
 
 /**
  * Security Event Handling
+ * TODO: Extract those calls into extra Service or Listener
  */
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
 	// Fired when a user has successful logged on an the Authorization principal is available
@@ -153,9 +161,3 @@ grails.plugin.auditLog.logIds = true
 grails.plugin.auditLog.TRUNCATE_LENGTH = 500
 grails.plugin.auditLog.largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255
 
-/*
-quartz.pluginEnabled = true
-quartz.jdbcStore = false
-quartz.autoStartup = false
-quartz.waitForJobsToCompleteOnShutdown = true
-quartz.purgeQuartzTablesOnStartup = false*/

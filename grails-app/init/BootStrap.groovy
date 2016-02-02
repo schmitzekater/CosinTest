@@ -5,12 +5,12 @@ import grails.util.Holders
 import grails.web.context.ServletContextHolder
 
 class BootStrap {
-    def servletContext
-    def applicationConfigService
+    def applicationConfigService        /**Dependency Injection for ApplicationConfigService */
 
     def init = { servletContext ->
         environments {
             development {
+                /** Create lots of sample Data to play around */
                 createUploadFolders()
                 if (!Person.count()) createPersons()
                 if (!Role.count() && !RoleGroup.count()) createUserRoles()
@@ -31,6 +31,12 @@ class BootStrap {
                 createBindings()
             }
             production {
+                /** Only create Upload folders and an administrator user.
+                 * Additionally some basic types for convenience.
+                 * WARNING: Do not DELETE the 'Calibration' item from QualificationTypes.
+                 * It's needed internally
+                 * TODO: If this is ever, ever, EVER going into production, delete the Administrator here for Christs sake!
+                 * Ship a new database with the existing Admin User, or create it manually.*/
                 createUploadFolders()
                 if (!Role.count() && !RoleGroup.count()) createUserRoles()
                 if (!Person.count() && !User.count()) createProductionUsers()
@@ -55,9 +61,11 @@ class BootStrap {
         }
     }
 
+    /*
+    Method to create upload-folders.
+     */
     def createUploadFolders() {
         File uploadFolder
-        //String upload = "/uploads"
         String dataflow = "/dataflow"
         String qualifications = '/qualifications'
         uploadFolder = new File(applicationConfigService.uploadDir)
@@ -89,6 +97,10 @@ class BootStrap {
         }
     }
 
+    /*
+    Create the Administrator for the production instance.
+    TODO: CAVE when EVER going productive! See above!!
+     */
     def createProductionUsers() {
         def adminPerson = new Person(firstName: 'Administrator', lastName: 'System', email: 'support@cosin.de')
         adminPerson.save(failOnError: true)
@@ -101,6 +113,9 @@ class BootStrap {
         assert UserRoleGroup.count() == 1
     }
 
+    /*
+    Couple Domain instances with each other.
+     */
     def createBindings() {
         System analyst = System.findBySystemName('Analyst')
         Software analystSW = Software.findBySoftwareName('Analyst')
@@ -346,6 +361,8 @@ class BootStrap {
     }
 
     def destroy = {
+        // First seek, then...
+        // https://www.youtube.com/watch?v=F5m_8HuEBI4 
     }
 
 }

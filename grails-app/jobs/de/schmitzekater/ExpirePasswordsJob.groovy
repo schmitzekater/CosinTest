@@ -2,8 +2,11 @@ package de.schmitzekater
 
 import grails.transaction.Transactional
 
-/*
-    From http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#locking
+/**
+ *  Quartz job to expire the passwords of users.
+ *  Value is taken form Application.yml.
+ *  Default = 42 Days (6 Weeks)
+ *  From http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#locking
  */
 
 class ExpirePasswordsJob {
@@ -22,12 +25,12 @@ class ExpirePasswordsJob {
 
         def users = User.executeQuery(
                 'from User u where u.passwordChangeDate <= :cutoffDate',
-                [cutoffDate: new Date() - applicationConfigService.passwordExpirationDays]) // TODO: Set real value!!
+                [cutoffDate: new Date() - applicationConfigService.passwordExpirationDays]) // Set via variable in application.yml
 
         for (user in users) {
             // flush each separately so one failure doesn't rollback all of the others
             try {
-                if (user.username != 'administrator') {
+                if (user.username != 'administrator') { //Don't expire password of administrator
                     user.passwordExpired = true
                     user.save(flush: true)
                     log.info "Password for $user.username set to expired."

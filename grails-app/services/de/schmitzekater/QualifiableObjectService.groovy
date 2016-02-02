@@ -2,6 +2,11 @@ package de.schmitzekater
 
 import grails.transaction.Transactional
 
+/**
+ * @author Alexander Schmitz
+ * Service to handle tasks for Modules and Software.
+ * Adding Qualfications slightly differs between the two classes.
+ */
 @Transactional
 class QualifiableObjectService {
 
@@ -13,15 +18,19 @@ class QualifiableObjectService {
     String orderBy
     Map params
 
-    def serviceMethod() {
 
-    }
-
+    /*
+    This Method return some checked params from the filtered list.
+    If params are missing those will be filled with default values.
+         */
     def checkParams(Map params) {
         max = params.max ? params.max.toInteger() : 25
         sortBy = params.sort ? params.sort : 'qualificationDate'
         orderBy = params.order ? params.order : 'desc'
         offset = params.offset ? params.offset.toInteger() : 0
+        // I really hate this hack, but Date differs from String to Date, depending on
+        // where it was took from at the site. The sortable Column sends a different format
+        // date from the Filter-Box. Too bad.
         if (params.dateFrom instanceof Date) {
             dateFrom = params.dateFrom
         } else if (params.dateFrom instanceof String) {
@@ -40,11 +49,15 @@ class QualifiableObjectService {
         params.orderBy = orderBy
         return params
     }
+
+    /*
+    Add Qualification to Module. Also calculates the next Calibration, if needed.
+     */
     def addQualification(Module module, Qualification qualification){
         // Add the Qualification to the module
         if(module.addToQualifications(qualification)){
             // Was the Qualification a Calibration??
-            if (qualification.qualificationType.toString().equalsIgnoreCase("Calibration")) {
+            if (qualification.qualificationType.toString().equalsIgnoreCase("Calibration")) { // WARNING: Do not rename, until you implement another feature, where users might define, on which base it should be calculated. This line is too long.
                 // Get the last Calibration of the module
                 def latestCalibration = module.lastCalibration
                 Date qualDate = qualification.qualificationDate
@@ -64,6 +77,9 @@ class QualifiableObjectService {
         }
     }
 
+    /*
+    Add Qualification to Software. Also sets last Qualification Date
+     */
     def addQualification(Software software, Qualification qualification){
         if(software.addToQualifications(qualification)){
             def lastQualification = software.lastQualification

@@ -10,7 +10,7 @@ class ConnectionTypeService {
         def ct = new ConnectionType(connection: type)
         if (ct.validate()&&ct.save()) return ct
         else{
-            def locale = localeResolver.defaultLocale // Not working very well. Displays german message on english page -.-
+            def locale = localeResolver.defaultLocale // Not working very well. Displays german message on english page -.- See ComputerRoleService
             if(!ct.validate()){
                 def text = messageSource.getMessage('error.duplicate.entry', null, locale)
                 throw new ConnectionTypeException(message: text, type: ct)

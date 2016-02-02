@@ -13,6 +13,7 @@ statusListener(OnConsoleStatusListener)
 
 /**
  * Nicer output for loggers from http://mrhaki.blogspot.de/2015/09/grails-goodness-use-different-logging.html
+ * Formats prints to the Console in better output.
  */
 // Get PID for Grails application.
 // We use it in the logging output.
@@ -37,6 +38,7 @@ appender('STDOUT', ConsoleAppender) {
 }
 root(WARN, ['STDOUT'])
 
+// Create Logging file upon application start
 appender('FILE_ERROR', FileAppender) {
     file = "logs/${byDay}_${HOSTNAME}_errorFile.log"
     append = true
@@ -48,9 +50,10 @@ appender('FILE_ERROR', FileAppender) {
 root(ERROR, ['STDOUT', 'FILE_ERROR'])
 
 
-
-
-if (Environment.current == Environment.DEVELOPMENT) {
+/*
+   Possibility to change logging behavior dependent on the environment where the application is running.
+ */
+if (Environment.current == Environment.DEVELOPMENT) {   // Behavior for running via run-app in development mode
     root(INFO, ['STDOUT'])
     def targetDir = BuildSettings.TARGET_DIR
     if (targetDir) {
@@ -69,7 +72,7 @@ if (Environment.current == Environment.DEVELOPMENT) {
         logger 'grails.app.services.grails.plugin.formfields.FormFieldsTemplateService', WARN, ['STDOUT']
         logger 'grails.plugins.orm.auditable.AuditLogListener', WARN, ['STDOUT']
     }
-} else if (Environment.current == Environment.PRODUCTION) {
+} else if (Environment.current == Environment.PRODUCTION) {     // Behaviour for running in production mode
     root(ERROR, ['STDOUT'])
     def targetDir = BuildSettings.TARGET_DIR
     if (targetDir) {

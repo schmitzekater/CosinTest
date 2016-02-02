@@ -10,16 +10,10 @@ class PersonException extends RuntimeException {
 
 @Transactional
 class PersonService {
-    MessageSource messageSource
-
     def createPerson(String lastName, String firstName, String email) {
         def person = new Person(firstName: firstName, lastName: lastName, email: email)
         if (person.validate() && person.save()) return person
         else throw new PersonException(message: 'Error creating person', person: person)
     }
 
-
-    def serviceMethod() {
-
-    }
 }

@@ -4,19 +4,25 @@ import grails.transaction.Transactional
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
+/**
+ * @author Alexander Schmitz
+ *
+ * Service to create new Qualifications for QualifiableObjects (Module & Software)
+ * File upload vie @FileHandleService
+ */
 @Transactional
 class QualificationService {
 
-    def fileHandleService
+    def fileHandleService       /** dependency Injection for the FileHandleService */
     def attachmentFile
 
     /**
      *
-     * @param qualificationDate Date of the qualification
-     * @param qualificationType Type of Qualification
-     * @param qualificationObject Qualifiable Object where the qualification belongs to
-     * @param comment Comment of the qualification
-     * @param request the request that contains the MultipartFile from the upload form
+     * @param qualificationDate : Date of the qualification
+     * @param qualificationType : Type of Qualification
+     * @param qualificationObject : Qualifiable Object where the qualification belongs to
+     * @param comment : Comment of the qualification
+     * @param request : the request that contains the MultipartFile from the upload form
      * @return new Qualification
      */
     def createQualification(Date qualificationDate, String qualificationType, QualifiableObject qualificationObject, String comment, MultipartHttpServletRequest request) {
@@ -33,8 +39,8 @@ class QualificationService {
 
     /**
      *
-     * @param aclass the class to be looked up (e.g.: Module / Software)
-     * @param params the params Map for the query
+     * @param aclass : the class to be looked up (e.g.: Module / Software)
+     * @param params : the params Map for the query
      * @return filtered List of Calibrations
      */
     static getCalibrationList(Class aclass, Map params){
@@ -56,8 +62,8 @@ class QualificationService {
 
     /**
      *
-     * @param aclass the class to be looked up (e.g.: Module / Software)
-     * @param params the params Map for the query
+     * @param aclass : the class to be looked up (e.g.: Module / Software)
+     * @param params : the params Map for the query
      * @return filtered List of Qualifications
      */
     static getQualificationList(Class aclass, Map params) {

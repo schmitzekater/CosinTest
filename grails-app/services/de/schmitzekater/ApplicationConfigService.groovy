@@ -3,8 +3,9 @@ package de.schmitzekater
 import org.springframework.beans.factory.annotation.Value
 
 /**
- * This service will provide values from the Application.yml file
- * Those values can be defined per environment.
+ * @author Alexander Schmitz
+ * Service to provide values from the Application.yml file
+ * Values can be defined per Environment.
  */
 
 class ApplicationConfigService {
