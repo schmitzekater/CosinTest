@@ -49,7 +49,7 @@ class SystemRole implements Serializable{
     }
 
     static boolean exists(long computerId, long systemId, long computerRoleId){
-        log.debug "Computer: $computerId, System: $systemId, Computer Role: $computerRoleId"
+        //log.info "Computer: $computerId, System: $systemId, Computer Role: $computerRoleId"
         criteriaFor(computerId, systemId, computerRoleId).count()
     }
 

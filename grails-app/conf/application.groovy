@@ -62,6 +62,8 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/save/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"]],
 		[pattern: '/**/show/**', access: ['permitAll']],
 		[pattern: '/**/list/**', access: ['permitAll']],
+		[pattern: '/**/createSystemReport/**', access: ['permitAll']],
+		[pattern: '/**/createSystemOverview/**', access: ['permitAll']],
 		[pattern: '/module/listAllModuleQualifications/**', access: ['permitAll']],
 		[pattern: '/software/listAllSoftwareQualifications/**', access: ['permitAll']],
 		[pattern: '/module/listAllModuleCalibrations/**', access: ['permitAll']],

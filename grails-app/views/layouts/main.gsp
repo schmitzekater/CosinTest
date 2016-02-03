@@ -6,8 +6,6 @@
         <title>COSIN &raquo COmputerized Software INventory<g:layoutTitle default="Welcome"/></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <%-- TODO
-      Individuelle Scripts auswählen, damit nicht alle aufschlagen!!! --%>
         <asset:javascript src="jquery-2.1.3.js"/>
         <asset:javascript src="bootstrap-all.js"/>
         <asset:stylesheet src="bootstrap-all.css"/>

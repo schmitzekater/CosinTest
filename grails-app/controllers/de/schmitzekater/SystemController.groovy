@@ -15,6 +15,7 @@ class SystemController {
     static defaultAction = "list"
     def systemRoleService               /** Dependency Injection for the SystemRoleService  */
     def fileHandleService               /** Dependency Injection for the FileHandleService  */
+    def reportService
 
     def index() {
         redirect action: list(), params: params
@@ -22,6 +23,10 @@ class SystemController {
 
     def show() {
         redirect action: 'detail', params: params
+    }
+
+    def createSystemReport(System system) {
+        reportService.createSystemOverview(system)
     }
 
     /*
