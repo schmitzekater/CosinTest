@@ -50,9 +50,9 @@
                 <sec:link controller="system" action="removeComputer" id="${params.id}" params="[computer: computer.id]"
                           expression="hasAnyRole('ROLE_EDIT,ROLE_DELETE')">
                     <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="color:red" title='<g:message
-                        code="system.remove.computer"/>'>&nbsp
+                        code="system.remove.computer"/>'>&nbsp;</span>
                 </sec:link>
-                </td
+                </td>
             </g:if>
         </tr>
     </g:each>

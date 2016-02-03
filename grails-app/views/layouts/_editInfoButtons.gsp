@@ -44,6 +44,11 @@
             <span class="glyphicon glyphicon-list-alt" style="color: green" aria-hidden="true" title='<g:message
                 code="system.edit.dataFlow"/>'>
         </sec:link>
+        <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+                  action="createSystemReport" >
+            <span class="glyphicon glyphicon-print" style="color: blueviolet" aria-hidden="true" title='<g:message
+                code="system.create.report"/>'>
+        </sec:link>
     </g:if>
     %{--Display add  add Module button on Unit controller--}%
     <g:if test="${controllerName.compareToIgnoreCase("Unit") == 0}">

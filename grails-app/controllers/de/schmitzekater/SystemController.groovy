@@ -1,6 +1,9 @@
 package de.schmitzekater
 
+import grails.plugins.rendering.pdf.PdfRenderingService
 import grails.transaction.Transactional
+
+import java.text.SimpleDateFormat
 
 /**
  * @author Alexander Schmitz
@@ -16,6 +19,7 @@ class SystemController {
     def systemRoleService               /** Dependency Injection for the SystemRoleService  */
     def fileHandleService               /** Dependency Injection for the FileHandleService  */
     def reportService
+    PdfRenderingService pdfRenderingService
 
     def index() {
         redirect action: list(), params: params
@@ -25,8 +29,12 @@ class SystemController {
         redirect action: 'detail', params: params
     }
 
-    def createSystemReport(System system) {
-        reportService.createSystemOverview(system)
+
+    def createSystemReport(System system){
+        Date date = new Date()
+        SimpleDateFormat sdf = new SimpleDateFormat('yyyy-MM-dd')
+        String filedate = sdf.format(date)
+        renderPdf([contentType: 'application/pdf', filename: filedate+'_'+system.systemName+'-Report.pdf', template: '/reports/systemReport',model:[system: system]])
     }
 
     /*
@@ -90,6 +98,7 @@ class SystemController {
 
     /*
     Render view to edit the dataflow file
+    @view: editDataFlow.gsp
      */
     def editDataFlow(System system){
         model:
