@@ -4,7 +4,7 @@ package de.schmitzekater
  * @author Alexander Schmitz
  *
  * Domain class to store different Connections that a Module can have inside a Unit
- * Handled via @ConfigController and @ConnectionTypeService
+ * Handled via @ConfigController and @ConfigService
  */
 class ConnectionType {
     String connection

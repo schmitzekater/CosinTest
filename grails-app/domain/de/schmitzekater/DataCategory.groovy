@@ -4,7 +4,7 @@ package de.schmitzekater
  * @author Alexander Schmitz
  *
  * Domain class to store different DataCategories that a System can have
- * Handled via @ConfigController and @DataCategoryService
+ * Handled via @ConfigController and @ConfigService
  */
 class DataCategory {
 

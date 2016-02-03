@@ -6,11 +6,7 @@ package de.schmitzekater
  * Controller to handle configuration of smaller Domain classes
  */
 class ConfigController {
-    def qualificationTypeService
-    def moduleTypeService
-    def dataCategoryService
-    def connectionTypeService
-    def computerRoleService
+    def configService       /** Dependency Injection for the ConfigService  */
 
     def index() {
 
@@ -50,7 +46,7 @@ class ConfigController {
     def addQualificationType(){
         def qualificationType
         try{
-            qualificationType = qualificationTypeService.createQualificationType(params.type)
+            qualificationType = configService.createQualificationType(params.type)
             if(qualificationType.save()){
                 flash.message = message(code: 'default.created.qualificationType.message', args:[params.type])
             }
@@ -67,7 +63,7 @@ class ConfigController {
     def addModuleType(String type){
         def moduleType
         try{
-            moduleType = moduleTypeService.createModuleType(params.type)
+            moduleType = configService.createModuleType(params.type)
             if(moduleType.save()){
                 flash.message = message(code: 'default.created.moduleType.message', args:[params.type])
             }
@@ -81,7 +77,7 @@ class ConfigController {
     def addConnectionType(String type){
         def connectionType
         try{
-            connectionType = connectionTypeService.createConnectionType(params.type)
+            connectionType = configService.createConnectionType(params.type)
             if(connectionType.save()){
                 flash.message = message(code: 'default.created.connectionType.message', args:[params.type])
             }
@@ -95,7 +91,7 @@ class ConfigController {
     def addDataCategory(String category){
         def dataCategory
         try{
-            dataCategory = dataCategoryService.createDataCategory(params.category)
+            dataCategory = configService.createDataCategory(params.category)
             if(dataCategory.save()){
                 flash.message = message(code: 'default.created.dataCategory.message', args:[params.category])
             }
@@ -109,7 +105,7 @@ class ConfigController {
     def addComputerRole(String role){
         def computerRole
         try{
-            computerRole = computerRoleService.createComputerRole(params.role)
+            computerRole = configService.createComputerRole(params.role)
             if(computerRole.save()){
                 flash.message = message(code: 'default.created.computerRole.message', args:[params.role])
             }

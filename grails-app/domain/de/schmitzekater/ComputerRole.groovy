@@ -4,7 +4,7 @@ package de.schmitzekater
  * @author Alexander Schmitz
  *
  * Domain class to store different Roles that a Computer can have in a System
- * Handled via @ConfigController
+ * Handled via @ConfigController and @ConfigService
  */
 class ComputerRole {
     String role
