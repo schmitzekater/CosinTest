@@ -62,15 +62,17 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/save/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"]],
 		[pattern: '/**/show/**', access: ['permitAll']],
 		[pattern: '/**/list/**', access: ['permitAll']],
-		[pattern: '/**/createSystemReport/**', access: ['permitAll']],									// Watch out!!
-		[pattern: '/**/createSystemOverview/**', access: ['permitAll']],								// Watch out!!
-		[pattern: '/**/pdfExample/**', access: ['permitAll']],											// Watch out!!
+		[pattern: '/**/createSystemReport/**', access: ['permitAll']],                                    // Watch out!!
+		[pattern: '/**/createSystemOverview/**', access: ['permitAll']],                                // Watch out!!
+		[pattern: '/**/pdfExample/**', access: ['permitAll']],                                            // Watch out!!
 		[pattern: '/module/listAllModuleQualifications/**', access: ['permitAll']],
 		[pattern: '/software/listAllSoftwareQualifications/**', access: ['permitAll']],
 		[pattern: '/module/listAllModuleCalibrations/**', access: ['permitAll']],
 		[pattern: '/**/addQualificationToObject/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"]],
 		[pattern: '/**/detail/**', access: ['permitAll']],
 		[pattern: '/**/index/**', access: ['permitAll']],
+		[pattern: '/**/listActive/**', access: ['permitAll']],
+		[pattern: '/**/listInactive/**', access: ['permitAll']],
 		[pattern: '/**/common/**', access: ['permitAll']],
 		[pattern: '/common/**', access: ['permitAll']],
 		[pattern: '/common/en/**', access: ['permitAll']],
@@ -91,6 +93,8 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/addUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/addUnitToSystem/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/**/removeUnit/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
+		[pattern: '/system/retireSystem/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
+		[pattern: '/system/retire/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE')"]],
 		[pattern: '/system/editDataFlow/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE', 'ROLE_CREATE')"]],
 		[pattern: '/system/editDataFlowFile/**', access: ["hasAnyRole('ROLE_EDIT', 'ROLE_DELETE', 'ROLE_CREATE')"]]
 ]

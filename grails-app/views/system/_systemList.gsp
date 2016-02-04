@@ -11,6 +11,7 @@
         <th><a><g:message code="computer.label"/></a></th>
         <th><a><g:message code="unit.label"/></a></th>
         <th><a><g:message code="software.label"/></a></th>
+        <th><a><g:message code="isActive.label"/></a></th>
         <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
             <th><a href="#"><g:message code='action.label'/></a></th>
         </g:if>
@@ -29,6 +30,16 @@
                 <td>${system.computer.size()}</td>
                 <td>${system.units.size()}</td>
                 <td>${system.usesSoftware.size()}</td>
+                <td>
+                    <g:if test="${system.isActive == true}">
+                        <span class="glyphicon glyphicon-ok-circle" style="color: green" aria-hidden="true"
+                              title='<g:message code="isActive.label"/>'></span>
+                    </g:if>
+                    <g:else>
+                        <span class="glyphicon glyphicon-remove-circle" style="color: red" aria-hidden="true"
+                              title='<g:message code="isNotActive.label"/>'></span>
+                    </g:else>
+                </td>
             </f:with>
            <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
                <g:render template="/layouts/editInfoButtons" model="[model: system]"/>

@@ -63,7 +63,8 @@ assets {
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
-    maven { url 'http://dl.bintray.com/longwa/plugins' }
+    maven { url 'http://dl.bintray.com/longwa/plugins' } // for rendering
+    maven { url "http://jcenter.bintray.com" } // for jQuery
 }
 
 dependencyManagement {
@@ -95,6 +96,8 @@ dependencies {
     compile 'org.grails.plugins:quartz:2.0.5'                   // Quartz Plugin for scheduled tasks
     compile 'org.grails.plugins:rendering:2.0.1'                // https://bintray.com/grails/plugins/rendering/view
     //compile 'org.grails.plugins:jasper:2.0.0.M1'                // https://bintray.com/longwa/plugins/jasper/view
+    // Jasper seem incompatible with the rendering plugin
+    compile 'org.webjars:jquery-ui:1.11.2'
 
 
     runtime "org.grails.plugins:asset-pipeline"

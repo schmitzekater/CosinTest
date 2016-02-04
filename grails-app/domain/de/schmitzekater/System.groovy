@@ -6,15 +6,14 @@ package de.schmitzekater
  * Domain class to represent Systems.
  * A System may consist of various combinations of Software and Systems.
  *
- * Handled via @SystemController
- * TODO: Implement SystemService
+ * Handled via @SystemController and @SystemService
  */
 class System implements Serializable{
     private static final long serialVersionUID = 1
     String systemName
-    boolean isActive
+    boolean isActive = true
     File dataFlow
-    Date retirementDate // TODO Set it manually
+    Date retirementDate
     String area
 
 

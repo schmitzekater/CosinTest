@@ -6,7 +6,6 @@
   Time: 18:05
 --%>
 <table class="table table-striped">
-
     <tbody>
         <f:with bean="system">
             <f:display property="systemName" wrapper="detail"/>
@@ -19,11 +18,20 @@
         </f:with>
     </tbody>
 </table>
-<sec:link expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')" controller="system" id="${system.id}"
-          action="edit" class="btn btn-primary">
-    ${message(code: 'default.button.edit.label', default: 'Edit')}
-</sec:link>
-<g:render template="/layouts/editInfoButtons" model="[model: system]" />
+
+<g:if test="${!system.isActive}">
+    <div class="alert alert-danger">
+        <g:message code="system.retired.since"/>
+        <f:display bean="${system}" property="retirementDate" wrapper="detail/date/since"/>
+    </div>
+</g:if>
+<g:else>
+    <sec:link expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')" controller="system" id="${system.id}"
+              action="edit" class="btn btn-primary">
+        ${message(code: 'default.button.edit.label', default: 'Edit')}
+    </sec:link>
+    <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
+</g:else>
 <%-- Get thte units of the system --%>
 <h3><g:message code="unit.list.label"/></h3>
 <g:if test="${system.units.size()>0}">
