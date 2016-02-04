@@ -16,11 +16,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 class SystemController {
     static scaffold = System
     static defaultAction = "list"
-    def systemRoleService               /** Dependency Injection for the SystemRoleService  */
-    def fileHandleService               /** Dependency Injection for the FileHandleService  */
-    def systemService                   /** Dependency Injection for the SystemService      */
-
-    PdfRenderingService pdfRenderingService
+    def systemRoleService                   /** Dependency Injection for the SystemRoleService  */
+    def systemService                       /** Dependency Injection for the SystemService      */
+    PdfRenderingService pdfRenderingService /** Add additional methods from grails.plugins.rendering.RenderingTrait */
 
     def index() {
         redirect action: list(), params: params
@@ -30,7 +28,10 @@ class SystemController {
         redirect action: 'detail', params: params
     }
 
-
+    /*
+    Creates a PDF with an overview of the System.
+    Is stored in the download folder of the user by default.
+     */
     def createSystemReport(System system) {
         Date date = new Date()
         SimpleDateFormat sdf = new SimpleDateFormat('yyyy-MM-dd')
@@ -39,53 +40,44 @@ class SystemController {
     }
 
     /*
-    Tabular view of al Systems
+    Tabular view of all Systems
      */
-
     def list() {
         if (!params.max) params.max = 10
         def systems = System.list(params)
         render view: "/layouts/list", model: [model: systems, count: System.count]
     }
 
-    def listActive() {
-        if (!params.max) params.max = 10
-        if (!params.orderBy) params.order = 'asc'
-        if (!params.sortBy) params.order = 'systemName'
-        def s = System.createCriteria()
-        def systems = s.list(max: params.max, offset: params.offset) {
-
-            eq("isActive", true)
-        }
-        render view: "/layouts/list", model: [model: systems, count: System.count]
+    /*
+    Tabular view only of active systems.
+    Accessed via _systemLeft.gsp (Special Navigation links in _navLeft.gsp)
+     */
+    def listActiveSystems() {
+        def activeSystemList = systemService.getSystemList(params, true)
+        render view: "/layouts/list", model: [model: activeSystemList, count: activeSystemList.getTotalCount()]
     }
 
-    def listInactive() {
-        if (!params.max) params.max = 10
-        if (!params.orderBy) params.order = 'asc'
-        if (!params.sortBy) params.order = 'systemName'
-        def s = System.createCriteria()
-        def systems = s.list(max: params.max, offset: params.offset) {
-
-            eq("isActive", false)
-        }
-        render view: "/layouts/list", model: [model: systems, count: System.count]
+    /*
+    Tabular view only of inactive systems.
+    Accessed via _systemLeft.gsp (Special Navigation links in _navLeft.gsp)
+     */
+    def listInactiveSystems() {
+        def inactiveSystemList = systemService.getSystemList(params, false)
+        render view: "/layouts/list", model: [model: inactiveSystemList, count: inactiveSystemList.getTotalCount()]
     }
 
     /*
     Method to retire a specific System
-    TODO: Add views
+    Accessed via Button in _systemDetail.gsp
      */
-
     def retire(System system) {
-        Date retireDate = new Date()
-        log.info("Retirementdate is $retireDate")
+        def retireDate = params.retirementDate
         if (retireDate && systemService.retireSystem(system, retireDate)) {
-            flash.message = message(code: 'system.successful.retired', args: ['System', system.systemName])
+            flash.message = message(code: 'system.successful.retired', args: [ system.systemName])
             log.info(flash.message)
-            redirect action: 'list'
+            redirect action: 'listInactiveSystems'
         } else {
-            flash.error = message(code: 'error.retiring.system', args: ['System', system.systemName])
+            flash.error = message(code: 'error.retiring.system', args: [ system.systemName])
             log.error(flash.error)
             redirect action: 'retireSystem', params: params
         }
@@ -93,6 +85,7 @@ class SystemController {
 
     /*
     Method to edit the dataflow file of a system.
+    Accessed via _editInfoButons.gsp in _systemDetail.gsp
      */
 
     def editDataFlowFile(System system) {
@@ -166,9 +159,16 @@ Creates a new SystemRole (Role of the Computer within the system)
     def addComputer(System system) {
         def computer = Computer.get(params.computer)
         def computerRole = ComputerRole.get(params.computerRole)
-        def systemRole = systemRoleService.createSystemRole(computer, system, computerRole)
-        flash.message = message(code: 'systemRole.created', args: [computer.computerName, system.systemName, computerRole.displayString])
-        redirect action: 'detail', id: system.id
+        if(systemRoleService.createSystemRole(computer, system, computerRole)){
+            flash.message = message(code: 'systemRole.created', args: [computer.computerName, system.systemName, computerRole.displayString])
+            log.info(flash.message)
+            redirect action: 'detail', id: system.id
+        }
+        else{
+            flash.error = message(code: 'systemRole.exists', args: [computer.computerName, system.systemName, computerRole.displayString])
+            log.error(flash.error)
+            redirect action: 'edit', id: system.id
+        }
     }
 
 /*
@@ -247,46 +247,11 @@ View to add a Computer to a System
 
 /*
 Method to update an existing System
-TODO: Refactor to Service!
  */
 
     def update(System system) {
         if (system) {
-            /* Update System Ownership */
-            if (params.systemOwner) {
-                def presentSystemOwners = system.systemOwner.collect()
-                for (so in presentSystemOwners) {
-                    if (!params.systemOwner.contains(so.id.toString())) {
-                        /* Delete to old Owners */
-                        system.removeFromSystemOwner(so)
-                        log.info("Removed ${so.getDisplayString()} as SystemOwner from ${system.getDisplayString()}")
-                    }
-                }
-                params.systemOwner.each {
-                    def person = Person.get(it)
-                    /* Add the new Owners */
-                    system.addToSystemOwner(person)
-                    log.info("Added ${person.getDisplayString()} as SystemOwner to System ${system.getDisplayString()}")
-                }
-            }
-            /* Update Process Ownership */
-            if (params.processOwner) {
-                def presentProcessOwners = system.processOwner.collect()
-                for (po in presentProcessOwners) {
-                    if (!params.processOwner.contains(po.id.toString())) {
-                        /* Delete to old Owners */
-                        system.removeFromProcessOwner(po)
-                        log.info("Removed ${po.getDisplayString()} as ProcessOwner from ${system.getDisplayString()}")
-                    }
-                }
-                for (processOwner in params.processOwner) {
-                    def po = Person.get(processOwner)
-                    /* Add the new Owners */
-                    system.addToProcessOwner(po)
-                    log.info("Added ${po.getDisplayString()} as ProcessOwner to System ${system.getDisplayString()}")
-                }
-            }
-            if (system.save()) {
+            if (systemService.updateOwnerShip(system, params)) {
                 flash.message = message(code: 'default.updated.message', args: ['System', system.systemName])
                 log.info(flash.message)
                 redirect(action: "list")
@@ -295,11 +260,9 @@ TODO: Refactor to Service!
                 log.error(flash.error)
                 redirect(action: "edit", id: params['id'])
             }
-
         } else {
             response.sendError(404)
         }
-
     }
 
 /*

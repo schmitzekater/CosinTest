@@ -1,3 +1,8 @@
+<%--
+    Renders the list of all systems.
+    Contains sortable columns.
+--%>
+
 <%@ page import="de.schmitzekater.*" %>
 <table class="table table-striped">
     <thead>

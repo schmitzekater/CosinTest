@@ -58,6 +58,7 @@ class System implements Serializable{
         SystemRole.findAllBySystem(this)
     }
 
+
     def onChange = { oldMap, newMap ->
         oldMap.each({ key, oldVal ->
             if (oldVal != newMap[key]) {

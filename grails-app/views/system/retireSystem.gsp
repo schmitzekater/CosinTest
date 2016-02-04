@@ -3,6 +3,8 @@
   User: schmitza
   Date: 04.02.2016
   Time: 14:41
+
+  GSP to display the entry for the retirementDate of a System.
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -17,9 +19,9 @@
     <script>
         $(function () {
             $("#datepicker").datepicker({
-                dateFormat: "yy-mm-dd",
-                maxDate: "1d",
-                defaultDate: -2
+                dateFormat: "yy-mm-dd",         // format that the service expects.
+                maxDate: "1d",                  // Maximum tomorrow
+                defaultDate: -1                 // testing
             });
         });
     </script>
@@ -27,40 +29,25 @@
 
 <body>
 <h2><g:message code="system.retire.system"/></h2>
+    <div id="warning" class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        <g:message code="warning.cannot.be.undone"/>
+    </div>
 <g:form id="${system.id}" controller="system" action="retire">
     <fieldset>
-        <table class="table-condensed">
-            <tr>
-                <td></td>
-                <td><label for="retirementDate"></label><input type="text" name="retirementDate" id="datepicker"></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input class="save btn btn-primary" type="submit"
-                           value="${message(code: 'system.retire.system', default: 'Retire')}"
-                           title="${message(code: 'system.retire.system', default: 'Retire')}"/>
-                    <cos:cancelButton/>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
+        <div class="control-group ${invalid ? 'error' : ''}">
+            <label for="retirementDate"><g:message code="retirementDate.label"/></label>
+        </div>
+        <div class="control-box">
+
+            <span class="btn btn-default"><input type="text" name="retirementDate" id="datepicker"></span>
+
+                <input class="save btn btn-primary" type="submit"
+                       value="${message(code: 'system.retire.system', default: 'Retire')}"
+                       title="${message(code: 'system.retire.system', default: 'Retire')}"/>
+                <cos:cancelButton/>
+        </div>
+</fieldset>
 </g:form>
-<div class="container-fluid">
-    <g:form controller="${controllerName}" action="addUnit" it="${params.id}">
-        <g:hiddenField name="id" value="${params.id}"/>
-        <fieldset>
-            <table class="table-condensed">
-                <f:field property="unit" wrapper="edit/table" widget="detail/select/unit"/>
-                <tr>
-                    <td colspan="2">
-                        <input class="save btn btn-primary" action="addUnit" type="submit"
-                               value="${message(code: 'default.add.Unit', default: 'Add')}"
-                               title="${message(code: 'add.unit.to.system', default: 'Add')}"/>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-    </g:form>
-</div>
 </body>
 </html>

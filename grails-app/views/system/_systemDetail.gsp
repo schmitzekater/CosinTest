@@ -4,6 +4,12 @@
   User: Alexander
   Date: 15.10.2015
   Time: 18:05
+
+  Page to display the Details of a System.
+  renders also
+  - the list of units (/unit/_unitList.gsp)
+  - list of Computer (/computer/_computerList.gsp)
+   - list of Software (/software/_softwareList.gsp)
 --%>
 <table class="table table-striped">
     <tbody>
@@ -29,6 +35,10 @@
     <sec:link expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')" controller="system" id="${system.id}"
               action="edit" class="btn btn-primary">
         ${message(code: 'default.button.edit.label', default: 'Edit')}
+    </sec:link>
+    <sec:link expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')" controller="system" id="${system.id}"
+              action="retireSystem" class="btn btn-danger">
+        ${message(code: 'default.button.retire.label', default: 'Retire')}
     </sec:link>
     <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
 </g:else>
