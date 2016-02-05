@@ -16,7 +16,11 @@
                 <g:message code="auditTrail.list.label"/>
             </g:link>
         </li>
-
+        <li class="list-group-item">
+            <g:link controller="config" action="about">
+                <g:message code="application.details"/>
+            </g:link>
+        </li>
         <li class="list-group-item">
             <a class="home" href="/">
                 <span class="glyphicon glyphicon-home" aria-hidden="true">&nbsp</span><g:message

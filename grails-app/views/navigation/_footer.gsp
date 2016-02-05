@@ -16,7 +16,11 @@
                 <a href="#"><g:message code="app.version.label"/> <g:meta name="info.app.version"/></a>
             </li>
             <li role="presentation" class="disabled">
-                <a href="#"><g:message code="info.grailsVersion.label"/> <g:meta name="info.app.grailsVersion"/></a>
+                <a href="#"><g:formatDate date="${new Date()}" format="dd-MMM-yyyy"/></a>
+            </li>
+            <li role="presentation">
+                <a href="https://grails.org/" target="_blank"><g:message code="info.grailsVersion.label"/> <g:meta
+                        name="info.app.grailsVersion"/></a>
             </li>
         </ul>
     </div>
