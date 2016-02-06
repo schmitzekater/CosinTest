@@ -9,8 +9,10 @@ class ConfigController {
     def configService       /** Dependency Injection for the ConfigService  */
 
     def index() {
-
+        redirect action: 'about'
     }
+
+    def about() {}
 
     /*
     Method to change the language of all views via dropdown.

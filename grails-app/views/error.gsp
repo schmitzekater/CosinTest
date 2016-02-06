@@ -23,9 +23,12 @@
             </g:else>
         </g:if>
         <g:else>
-            <ul class="errors">
-                <li>An error has occurred</li>
-            </ul>
+            <div class="label-danger"><span class="glyphicon glyphicon-exclamation-sign"></span><g:message
+                    code="error.generic.error"/></div>
+            <span class="glyphicon glyphicon-warning-sign" style="color: darkblue" aria-hidden="true"
+                  onclick="window.history.back()"
+                  title="${message(code: 'default.back.label', default: 'Back')}">&nbsp;<g:message
+                    code="default.back.label"/></span>
         </g:else>
     </body>
 </html>
