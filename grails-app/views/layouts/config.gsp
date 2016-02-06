@@ -19,7 +19,7 @@
     <g:layoutHead/>
 </head>
 
-<body onload="refresh()" onscroll="fadeMessages()">
+<body onscroll="fadeMessages()">
 <g:render template="/navigation/navMain"/>                                          <!-- Navigation Bar Top -->
 <div class="container"><!-- Container for all content -->
     <div class="well-sm">
@@ -28,12 +28,12 @@
     </div>
 
     <div class="row"><!-- First Row -->
-        <div class="col-md-2">
+        <div class="col-md-2 col-lg-2">
             <g:render template="/config/configNavLeft"/>                                  <!-- Sidebar Left  -->
             <g:render template="/navigation/navRight"/>
         </div>
 
-        <div class="col-md-10">
+        <div class="col-md-10 col-lg-10">
             <g:layoutBody/>                                                             <!-- Main Content  -->
         </div>
         %{--<div class="col-md-2">

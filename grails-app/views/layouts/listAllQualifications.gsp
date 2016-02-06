@@ -27,7 +27,7 @@
         </div>
 <g:form action="${actionName}">
     <div class="panel-body">
-                <table>
+                <table class="table table-condensed">
                     <tr>
                         <td><g:message code="date.dateFrom"/></td>
                         <td><g:datePicker name="dateFrom" value="${params.dateFrom}" precision="day"

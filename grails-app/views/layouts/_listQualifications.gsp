@@ -1,5 +1,5 @@
 
-<table class="table table-condensed">
+<table class="table-condensed table-responsive">
     <thead>
         <th><g:message code="qualification.qualificationDate.label"/></th>
         <th><g:message code="qualification.qualificationType.label"/></th>

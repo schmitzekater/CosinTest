@@ -1,4 +1,4 @@
-<!-- template: _fields/detail/link/vendor/_displayWrapper.gsp -->
+%{--<!-- template: _fields/detail/link/vendor/_displayWrapper.gsp -->--}%
 <%@ page contentType="text/html;charset=UTF-8" %>
 <dt>${label}
     <dl>

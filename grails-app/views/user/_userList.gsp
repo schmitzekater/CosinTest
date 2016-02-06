@@ -1,5 +1,5 @@
 <%@ page import="de.schmitzekater.User" %>
-<table class="table table-striped">
+<table class="table table-striped table-responsive">
     <thead>
     <tr>
         <g:sortableColumn property="id" title="${message(code: 'default.id.label', default: 'ID')}"/>

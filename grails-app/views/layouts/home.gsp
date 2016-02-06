@@ -19,7 +19,6 @@
     <asset:javascript src="bootstrap-all.js"/>
     <asset:stylesheet src="bootstrap-all.css"/>
     <asset:stylesheet src="font-awesome-all.css"/>
-    <%-- Noch mehr Gelaber --%>
     <g:layoutHead/>
 
 </head>

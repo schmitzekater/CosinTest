@@ -1,5 +1,4 @@
-<table class="table table-striped">
-    <tbody>
+
         <f:with bean="module">
             <f:display property="moduleName" wrapper="detail"/>
             <f:display property="moduleSerial" wrapper="detail"/>
@@ -19,8 +18,7 @@
                 <f:display property="retirementDate" wrapper="detail/date"/>
             </g:if>
             </f:with>
-        </tbody>
-</table>
+
 <sec:link action="edit" class="btn btn-primary" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
           id="${module.id}" title="${message(code: "edit.module")}" controller="module">
     <g:message code='default.button.edit.label' default='Edit'/>

@@ -10,13 +10,6 @@
 
     <p><g:link controller="user" action="editPassword"><g:message code="edit.password.label"/></g:link></p>
 
-    <p><sec:access expression="hasRole('ROLE_DELETE')">You can delete</sec:access></p>
-
-    <p><sec:access expression="hasRole('ROLE_CREATE')">You can create</sec:access></p>
-
-    <p><sec:access expression="hasRole('ROLE_EDIT')">You can edit</sec:access></p>
-
-    <p><sec:access expression="hasRole('ROLE_READ')">You can read</sec:access></p>
 </sec:ifLoggedIn>
 <sec:ifNotLoggedIn>
     <div class="panel panel-warning">

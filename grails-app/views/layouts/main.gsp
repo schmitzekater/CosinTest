@@ -10,6 +10,7 @@
         <asset:javascript src="bootstrap-all.js"/>
         <asset:stylesheet src="bootstrap-all.css"/>
         <asset:stylesheet src="font-awesome-all.css"/>
+        <asset:stylesheet src="cosin.css"/>
         <g:layoutHead/>
     </head>
 
@@ -26,17 +27,14 @@
     </div>
 
     <div class="row"><!-- First Row -->
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        <div class="col-md-2 col-lg-2">
             <g:render template="/navigation/navLeft"/>                                  <!-- Sidebar Left  -->
             <g:render template="/navigation/navRight"/>
-        </div>
+      </div>
 
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <div class="col-md-10 col-lg-10">
             <g:layoutBody/>                                                             <!-- Main Content  -->
         </div>
-        %{-- <div class="col-md-2">
-                                            <!-- Sidebar Right -->
-         </div> <!--col-md-4 -->--}%
     </div>                                                                          <!-- end row -->
 </div>                                                                              <!-- end container -->
 <g:render template="/navigation/footer"/>

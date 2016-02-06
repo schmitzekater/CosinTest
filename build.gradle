@@ -88,16 +88,14 @@ dependencies {
     compile "org.hibernate:hibernate-ehcache"
     compile "org.grails.plugins:scaffolding"
     compile "org.grails.plugins:fields:2.1.1"                   // Rendering fields
-    //compile "org.grails.plugins:mongodb"
-    // MongoDB Plugin for auditlogs (3.0.3 not working, 4.0.6 instead???)
-    compile "org.grails.plugins:audit-logging:2.0.1-SNAPSHOT"            // Audit Trail Plugin
-    compile 'org.grails.plugins:ajax-tags:1.0.0'            // Ajax Plugin
+    compile "org.grails.plugins:audit-logging:2.0.1-SNAPSHOT"   // Audit Trail Plugin
+    compile 'org.grails.plugins:ajax-tags:1.0.0'                // Ajax Plugin
     compile 'org.grails.plugins:spring-security-core:3.0.2'     // Security Plugin
     compile 'org.grails.plugins:quartz:2.0.5'                   // Quartz Plugin for scheduled tasks
     compile 'org.grails.plugins:rendering:2.0.1'                // https://bintray.com/grails/plugins/rendering/view
-    //compile 'org.grails.plugins:jasper:2.0.0.M1'                // https://bintray.com/longwa/plugins/jasper/view
-    // Jasper seem incompatible with the rendering plugin
-    compile 'org.webjars:jquery-ui:1.11.2'
+    //compile 'org.grails.plugins:jasper:2.0.0.M1'              // https://bintray.com/longwa/plugins/jasper/view
+    // Jasper seems incompatible with the rendering plugin
+    // compile 'org.webjars:jquery-ui:1.11.2'
 
 
     runtime "org.grails.plugins:asset-pipeline"

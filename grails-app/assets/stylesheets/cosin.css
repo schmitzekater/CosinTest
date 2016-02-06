@@ -1,14 +1,12 @@
-body {
-    background-image: url("http://www.fancyicons.com/free-icons/232/science/png/256/cosine_256.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
+
+/* Pagination fix */
+.paginationButtons .disabled, .pagination .currentStep, .pagination .step {
+    float: left;
+    padding: 0 14px;
+    border-right: 1px solid;
+    line-height: 34px;
+    border-right-color: rgba(0, 0, 0, 0.15);
 }
-.background-image{
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
-    opacity: 0.4;
+.pagination .prevLink {
+    border-left: 1px solid #DDD !important;
 }
