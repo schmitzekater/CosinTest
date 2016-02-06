@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="${controllerName == null ? 'active ' : ''}navbar-brand " href="/">COSIN</a>
+            <a class="${controllerName == null ? 'active ' : ''}navbar-brand " href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar">
@@ -51,6 +51,9 @@
                 </li>
                 <li class="${controllerName == 'config' || controllerName == 'auditLogEvent' ? 'active' : ''}">
                     <a href="${createLink(uri: '/config/index')}"><g:message code="default.config.label"/></a>
+                </li>
+                <li>
+                    <a href="/"><g:img file="cosine_24.png"/></a>
                 </li>
             </ul>
 
