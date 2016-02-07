@@ -17,7 +17,7 @@
             <f:with bean="${unit}">
                 <f:display property="id" wrapper="list/link"/>
                 <f:display property="unitName" wrapper="list"/>
-                <f:display property="system" wrapper="list/link"/>
+                <f:display property="system" wrapper="list/link/system"/>
                 <td>${unit.modules.size()}</td>
             </f:with>
             %{--Only render the Buttons if on Unit-Controller--}%

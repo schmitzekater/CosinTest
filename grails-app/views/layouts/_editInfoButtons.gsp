@@ -40,8 +40,8 @@
                 code="default.add.Qualification"/>'>
         </sec:link>
     </g:if>
-    %{--Display the addSoftware icon when on Computer or System Controller--}%
-    <g:if test="${controllerName.compareToIgnoreCase("Computer") == 0 || controllerName.compareToIgnoreCase("System") == 0}">
+    %{--Display the addSoftware icon when on Computerr--}%
+    <g:if test="${controllerName.compareToIgnoreCase("Computer") == 0}">
         <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
                   action="addSoftwareToComputer" >
             <span class="glyphicon glyphicon-plus-sign" style="color: green" aria-hidden="true" title='<g:message
@@ -54,6 +54,11 @@
                   action="addUnitToSystem" >
             <span class="glyphicon glyphicon-tasks" style="color: green" aria-hidden="true" title='<g:message
                 code="default.add.Unit"/>'>
+        </sec:link>
+        <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
+                  action="addComputerToSystem" >
+            <span class="glyphicon glyphicon-plus-sign" style="color: green" aria-hidden="true" title='<g:message
+                code="default.add.Computer"/>'>
         </sec:link>
         <sec:link id="${model.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
                   action="editDataFlow" >

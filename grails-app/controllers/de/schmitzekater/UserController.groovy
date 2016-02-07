@@ -141,7 +141,6 @@ class UserController {
                     log.info(flash.message)
                     redirect action: 'list'
                 } else {
-                    user.errors.each
                     flash.error = message(code: "user.password.repeatForbid")
                     redirect action: 'editPassword'
                 }
