@@ -75,6 +75,36 @@ class SchmitzekaterTagLib {
             """
     }
 
+    def linkTo = {attrs, body ->
+        out << """
+                 <p><a href="${attrs.anchor}">${attrs.value}</a></p>
+            """
+    }
+
+    def successText = { attrs, body ->
+        out << """
+            <div class="alert alert-success"><span class="glyphicon glyphicon-ok-sign"></span>$body</div>
+            """
+    }
+
+    def infoText = {attrs, body ->
+        out << """
+            <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>$body</div>
+                """
+    }
+
+    def errorText = { attrs, body ->
+        out << """
+            <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span>$body</div>
+            """
+    }
+
+    def alertText = {attrs, body ->
+        out << """
+            <div class="alert alert-warning"><span class="glyphicon glyphicon-exclamation-sign"></span>$body</div>
+            """
+    }
+
     /**
      * Override the default Paginate!!
      */

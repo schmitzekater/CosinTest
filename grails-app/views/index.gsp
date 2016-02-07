@@ -16,7 +16,8 @@
                 template="/layouts/messagesTop"/>                                  <!-- Top of page for messages / errors -->
     </div>
 
-    <div class="row"><!-- First Row -->
+    <div class="row" ><!-- First Row -->
+
         <div class="col-md-2">
             <g:render template="/navigation/navRight"/>
 
@@ -26,7 +27,7 @@
 
                 <div class="row-fluid">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"> <g:img file="cosine_64.png"/></div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><h1><g:message code="index.welcome.message"/></h1></div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><h1 id="top"> <a name="#top"><g:message code="index.welcome.message"/></a></h1></div>
                 </div>
                 <hr/>
                 <g:if test="${session.language == 'en'}">
@@ -35,26 +36,26 @@
                 <g:if test="${session.language == 'de'}">
                     <g:render template="/common/de/index"/>
                 </g:if>
-                <p>Status</p>
+                <p><h2 id="systemStatus"><g:message code="system.status"/></h2> </p>
                 <div class="row-fluid">
 
                 <hr/>
                 <div class="btn-group btn-group-vertical" role=group aria-label="Justified button group">
                     <div class=btn-group role=group>
                         <g:link controller="system" class="btn btn-primary"> <g:message code="system.label"/><span
-                                class="badge">&nbsp${System.count()}</span></g:link>
+                                class="badge">&nbsp;${System.count()}</span></g:link>
                     </div>
                     <div class=btn-group role=group>
                         <g:link controller="unit" class="btn btn-primary"> <g:message code="unit.label"/><span
-                                class="badge">&nbsp${Unit.count()}</span></g:link>
+                                class="badge">&nbsp;${Unit.count()}</span></g:link>
                     </div>
                     <div class=btn-group role=group>
                         <g:link controller="module" class="btn btn-primary"> <g:message code="module.label"/><span
-                                class="badge">&nbsp${Module.count()}</span></g:link>
+                                class="badge">&nbsp;${Module.count()}</span></g:link>
                     </div>
                     <div class=btn-group role=group>
                         <g:link controller="software" class="btn btn-primary"> <g:message code="software.label"/><span
-                                class="badge">&nbsp${Software.count()}</span></g:link>
+                                class="badge">&nbsp;${Software.count()}</span></g:link>
                     </div>
                %{-- </div>
                  <hr/>
@@ -93,19 +94,19 @@
                     <div class="btn-group btn-group-vertical" role=group aria-label="Justified button group">
                         <div class=btn-group role=group>
                             <g:link controller="system" class="btn btn-primary"> <g:message code="system.label"/><span
-                                    class="badge">&nbsp${System.count()}</span></g:link>
+                                    class="badge">&nbsp;${System.count()}</span></g:link>
                         </div>
                         <div class=btn-group role=group>
                             <g:link controller="unit" class="btn btn-primary"> <g:message code="unit.label"/><span
-                                    class="badge">&nbsp${Unit.count()}</span></g:link>
+                                    class="badge">&nbsp;${Unit.count()}</span></g:link>
                         </div>
                         <div class=btn-group role=group>
                             <g:link controller="module" class="btn btn-primary"> <g:message code="module.label"/><span
-                                    class="badge">&nbsp${Module.count()}</span></g:link>
+                                    class="badge">&nbsp;${Module.count()}</span></g:link>
                         </div>
                         <div class=btn-group role=group>
                             <g:link controller="software" class="btn btn-primary"> <g:message code="software.label"/><span
-                                    class="badge">&nbsp${Software.count()}</span></g:link>
+                                    class="badge">&nbsp;${Software.count()}</span></g:link>
                         </div>
                         %{-- </div>
                           <hr/>
@@ -146,6 +147,5 @@
         </div>
     </div>                                                                          <!-- end row -->
 </div>
-
 </body>
 </html>
