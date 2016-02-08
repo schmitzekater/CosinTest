@@ -21,7 +21,6 @@ class DepartmentController {
 
     /*
     Method to save a new Department.
-    TODO: Refactor method into Service.
      */
     def createDepartment(){
         def department = new Department(params)
@@ -47,8 +46,8 @@ class DepartmentController {
     /*
     View to edit a Department
      */
-    def edit() {
-        def department = Department.findById(params.id)
+
+    def edit(Department department) {
         // Get the List of persons that are not supervisors
         List<Person> supervisors = Person.getAvailableSupervisors()
         if (department.supervisor != null) {

@@ -23,7 +23,6 @@
                 <f:with bean="computer">
                     <f:field property="computerName" wrapper="edit/table"/>
                     <f:field property="computerVendor" wrapper="edit/table"/>
-                    <!-- TODO: System und Rolle einbauen -->
                 </f:with>
             </table>
         </fieldset>

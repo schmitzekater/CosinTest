@@ -14,19 +14,6 @@ class SystemRole implements Serializable{
     System system
     ComputerRole computerRole
 
-    //TODO: Make it working! Spring-Security just checks for system & computer. But then no 2 computer can be added to the system
-  /*  static constraints = {
-        system validator: { System s, SystemRole sr , ComputerRole cr->
-            if(sr.computer == null || sr.computer.id == null) return
-            boolean existing = false
-            SystemRole.withNewSession {
-                existing = SystemRole.exists(sr.system.id, s.id, cr.id)
-            }
-            if(existing) {
-                return 'systemRole.exists'
-            }
-        }
-    }*/
     static mapping = {
         id composite: ['system', 'computer', 'computerRole']
     }

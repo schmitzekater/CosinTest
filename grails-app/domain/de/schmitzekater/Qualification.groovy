@@ -25,7 +25,7 @@ class Qualification {
         comment nullable: true, maxSize: 1000
         qualificationDate nullable: false, max: new Date()+1 // Qualification "in the future" are not allowed.
         qualificationType nullable: false
-        qualificationObject nullable: true //TODO: really?
+        qualificationObject nullable: true
     }
 
     /*
