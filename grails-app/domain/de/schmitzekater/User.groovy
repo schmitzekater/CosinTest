@@ -56,7 +56,7 @@ class User implements Serializable{
             return (matchSmall && matchCapital && matchNumeric)
         }
         passwordChangeDate nullable: true
-        signature minSize: 6, blank: false, validator: { sig, user -> return sig != user.username }
+        signature minSize: 6, blank: false//, validator: { sig, user -> return sig != user.username }
         person nullable: false
     }
     String getDisplayString(){

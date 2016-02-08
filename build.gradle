@@ -116,6 +116,6 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
 }
-clean {
+build {
     delete fileTree(dir: 'logs' , include: '**/*.log')
 }
