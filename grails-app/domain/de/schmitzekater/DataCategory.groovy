@@ -11,7 +11,7 @@ class DataCategory {
     String category
     static hasMany = [system: System]
     static constraints = {
-        category nullable: true, unique: true
+        category nullable: true, unique: true, size: 3..100
         system nullable: true
     }
 

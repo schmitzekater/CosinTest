@@ -21,17 +21,17 @@ class Vendor {
     static auditable = true
     static hasMany = [computer: Computer, module: Module, software: Software]
     static constraints = {
-        name blank: false
+        name blank: false, size: 3..150
         computer nullable: true
         module nullable: true
         software nullable: true
-        urlOne nullable: true, url: true
-        urlTwo nullable: true, url: true
-        fax nullable: true
-        phoneOne nullable: true
-        phoneTwo nullable: true
-        emailOne nullable: true, email: true
-        emailTwo nullable: true, email: true
+        urlOne nullable: true, url: true, maxSize: 150
+        urlTwo nullable: true, url: true, maxSize: 150
+        fax nullable: true, maxSize: 50
+        phoneOne nullable: true, maxSize: 50
+        phoneTwo nullable: true, maxSize: 50
+        emailOne nullable: true, email: true, maxSize: 50
+        emailTwo nullable: true, email: true, maxSize: 50
         address nullable: true
     }
     static mapping = {

@@ -11,7 +11,7 @@ class QualificationType {
     String type
     static hasMany = [qualification: Qualification]
     static constraints = {
-        type nullable: false, unique: true
+        type nullable: false, unique: true, size: 3..100
         qualification nullable: true
     }
 

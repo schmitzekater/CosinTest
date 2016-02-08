@@ -25,7 +25,7 @@ class System implements Serializable{
     static auditable = true
 
     static constraints = {
-        systemName blank: false, maxSize: 50
+        systemName blank: false, size: 3..100
         dataFlow nullable: true, display: false
         systemDepartment nullable: true
         systemOwner nullable: true
@@ -34,7 +34,8 @@ class System implements Serializable{
         systemDataCategory nullable: true
         area nullable: false, inList: ["GCP", "GLP", "GMP", "GxP"]
         usesSoftware nullable: true
-        retirementDate nullable: true, display: false
+        retirementDate nullable: true, display: false, max: new Date() + 1
+        // Retirement "in the future" are not allowed.
     }
 
     String getDisplayString() {
