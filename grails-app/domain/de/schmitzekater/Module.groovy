@@ -33,16 +33,17 @@ class Module extends QualifiableObject{
     static belongsTo = [unit: Unit]
 
     static constraints = {
-        moduleSerial blank: false, unique: true
-        moduleName blank: false
+        moduleSerial blank: false, unique: true, size: 3..50
+        moduleName blank: false, size: 3..100
         moduleModel blank: false
-        moduleFirmware blank: false
+        moduleFirmware blank: false, size: 2..100
         moduleVendor nullable: true
         moduleType nullable: true
         unit nullable: true
 
         productiveDate nullable: true, max: new Date().plus(1), min: new Date(80, 0, 0)
         // +1 accepts now + 1 days: Otherwise cannot be applied "now".
+        // minDate = 01.01.1980
         retirementDate nullable: true, max: new Date().plus(1), min: new Date(80, 0, 0)
         // +1 accepts now + 1 days: Otherwise cannot be applied "now".
         moduleConnection nullable: true

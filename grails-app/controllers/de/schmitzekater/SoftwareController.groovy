@@ -23,7 +23,6 @@ class SoftwareController {
 
     /*
     Method to add a new Qualification to a Software
-     TODO: Refactor to another Controller with Module? Same actiosn.
      */
     def addQualification(Software software){
         if(!software){
@@ -57,7 +56,6 @@ class SoftwareController {
 
     /*
     Render the view to add a new Qualification
-    TODO: Refactor to another Controller with Module? Same actiosn.
      */
     def addQualificationToObject() {
         render view: "/layouts/addQualificationToObject", params: params

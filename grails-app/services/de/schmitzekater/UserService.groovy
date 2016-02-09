@@ -76,6 +76,7 @@ class UserService {
         /*
         After successful login the false password counter will be reset
          */
+        log.info("Successful login for $username im Service")
         def user = User.findByUsername(username)
         if (user) {
             user.resetFalsePasswordCount()

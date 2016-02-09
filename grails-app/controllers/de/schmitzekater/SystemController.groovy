@@ -267,7 +267,6 @@ Method to update an existing System
 
 /*
     Edited the default controller-method to handle the Ownerships.
-    TODO: Refactor to Service!
  */
 
     @Transactional
@@ -283,19 +282,9 @@ Method to update an existing System
             respond system.errors, view: 'create'
             return
         }
-        if (params.systemOwner) {
-            for (systemOwner in params.systemOwner) {
-                def so = Person.get(systemOwner)
-                if (so) system.addToSystemOwner(so)
-            }
-        }
-        if (params.processOwner) {
-            for (processOwner in params.processOwner) {
-                def po = Person.get(processOwner)
-                if (po) system.addToProcessOwner(po)
-            }
-        }
-        system.save flush: true
+        // Set Owners and save the system
+        systemService.updateOwnerShip(system, params)
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'system.label', default: 'System'), system.id])

@@ -19,11 +19,11 @@ class Address {
     static hasOne = [vendor: Vendor]
     static belongsTo = [Vendor]
     static constraints = {
-        streetOne nullable: true
-        streetTwo nullable: true
-        zip nullable: true
-        city nullable: true
-        county nullable: true
+        streetOne nullable: true, size: 4..100
+        streetTwo nullable: true, size: 4..100
+        zip nullable: true, size: 3..8
+        city nullable: true, size: 3..100
+        county nullable: true, size: 2..50
         country nullable: true
         vendor nullable: true
     }

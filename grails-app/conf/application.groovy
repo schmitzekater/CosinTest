@@ -114,11 +114,11 @@ grails.plugin.springsecurity.failureHandler.exceptionMappings = [
 		[exception: AccountExpiredException.name, url: '/user/accountExpired'],
 		[exception: CredentialsExpiredException.name, url: '/user/passwordExpired']
 ]
-
-/**
+/*
+*//**
  * Security Event Handling
- * TODO: Extract those calls into extra Service or Listener
- */
+ * DONE: Extract those calls into extra Service or Listener -> CosinSecurityEventListener
+ *//*
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
 	// Fired when a user has successful logged on an the Authorization principal is available
 	// The user is looked up in the database and the false password counter will be reset.
@@ -155,7 +155,7 @@ grails.plugin.springsecurity.onAuthenticationSwitchUserEvent = { e, appCtx ->
 }
 grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
 	// Not used in the application
-}
+}*/
 
 /**
  * Audit Log configuration

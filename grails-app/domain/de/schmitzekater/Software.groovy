@@ -20,8 +20,8 @@ class Software extends QualifiableObject{
     static belongsTo = [System, Computer]
 
     static constraints = {
-        softwareName blank: false, maxSize: 50
-        softwareVersion blank: false
+        softwareName blank: false, maxSize: 100
+        softwareVersion blank: false, maxSize: 100
         softwareIqOq blank: true, nullable: true
         softwareVendor nullable: true
         system nullable: true

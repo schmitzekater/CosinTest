@@ -10,7 +10,7 @@ class ConnectionType {
     String connection
     static hasMany = [module: Module]
     static constraints = {
-        connection nullable: false, unique: true
+        connection nullable: false, unique: true, size: 3..50
         module nullable: true
     }
 
