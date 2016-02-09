@@ -11,13 +11,45 @@ class UserException extends RuntimeException {
 @Transactional
 class UserService {
 
-
-    def createUser(String uid, String pwd, String sig, Person per) {
-        def user = new User(username: uid, password: pwd, signature: sig, person: per, passwordChangeDate: new Date())
-        if (user.validate() && user.save()) return user
+    /**
+     *
+ * @param username          Username
+     * @param password      Password
+     * @param signature     Signature
+     * @param per           Person for the new user
+     * @return false if user not created, new user if successful
+     */
+    def createUser(String username, String password, String signature, Person per) {
+        def user = new User(username, password, signature, per, new Date())
+        if (!user.validate()){
+            return false
+        }
         else {
-            log.error("Could not create user $uid in UserService")
-            throw new UserException(message: "Ungültiger User", user: user)
+            if(!user.save()){
+                log.error("Could not create user $user in UserService")
+                throw new UserException(message: "Ungültiger User", user: user)
+            }
+            else{
+                return user
+            }
+        }
+    }
+
+    /**
+     *
+     * @param user Existing User
+     * @param rg    Exting RoleGroup
+     * @return N/A
+     */
+    def addUserToGroup(User user, RoleGroup rg){
+            /* Add the new Role */
+            def success = UserRoleGroup.create user, rg, true
+        if(success){
+            log.info("Added ${user.username} to group ${rg.displayString}")
+        }
+        else{
+            log.error("Could not add ${user.username} to group ${rg.getDisplayString()}")
+            throw new UserException(message: "Error addind user to Usergroup", user: user)
         }
     }
 
@@ -52,5 +84,12 @@ class UserService {
         } else {
             log.error("How the hell could $username log in and not be in the database????")
         }
+    }
+
+    def updateUserGroup(User user, RoleGroup roleGroup) {
+        /* Delete User from his old role(s). */
+        UserRoleGroup.removeAll(user, true)
+        /* Add the new Role */
+        UserRoleGroup.create user, roleGroup, true
     }
 }

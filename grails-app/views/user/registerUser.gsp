@@ -21,13 +21,23 @@
 
         <g:form action="register" controller="user">
             <table class="table-striped table-condensed">
-                <fieldset class="form">
+                <f:with bean="userRegistrationCommand">
+                    <f:field property="username"  wrapper="edit/table"/>
+                    <f:field property="password"  wrapper="edit/table/secret"/>
+                    <f:field property="passwordRepeat"  wrapper="edit/table/secret"/>
+                    <f:field property="signature" wrapper="edit/table/secret"/>
+                    <f:field property="signatureRepeat" wrapper="edit/table/secret"/>
+                    <f:field property="firstName" wrapper="edit/table"/>
+                    <f:field property="lastName" wrapper="edit/table"/>
+                    <f:field property="email" wrapper="edit/table"/>
+                </f:with>
+               %{-- <fieldset class="form">
                     <tr>
                         <td class="control-group ${invalid ? 'error' : ''}">
                             <label for="username"><g:message code="user.username.label"/> *</label>
                         </td>
                         <td>
-                            <g:textField name="username" value="${user.username}"/>
+                            <g:textField name="username" value="${user?.username}"/>
                         </td>
                     </tr>
                     <tr>
@@ -85,7 +95,7 @@
                         <td>
                             <g:textField name="email" value="${user?.email}"/>
                         </td>
-                    </tr>
+                    </tr></fieldset>--}%
                     <tr>
                         <td><label for="userRoleGroup"><g:message code="user.roleGroup.label"/></label></td>
                         <td><g:select from="${RoleGroup.findAll()}" optionKey="id" optionValue="displayString"
@@ -101,7 +111,7 @@
                                    title="${message(code: 'default.cancel.button', default: 'Cancel')}"/>
                         </td>
                     </tr>
-                </fieldset>
+
                 </table>
             </g:form>
 

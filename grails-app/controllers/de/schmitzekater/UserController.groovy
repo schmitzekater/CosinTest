@@ -15,6 +15,7 @@ class UserController {
     static defaultAction = "list"
 
     def userService             /** Dependency Injection for the UserService    */
+    def personService           /** Dependency Injection for the PersonService  */
     def passwordEncoder
     transient springSecurityService
 
@@ -33,6 +34,9 @@ class UserController {
         render view: 'editPassword'
     }
 
+    def registerUser(){
+        respond new UserRegistrationCommand()
+    }
     /*
     Method to lock an User
     TODO: Refactor to Service
@@ -275,35 +279,18 @@ class UserController {
     /*
      * Method to create a new User (with existing Person!).
      * @return new User
-     * TODO: Refactor to Service
      */
     def createUser() {
-        log.info("createUser() called")
-        def user
-        def person
-        if(params.person && params.person!='null'){
-            person = Person.findById(params.person)
-        }
-        else {
-            flash.error = 'Person must be selected!'
-            log.error(flash.error)
-            redirect action: 'create', params: params
-        }
-        user = new User(username: params.username, password: params.password, signature: params.signature, person: person)
-        if(user.validate() & user.save()) {
-            def roleGroup = RoleGroup.findById(params.userRoleGroup)
-            if (roleGroup) {
-                /* Add the new Role */
-                UserRoleGroup.create user, roleGroup, true
-            }
+        def person = Person.findById(params.person)
+        def user = userService.createUser(params.username, params.password, params.signature, person)
+        if(user) {
+            def group = RoleGroup.findById(params.userRoleGroup)
+            userService.addUserToGroup(user, group)
             flash.message = message(code: 'default.created.message', args: ['User', user.username])
-            log.info(flash.message)
-
-            redirect action: 'show', id: user.id
+            redirect action: 'detail', id: user.id
         }
         else{
             flash.error = message(code: 'default.not.created.message', args: ['User', user.username])
-            log.error(flash.error)
             respond user.errors, view: 'create'
         }
 
@@ -318,26 +305,23 @@ class UserController {
      */
     def register(UserRegistrationCommand urc) {
         if (urc.hasErrors()) {
-            render view: "register", model: [user: urc]
+            render view: "registerUser", model: [user: urc]
             flash.error = message(code: 'form.errors.entries')
         } else {
-            // create a new User instance
-            def user = new User(urc.properties)
             //create a new Person instance and save it
-            user.person = new Person(urc.properties).save()
-            if (user.person && user.validate() && user.save()) {
+            def person = personService.createPerson(urc.lastName, urc.firstName, urc.email)
+            // create a new User instance
+            def user = userService.createUser(urc.username, urc.password, urc.signature, person)
+            if (user) {
                 /* Find the group that is selected for the user */
                 def roleGroup = RoleGroup.findById(params.userRoleGroup)
-                if (roleGroup) {
-                    /* Create the new Role */
-                    UserRoleGroup.create user, roleGroup, true
-                }
+                userService.addUserToGroup(user, roleGroup)
                 flash.message = message(code: 'default.created.message', args: ['User', user.username])
                 log.info(flash.message)
                 redirect action: "list"
             } else {
-                log.error("User konnt nicht gespeichert werden. Controller User, Action Register")
-                return [user: urc]
+                log.error("User could not be saved")
+                redirect view: 'registerUser', userRegistrationCommand: urc
             }
         }
     }
@@ -363,29 +347,31 @@ class UserController {
     TODO: Refactor to Service!
      */
     def update(User user) {
-        if (user) {
-            def roleGroup = RoleGroup.findById(params.userRoleGroup)
-            if (roleGroup) {
-                /* Delete User from his role(s). */
-                UserRoleGroup.removeAll(user, true)
-                /* Add the new Role */
-                UserRoleGroup.create user, roleGroup, true
-            }
-            def oldUserId = user.username
-            user.properties = params
-            if (user.save()) {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label'), user.username])
-                log.info(flash.message)
-                redirect(action: "detail", id: params['id'])
-            } else {
-                flash.error = message(code: 'error.not.updated.message', args: ['User', oldUserId])
-                log.error(flash.error)
-                redirect(action: "edit", id: params['id'])
-            }
-        } else {
-            //  response.sendError(404)
+        def roleGroup = RoleGroup.findById(params.userRoleGroup)
+        if (roleGroup) {
+            userService.updateUserGroup(user, roleGroup)
         }
+        user.properties = params
+        if (user.save()) {
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label'), user.username])
+            log.info(flash.message)
+            redirect(action: "detail", id: params['id'])
+        } else {
+            flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
+            log.error(flash.error)
+            redirect(action: "edit", id: params['id'])
+        }
+    }
 
+
+
+    def handleUserException(UserException ue){
+        flash.error = ue.message
+        redirect view: '/error', exception: ue
+    }
+    def handlePersonrException(PersonException pe){
+        flash.error = pe.message
+        redirect view: '/error', exception: pe
     }
 }
 /**

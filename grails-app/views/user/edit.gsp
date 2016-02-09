@@ -24,8 +24,8 @@
                     <table class="table-condensed table-striped">
                         <f:with bean="user">
                             <f:field property="username" wrapper="edit/table"/>
-                            <f:field property="password" wrapper="edit/table/secret"/>
-                            <f:field property="signature" wrapper="edit/table/secret"/>
+                           %{-- <f:field property="password" wrapper="edit/table/secret"/>
+                            <f:field property="signature" wrapper="edit/table/secret"/>--}%
                             <tr>
                                 <td><label for="userRoleGroup"><g:message code="user.roleGroup.label"/></label></td>
                                 <td><g:select from="${RoleGroup.findAll()}" optionKey="id" optionValue="displayString"
