@@ -6,14 +6,13 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(QualificationService)
-class QualificationServiceSpec extends Specification {
+@TestFor(SystemRoleService)
+class SystemRoleServiceSpec extends Specification {
 
     def setup() {
     }
 
     def cleanup() {
     }
-
 
 }

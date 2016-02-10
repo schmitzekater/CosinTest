@@ -23,10 +23,10 @@ class PersonServiceSpec extends Specification {
     def "An invalid person is created"() {
         given: "Nothing"
         when: "An invalid user is created"
-        def batman = service.createPerson("Wayne", "Bruce", "batman@gotham.com")
+        def batman = service.createPerson("Wa", "Bruce", "batman@gotham.com")
         then: "An Exception is thrown"
         def ex = thrown(PersonException)
-        ex.message == 'Ung�ltige Person'
+        ex.message == 'Error creating person'
     }
 
 }

@@ -18,6 +18,8 @@ class FileHandleService {
     MultipartFile file
     String originalFilename = ""
 
+    //TODO: Restrict filetypes
+
     /**
      *
      * @param request  : The request that contains the MultipartFile to be uploaded

@@ -1,4 +1,4 @@
-package de
+package de.schmitzekater
 
 import grails.util.TypeConvertingMap
 import grails.web.mapping.UrlMapping
@@ -9,7 +9,7 @@ import org.grails.taglib.encoder.OutputContextLookupHelper
 import org.grails.web.gsp.io.GrailsConventionGroovyPageLocator
 import org.springframework.web.servlet.support.RequestContextUtils
 
-class SchmitzekaterTagLib {
+class CosinTagLib {
     // static defaultEncodeAs = [taglib: 'html']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
     GrailsConventionGroovyPageLocator groovyPageLocator
@@ -39,6 +39,9 @@ class SchmitzekaterTagLib {
         }
     }
 
+    /*
+    Adds a Cancel Button (=history back)
+     */
     def cancelButton = { attrs, body ->
         out << """
             <input class="btn btn-error" type="button" onclick="window.history.back()" value="${
@@ -48,6 +51,10 @@ class SchmitzekaterTagLib {
 
     }
 
+    /*
+    Adds an update and a cancel Button.
+    Yeah, the Methodname is irritating!
+     */
     def addEditCancelButtons = { attrs, body ->
         out << """
          <fieldset class="buttons">
@@ -61,6 +68,10 @@ class SchmitzekaterTagLib {
           </fieldset>
             """
     }
+
+    /*
+    Adds the combination of create and cancel buton
+     */
     def addCreateCancelButtons = { attrs, body ->
         out << """
          <fieldset class="buttons">

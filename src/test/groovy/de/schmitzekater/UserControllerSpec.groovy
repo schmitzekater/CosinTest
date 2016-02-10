@@ -1,5 +1,10 @@
 package de.schmitzekater
 
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugins.rendering.image.GifRenderingService
+import grails.plugins.rendering.image.JpegRenderingService
+import grails.plugins.rendering.image.PngRenderingService
+import grails.plugins.rendering.pdf.PdfRenderingService
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
@@ -10,24 +15,8 @@ import spock.lang.Unroll
  */
 
 @TestFor(UserController)
-@Mock([User, Person])
+@Mock([User, Person, PersonService, SpringSecurityService, PngRenderingService, JpegRenderingService, GifRenderingService, PdfRenderingService])  // No Idea, why these are needed! There is no dependency, howver, test crashes if they are not present. Investigate, if time!
 class UserControllerSpec extends Specification {
-
-    /*def "Change Password is functional"(){
-        *//*
-        From Grails in Action, SE
-         *//*
-        given: "A correct user"
-
-        def peterPerson = new Person(firstName: "Peter", lastName: "Parker", email: "peter@spiderman.com")
-        def peter = new User(username: "peters", password: "geheim", signature: "signature", isReadOnly: false,  lastPasswordChange: new Date(), user: peterPerson)
-
-        when: "Peter tries to change his password"
-        peter.changePassword(peter, peter.getPassword(), "vielgeheimer")
-        then: "Password is changed"
-        peter.password == "vielgeheimer"
-
-    }*/
 
     @Unroll
     def "Registration Command object for #userId validate correctly "() {
@@ -54,9 +43,9 @@ class UserControllerSpec extends Specification {
 
         where:
         userId   | password   | passwordRepeat | signature | signatureRepeat | anticipatedValid | fieldInError      | errorCode
-        "hansal" | "password" | "falsch"       | "Hanssig" | "Hanssig"       | false            | "passwordRepeat"  | "validator.invalid"
-        "hansal" | "password" | "password"     | "Hanssig" | "passtnicht"    | false            | "signatureRepeat" | "validator.invalid"
-        "hans"   | "password" | "password"     | "Hanssig" | "Hanssig"       | false            | "username"          | "size.toosmall"
-        "hansal" | "password" | "password"     | "Hanssig" | "Hanssig"       | true             | null              | null
+        "hansal" | "Password1" | "falsch"       | "Hanssig" | "Hanssig"       | false            | "passwordRepeat"  | "user.rejectPassword.noMatch"
+        "hansal" | "Password1" | "Password1"     | "Hanssig" | "passtnicht"    | false            | "signatureRepeat" | "user.rejectSignature.noMatch"
+        "hans"   | "Password1" | "Password1"     | "Hanssig" | "Hanssig"       | false            | "username"          | "size.toosmall"
+        "hansal" | "Password1" | "Password1"     | "Hanssig" | "Hanssig"       | true             | null              | null
     }
 }

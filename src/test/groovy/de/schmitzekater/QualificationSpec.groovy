@@ -9,7 +9,7 @@ import spock.lang.Specification
  */
 
 @TestFor(Qualification)
-@Mock([Qualification, Module, Software])
+@Mock([Qualification, Module, Software, QualificationType])
 class QualificationSpec extends Specification {
 
     void "Add a qualification to a module and retreive it correctly"(){
@@ -18,21 +18,21 @@ class QualificationSpec extends Specification {
         module.save(failOnError:true)
 
         when: "A new Qualification is added to the module"
-        def qual = new Qualification(qualificationType: 'Qualification', qualificationDate: new Date(114, 10, 5), comment: 'Test-Qualification') // Year = 1900 +year, Month: 0= January, 10=November
+        def qual = new Qualification(qualificationType: new QualificationType(type:'Qualification').save(), qualificationDate: new Date(114, 10, 5), comment: 'Test-Qualification') // Year = 1900 +year, Month: 0= January, 10=November
         qual.save(failOnError: true)
         module.addToQualifications(qual)
 
         then: "The Qualification is saved and can be retrieved from the module"
         Qualification.count == 1
-        def testModule = Module.findById('1')
+        def testModule = Module.findById(1)
         testModule.qualifications.size() == 1
         def testQual =  testModule.qualifications.getAt(0)
-        testQual.module.moduleName == 'Agilent AG1289'
-        testQual.module.getDisplayString() == 'Agilent AG1289 (J17334AC)'
-        testQual.qualificationType == 'Qualification'
+        testQual.qualificationObject instanceof Module
+        testQual.qualificationObject.getDisplayString() == 'Agilent AG1289 (J17334AC)'
+        testQual.qualificationType == QualificationType.findByType('Qualification')
         def testDate =  testQual.qualificationDate
         testDate.format('dd-MMM-yyyy') == "05-Nov-2014"
-        testQual.getDisplayString() == "20141105: Qualification Agilent AG1289 (J17334AC)"
+        testQual.getDisplayString() == "05-Nov-2014: Qualification Agilent AG1289 (J17334AC)"
         testQual.comment == "Test-Qualification"
     }
 
@@ -42,7 +42,7 @@ class QualificationSpec extends Specification {
         software.save(failOnError: true)
 
         when: "A new Qualification is added to the software."
-        def qual = new Qualification(qualificationType: 'Validation', qualificationDate: new Date(115,5,12), comment: "Test-Validation")
+        def qual = new Qualification(qualificationType: new QualificationType(type:  'Validation').save(), qualificationDate: new Date(115,5,12), comment: "Test-Validation")
         qual.save(failOnError: true)
         software.addToQualifications(qual)
 
@@ -51,11 +51,11 @@ class QualificationSpec extends Specification {
         def testSoftware = Software.findBySoftwareName("Analyst")
         testSoftware.qualifications.size() == 1
         def testQual = testSoftware.qualifications.getAt(0)
-        testQual.software.softwareName == "Analyst"
-        testQual.software.getDisplayString() == "Analyst 1.6.2"
-        testQual.qualificationType == "Validation"
+        testQual.qualificationObject instanceof Software
+        testQual.qualificationObject.getDisplayString() == "Analyst 1.6.2"
+        testQual.qualificationType == QualificationType.findByType('Validation')
         testQual.qualificationDate.format('dd-MMM-yyyy')=="12-Jun-2015"
-        testQual.getDisplayString() == "20150612: Validation Analyst 1.6.2"
+        testQual.getDisplayString() == "12-Jun-2015: Validation Analyst 1.6.2"
         testQual.comment =="Test-Validation"
 
     }
