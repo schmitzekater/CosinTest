@@ -31,7 +31,8 @@ class UserController {
     render the view to edit the Password
      */
     def editPassword(){
-        render view: 'editPassword'
+        log.warn("Deprecated method: editPassword()")
+        render view: 'editPassword'  // not used. please verify
     }
 
     def registerUser(){
@@ -39,157 +40,134 @@ class UserController {
     }
     /*
     Method to lock an User
-    TODO: Refactor to Service
      */
-    def lockAccount() {
-        def user = User.get(params.id)
-        if (user) {
-            user.accountLocked = true
-            user.save()
+
+    def lockAccount(User user) {
+        if (userService.lockUser(user)) {
             flash.message = message(code: 'user.accountLocked', args: [user.username])
             log.info(flash.message)
-            redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
             log.error(flash.message)
-            redirect view: '/layouts/list'
         }
+        redirect view: '/layouts/list'
     }
 
     /*
      Method to unlock an User
-    TODO: Refactor to Service
    */
-    def unlockAccount() {
-        def user = User.get(params.id)
-        if (user) {
-            user.accountLocked = false
-            user.save()
+
+    def unlockAccount(User user) {
+        if (userService.unlockUser(user)) {
             flash.message = message(code: 'user.accountUnLocked', args: [user.username])
             log.info(flash.message)
-            redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
             log.error(flash.message)
-            redirect view: '/layouts/list'
         }
+        redirect view: '/layouts/list'
     }
 
     /*
     Method to enable an User
-    TODO: Refactor to Service
    */
-    def enableAccount() {
-        def user = User.get(params.id)
-        if (user) {
-            user.enabled = true
-            user.save()
+
+    def enableAccount(User user) {
+        if (userService.enableUser(user)) {
             flash.message = message(code: 'user.accountLocked', args: [user.username])
             log.info(flash.message)
-            redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
             log.error(flash.message)
-            redirect view: '/layouts/list'
         }
+        redirect view: '/layouts/list'
     }
 
     /*
       Method to disable an User
-      TODO: Refactor to Service
        */
-    def disableAccount() {
-        def user = User.get(params.id)
-        if (user) {
-            user.enabled = false
-            user.save()
+
+    def disableAccount(User user) {
+        if (userService.disableUser(user)) {
             flash.message = message(code: 'user.accountLocked', args: [user.username])
             log.info(flash.message)
-            redirect view: '/layouts/list'
         } else {
             flash.error = message(code: "error.generic.error")
             log.error(flash.message)
-            redirect view: '/layouts/list'
         }
+        redirect view: '/layouts/list'
     }
 
     /*
     Method for the user to edit his password
     Get's the principal from the current logge-in User
-    TODO: Refactor Password-Checking
+    TODO: Refactor Password-Checking - REMOVED. Redirected to "passwordExpired", same functionality.
      */
-    def changeOwnPassword(){
-        User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
+    /* def changeOwnPassword(){
+         User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
 
-        if(user){
-            //Check if old Password is correct
-            //CharSequence oldPw = params.oldPw
-            //if(passwordEncoder.matches( (oldPw, user.password)){ // THIS IS NOT WORKING! matches expects CharSequence and there is always a String passed !!!!!
-                //Check if newPW = newPWRepeat
-            def newPw = params.newPw
-            def newPwRepeat = params.newPwRepeat
-            if(newPw == newPwRepeat){
-                println "Checking if the new password is entered correct twice"
-               /* //If correct check if oldPW != newPW
-                newPw = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(newPw,  user.username) : newPw
-                if(newPw != oldPw) // SEE ABOVE; NOT WORKUNG
-                {*/
-                    println "All good"
-                    // If new Password is not the old password save user
-                    user.password = newPw
-                    user.passwordExpired = false
-                    user.passwordChangeDate = new Date()
-                if (user.validate(password: newPw)) {
-                    user.save()
-                    flash.message = message(code: 'password.updated.message', args: [user.username])
-                    log.info(flash.message)
-                    redirect action: 'list'
-                } else {
-                    flash.error = message(code: "user.password.repeatForbid")
-                    redirect action: 'editPassword'
-                }
+         if(user){
+             //Check if old Password is correct
+             //CharSequence oldPw = params.oldPw
+             //if(passwordEncoder.matches( (oldPw, user.password)){ // THIS IS NOT WORKING! matches expects CharSequence and there is always a String passed !!!!!
+                 //Check if newPW = newPWRepeat
+             def newPw = params.newPw
+             def newPwRepeat = params.newPwRepeat
+             if(newPw == newPwRepeat){
+                 println "Checking if the new password is entered correct twice"
+                *//* //If correct check if oldPW != newPW
+                 newPw = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(newPw,  user.username) : newPw
+                 if(newPw != oldPw) // SEE ABOVE; NOT WORKUNG
+                 {*//*
+                     println "All good"
+                     // If new Password is not the old password save user
+                     user.password = newPw
+                     user.passwordExpired = false
+                     user.passwordChangeDate = new Date()
+                 if (user.validate(password: newPw)) {
+                     user.save()
+                     flash.message = message(code: 'password.updated.message', args: [user.username])
+                     log.info(flash.message)
+                     redirect action: 'list'
+                 } else {
+                     flash.error = message(code: "user.password.repeatForbid")
+                     redirect action: 'editPassword'
+                 }
 
-            }
-                   /* else{
-                        println "Old password used again"
-                        // Old Password used
-                        user.errors.reject('user.password.oldPw', ['oldPw', 'newPw','class User'] as Object, '[Property [{0}] and propertx{1} of class [{2}] shall not be used twice]')
-                        user.errors.rejectValue('newPw', 'user.password.repeatForbid')
-                        user.errors.rejectValue('newPwRepeat', 'user.password.repeatForbid')
-                    }*/
-                //}
-                else{
-                    println "Password was not entered twice correct"
-                    // Password repeat does not match
-                    flash.error = message(code: 'error.password.repeat')
-                log.error(flash.message)
-                    redirect action: 'editPassword'
-                }
-            //}
-            /*else{
-                println "Old password false"
-                // Old Password was false
-                user.errors.reject('user.password.oldPw', 'Old PW false')
-            }*/
-        }
+             }
+                    *//* else{
+                         println "Old password used again"
+                         // Old Password used
+                         user.errors.reject('user.password.oldPw', ['oldPw', 'newPw','class User'] as Object, '[Property [{0}] and propertx{1} of class [{2}] shall not be used twice]')
+                         user.errors.rejectValue('newPw', 'user.password.repeatForbid')
+                         user.errors.rejectValue('newPwRepeat', 'user.password.repeatForbid')
+                     }*//*
+                 //}
+                 else{
+                     println "Password was not entered twice correct"
+                     // Password repeat does not match
+                     flash.error = message(code: 'error.password.repeat')
+                 log.error(flash.message)
+                     redirect action: 'editPassword'
+                 }
+             //}
+             *//*else{
+                 println "Old password false"
+                 // Old Password was false
+                 user.errors.reject('user.password.oldPw', 'Old PW false')
+             }*//*
+         }
 
-    }
+     }*/
     /*
      * This function is used when the admin changes the  password for a user.
      * The password will be set to expired, so that the user has to change it upon logon.
-     * TODO: Refactor to Service!
      */
     def changeUserPassword(User user) {
-        //def user = User.get(params.id)
         if(user){
             if (params.password.equals(params.newPwRepeat)) {
-                user.passwordChangeDate = new Date()
-                user.accountExpired = false
-                user.accountLocked = false
-                user.passwordExpired = true
-                user.enabled = true
-                user.password = params.password
-                if (user.validate() && user.save(failOnError: true)) {
+                def success = userService.changeUserPassword(user, params.password)
+                if (success) {
                     flash.message = message(code: 'password.updated.message', args: [user.username])
                     log.info(flash.message)
                     redirect view: '/layouts/list'
@@ -200,7 +178,6 @@ class UserController {
                 }
             }
             else{
-                //flash.error = message(code: 'user.rejectPassword.noMatch', args:['User', user.username])
                 user.errors.reject('user.rejectPassword.noMatch', 'Password does not match')
                 user.errors.rejectValue('password', 'user.rejectPassword.noMatch')
                 render view: 'editUserPassword', model: [user: user]
@@ -227,7 +204,6 @@ class UserController {
 
     /*
     Method to save the new password
-    TODO: Refactor to Service!
      */
     def updatePassword(String password, String password_new, String password_new_2) {
         String username = session['SPRING_SECURITY_LAST_USERNAME']
@@ -246,7 +222,6 @@ class UserController {
             return
         }
         User user = User.findByUsername(username)
-        println "Got user $user.username"
         if (!passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
             flash.error = 'Current password is incorrect'
             log.error(flash.error)
@@ -261,13 +236,11 @@ class UserController {
                                                             session['SPRING_SECURITY_LAST_USERNAME']]
             return
         }
-        user.password = password_new
-        user.passwordExpired = false
-        user.passwordChangeDate = new Date()
-        if (user.validate() && user.save(failOnError: true)) {
+        def success = userService.updatePassword(user, password_new)
+        if (success) {
             flash.message = message(code: 'password.updated.message', args: [user.username])
             log.info(flash.message)
-            redirect controller: 'login', action: 'auth', model: [username: user.username, user: user]
+            redirect controller: 'login', action: 'auth', model: [username: user.username, password: password_new, user: user]
         } else {
             flash.error = message(code: 'error.not.updated.message', args: ['User', user.username])
             log.error(flash.error)
@@ -300,8 +273,6 @@ class UserController {
      * Method to register a new User and a new Person simultaniously
      * @param urc with params for User and Person
      * @return user
-     * TODO: Create extra view (to avoid errors upon initial load! respond new UserRegistrationCommand)
-     * TODO: Refactor to Service
      */
     def register(UserRegistrationCommand urc) {
         if (urc.hasErrors()) {
@@ -344,7 +315,6 @@ class UserController {
 
     /*
     Method to save an updated User
-    TODO: Refactor to Service!
      */
     def update(User user) {
         def roleGroup = RoleGroup.findById(params.userRoleGroup)
@@ -369,9 +339,16 @@ class UserController {
         flash.error = ue.message
         redirect view: '/error', exception: ue
     }
-    def handlePersonrException(PersonException pe){
+
+    def handlePersonException(PersonException pe) {
         flash.error = pe.message
         redirect view: '/error', exception: pe
+    }
+
+    def handleUserValidationException(UserValidationException uve) {
+        log.error(uve.message)
+        flash.error = uve.message
+        respond uve, [status: 500]
     }
 }
 /**

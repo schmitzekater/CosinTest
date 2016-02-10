@@ -2,10 +2,18 @@ package de.schmitzekater
 
 import grails.transaction.Transactional
 import org.apache.log4j.Logger
+import org.springframework.validation.Errors
+
+import javax.xml.bind.ValidationException
 
 class UserException extends RuntimeException {
     String message
     User user
+}
+
+class UserValidationException extends RuntimeException {
+    String message
+    Errors errors
 }
 
 @Transactional
@@ -92,5 +100,42 @@ class UserService {
         UserRoleGroup.removeAll(user, true)
         /* Add the new Role */
         UserRoleGroup.create user, roleGroup, true
+    }
+
+    def updatePassword(User user, String password_new) {
+        user.password = password_new
+        user.passwordExpired = false
+        user.passwordChangeDate = new Date()
+        return user.save()
+    }
+
+    def changeUserPassword(User user, String password_new) {
+        user.passwordChangeDate = new Date()
+        user.accountExpired = false
+        user.accountLocked = false
+        user.passwordExpired = true
+        user.enabled = true
+        user.password = password_new
+        return user.save()
+    }
+
+    User lockUser(User user) {
+        user.accountLocked = true
+        return user.save()
+    }
+
+    User unlockUser(User user) {
+        user.accountLocked = false
+        return user.save()
+    }
+
+    boolean enableUser(User user) {
+        user.enabled = true
+        return user.save()
+    }
+
+    boolean disableUser(User user) {
+        user.enabled = false
+        return user.save()
     }
 }

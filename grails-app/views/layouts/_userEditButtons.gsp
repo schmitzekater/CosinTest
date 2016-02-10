@@ -1,4 +1,4 @@
-<sec:link action="changeUserPassword" id="${model.id}"
+<sec:link action="editUserPassword" id="${model.id}"
           expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
     <span class="glyphicon glyphicon-edit" style="color:green" aria-hidden="true"
           title='<g:message code="user.change.userPassword"/>'></span>

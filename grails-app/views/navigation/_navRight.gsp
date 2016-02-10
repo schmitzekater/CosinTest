@@ -15,7 +15,7 @@
                     <g:message code="default.user.logout"/></g:link>
             </li>
         <li class="list-group-item">
-            <g:link controller="user" action="editPassword">
+            <g:link controller="user" action="passwordExpired">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true">&nbsp</span>
                 <g:message code="edit.password.label"/>
             </g:link>
