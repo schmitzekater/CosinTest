@@ -22,7 +22,6 @@
             <li class="list-group-item"><a href="#Vendor">Vendors</a></li>
             <li class="list-group-item"><a href="#Qualification">Qualifications</a></li>
             <li class="list-group-item"><a href="#Configuration">Configuration</a></li>
-            <li class="list-group-item"><a href="#systemStatus">System status</a></li>
         </ul>
     </p>
         <a name="System"><h2 id="System"><g:message code="system.label"/></h2></a>

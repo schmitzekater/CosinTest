@@ -20,7 +20,6 @@
             <li class="list-group-item"><a href="#Vendor">Hersteller</a></li>
             <li class="list-group-item"><a href="#Qualification">Qualifizierungen</a></li>
             <li class="list-group-item"><a href="#Configuration">Konfigurationen</a></li>
-            <li class="list-group-item"><a href="#systemStatus">Systemstatus</a></li>
         </ul>
     </p>
     <a name="System"><h2 id="System"><g:message code="system.label"/></h2></a>

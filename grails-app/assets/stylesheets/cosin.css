@@ -1,12 +1,9 @@
-
-/* Pagination fix */
-.paginationButtons .disabled, .pagination .currentStep, .pagination .step {
-    float: left;
-    padding: 0 14px;
-    border-right: 1px solid;
-    line-height: 34px;
-    border-right-color: rgba(0, 0, 0, 0.15);
+.sidebar-outer {
+    position: relative;
 }
-.pagination .prevLink {
-    border-left: 1px solid #DDD !important;
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+    }
 }
