@@ -12,10 +12,10 @@
     <title>COSIN &raquo; COmputerized Software INventory - Configuration<g:layoutTitle default="Welcome"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="${createLinkTo(dir:'images',file:'favicon.ico')}">
-    <asset:javascript src="jquery-2.1.3.js"/>
-    <asset:javascript src="bootstrap-all.js"/>
     <asset:stylesheet src="bootstrap-all.css"/>
     <asset:stylesheet src="font-awesome-all.css"/>
+    <asset:javascript src="jquery-2.1.3.js"/>
+    <asset:javascript src="bootstrap-all.js"/>
     <asset:javascript src="clearInputs.js"/>
     <g:layoutHead/>
 </head>

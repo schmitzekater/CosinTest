@@ -15,11 +15,11 @@
     <%-- Metro Tile on Windows 8+ --%>
     <meta name="msapplication-TileColor" content="#9900ff" />
     <meta name="msapplication-TileImage" content="${createLinkTo(dir:'images',file:'cosine_128.png')}">
-    <asset:javascript src="jquery-2.1.3.js"/>
-    <asset:javascript src="bootstrap-all.js"/>
     <asset:stylesheet src="bootstrap-all.css"/>
     <asset:stylesheet src="font-awesome-all.css"/>
     <asset:stylesheet src="cosin.css"/>
+    <asset:javascript src="jquery-2.1.3.js"/>
+    <asset:javascript src="bootstrap-all.js"/>
     <g:layoutHead/>
 
 </head>
