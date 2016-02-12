@@ -28,7 +28,9 @@
             </f:with>
             %{--Only render the Buttons if on Software-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Software')==0}">
-                <g:render template="/layouts/editInfoButtons" model="[model: software]"/>
+                <td>
+                    <g:render template="/layouts/editInfoButtons" model="[model: software]"/>
+                </td>
             </g:if>
             %{-- Render the remove button if on System controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('System')==0}">

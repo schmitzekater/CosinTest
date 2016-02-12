@@ -16,7 +16,9 @@
                 <f:display property="departmentName" wrapper="list"/>
                 <f:display property="supervisor" wrapper="list/link/person" />
             </f:with>
-           <g:render template="/layouts/editInfoButtons" model="[model: department]"/>
+           <td>
+               <g:render template="/layouts/editInfoButtons" model="[model: department]"/>
+           </td>
         </tr>
     </g:each>
     </tbody>

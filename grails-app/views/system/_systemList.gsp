@@ -47,7 +47,9 @@
                 </td>
             </f:with>
            <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
-               <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
+               <td>
+                   <g:render template="/layouts/editInfoButtons" model="[model: system]"/>
+               </td>
            </g:if>
         </tr>
     </g:each>

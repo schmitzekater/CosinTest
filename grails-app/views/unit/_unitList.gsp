@@ -6,9 +6,7 @@
         <g:sortableColumn property="unitName" title="${message(code: 'unit.unitName.label', default: 'Name')}"/>
         <g:sortableColumn property="system" title="${message(code:'system.label', default: 'System')}"/>
         <th><a href="#"><g:message code="module.count.label"/></a></th>
-        <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
-            <th><a href="#"><g:message code='action.label'/></a></th>
-        </g:if>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -22,7 +20,9 @@
             </f:with>
             %{--Only render the Buttons if on Unit-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Unit')==0}">
-                <g:render template="/layouts/editInfoButtons" model="[model: unit]" />
+                <td>
+                    <g:render template="/layouts/editInfoButtons" model="[model: unit]"/>
+                </td>
             </g:if>
             %{-- Render the remove button if on System controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('System')==0}">

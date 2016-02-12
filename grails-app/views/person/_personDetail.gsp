@@ -1,14 +1,10 @@
-<table class="table table-striped">
-   <tbody>
-        <f:with bean="person">
-            <f:display property="lastName"/>
-            <f:display property="firstName"/>
-            <f:display property="email"/>
-            <f:display property="user"/>
-        </f:with>
+<f:with bean="person">
+    <f:display property="lastName"/>
+    <f:display property="firstName"/>
+    <f:display property="email"/>
+    <f:display property="user"/>
+</f:with>
 
-   </tbody>
-</table>
 <sec:link action="edit" class="btn btn-primary" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"
           id="${person.id}" title="${message(code: "edit.person")}" controller="person">
     <g:message code='default.button.edit.label' default='Edit'/>

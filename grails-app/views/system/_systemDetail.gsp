@@ -11,19 +11,15 @@
   - list of Computer (/computer/_computerList.gsp)
    - list of Software (/software/_softwareList.gsp)
 --%>
-<table class="table table-striped">
-    <tbody>
-        <f:with bean="system">
-            <f:display property="systemName" wrapper="detail"/>
-            <f:display property="systemDepartment" wrapper="detail/link/department"/>
-            <f:display property="systemOwner" wrapper="detail/link/person"/>
-            <f:display property="processOwner" wrapper="detail/link/person"/>
-            <f:display property="area" wrapper="detail"/>
-            <f:display property="systemDataCategory" wrapper="detail"/>
-            <f:display property="dataFlow" wrapper="detail/link/file"/>
-        </f:with>
-    </tbody>
-</table>
+<f:with bean="system">
+    <f:display property="systemName" wrapper="detail"/>
+    <f:display property="systemDepartment" wrapper="detail/link/department"/>
+    <f:display property="systemOwner" wrapper="detail/link/person"/>
+    <f:display property="processOwner" wrapper="detail/link/person"/>
+    <f:display property="area" wrapper="detail"/>
+    <f:display property="systemDataCategory" wrapper="detail"/>
+    <f:display property="dataFlow" wrapper="detail/link/file"/>
+</f:with>
 
 <g:if test="${!system.isActive}">
     <div class="alert alert-danger">

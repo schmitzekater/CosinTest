@@ -22,13 +22,13 @@
                         <td><label for="userRoleGroup"><g:message code="user.roleGroup.label"/></label></td>
                         <td><g:select from="${RoleGroup.findAll()}" optionKey="id" optionValue="displayString"
                                       noSelection="${['null': '<N/A>']}"
-                                      name="userRoleGroup" multiple="false"/></td>
+                                      name="userRoleGroup"/></td>
                     </tr>
                 </f:with>
             </table>
         </fieldset>
         <fieldset class="buttons">
-            <input class="btn btn-primary" action="createUser" type="submit"
+            <input class="btn btn-primary" type="submit"
                    value="${message(code: 'default.button.create.label', default: 'Create')}"/>
             <input class="btn btn-danger" type="button" onclick="window.history.back()"
                    value="${message(code: 'default.cancel.button', default: 'Cancel')}"

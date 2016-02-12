@@ -58,7 +58,7 @@ class CosinTagLib {
     def addEditCancelButtons = { attrs, body ->
         out << """
          <fieldset class="buttons">
-            <input class="btn btn-success" action="update" type="submit"
+            <input class="btn btn-success" type="submit"
                    value="${message(code: 'default.button.update.label', default: 'Update')}" title="${
             message(code: 'default.button.update.label', default: 'Update')
         }"/>
@@ -75,7 +75,7 @@ class CosinTagLib {
     def addCreateCancelButtons = { attrs, body ->
         out << """
          <fieldset class="buttons">
-             <input class="btn btn-primary" action="create" type="submit"
+             <input class="btn btn-primary" type="submit"
                    value="${message(code: 'default.button.create.label', default: 'Create')}" title="${
             message(code: 'default.button.create.label', default: 'Create')
         }"/>

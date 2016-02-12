@@ -9,7 +9,7 @@
             </li>
             <li class="${actionName == 'disclaimer' ? 'active' : ''}">
                 <g:link controller="common" action="disclaimer">
-                    <g:message code="disclaimer.label"/> </a>
+                    <g:message code="disclaimer.label"/>
                 </g:link>
             </li>
             <li role="presentation" class="disabled">

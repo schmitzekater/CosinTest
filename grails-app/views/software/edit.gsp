@@ -5,7 +5,7 @@
   Time: 21:43
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.Qualification" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -32,7 +32,7 @@
         </g:form>
         <sec:access expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE')">
             <hr/>
-            <g:render template="/layouts/addQualification"/>
+            <g:render template="/layouts/addQualification" model="[qualification: new Qualification()]"/>
         </sec:access>
     </div>
 </body>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -53,7 +53,7 @@
                     <a href="${createLink(uri: '/config/index')}"><g:message code="default.config.label"/></a>
                 </li>
                 <li>
-                    <a href="/"><g:img file="cosine_24.png"/></a>
+                    <a href="/"><g:img file="cosine_24.png" alt="Cosin Logo" width="24" height="24"/></a>
                 </li>
             </ul>
 

@@ -5,7 +5,7 @@
     <title><g:message code="auditTrail.label"/></title>
 </head>
 
-<body role="document">
+
     <div class="container-fluid">
         <g:render template="/layouts/addPaginateButtons"/>
         <div class="row-fluid">
@@ -92,12 +92,12 @@
                             <f:display property="newValue" wrapper="list/auditTrailEvent"/>
                         </g:else>
                     </f:with>
-                    <g:render template="/layouts/editInfoButtons" model="[model: auditLogEvent]"/>
+                    <td>
+                        <g:render template="/layouts/editInfoButtons" model="[model: auditLogEvent]"/>
+                    </td>
                 </tr>
             </g:each>
             </tbody>
         </table>
     </div>
 <g:render template="/layouts/addPaginateButtons"/>
-</body>
-</html>

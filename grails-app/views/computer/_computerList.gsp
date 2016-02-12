@@ -16,7 +16,7 @@
                 <a href="#">${message(code: 'computer.computerRole.label', default: 'Role')}</a>
             </th>
         </g:else>
-        <th/>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -36,13 +36,13 @@
                    <g:render template="/computer/computerRolesList" model="${roles=computer.getSystemRoles()}"/>
                </g:else>
             </f:with>
+            <td>
             %{--Only render the Buttons if on Computer-Controller--}%
             <g:if test="${controllerName.compareToIgnoreCase('Computer')==0}">
                 <g:render template="/layouts/editInfoButtons" model="[model: computer]"/>
             </g:if>
             %{-- Render the remove button if on System controller --}%
             <g:if test="${controllerName.compareToIgnoreCase('System')==0}">
-                <td>
                 <g:link action="detail" id="${computer.id}" controller="computer">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title='<g:message
                             code="info.computer"/>'></span>
@@ -52,8 +52,8 @@
                     <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" style="color:red" title='<g:message
                         code="system.remove.computer"/>'>&nbsp;</span>
                 </sec:link>
-                </td>
             </g:if>
+            </td>
         </tr>
     </g:each>
     </tbody>

@@ -1,13 +1,9 @@
 <%@ page import="de.schmitzekater.*" %>
 
-<table class="table table-striped">
-    <tbody>
-    <f:with bean="unit">
-        <f:display property="unitName" wrapper="detail"/>
-        <f:display property="system" wrapper="detail/link/system"/>
-    </f:with>
-    </tbody>
-</table>
+<f:with bean="unit">
+    <f:display property="unitName" wrapper="detail"/>
+    <f:display property="system" wrapper="detail/link/system"/>
+</f:with>
 <g:if test="${unit.modules != null}">
     <h3><g:message code="module.moduleList.label"/></h3>
     <g:render template="/module/moduleList" model="[model: unit.modules]"/>

@@ -31,6 +31,9 @@ class ModuleController {
     Method to add a new Qualification to a Module.
      */
     def addQualification(Module module) {
+        params.each { k, v ->
+            log.info("Key $k, Value $v")
+        }
         if(!module){
             flash.error = message(code: 'module.isEmpty')
             log.error(flash.error)

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>COSIN &raquo COmputerized Software INventory<g:layoutTitle default="Welcome"/></title>
+        <title>COSIN &raquo; COmputerized Software INventory<g:layoutTitle default="Welcome"/></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/x-icon" href="${createLinkTo(dir:'images',file:'favicon.ico')}">
         <asset:javascript src="jquery-2.1.3.js"/>

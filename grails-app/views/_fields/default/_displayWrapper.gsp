@@ -1,7 +1,7 @@
 <%@ page defaultCodec="html" %>
-<tr class="row-fluid">
-    <td><label for="${property}">${label}</label></td>
-    <td>${value}</td>
-</tr>
+<dl>
+    <dt>${label}</dt>
+    <dd>${value}</dd>
+</dl>
 
 

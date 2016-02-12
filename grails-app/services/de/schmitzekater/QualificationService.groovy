@@ -31,7 +31,7 @@ class QualificationService {
             attachmentFile = fileHandleService.uploadQualificationFile(request, qualificationObject, qualificationDate)
         }
         // Create a new Qualification
-        def qual = new Qualification(qualificationDate: qualificationDate, qualificationType: QualificationType.findByType(qualificationType),
+        def qual = new Qualification(qualificationDate: qualificationDate, qualificationType: QualificationType.findById(qualificationType),
                 qualificationObject: qualificationObject, comment: comment, attachment: attachmentFile)
         if (qual.validate()&&qual.save()) return qual
         else throw new QualificationException(message: 'Qualification Error', qualification: qual, qualifiableObject: qualificationObject)

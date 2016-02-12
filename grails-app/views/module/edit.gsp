@@ -5,7 +5,7 @@
   Time: 21:43
 --%>
 
-<%@ page import="de.schmitzekater.Qualification" contentType="text/html;charset=UTF-8" %>
+<%@ page import="de.schmitzekater.QualificationType; de.schmitzekater.Qualification" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -36,6 +36,6 @@
         </fieldset>
         <cos:addEditCancelButtons/>
     </g:form>
-<g:render template="/layouts/addQualification" model="[qualification: new de.schmitzekater.Qualification()]"/>
+<g:render template="/layouts/addQualification" model="[qualification: new Qualification()]"/>
 </body>
 </html>

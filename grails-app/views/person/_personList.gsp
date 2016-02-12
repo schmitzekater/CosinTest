@@ -19,7 +19,9 @@
                 <f:display property="email" wrapper="list"/>
                 <f:display property="user" wrapper="list/link/user"/>
             </f:with>
-            <g:render template="/layouts/editInfoButtons" model="[model: person]" />
+            <td>
+                <g:render template="/layouts/editInfoButtons" model="[model: person]"/>
+            </td>
         </tr>
     </g:each>
     </tbody>

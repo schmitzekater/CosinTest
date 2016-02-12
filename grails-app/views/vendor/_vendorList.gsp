@@ -21,9 +21,9 @@
                 <f:display property="emailOne" wrapper="list/link/mail"/>
                 <f:display property="address" wrapper="list/address"/>
             </f:with>
-
-            <g:render template="/layouts/editInfoButtons" model="[model: vendor]" />
-
+            <td>
+                <g:render template="/layouts/editInfoButtons" model="[model: vendor]"/>
+            </td>
         </tr>
     </g:each>
     </tbody>

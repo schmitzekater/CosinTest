@@ -1,0 +1,1 @@
+<g:textArea name="${property}" rows="10" cols="36"/>

@@ -35,7 +35,7 @@ class SystemService {
             }
             // Set the new dataflow File
             system.setDataFlow(dataFlow)
-            if (system.save(failOnError: true)) {
+            if (system.save()) {
                 return dataFlow.name
             }
         }
@@ -55,7 +55,7 @@ class SystemService {
         // Date is not accepted otherwise. Solution: http://stackoverflow.com/questions/14847441/grails-date-is-being-accepted-as-string    Strange....
         system.setIsActive(false)
         system.retirementDate = date
-        return (system.save(failOnError: true))
+        return (system.save())
     }
 
     /**
@@ -118,7 +118,7 @@ class SystemService {
                 log.info("Added ${person.getDisplayString()} as ProcessOwner to System ${system.getDisplayString()}")
             }
         }
-        return system.save(failOnError: true)
+        return system.save()
     }
 
 }

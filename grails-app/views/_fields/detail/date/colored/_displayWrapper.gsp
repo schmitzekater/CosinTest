@@ -1,6 +1,7 @@
 <%@ page defaultCodec="html;charset=UTF-8" %>
 %{--<!-- template: _fields/detail/date/colored/_displayWrapper.gsp -->--}%
-<dt>${label}
+<dl>
+    <dt>${label}</dt>
 <dd>
     <g:if test="${value}">
         <g:if test="${value<new Date()}">
@@ -20,6 +21,5 @@
     --
     </g:else>
 </dd>
-</dt>
-
+</dl>
 

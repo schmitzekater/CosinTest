@@ -11,12 +11,12 @@
             </li>
             <li class="list-group-item">
                 <g:link controller="logout">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true">&nbsp</span>
+                    <span class="glyphicon glyphicon-off" aria-hidden="true">&nbsp;</span>
                     <g:message code="default.user.logout"/></g:link>
             </li>
         <li class="list-group-item">
             <g:link controller="user" action="passwordExpired">
-                <span class="glyphicon glyphicon-eye-open" aria-hidden="true">&nbsp</span>
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true">&nbsp;</span>
                 <g:message code="edit.password.label"/>
             </g:link>
         </li>
@@ -42,19 +42,19 @@
             <li>
                 <g:link controller="config" action="setLanguage"
                         params="[lang: 'de', targetUri: (request.forwardURI - request.contextPath)]">
-                    <g:img dir="images" file="de.png"/>
+                    <g:img dir="images" file="de.png" alt="De" width="16" height="11"/>
                 </g:link>
             </li>
             <li>
                 <g:link controller="config" action="setLanguage"
                         params="[lang: 'en', targetUri: (request.forwardURI - request.contextPath)]">
-                    <g:img dir="images" file="gb.png"/>
+                    <g:img dir="images" file="gb.png" alt="En" width="16" height="11"/>
                 </g:link>
             </li>
             <li>
                 <g:link controller="config" action="setLanguage"
                         params="[lang: 'fr', targetUri: (request.forwardURI - request.contextPath)]">
-                    <g:img dir="images" file="fr.png"/>
+                    <g:img dir="images" file="fr.png" alt="Fr" width="16" height="11"/>
                 </g:link>
             </li>
         </ul>

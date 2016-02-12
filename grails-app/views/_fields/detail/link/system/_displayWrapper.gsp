@@ -1,7 +1,8 @@
 <!-- template: _fields/detail/link/system/_displayWrapper.gsp -->
 <%@ page contentType="text/html;charset=UTF-8" %>
-<dt>${label}
 <dl>
+    <dt>${label}</dt>
+    <dd>
     <g:if test="${value}">
         <g:each var="system" in="${value}">
             <g:link controller="system" action="detail" id="${system.id}">
@@ -13,5 +14,5 @@
     <g:else>
         --
     </g:else>
+    </dd>
 </dl>
-</dt>

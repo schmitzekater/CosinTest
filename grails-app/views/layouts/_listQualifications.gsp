@@ -1,10 +1,12 @@
 
 <table class="table-condensed table-responsive">
     <thead>
+    <tr>
         <th><g:message code="qualification.qualificationDate.label"/></th>
         <th><g:message code="qualification.qualificationType.label"/></th>
         <th><g:message code="qualification.comment.label"/></th>
         <th><g:message code="qualification.qualificationAttachment.label"/></th>
+    </tr>
     </thead>
     <tbody>
     <g:each var="qualification" in="${model}">

@@ -36,9 +36,10 @@
 <g:form id="${system.id}" controller="system" action="retire">
     <fieldset>
         <div class="control-group ${invalid ? 'error' : ''}">
-            <label for="retirementDate"><g:message code="retirementDate.label"/></label>
+            <g:message code="retirementDate.label"/>
         </div>
-        <div class="control-box">
+
+        <div class="control control-box">
 
             <span class="btn btn-default"><input type="text" name="retirementDate" id="datepicker"></span>
 

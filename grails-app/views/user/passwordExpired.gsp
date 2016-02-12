@@ -17,17 +17,16 @@
       <div class='panel panel-info'>
 
       <div class='panel panel-heading'>Please update your password..</div>
-     
-    <table class="table">
         <g:form action='updatePassword' id='passwordResetForm' class='cssform'
                 autocomplete='off'>
-            <tr>
-                <td><label for='username'><g:message code='user.username.label'/></label></td>
+            <table class="table">
+                <tr>
+                    <td class="control-group"><g:message code='user.username.label'/></td>
                 <td><span class='text_'>${username}</span></td>
             </tr>
             <tr>
-                <td><label for='password'><g:message code='user.password.label'/></label></td>
-                <td>
+                <td class="control-group"><label for='password'><g:message code='user.password.label'/></label></td>
+                <td class="control">
                     <g:passwordField name='password' class='text_'/>
                     <g:hasErrors bean="user" field="password"><span class="help-inline"><g:eachError><g:message
                             error="${it}"/><br></g:eachError></span></g:hasErrors>
@@ -52,10 +51,8 @@
             <tr>
                 <td colspan="2"><input class="btn btn-info" type='submit' value='Reset'/></td>
             </tr>
+            </table>
         </g:form>
-    </table>
-
-     
      </div>
 </div>
 </body>

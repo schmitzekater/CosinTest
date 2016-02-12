@@ -17,9 +17,8 @@
 <body role="document">
 <div id="edit-${controllerName}" role="main">
     <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
-    <g:form controller="System" action="update" method="PUT">
+    <g:form controller="System" action="update" method="PUT" id="${system.id}">
         <g:hiddenField name="version" value="${system.version}"/>
-        <g:hiddenField name="id" value="${system.id}"/>
         <fieldset class="form">
             <table class="table-condensed table-striped">
                 <f:with bean="system">

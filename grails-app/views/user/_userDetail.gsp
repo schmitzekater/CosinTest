@@ -4,17 +4,12 @@
   Date: 15.11.2015
   Time: 19:38
 --%>
-
-<table class="table table-striped">
-    <tbody>
-        <f:with bean="user">
-            <f:display property="username" wrapper="detail"/>
-            <f:display property="signature" wrapper="detail/secret"/>
-            <f:display property="person" wrapper="detail/link/person"/>
-            <g:render template="/user/userRoleGroup" model="${user}"/>
-        </f:with>
-    </tbody>
-</table>
+<f:with bean="user">
+    <f:display property="username" wrapper="detail"/>
+    <f:display property="signature" wrapper="detail/secret"/>
+    <f:display property="person" wrapper="detail/link/person"/>
+    <g:render template="/user/userRoleGroup" model="${user}"/>
+</f:with>
 <sec:link action="edit" class="btn btn-primary" expression="hasRole('ROLE_DELETE')"
           id="${user.id}" title="${message(code: "edit.user")}" controller="user">
     <g:message code='default.button.edit.label' default='Edit'/>
