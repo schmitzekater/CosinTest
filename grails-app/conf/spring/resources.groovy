@@ -4,6 +4,7 @@ import de.schmitzekater.CosinUserDetailsService
 import de.schmitzekater.UserService
 
 beans = {
+    // Bean to listen to security Events
     cosinSecurityEventListener(de.schmitzekater.CosinSecurityEventListener) {
         userService = ref('userService')
     }
