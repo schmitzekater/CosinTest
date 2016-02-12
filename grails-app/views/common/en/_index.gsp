@@ -4,14 +4,13 @@
   Date: 28.01.2016
   Time: 23:11
 --%>
-<html>
-<body>
 <div>
     <div>
-        <p>
+        <div>
             Cosin is an application to handle Computerized System within the area of Pharmaceutics.
-        </p>
-        <p>
+        </div>
+
+        <div>
             To achieve this goal, a variety of Elements can be administered. The following objects can be handled.
         <ul class="list-group">
             <li class="list-group-item"><a href="#System">Systems</a></li>
@@ -23,50 +22,58 @@
             <li class="list-group-item"><a href="#Qualification">Qualifications</a></li>
             <li class="list-group-item"><a href="#Configuration">Configuration</a></li>
         </ul>
-    </p>
-        <a name="System"><h2 id="System"><g:message code="system.label"/></h2></a>
-        <p>
+        </div>
+        <a id="System"><h2><g:message code="system.label"/></h2></a>
+
+        <div>
             Descritption for systems.
             We need a lot of info here!
             <cos:infoText>Example of an informational text.</cos:infoText>
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Unit"><h2 id="Unit"><g:message code="unit.label"/></h2></a>
-        <p>
+        <a id="Unit"><h2><g:message code="unit.label"/></h2></a>
+
+        <div>
             Units are a collection of Modules building an entity. An unit can consist of one or more modules.
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Module"><h2 id="Module"><g:message code="module.label"/></h2></a>
-        <p>
+        <a id="Module"><h2><g:message code="module.label"/></h2></a>
+
+        <div>
             A module is the smallest part of an unit. Each module can only be assigned to one Unit. A module cannot be assigned to a system without an unit.
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Software"><h2 id="Software"><g:message code="software.label"/></h2></a>
-        <p>
+        <a id="Software"><h2><g:message code="software.label"/></h2></a>
+
+        <div>
             A software might be installed to one ore more computers. Each computer can have installations of multiple different softwares.
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Computer"><h2 id="Computer"><g:message code="computer.label"/> </h2></a>
-        <p>
+        <a id="Computer"><h2><g:message code="computer.label"/></h2></a>
+
+        <div>
            Each Computer can have multiple roles within a system, and can have different roles in others system.
             <cos:successText>Successful message.</cos:successText>
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Vendor"><h2 id="Vendor"><g:message code="vendor.label"/></h2></a>
-        <p>
+        <a id="Vendor"><h2><g:message code="vendor.label"/></h2></a>
+
+        <div>
            The class vendor serves as contact to the vendor for softwre or modules.
             <cos:errorText>This is an error message.</cos:errorText>
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Qualification"><h2 id="Qualification"><g:message code="qualification.label"/> </h2></a>
-        <p>
+        <a id="Qualification"><h2><g:message code="qualification.label"/></h2></a>
+
+        <div>
             Each Qualification is of a specifici Qualification Type. Those types can be configured in the configuration.
             <cos:alertText>Bthe qualification type 'Calibration' must never be deleted. Otherwise the appointment for the
             next Calibration cannot be calculated anymore.!</cos:alertText>
-        </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
-        <a name="Configuration"><h2 id="Configuration">Konfiguration</h2></a>
-        <p>
+        <a id="Configuration"><h2>Konfiguration</h2></a>
+
+        <div>
             The following types can be configured within the application.
         <ul class="list-group">
             <li class="list-group-item">Data Category</li>
@@ -75,9 +82,7 @@
             <li class="list-group-item">Connection Type</li>
             <li class="list-group-item">Computer Role</li>
         </ul>
-    </p>
+        </div>
         <cos:linkTo anchor="#top" value="To top"/>
     </div>
 </div>
-</body>
-</html>

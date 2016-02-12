@@ -23,8 +23,10 @@
             <hr/>
             <p><strong>Alexander Schmitz</strong><br />
                     Nelly-Sachs-Straße 6<br />89134 Blaustein</p>
-            <p><span class="glyphicon glyphicon-earphone"/> 0731 / xxx<br />
-                    <span class="glyphicon glyphicon-envelope"/> <a href="mailto:alexanderschmitz76@gmail.com">alexanderschmitz76@gmail.com</a><br />
+
+        <p><span class="glyphicon glyphicon-earphone"></span> 0731 / xxx<br/>
+            <span class="glyphicon glyphicon-envelope"></span> <a
+                href="mailto:alexanderschmitz76@gmail.com">alexanderschmitz76@gmail.com</a><br/>
             </p>
             <p>Source: <a href="http://www.juraforum.de/impressum-generator/">Juraforum Impressum Generator</a></p><br />
 

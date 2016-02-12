@@ -17,7 +17,7 @@
             <li>${mt.toString()}
                 <sec:link action="editModuleType" id="${mt.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
                     <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
-                        code="edit.moduleType"/>'>
+                            code="edit.moduleType"/>'></span>
                 </sec:link>
             </li>
         </g:each>

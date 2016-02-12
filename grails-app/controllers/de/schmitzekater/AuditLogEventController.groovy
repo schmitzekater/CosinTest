@@ -57,7 +57,8 @@ class AuditLogEventController {
             between("dateCreated", dateFrom, dateUntil.plus(1))
             order (sortBy, orderBy)
         }
-        render view: "/layouts/list", model: [model: auditLogList, count: auditLogList.getTotalCount()]
+        model:
+        [model: auditLogList, count: auditLogList.getTotalCount()]
     }
 
     def show() {

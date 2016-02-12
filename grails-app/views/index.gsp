@@ -8,31 +8,27 @@
         <g:set var="${session.language = 'de'}"/>
     </g:if>
 </head>
-
 <body role="document">
 <div class="container"><!-- Container for all content -->
     <div class="well-sm">
         <g:render
                 template="/layouts/messagesTop"/>                                  <!-- Top of page for messages / errors -->
     </div>
-
     <div class="row"><!-- First Row -->
-
         <div class="col-md-2">
             <g:render template="/navigation/navRight"/>
-
         </div>
 
-        <div id="home" class="col-md-10" role="home">
+        <div id="home" class="col-md-10">
             <div class="row-fluid">
                 <div class="col-lg-8 col-md-8">
-                    <h1 id="top"><a name="#top"><g:message code="index.welcome.message"/></a></h1>
+                    <h1 id="top"><a id="#top"><g:message code="index.welcome.message"/></a></h1>
                     <g:if test="${session.language == 'de'}">
                         <g:render template="/common/de/index"/>
                     </g:if>
-                    <g:if test="${session.language == 'en'}">
+                    <g:elseif test="${session.language == 'en'}">
                         <g:render template="/common/en/index"/>
-                    </g:if>
+                    </g:elseif>
                     <g:else>
                     <%-- Fallback --%>
                         <g:render template="/common/en/index"/>
@@ -42,7 +38,6 @@
                 <div class="col-lg-4 col-md-4 sidebar-outer" align="center">
                     <div class="sidebar">
                         <div class="well"><a><h2 id="systemStatus"><g:message code="system.status"/></h2></a>
-
                             <div class="row-fluid">
                                 <div class="btn-group btn-group-vertical" role=group
                                      aria-label="Justified button group">
@@ -116,17 +111,28 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="well">
-                                <g:img file="cosine_64.png"/><br/>
+                        </div>
+                        <%-- Hovereffect by http://miketricking.github.io/dist/ --%>
+                        <div class="well">
+                            <div class="hovereffect">
+                                <g:img class="img-responsive" file="cosine_64.png" width="64" height="64"
+                                       alt="Cosin-Logo"/>
+                                <div class="overlay">
+                                    <h4>
+                                        <span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;
+                                        <a href="http://www.icons8.com/" target="_blank">Cosine Icon by Icons8</a>
+                                    </h4>
+                                </div>
                             </div>
                             <span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;
-                            <a href="mailto:alexanderschmitz76@gmail.com">schmitzekater 2016</a>
+                            <a href="mailto:alexanderschmitz76@gmail.com">schmitzekater 2016</a><br/>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>                                                                          <!-- end row -->
     </div>
+</div>
 </body>
 </html>

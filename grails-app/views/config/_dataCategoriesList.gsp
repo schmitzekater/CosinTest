@@ -17,7 +17,7 @@
             <li>${dc.toString()}
                 <sec:link action="editDataCategory" id="${dc.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
                 <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
-                        code="edit.dataCategory"/>'>
+                        code="edit.dataCategory"/>'></span>
                  </sec:link>
             </li>
         </g:each>

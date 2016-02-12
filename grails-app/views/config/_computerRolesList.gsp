@@ -17,7 +17,7 @@
             <li>${cr.toString()}
                 <sec:link action="editComputerRole" id="${cr.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
                     <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
-                        code="edit.computerRole"/>'>
+                            code="edit.computerRole"/>'></span>
                 </sec:link>
             </li>
         </g:each>

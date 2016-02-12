@@ -1,4 +1,3 @@
-
 <table class="table-condensed table-responsive">
     <thead>
     <tr>

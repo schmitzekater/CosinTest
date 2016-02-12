@@ -4,7 +4,7 @@
         <g:textField name="type" id="QualificationType" value="QualificationType"/>
         <g:submitToRemote value="+" url="[action: 'addQualificationType']" update="qualificationTypes"
                           onLoading="showSpinner(true)" onComplete="showSpinner(false);refresh()" onFailure=""/>
-        <g:img id="spinner" style="display: none" dir="images" file="spinner.gif"/>
+        <g:img id="spinner" style="display: none" dir="images" file="spinner.gif" alt="spinner"/>
         <g:if test="${flash.error}">
             <div class="messages error-message"> <label class="label label-danger">${flash.error}</label></div>
         </g:if>
@@ -18,7 +18,7 @@
             <li>${qt.toString()}
                 <sec:link action="editQualificationType" id="${qt.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
                     <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
-                        code="edit.qualificationType"/>'>
+                            code="edit.qualificationType"/>'></span>
                 </sec:link>
             </li>
         </g:each>

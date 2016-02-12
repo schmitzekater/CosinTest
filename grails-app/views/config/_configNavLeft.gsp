@@ -23,7 +23,7 @@
         </li>
         <li class="list-group-item">
             <a class="home" href="/">
-                <span class="glyphicon glyphicon-home" aria-hidden="true">&nbsp</span><g:message
+                <span class="glyphicon glyphicon-home" aria-hidden="true">&nbsp;</span><g:message
                     code="default.home.label"/>
             </a>
         </li>
