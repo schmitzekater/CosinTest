@@ -74,8 +74,7 @@ class BootStrap {
                     if (!Unit.count()) createUnits()
                     if (!DataCategory.count()) createDataCategories()
                     if (!ConnectionType.count()) createConnectionTypes()
-                    createBindings()
-
+                    if (!SystemRole.count()) createBindings()
             }
         }
     }

@@ -72,7 +72,8 @@ if (Environment.current == Environment.DEVELOPMENT) {   // Behavior for running 
         logger 'grails.app.services.grails.plugin.formfields.FormFieldsTemplateService', WARN, ['STDOUT']
         logger 'grails.plugins.orm.auditable.AuditLogListener', WARN, ['STDOUT']
     }
-} else if (Environment.current == Environment.PRODUCTION) {     // Behaviour for running in production mode
+}
+    else if (Environment.current == Environment.TEST) {     // Behaviour for running in production mode
     root(ERROR, ['STDOUT'])
     def targetDir = BuildSettings.TARGET_DIR
     if (targetDir) {
@@ -85,10 +86,27 @@ if (Environment.current == Environment.DEVELOPMENT) {   // Behavior for running 
         }
         logger "StackTrace", ERROR, ['FULL_STACKTRACE'], false
         //see http://logback.qos.ch/manual/groovy.html for more info
-        logger 'org.springframework.boot.autoconfigure.security', INFO
-        logger 'grails.app.controllers', INFO, ['STDOUT']
-        logger 'grails.app.services', INFO, ['STDOUT']
-        logger 'grails.app.services.grails.plugin.formfields.FormFieldsTemplateService', WARN, ['STDOUT']
-        logger 'grails.plugins.orm.auditable.AuditLogListener', WARN, ['STDOUT']
+        logger 'org.springframework.boot.autoconfigure.security', DEBUG
+        logger 'grails.app.controllers', DEBUG, ['STDOUT']
+        logger 'grails.app.services', DEBUG, ['STDOUT']
+        logger 'grails.app.services.grails.plugin.formfields.FormFieldsTemplateService', DEBUG, ['STDOUT']
+        logger 'grails.plugins.orm.auditable.AuditLogListener', DEBUG, ['STDOUT']
+    }
+}
+    else if (Environment.current == Environment.PRODUCTION) {     // Behaviour for running in production mode
+    root(ERROR, ['STDOUT'])
+    def targetDir = BuildSettings.TARGET_DIR
+    if (targetDir) {
+        appender("FULL_STACKTRACE", FileAppender) {
+            file = "${targetDir}/stacktrace.log"
+            append = true
+            encoder(PatternLayoutEncoder) {
+                pattern = "%level %logger - %msg%n"
+            }
+        }
+        logger "StackTrace", ERROR, ['FULL_STACKTRACE'], false
+        logger 'grails.app.controllers', ERROR, ['STDOUT']
+        logger 'grails.app.services', ERROR, ['STDOUT']
+        logger 'grails.plugins.orm.auditable.AuditLogListener', ERROR, ['STDOUT']
     }
 }
