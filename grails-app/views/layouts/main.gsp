@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>COSIN &raquo; COmputerized Software INventory<g:layoutTitle default="Welcome"/></title>
+        <title>COSIN &raquo; COmputerized Software INventory &nbsp;<g:layoutTitle default="Welcome"/></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/x-icon" href="${createLinkTo(dir:'images',file:'favicon.ico')}">
+        <g:external uri="/assets/favicon.ico"/>
         <asset:stylesheet src="bootstrap-all.css"/>
         <asset:stylesheet src="font-awesome-all.css"/>
         <asset:stylesheet src="cosin.css"/>

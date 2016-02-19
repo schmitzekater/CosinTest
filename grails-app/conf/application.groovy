@@ -21,13 +21,13 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'de.schmitzekater.
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'de.schmitzekater.UserRole'
 grails.plugin.springsecurity.authority.className = 'de.schmitzekater.Role'
 grails.plugin.springsecurity.authority.groupAuthorityNameField = 'authorities'
-grails.plugin.springsecurity.useSecurityEventListener = true
-grails.plugin.springsecurity.useRoleGroups = true
-grails.plugin.springsecurity.apf.storeLastUsername = true            // Store the credentials even on failed login
-grails.plugin.springsecurity.logout.postOnly = false
-grails.plugin.springsecurity.logout.afterLogoutUrl = '/login'
+grails.plugin.springsecurity.useSecurityEventListener = true		// CosinSecurityEventListener is implemented
+grails.plugin.springsecurity.useRoleGroups = true					// User Groups to give access rights to users
+grails.plugin.springsecurity.apf.storeLastUsername = true           // Store the credentials even on failed login
+grails.plugin.springsecurity.logout.postOnly = false				// No Method restriction for logout
+grails.plugin.springsecurity.logout.afterLogoutUrl = '/login'		// Redirect to Login Page after Logout
 grails.plugin.springsecurity.rejectIfNoRule = true					// Block any URL that is not permitted
-grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap" // use the following map to secure actions
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap" // use the following map to secure actions. Refactor to Controller-Annotations in the future
 grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/', access: ['permitAll']],
 		[pattern: '/error', access: ['permitAll']],
@@ -50,21 +50,22 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/user/passwordExpired', access: ['permitAll']],
 		[pattern: '/user/passwordExpired/**', access: ['permitAll']],
 		[pattern: '/user/updatePassword', access: ['permitAll']],
-		[pattern: '/user/updatePassword/**', access: ['permitAll']],
+		[pattern: '/user/accountLocked/**', access: ['permitAll']],
+		[pattern: '/user/accountExpired/**', access: ['permitAll']],
+		[pattern: '/user/accountDisabled/**', access: ['permitAll']],
+		[pattern: '/user/userLocked/**', access: ['permitAll']],
 		[pattern: '/user/**', access: ['ROLE_DELETE']],
 		[pattern: '/config/index', access: ['permitAll']],
 		[pattern: '/config/**', access: ['permitAll']],
 		[pattern: '/config/config/**', access: ['ROLE_DELETE']],
 		[pattern: '/**/create/**', access: ['ROLE_CREATE']],
 		[pattern: '/person/createPerson/**', access: ['ROLE_CREATE']],
-		[pattern: '/**/edit/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"]],
-		[pattern: '/**/update/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"]],
-		[pattern: '/**/save/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')"]],
+		[pattern: '/**/edit/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_DELETE')"]],
+		[pattern: '/**/update/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_DELETE')"]],
+		[pattern: '/**/save/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_DELETE')"]],
 		[pattern: '/**/show/**', access: ['permitAll']],
 		[pattern: '/**/list/**', access: ['permitAll']],
 		[pattern: '/**/createSystemReport/**', access: ['permitAll']],                                    // Watch out!!
-		[pattern: '/**/createSystemOverview/**', access: ['permitAll']],                                // Watch out!!
-		[pattern: '/**/pdfExample/**', access: ['permitAll']],                                            // Watch out!!
 		[pattern: '/module/listAllModuleQualifications/**', access: ['permitAll']],
 		[pattern: '/software/listAllSoftwareQualifications/**', access: ['permitAll']],
 		[pattern: '/module/listAllModuleCalibrations/**', access: ['permitAll']],
@@ -161,10 +162,17 @@ grails.plugin.springsecurity.onAuthorizationEvent = { e, appCtx ->
  * Audit Log configuration
  */
 
-grails.plugin.auditLog.auditDomainClassName = 'de.schmitzekater.AuditLogEvent'
-grails.plugin.auditLog.stampEnabled = false
-grails.plugin.auditLog.actorClosure = { request, session -> request.applicationContext.springSecurityService.currentUser }
-grails.plugin.auditLog.logIds = true
-grails.plugin.auditLog.TRUNCATE_LENGTH = 500
-grails.plugin.auditLog.largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255
+grails{
+	plugin{
+		auditLog{
+			auditDomainClassName = 'de.schmitzekater.AuditLogEvent'
+			stampEnabled = false
+			actorClosure = { request, session -> request.applicationContext.springSecurityService.currentUser }
+			logIds = true
+			verbose = false
+			TRUNCATE_LENGTH = 500
+			largeValueColumnTypes = true //needed for TRUNCATE_LENGTH>255
+		}
+	}
+}
 

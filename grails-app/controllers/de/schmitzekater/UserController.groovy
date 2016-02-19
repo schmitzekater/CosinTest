@@ -202,6 +202,19 @@ class UserController {
         [username: session['SPRING_SECURITY_LAST_USERNAME']]
     }
 
+    def accountLocked(){
+
+        render view: 'userLocked',  model:[username: session['SPRING_SECURITY_LAST_USERNAME'], userStatus: 'locked']
+    }
+
+    def accountDisabled(){
+        render view: 'userLocked',  model:[username: session['SPRING_SECURITY_LAST_USERNAME'], userStatus: 'disabled']
+    }
+
+    def accountExpired(){
+        render view: 'userLocked',model: [username: session['SPRING_SECURITY_LAST_USERNAME'], userStatus: 'expired']
+    }
+
     /*
     Method to save the new password
      */

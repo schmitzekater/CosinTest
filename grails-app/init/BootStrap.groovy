@@ -56,6 +56,25 @@ class BootStrap {
                 if (!ModuleType.count()) createModuleTypes()
             }
             test {
+                    /** Create the same sample Data for test environment */
+                    createUploadFolders()
+                    if (!Person.count()) createPersons()
+                    if (!Role.count() && !RoleGroup.count()) createUserRoles()
+                    if (!User.count()) createUsers()
+                    if (!Department.count()) createDepartments()
+                    if (!ComputerRole.count()) createComputerRoles()
+                    if (!System.count()) createSystems()
+                    if (!Vendor.count()) createVendors()
+                    if (!Computer.count()) createComputers()
+                    if (!Software.count()) createSoftware()
+                    if (!QualificationType.count()) createQualificationTypes()
+                    if (!Qualification.count()) createQualifications()
+                    if (!ModuleType.count()) createModuleTypes()
+                    if (!Module.count()) createModules()
+                    if (!Unit.count()) createUnits()
+                    if (!DataCategory.count()) createDataCategories()
+                    if (!ConnectionType.count()) createConnectionTypes()
+                    createBindings()
 
             }
         }
