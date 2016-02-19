@@ -29,6 +29,7 @@ class CosinSecurityEventListener implements ApplicationListener<ApplicationEvent
         if (event instanceof AuthenticationSwitchUserEvent) handleAuthenticationSwitchUserEvent(event)
     }
 
+
     void handleInteractiveAuthenticationSuccessEvent(InteractiveAuthenticationSuccessEvent event) {
         // Fired upon successful login events
         // Resets the false password counter

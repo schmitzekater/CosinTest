@@ -24,6 +24,7 @@ grails.plugin.springsecurity.authority.groupAuthorityNameField = 'authorities'
 grails.plugin.springsecurity.useSecurityEventListener = true		// CosinSecurityEventListener is implemented
 grails.plugin.springsecurity.useRoleGroups = true					// User Groups to give access rights to users
 grails.plugin.springsecurity.apf.storeLastUsername = true           // Store the credentials even on failed login
+grails.plugin.springsecurity.adh.errorPage = '/login/denied'        // Access denied Page
 grails.plugin.springsecurity.logout.postOnly = false				// No Method restriction for logout
 grails.plugin.springsecurity.logout.afterLogoutUrl = '/login'		// Redirect to Login Page after Logout
 grails.plugin.springsecurity.rejectIfNoRule = true					// Block any URL that is not permitted
