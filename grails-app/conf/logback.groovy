@@ -44,10 +44,10 @@ root(WARN, ['STDOUT'])
 appender('FILE_ERROR', FileAppender) {
    // String logDirectory = applicationConfigService.logDirectory    // Does not work at bootup
     String logDirectory = "logs"
-    if (Environment.current == Environment.DEVELOPMENT) logDirectory ="development/logs"
-    else if (Environment.current == Environment.TEST) logDirectory ="test/logs"
-    else if (Environment.current == Environment.PRODUCTION) logDirectory ="prod/logs"
-    file = "$logDirectory/${byDay}_${HOSTNAME}_errorFile.log"
+    if (Environment.current == Environment.DEVELOPMENT) logDirectory ="development"
+    else if (Environment.current == Environment.TEST) logDirectory ="test"
+    else if (Environment.current == Environment.PRODUCTION) logDirectory ="prod"
+    file = "cosin/$logDirectory/logs/${byDay}_${HOSTNAME}_errorFile.log"
     append = true
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
