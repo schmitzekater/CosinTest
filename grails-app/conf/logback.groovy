@@ -4,12 +4,14 @@ import ch.qos.logback.core.status.OnConsoleStatusListener
 import grails.util.BuildSettings
 import grails.util.Environment
 import org.springframework.boot.ApplicationPid
+import de.schmitzekater.ApplicationConfigService
 
 import java.nio.charset.Charset
 
 def byDay = timestamp("yyyymmdd")
 def HOSTNAME = hostname
 statusListener(OnConsoleStatusListener)
+ApplicationConfigService applicationConfigService
 
 /**
  * Nicer output for loggers from http://mrhaki.blogspot.de/2015/09/grails-goodness-use-different-logging.html
@@ -40,7 +42,12 @@ root(WARN, ['STDOUT'])
 
 // Create Logging file upon application start
 appender('FILE_ERROR', FileAppender) {
-    file = "logs/${byDay}_${HOSTNAME}_errorFile.log"
+   // String logDirectory = applicationConfigService.logDirectory    // Does not work at bootup
+    String logDirectory = "logs"
+    if (Environment.current == Environment.DEVELOPMENT) logDirectory ="development/logs"
+    else if (Environment.current == Environment.TEST) logDirectory ="test/logs"
+    else if (Environment.current == Environment.PRODUCTION) logDirectory ="prod/logs"
+    file = "$logDirectory/${byDay}_${HOSTNAME}_errorFile.log"
     append = true
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"

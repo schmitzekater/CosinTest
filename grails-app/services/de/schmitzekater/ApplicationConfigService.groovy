@@ -12,6 +12,10 @@ class ApplicationConfigService {
 
     static transactional = false
 
+    // Directory for Logfiles
+    @Value('${config.logDirectory}')
+    final String logDirectory
+
     // Base Dir for all Uploads
     @Value('${config.uploadDirectory}')
     final String uploadDir

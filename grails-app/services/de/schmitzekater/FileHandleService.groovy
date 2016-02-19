@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 class FileHandleService {
     def applicationConfigService        /** dependency Injection for the ApplicationConfigService */
     MultipartFile file
-    String originalFilename = ""
+    String fullOriginalFilename = ""
 
     //TODO: Restrict filetypes
 
@@ -57,9 +57,10 @@ class FileHandleService {
     private def uploadFile(MultipartHttpServletRequest request, String name, String targetDir) {
         try {
             file = request.getFile(name)
-            originalFilename = file.getOriginalFilename()
-            log.info("Got file $file, originalName: $originalFilename")
-            File fileDest = new File(targetDir, originalFilename)
+            fullOriginalFilename = file.getOriginalFilename()
+            def fileName = fullOriginalFilename.substring(fullOriginalFilename.lastIndexOf('\\')+1)  //Might need rework for *Nix
+            log.info("Got file $file, Full original Name: $fullOriginalFilename, fileName: $fileName")
+            File fileDest = new File(targetDir, fileName)
             log.info("Dest: $fileDest.absolutePath")
             if(fileDest.exists()) {
                 throw new FileExistsException(message: 'File exists', existingFile: fileDest)
