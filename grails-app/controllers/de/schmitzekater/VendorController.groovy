@@ -48,8 +48,9 @@ class VendorController {
     def save(){
         def address = new Address(params.address)
         address.save(failOnError: true)
-        def vendor = new Vendor(name: params.name, urlOne: params.url, urlTwo: params.urlTwo, phoneOne: params.phoneOne, phoneTwo: params.phoneTwo, fax: params.fax, emailOne: params.emailOne, emailTwo: params.emailTwo, address: address)
-        vendor.save(failOnError: true)
+        def vendor = new Vendor(params)
+        vendor.address = address
+        vendor.save()
         redirect action: "detail", id: vendor.id
     }
 }
