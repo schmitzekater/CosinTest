@@ -51,10 +51,12 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/user/passwordExpired', access: ['permitAll']],
 		[pattern: '/user/passwordExpired/**', access: ['permitAll']],
 		[pattern: '/user/updatePassword', access: ['permitAll']],
+		[pattern: '/user/updatePassword/**', access: ['permitAll']],
 		[pattern: '/user/accountLocked/**', access: ['permitAll']],
 		[pattern: '/user/accountExpired/**', access: ['permitAll']],
 		[pattern: '/user/accountDisabled/**', access: ['permitAll']],
 		[pattern: '/user/userLocked/**', access: ['permitAll']],
+		[pattern: '/user/update/**', access: ['permitAll']], 												// Needed to update the own password!
 		[pattern: '/user/**', access: ['ROLE_DELETE']],
 		[pattern: '/config/index', access: ['permitAll']],
 		[pattern: '/config/**', access: ['permitAll']],
@@ -62,8 +64,8 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/**/create/**', access: ['ROLE_CREATE']],
 		[pattern: '/person/createPerson/**', access: ['ROLE_CREATE']],
 		[pattern: '/**/edit/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_DELETE')"]],
-		[pattern: '/**/update/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_DELETE')"]],
-		[pattern: '/**/save/**', access: ["hasAnyRole('ROLE_EDIT,ROLE_DELETE')"]],
+		[pattern: '/**/update/**', access: ["hasAnyRole('ROLE_CREATE,ROLE_EDIT,ROLE_DELETE')"]],
+		[pattern: '/**/save/**', access: ["hasAnyRole('ROLE_CREATE,ROLE_EDIT,ROLE_DELETE')"]],
 		[pattern: '/**/show/**', access: ['permitAll']],
 		[pattern: '/**/list/**', access: ['permitAll']],
 		[pattern: '/**/createSystemReport/**', access: ['permitAll']],                                    // Watch out!!

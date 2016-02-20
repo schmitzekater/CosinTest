@@ -16,10 +16,13 @@
     <ul>
         <g:each var="qt" in="${qualificationTypes}">
             <li>${qt.toString()}
-                <sec:link action="editQualificationType" id="${qt.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
-                    <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
-                            code="edit.qualificationType"/>'></span>
-                </sec:link>
+                <%-- Double security to protect the Calibration! Don't display the edit-pencil--%>
+                <g:if test="${qt.type!='Calibration'}">
+                    <sec:link action="editQualificationType" id="${qt.id}" expression="hasAnyRole('ROLE_EDIT,ROLE_CREATE,ROLE_DELETE')">
+                        <span class="glyphicon glyphicon-pencil" style="color: orange" aria-hidden="true" title='<g:message
+                                code="edit.qualificationType"/>'></span>
+                    </sec:link>
+                </g:if>
             </li>
         </g:each>
     </ul>

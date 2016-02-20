@@ -37,7 +37,6 @@ class PersonController {
     Save a new Person instance.
      */
     def save() {
-        println "Creating Person"
         def person
         person = personService.createPerson(params.lastName, params.firstName, params.email)
         flash.message = message(code: 'default.created.message', args: [message(code:'person.label'),person.getDisplayString()])

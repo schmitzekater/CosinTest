@@ -7,7 +7,7 @@ import java.util.regex.Matcher
 
 /**
  * @author Burt Beckwith
- * @author Alexander Schmitz
+ * @author Alexander Schmitz (modified)
  *
  * source: http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#personClass
  * Class extended from the Spring Security Plugin.

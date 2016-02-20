@@ -16,7 +16,7 @@
         <div class="col-md-2">
 
         </div>
-        <div id="error" class="col-md-8" role="home">
+        <div id="error" class="col-md-8">
 
             <div id="panel error-panel">
                 <h1>403</h1>

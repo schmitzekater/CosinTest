@@ -119,3 +119,14 @@ task wrapper(type: Wrapper) {
 build {
     delete fileTree(dir: 'logs' , include: '**/*.log')
 }
+/*
+task copyTestFiles(type: Copy) {
+    println "Copying"
+        copy {
+            from 'build/libs/CosinTest-0.2.3.war'
+            into "d:/testen"
+            rename { filename ->
+               filename.replace '.war', '_TEST.war'
+            }
+        }
+}*/

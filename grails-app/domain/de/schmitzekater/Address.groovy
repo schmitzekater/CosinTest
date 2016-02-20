@@ -4,7 +4,7 @@ package de.schmitzekater
  * @author Alexander Schmitz
  *
  * Domain class to store the address of a vendor.
- * Might be separated into two doman classes (Contact and Address)
+ * Might be separated into two domain classes (Contact and Address)
  * Could be used for class Person if needed
  */
 class Address {

@@ -67,6 +67,7 @@ class ModuleController {
 
     /*
     Method to retire a specific Module.
+    TODO: Needs to be implemented in View.
      */
     def retire(Module module) {
         if (qualifiableObjectService.retireModule(module)) {

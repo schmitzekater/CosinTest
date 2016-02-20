@@ -11,7 +11,7 @@ abstract class QualifiableObject {
         qualifications nullable: true
     }
     static mapping = {
-        //tablePerHierarchy false
+        //tablePerHierarchy false   // this would create distinct tables for Software and Module
     }
     static hasMany = [qualifications: Qualification]
 

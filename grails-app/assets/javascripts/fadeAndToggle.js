@@ -1,5 +1,6 @@
 /**
  * Created by Alexander on 27.11.2015.
+ * Blendet Nachrichten im View nach 5 Sekunden automatisch aus
  */
 
 

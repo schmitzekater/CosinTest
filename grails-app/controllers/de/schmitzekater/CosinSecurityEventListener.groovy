@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.switchuser.Authentication
 /**
  * Listener that can be used to handle Login events.
  *
+ * This Listener reacts on ApplicationEvents, mainly Security Events.
  *     DONE: Handle all events within this listener. (SoC)
  */
 
@@ -23,6 +24,7 @@ class CosinSecurityEventListener implements ApplicationListener<ApplicationEvent
 
     @Override
     void onApplicationEvent(ApplicationEvent event) {
+        // react to Security Events
         if (event instanceof InteractiveAuthenticationSuccessEvent) handleInteractiveAuthenticationSuccessEvent(event)
         if (event instanceof AbstractAuthenticationFailureEvent) handleAbstractAuthenticationFailureEvent(event)
         if (event instanceof AuthenticationSuccessEvent) handleAuthenticationSuccessEvent(event)

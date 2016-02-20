@@ -23,13 +23,14 @@ class Qualification {
     static constraints = {
         attachment nullable: true
         comment nullable: true, maxSize: 1000
-        qualificationDate nullable: false, max: new Date()+1 // Qualification "in the future" are not allowed.
+        qualificationDate nullable: false, max: new Date()+1 // Qualifications "in the future" are not allowed.
         qualificationType nullable: false
         qualificationObject nullable: true
     }
 
     /*
     Nice formatted output if used in a String.
+    Example: 03-Mar-2015: Validation <qualificationObject>
      */
     String getDisplayString(){
         def text = new StringBuilder()

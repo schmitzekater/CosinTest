@@ -23,7 +23,7 @@ class ComputerController {
     }
 
     /*
-    Datailed view of a single Computer
+    Detailed view of a single Computer
      */
     def detail(Computer computer){
         render view: "/layouts/detail", model:  [computer: computer]

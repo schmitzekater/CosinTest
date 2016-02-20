@@ -120,10 +120,9 @@ class ConfigController {
     }
 
     /*
-    The following methods provide editing of already existing smaller Domain class entries.
+     * The following methods provide editing of already existing smaller Domain class entries.
      */
-    def updateComputerRole(){
-        def computerRole = ComputerRole.findById(params.id)
+    def updateComputerRole(ComputerRole computerRole){
         if(computerRole){
             computerRole.role = params.role
             if(computerRole.save(failOnError: true)){
@@ -136,8 +135,7 @@ class ConfigController {
         }
     }
 
-    def updateDataCategory(){
-        def dataCategory = DataCategory.findById(params.id)
+    def updateDataCategory(DataCategory dataCategory){
         if(dataCategory){
             dataCategory.category = params.category
             if(dataCategory.save(failOnError: true)){
@@ -150,8 +148,7 @@ class ConfigController {
         }
     }
 
-    def updateConnectionType(){
-        def connectionType = ConnectionType.findById(params.id)
+    def updateConnectionType(ConnectionType connectionType){
         if(connectionType){
             connectionType.connection= params.connection
             if(connectionType.save(failOnError: true)){
@@ -164,8 +161,7 @@ class ConfigController {
         }
     }
 
-    def updateModuleType(){
-        def moduleType = ModuleType.findById(params.id)
+    def updateModuleType(ModuleType moduleType){
         if(moduleType){
             moduleType.moduleType= params.type
             if(moduleType.save(failOnError: true)){
@@ -178,8 +174,7 @@ class ConfigController {
         }
     }
 
-    def updateQualificationType(){
-        def qualificationType = QualificationType.findById(params.id)
+    def updateQualificationType(QualificationType qualificationType){
         if(qualificationType){
             qualificationType.type = params.type
             if(qualificationType.save(failOnError: true)){
@@ -187,16 +182,23 @@ class ConfigController {
             }
             else{
                 flash.error = message(code: 'default.not.updated.message', args: ['Qualification Type', qualificationType.type])
+                }
             }
-            redirect action: 'config'
-        }
+        redirect action: 'config'
     }
 
     /*
-    Render the views for all editing methods.
+     * Render the views for all editing methods.
      */
-    def editQualificationType (QualificationType type){
-        respond type
+    def editQualificationType (QualificationType qualificationType){
+        // Calibration must not be edited! Needed to recalculate the next Calibration
+        if(qualificationType.type=='Calibration'){
+            flash.error = message(code: 'editing.forbidden', args:['Qualification Type', 'Calibration'] )
+            redirect action: 'config'
+        }
+        else{
+            respond qualificationType
+        }
     }
     def editModuleType (ModuleType type){
         respond type

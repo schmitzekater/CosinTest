@@ -24,6 +24,7 @@
                     <f:field property="moduleSerial" wrapper="edit/table"/>
                     <f:field property="moduleModel" wrapper="edit/table"/>
                     <f:field property="moduleFirmware" wrapper="edit/table"/>
+                    <%-- TODO: Fix wrapper for Vendor, Type and Connection! Is blank, when edited --%>
                     <f:field property="moduleVendor" wrapper="edit/table"/>
                     <f:field property="moduleType" wrapper="edit/table"/>
                     <f:field property="moduleConnection" wrapper="edit/table"/>

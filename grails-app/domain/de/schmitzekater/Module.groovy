@@ -65,7 +65,7 @@ class Module extends QualifiableObject{
         return calibPeriod
     }
     /** calculate the Date for the next calibration.
-     * Based on calibration intervall and period
+     * Based on calibration interval and period
      * @return nextCalibration
      */
     def setNextCalibration(){

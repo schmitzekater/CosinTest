@@ -154,7 +154,10 @@ class BootStrap {
         log.info "${SystemRole.count()} System Roles created."
         log.info "System $analyst.systemName has ${analyst.getComputer().size()} Computer"
     }
-
+    /*
+    The following methods create sample data to play with.
+    THe database gets filled when starting the application
+     */
     def createUnits() {
         log.info "Creating Units"
         def unit = new Unit(unitName: "LCMS01", system: System.findBySystemName("Analyst"))
@@ -243,11 +246,8 @@ class BootStrap {
     def createComputers() {
         log.info("Creating Computers")
         def serverOne = new Computer(computerName: 'NUCRODATA', computerVendor: Vendor.findByName('AB Sciex'))
-//, computerRole: ComputerRole.findByRole("Fileserver"))
         def clientOne = new Computer(computerName: 'PC1234', computerVendor: Vendor.findByName('Waters'))
-//, computerRole: ComputerRole.findByRole("Client"))
         def clientOffice = new Computer(computerName: 'PC0888', computerVendor: Vendor.findByName('Dell'))
-//, computerRole: ComputerRole.findByRole("Client"))
         serverOne.save(failOnError: true)
         clientOne.save(failOnError: true)
         clientOffice.save(failOnError: true)
@@ -312,7 +312,6 @@ class BootStrap {
         def hansU = new User('hanszi', 'Password1', 'Musicismylife', Person.findByLastName('Zimmer'), new Date() - 2)
         def peterU = new User('peterh', 'Password1', 'HERRMANN!', Person.findByLastName('Herrmann'), new Date() - 3)
         def ernaU = new User('ernaka', 'Password1', 'weissichnicht', Person.findByLastName('Kasubke'), new Date() - 4)
-
         lisaU.save(failOnError: true)
         berndU.save(failOnError: true)
         berndU.passwordExpired = true
@@ -320,6 +319,9 @@ class BootStrap {
         peterU.save(failOnError: true)
         ernaU.save(failOnError: true)
 
+        /*
+        Depends on the created groups!
+         */
         def adminGroup = RoleGroup.findByDisplayString('Administrator')
         def superGroup = RoleGroup.findByDisplayString('Superuser')
         def normGroup = RoleGroup.findByDisplayString('User')
@@ -334,6 +336,10 @@ class BootStrap {
         log.info('Created ' + User.count() + ' user.')
     }
 
+    /*
+    The user roles for the application.
+    Might need some polish based on feedback!
+     */
     def createUserRoles() {
         log.info "Creating Roles."
         def deleteRole = new Role('ROLE_DELETE').save()

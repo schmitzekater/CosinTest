@@ -40,6 +40,10 @@ class Software extends QualifiableObject{
         getDisplayString()
     }
 
+    /*
+    This Method only gets those software, that are not yet installed on the same computer or
+    are not yet bound to the system.
+     */
     static List<Software> getAvailableSoftware(Object obj) {
         String query
         if (obj instanceof Computer) {

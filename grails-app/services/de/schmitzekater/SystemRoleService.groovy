@@ -12,6 +12,7 @@ import grails.transaction.Transactional
 class SystemRoleService {
 
     def createSystemRole(Computer computer, System system, ComputerRole cr) {
+        // To prevent an internal server error when creating duplicate entries
         if(!SystemRole.exists(computer.id, system.id, cr.id))
         {
             def systemRole = SystemRole.create(computer, system, cr, true)

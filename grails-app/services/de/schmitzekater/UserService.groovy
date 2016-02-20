@@ -109,6 +109,10 @@ class UserService {
         return user.save()
     }
 
+    /*
+    Resets the users password and unlocks him.
+    Password will be expired, so that the user has to change upon login
+     */
     def changeUserPassword(User user, String password_new) {
         user.passwordChangeDate = new Date()
         user.accountExpired = false

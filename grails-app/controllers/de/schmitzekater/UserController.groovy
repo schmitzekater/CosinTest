@@ -99,67 +99,6 @@ class UserController {
     }
 
     /*
-    Method for the user to edit his password
-    Get's the principal from the current logge-in User
-    TODO: Refactor Password-Checking - REMOVED. Redirected to "passwordExpired", same functionality.
-     */
-    /* def changeOwnPassword(){
-         User user = springSecurityService.isLoggedIn() ? springSecurityService.currentUser : null
-
-         if(user){
-             //Check if old Password is correct
-             //CharSequence oldPw = params.oldPw
-             //if(passwordEncoder.matches( (oldPw, user.password)){ // THIS IS NOT WORKING! matches expects CharSequence and there is always a String passed !!!!!
-                 //Check if newPW = newPWRepeat
-             def newPw = params.newPw
-             def newPwRepeat = params.newPwRepeat
-             if(newPw == newPwRepeat){
-                 println "Checking if the new password is entered correct twice"
-                *//* //If correct check if oldPW != newPW
-                 newPw = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(newPw,  user.username) : newPw
-                 if(newPw != oldPw) // SEE ABOVE; NOT WORKUNG
-                 {*//*
-                     println "All good"
-                     // If new Password is not the old password save user
-                     user.password = newPw
-                     user.passwordExpired = false
-                     user.passwordChangeDate = new Date()
-                 if (user.validate(password: newPw)) {
-                     user.save()
-                     flash.message = message(code: 'password.updated.message', args: [user.username])
-                     log.info(flash.message)
-                     redirect action: 'list'
-                 } else {
-                     flash.error = message(code: "user.password.repeatForbid")
-                     redirect action: 'editPassword'
-                 }
-
-             }
-                    *//* else{
-                         println "Old password used again"
-                         // Old Password used
-                         user.errors.reject('user.password.oldPw', ['oldPw', 'newPw','class User'] as Object, '[Property [{0}] and propertx{1} of class [{2}] shall not be used twice]')
-                         user.errors.rejectValue('newPw', 'user.password.repeatForbid')
-                         user.errors.rejectValue('newPwRepeat', 'user.password.repeatForbid')
-                     }*//*
-                 //}
-                 else{
-                     println "Password was not entered twice correct"
-                     // Password repeat does not match
-                     flash.error = message(code: 'error.password.repeat')
-                 log.error(flash.message)
-                     redirect action: 'editPassword'
-                 }
-             //}
-             *//*else{
-                 println "Old password false"
-                 // Old Password was false
-                 user.errors.reject('user.password.oldPw', 'Old PW false')
-             }*//*
-         }
-
-     }*/
-    /*
      * This function is used when the admin changes the  password for a user.
      * The password will be set to expired, so that the user has to change it upon logon.
      */
@@ -202,8 +141,10 @@ class UserController {
         [username: session['SPRING_SECURITY_LAST_USERNAME']]
     }
 
+    /*
+        Render the userLocked view, if an user account is disabled, locked or expired.
+     */
     def accountLocked(){
-
         render view: 'userLocked',  model:[username: session['SPRING_SECURITY_LAST_USERNAME'], userStatus: 'locked']
     }
 
@@ -220,6 +161,8 @@ class UserController {
      */
     def updatePassword(String password, String password_new, String password_new_2) {
         String username = session['SPRING_SECURITY_LAST_USERNAME']
+        if(!username) username = params.username  //Workaround
+        log.info("User $username")
         if (!username) {
             flash.error = 'Sorry, an error has occurred'
             log.error(flash.error)
@@ -283,7 +226,7 @@ class UserController {
     }
 
     /**
-     * Method to register a new User and a new Person simultaniously
+     * Method to register a new User and a new Person simultaneously
      * @param urc with params for User and Person
      * @return user
      */

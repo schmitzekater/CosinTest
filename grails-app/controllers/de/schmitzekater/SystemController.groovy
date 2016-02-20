@@ -103,7 +103,6 @@ class SystemController {
 
 /*
 Render view to edit the dataflow file
-@view: editDataFlow.gsp
  */
 
     def editDataFlow(System system) {

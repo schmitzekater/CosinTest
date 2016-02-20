@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 
 /**
  *  Quartz job to expire the passwords of users.
- *  Value is taken form Application.yml.
+ *  Value for amount of days is taken form Application.yml.
  *  Default = 42 Days (6 Weeks)
  *  From http://grails-plugins.github.io/grails-spring-security-core/v3/index.html#locking
  */
